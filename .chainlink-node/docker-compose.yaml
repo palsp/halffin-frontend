@@ -4,6 +4,26 @@ services:
     image: postgres:latest
     ports:
       - 5432:5432
-    environment:
-      - POSTGRES_USER=root
-      - POSTGRES_PASSWORD=password
+    env_file:
+      - postgres.env
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+  chainlink:
+    build: .
+    env_file:
+      - chainlink.env
+    command: local node -p /chainlink/.password -a /chainlink/.api
+    restart: on-failure
+    ports:
+      - 6688:6688
+    links:
+      - postgres
+    depends_on:
+      - postgres
+    volumes:
+      - chainlink_data:/chainlink
+
+volumes:
+  db-data:
+  chainlink_data:
