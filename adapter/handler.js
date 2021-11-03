@@ -19,7 +19,6 @@ const customParams = {
 
 const createRequest = (input, callback) => {
   // The Validator helps you validate the Chainlink request data
-  console.log(input, typeof input);
   const validator = new Validator(input, customParams);
   const jobRunID = validator.validated.id;
   const apiKey = process.env.API_KEY;
