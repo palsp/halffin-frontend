@@ -3,7 +3,7 @@ name: Deploy To AWS Lambda
 on:
   push:
     branches:
-      - feature/tracking-adapter
+      - master
     paths:
       - "adapter/*"
 
