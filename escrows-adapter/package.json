@@ -4,12 +4,16 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "invoke:dev" : "serverless invoke local",
+    "emulator:start": "serverless offline",
+    "invoke:local": "serverless invoke local",
     "deploy": "serverless deploy -v"
   },
   "dependencies": {
     "serverless": "^2.64.1",
     "@chainlink/external-adapter": "^0.2.3",
     "dotenv": "^10.0.0"
+  },
+  "devDependencies": {
+    "serverless-offline": "^8.2.0"
   }
 }

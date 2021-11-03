@@ -10,8 +10,11 @@ provider:
 
 functions:
   createRequest:
-    handler: handler.handlerv2
+    handler: src/handler.handlerv2
     events:
       - httpApi:
           path: /
           method: post
+
+plugins:
+  - serverless-offline
