@@ -4,12 +4,12 @@ pragma solidity ^0.8.7;
 import "@chainlink/contracts/src/v0.8/ChainlinkClient.sol";
 import "@chainlink/contracts/src/v0.8/ConfirmedOwner.sol";
 
-contract APIConsunner is ChainlinkClient, ConfirmedOwner {
+contract APIConsumer is ChainlinkClient, ConfirmedOwner {
     using Chainlink for Chainlink.Request;
     uint256 private constant ORACLE_PAYMENT = 1 * LINK_DIVISIBILITY;
     address private oracle;
     bytes32 private jobId;
-    uint256 games;
+    uint256 public games;
 
     event RequestGamesFulfilled(
         bytes32 indexed requestId,
