@@ -5,11 +5,13 @@ on:
     branches:
       - master
     paths:
-      - "adapter/*"
+      - "escrows-adapter/*"
 
 jobs:
   deploy:
     name: deploy
+    env:
+      working-directory: ./escrows-adapter
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -24,16 +26,16 @@ jobs:
       # - run: npm ci
       - name: Install Serverless Framework
         run: npm install -g serverless
-        working-directory: adapter
+        working-directory: ${{env.working-directory}}
 
       - name: Configure AWS credentials
         run: serverless config credentials --provider aws --key ${{secrets.AWS_ACCESS_KEY_ID}} --secret ${{secrets.AWS_SECRET_ACCESS_KEY}}
-        working-directory: adapter
+        working-directory: ${{env.working-directory}}
 
       - name: Install NPM dependencies
         run: npm install
-        working-directory: adapter
+        working-directory: ${{env.working-directory}}
 
       - name: Deploy
         run: sls deploy
-        working-directory: adapter
+        working-directory: ${{env.working-directory}}
