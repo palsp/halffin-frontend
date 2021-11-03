@@ -1,157 +1,113 @@
-# Chainlink NodeJS External Adapter Template
+<!--
+title: 'AWS Simple HTTP Endpoint example in NodeJS'
+description: 'This template demonstrates how to make a simple HTTP API with Node.js running on AWS Lambda and API Gateway using the Serverless Framework.'
+layout: Doc
+framework: v2
+platform: AWS
+language: nodeJS
+authorLink: 'https://github.com/serverless'
+authorName: 'Serverless, inc.'
+authorAvatar: 'https://avatars1.githubusercontent.com/u/13742415?s=200&v=4'
+-->
 
-This template provides a basic framework for developing Chainlink external adapters in NodeJS. Comments are included to assist with development and testing of the external adapter. Once the API-specific values (like query parameters and API key authentication) have been added to the adapter, it is very easy to add some tests to verify that the data will be correctly formatted when returned to the Chainlink node. There is no need to use any additional frameworks or to run a Chainlink node in order to test the adapter.
+# Serverless Framework Node HTTP API on AWS
 
-## Creating your own adapter from this template
+This template demonstrates how to make a simple HTTP API with Node.js running on AWS Lambda and API Gateway using the Serverless Framework.
 
-Clone this repo and change "ExternalAdapterProject" below to the name of your project
+This template does not include any kind of persistence (database). For more advanced examples, check out the [serverless/examples repository](https://github.com/serverless/examples/) which includes Typescript, Mongo, DynamoDB and other examples.
 
-```bash
-git clone https://github.com/thodges-gh/CL-EA-NodeJS-Template.git ExternalAdapterProject
+## Usage
+
+### Deployment
+
+```
+$ serverless deploy
 ```
 
-Enter into the newly-created directory
+After deploying, you should see output similar to:
 
 ```bash
-cd ExternalAdapterProject
+Serverless: Packaging service...
+Serverless: Excluding development dependencies...
+Serverless: Creating Stack...
+Serverless: Checking Stack create progress...
+........
+Serverless: Stack create finished...
+Serverless: Uploading CloudFormation file to S3...
+Serverless: Uploading artifacts...
+Serverless: Uploading service aws-node-http-api.zip file to S3 (711.23 KB)...
+Serverless: Validating template...
+Serverless: Updating Stack...
+Serverless: Checking Stack update progress...
+.................................
+Serverless: Stack update finished...
+Service Information
+service: serverless-http-api
+stage: dev
+region: us-east-1
+stack: serverless-http-api-dev
+resources: 12
+api keys:
+  None
+endpoints:
+  ANY - https://xxxxxxx.execute-api.us-east-1.amazonaws.com/
+functions:
+  api: serverless-http-api-dev-hello
+layers:
+  None
 ```
 
-You can remove the existing git history by running:
+_Note_: In current form, after deployment, your API is public and can be invoked by anyone. For production deployments, you might want to configure an authorizer. For details on how to do that, refer to [http event docs](https://www.serverless.com/framework/docs/providers/aws/events/apigateway/).
+
+### Invocation
+
+After successful deployment, you can call the created application via HTTP:
 
 ```bash
-rm -rf .git
+curl https://xxxxxxx.execute-api.us-east-1.amazonaws.com/
 ```
 
-See [Install Locally](#install-locally) for a quickstart
-
-## Input Params
-
-- `base`, `from`, or `coin`: The symbol of the currency to query
-- `quote`, `to`, or `market`: The symbol of the currency to convert to
-
-## Output
+Which should result in response similar to the following (removed `input` content for brevity):
 
 ```json
 {
- "jobRunID": "278c97ffadb54a5bbb93cfec5f7b5503",
- "data": {
-  "USD": 164.02,
-  "result": 164.02
- },
- "statusCode": 200
+  "message": "Go Serverless v2.0! Your function executed successfully!",
+  "input": {
+    ...
+  }
 }
 ```
 
-## Install Locally
+### Local development
 
-Install dependencies:
-
-```bash
-yarn
-```
-
-### Test
-
-Run the local tests:
+You can invoke your function locally by using the following command:
 
 ```bash
-yarn test
+serverless invoke local --function hello
 ```
 
-Natively run the application (defaults to port 8080):
+Which should result in response similar to the following:
 
-### Run
+```
+{
+  "statusCode": 200,
+  "body": "{\n  \"message\": \"Go Serverless v2.0! Your function executed successfully!\",\n  \"input\": \"\"\n}"
+}
+```
+
+
+Alternatively, it is also possible to emulate API Gateway and Lambda locally by using `serverless-offline` plugin. In order to do that, execute the following command:
 
 ```bash
-yarn start
+serverless plugin install -n serverless-offline
 ```
 
-## Call the external adapter/API server
+It will add the `serverless-offline` plugin to `devDependencies` in `package.json` file as well as will add it to `plugins` in `serverless.yml`.
 
-```bash
-curl -X POST -H "content-type:application/json" "http://localhost:8080/" --data '{ "id": 0, "data": { "from": "ETH", "to": "USD" } }'
+After installation, you can start local emulation with:
+
+```
+serverless offline
 ```
 
-## Docker
-
-If you wish to use Docker to run the adapter, you can build the image by running the following command:
-
-```bash
-docker build . -t external-adapter
-```
-
-Then run it with:
-
-```bash
-docker run -p 8080:8080 -it external-adapter:latest
-```
-
-## Serverless hosts
-
-After [installing locally](#install-locally):
-
-### Create the zip
-
-```bash
-zip -r external-adapter.zip .
-```
-
-### Install to AWS Lambda
-
-- In Lambda Functions, create function
-- On the Create function page:
-  - Give the function a name
-  - Use Node.js 12.x for the runtime
-  - Choose an existing role or create a new one
-  - Click Create Function
-- Under Function code, select "Upload a .zip file" from the Code entry type drop-down
-- Click Upload and select the `external-adapter.zip` file
-- Handler:
-    - index.handler for REST API Gateways
-    - index.handlerv2 for HTTP API Gateways
-- Add the environment variable (repeat for all environment variables):
-  - Key: API_KEY
-  - Value: Your_API_key
-- Save
-
-#### To Set Up an API Gateway (HTTP API)
-
-If using a HTTP API Gateway, Lambda's built-in Test will fail, but you will be able to externally call the function successfully.
-
-- Click Add Trigger
-- Select API Gateway in Trigger configuration
-- Under API, click Create an API
-- Choose HTTP API
-- Select the security for the API
-- Click Add
-
-#### To Set Up an API Gateway (REST API)
-
-If using a REST API Gateway, you will need to disable the Lambda proxy integration for Lambda-based adapter to function.
-
-- Click Add Trigger
-- Select API Gateway in Trigger configuration
-- Under API, click Create an API
-- Choose REST API
-- Select the security for the API
-- Click Add
-- Click the API Gateway trigger
-- Click the name of the trigger (this is a link, a new window opens)
-- Click Integration Request
-- Uncheck Use Lamba Proxy integration
-- Click OK on the two dialogs
-- Return to your function
-- Remove the API Gateway and Save
-- Click Add Trigger and use the same API Gateway
-- Select the deployment stage and security
-- Click Add
-
-### Install to GCP
-
-- In Functions, create a new function, choose to ZIP upload
-- Click Browse and select the `external-adapter.zip` file
-- Select a Storage Bucket to keep the zip in
-- Function to execute: gcpservice
-- Click More, Add variable (repeat for all environment variables)
-  - NAME: API_KEY
-  - VALUE: Your_API_key
+To learn more about the capabilities of `serverless-offline`, please refer to its [GitHub repository](https://github.com/dherault/serverless-offline).

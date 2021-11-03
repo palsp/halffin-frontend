@@ -19,7 +19,8 @@ const customParams = {
 
 const createRequest = (input, callback) => {
   // The Validator helps you validate the Chainlink request data
-  const validator = new Validator(callback, input, customParams);
+  console.log(input, typeof input);
+  const validator = new Validator(input, customParams);
   const jobRunID = validator.validated.id;
   const apiKey = process.env.API_KEY;
   const pId = validator.validated.data.playerId;
@@ -59,24 +60,9 @@ const createRequest = (input, callback) => {
 };
 
 // This is a wrapper to allow the function to work with
-// GCP Functions
-exports.gcpservice = (req, res) => {
-  createRequest(req.body, (statusCode, data) => {
-    res.status(statusCode).send(data);
-  });
-};
-
-// This is a wrapper to allow the function to work with
-// AWS Lambda
-exports.handler = (event, context, callback) => {
-  createRequest(event, (statusCode, data) => {
-    callback(null, data);
-  });
-};
-
-// This is a wrapper to allow the function to work with
 // newer AWS Lambda implementations
 exports.handlerv2 = (event, context, callback) => {
+  console.log(event, typeof event);
   createRequest(JSON.parse(event.body), (statusCode, data) => {
     callback(null, {
       statusCode: statusCode,
