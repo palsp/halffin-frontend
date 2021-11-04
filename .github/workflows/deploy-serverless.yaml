@@ -5,13 +5,13 @@ on:
     branches:
       - master
     paths:
-      - "escrows-adapter/*"
+      - "halffin-adapter/*"
 
 jobs:
   deploy:
     name: deploy
     env:
-      working-directory: ./escrows-adapter
+      working-directory: ./halffin-adapter
     runs-on: ubuntu-latest
     strategy:
       matrix:
