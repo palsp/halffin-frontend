@@ -1,6 +1,6 @@
 const { Requester, Validator } = require("@chainlink/external-adapter");
 require("dotenv").config();
-const { createTracking } = require("./tracking");
+const { getTracking, createTracking } = require("./tracking");
 
 // Define custom error scenarios for the API.
 // Return true for the adapter to retry.
@@ -71,8 +71,18 @@ exports.handlerv2 = (event, context, callback) => {
   });
 };
 
-exports.createTrackingHandler = (event, context, callback) => {
+exports.createTrackingHandler = (event, _context, callback) => {
   createTracking(JSON.parse(event.body), (statusCode, data) => {
+    callback(null, {
+      statusCode: statusCode,
+      body: JSON.stringify(data),
+      isBase64Encoded: false,
+    });
+  });
+};
+
+exports.getTrackingHandler = (event, _context, callback) => {
+  getTracking(JSON.parse(event.body), (statusCode, data) => {
     callback(null, {
       statusCode: statusCode,
       body: JSON.stringify(data),

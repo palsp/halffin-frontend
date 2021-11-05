@@ -9,8 +9,8 @@ provider:
   region: ap-southeast-1
 
 functions:
-  createRequest:
-    handler: src/handler.handlerv2
+  getTracking:
+    handler: src/handler.getTrackingHandler
     events:
       - httpApi:
           path: /
