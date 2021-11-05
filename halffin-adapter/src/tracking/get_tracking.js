@@ -22,7 +22,10 @@ module.exports = (input, callback) => {
 
   Requester.request(config, customError)
     .then((response) => {
-      callback(response.status, Requester.success(jobRunID, response.data));
+      callback(
+        response.status,
+        Requester.success(jobRunID, response.data)
+      );
     })
     .catch((error) => {
       callback(500, Requester.errored(jobRunID, error));
