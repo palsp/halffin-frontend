@@ -1,5 +1,6 @@
 const { Requester, Validator } = require("@chainlink/external-adapter");
 require("dotenv").config();
+const { createTracking } = require("./tracking");
 
 // Define custom error scenarios for the API.
 // Return true for the adapter to retry.
@@ -61,8 +62,17 @@ const createRequest = (input, callback) => {
 // This is a wrapper to allow the function to work with
 // newer AWS Lambda implementations
 exports.handlerv2 = (event, context, callback) => {
-  console.log(event, typeof event);
   createRequest(JSON.parse(event.body), (statusCode, data) => {
+    callback(null, {
+      statusCode: statusCode,
+      body: JSON.stringify(data),
+      isBase64Encoded: false,
+    });
+  });
+};
+
+exports.createTrackingHandler = (event, context, callback) => {
+  createTracking(JSON.parse(event.body), (statusCode, data) => {
     callback(null, {
       statusCode: statusCode,
       body: JSON.stringify(data),

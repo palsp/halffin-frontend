@@ -15,6 +15,11 @@ functions:
       - httpApi:
           path: /
           method: post
-
+  createTracking:
+    handler: src/handler.createTrackingHandler
+    events:
+      - httpApi:
+          path: /create_tracking
+          method: post
 plugins:
   - serverless-offline
