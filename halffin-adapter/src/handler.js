@@ -1,4 +1,3 @@
-require("dotenv").config();
 const { getTracking, createTracking } = require("./tracking");
 
 exports.createTrackingHandler = (event, _context, callback) => {

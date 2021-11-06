@@ -12,21 +12,35 @@ git clone https://github.com/koslib/chainlink-docker-compose
 
 1. Review `chainlink.env` and adapt accordingly. The committed environment file uses Rinkeby testnet. Also, the example uses Linkpool's public Ethereum service node.
 
-2. Build and run with docker-compose
+2. Build and run
 
-- Build with default values, which you can adapt if needed inside the `Dockerfile`
+- with docker-compose
 
-```
-docker-compose up --build
-```
+  - Build with default values, which you can adapt if needed inside the `Dockerfile`
 
-- First build with your own build args and then run:
+    ```
+    docker-compose up --build
+    ```
 
-```
-$ docker-compose build --build-arg API_USER_EMAIL=my@test.com
+  - First build with your own build args and then run:
 
-$ docker-compose up
-```
+    ```
+    $ docker-compose build --build-arg API_USER_EMAIL=my@test.com
+
+    $ docker-compose up
+    ```
+
+- with docker
+  - create wallet password, api email and password
+    ```sh
+    $ echo $API_USER_EMAIL > .api
+    $ echo $API_USER_PASSWORD >> api
+    $ echo $WALLET_PASSWORD > .password
+    ```
+  - run
+    ```sh
+    $ docker run -d -p 6688:6688 -v ~/.chainlink-kovan:/chainlink -it --env-file=.env smartcontract/chainlink:1.0.0 local n -p /chainlink/.password -a /chainlink/.api
+    ```
 
 4. Browse to `localhost:6688` and log in with your credentials.
 
@@ -35,58 +49,3 @@ Default credentials:
 - username: `user@example.com`
 - password: `PA@SSword1234!567`
 - wallet password: `PA@SSword1234!567`
-
-# Run with your own Ethereum local node
-
-1. Add the following into `docker-compose.yaml`:
-
-- Service:
-
-```
-ethereum:
-    image: ethereum/client-go:v1.10.1
-    ports:
-      - 8546:8546
-    command: --ropsten --syncmode light --ws --ipcdisable --ws.addr 0.0.0.0 --ws.origins="*" --datadir /geth
-    volumes:
-      - geth:/geth
-```
-
-- Volume:
-
-```
-geth:
-```
-
-So the end result would be:
-
-```
-volumes:
-  geth:
-  db-data:
-  chainlink_data:
-```
-
-2. Change `ETH_URL` inside `chainlink.env` to:
-
-```
-ETH_URL=ws://ethereum:8546
-```
-
-3. Run again:
-
-```
-$ docker-compose up --build
-```
-
-# Disclaimer
-
-This is a basic setup to quickly get you up and running with a Chainlink local node for development. Please acknolwedge that this setup does not take into account any node security nor high-availability (HA) settings, therefore cannot be used in production as is.
-
-# Contributions
-
-Feel free to open issues with questions or send in PRs in case you have an idea!
-
-# Licence
-
-MIT Licence

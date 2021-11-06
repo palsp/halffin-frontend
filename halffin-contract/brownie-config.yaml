@@ -25,6 +25,7 @@ networks:
     update_interval: 60
     chainlink_node: ${CHAINLINK_NODE_ADDRESS}
     post_job_id: "d51f39a09b524651aa3f6ccdddced68e"
+    get_tracking_job_id: "242c5d6a99a040de9b63cc3fd1a911a0"
     verify: False
   kovan:
     vrf_coordinator: "0xdD3782915140c8f3b190B5D67eAc6dc5760C46E9"
@@ -33,7 +34,8 @@ networks:
     fee: 100000000000000000
     post_job_id: "d51f39a09b524651aa3f6ccdddced68e"
     chainlink_node: ${CHAINLINK_NODE_ADDRESS}
-    oracle: "0xc57b33452b4f7bb189bb5afae9cc4aba1f7a4fd8"
+    oracle: "0xd47cA0e516acEBeD47bfBae2202Bf8a78f317ee3"
+    get_tracking_job_id: "242c5d6a99a040de9b63cc3fd1a911a0"
     jobId: "d5270d1c311941d0b08bead21fea7747"
     eth_usd_price_feed: "0x9326BFA02ADD2366b30bacB125260Af641031331"
     # Change to True if you have an Etherscan API key and want to verify

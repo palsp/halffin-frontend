@@ -16,12 +16,5 @@ def deploy_oracle():
     return oracle
 
 
-def set_fulfillment_permission(oracle):
-    account = get_account()
-    node_address = config["networks"][network.show_active()]["chainlink_node"]
-    oracle.setFulfillmentPermission(node_address, True, {"from": account})
-
-
 def main():
-    oracle = deploy_oracle()
-    set_fulfillment_permission(oracle)
+    deploy_oracle()
