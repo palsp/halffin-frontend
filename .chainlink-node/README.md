@@ -39,7 +39,7 @@ git clone https://github.com/koslib/chainlink-docker-compose
     ```
   - run
     ```sh
-    $ docker run -d -p 6688:6688 -v ~/.chainlink-kovan:/chainlink -it --env-file=.env smartcontract/chainlink:1.0.0 local n -p /chainlink/.password -a /chainlink/.api
+    $ docker run -d --name chainlink -p 80:6688 -v ~/.chainlink-kovan:/chainlink -it --env-file=.env smartcontract/chainlink:1.0.0 local n -p /chainlink/.password -a /chainlink/.api
     ```
 
 4. Browse to `localhost:6688` and log in with your credentials.
