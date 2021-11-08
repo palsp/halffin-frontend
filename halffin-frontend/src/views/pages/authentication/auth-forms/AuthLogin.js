@@ -34,6 +34,7 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 import Google from 'assets/images/icons/social-google.svg';
+import MetaMask from 'assets/images/icons/metamask.svg';
 
 // ============================|| FIREBASE - LOGIN ||============================ //
 
@@ -75,9 +76,9 @@ const FirebaseLogin = ({ ...others }) => {
                             }}
                         >
                             <Box sx={{ mr: { xs: 1, sm: 2, width: 20 } }}>
-                                <img src={Google} alt="google" width={16} height={16} style={{ marginRight: matchDownSM ? 8 : 16 }} />
+                                <img src={MetaMask} alt="MetaMask" width={16} height={16} style={{ marginRight: matchDownSM ? 8 : 16 }} />
                             </Box>
-                            Sign in with Google
+                            MetaMask
                         </Button>
                     </AnimateButton>
                 </Grid>

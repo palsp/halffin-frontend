@@ -82,6 +82,7 @@ const ProfileSection = () => {
         // }
         if (!isWeb3Enabled || !isAuthenticated) {
             enableAndAuthenticate();
+            navigate('/pages/login/login3');
         } else {
             setSelectedIndex(index);
             handleClose(event);
