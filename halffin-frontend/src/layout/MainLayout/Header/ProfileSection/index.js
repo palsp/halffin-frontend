@@ -52,7 +52,7 @@ const ProfileSection = () => {
     const [notification, setNotification] = useState(false);
     const [selectedIndex, setSelectedIndex] = useState(-1);
     const [open, setOpen] = useState(false);
-    const { enableWeb3, authenticate, isWeb3Enabled, isAuthenticated, isAuthenticating, isWeb3EnableLoading, logout } = useMoralis();
+    const { enableWeb3, authenticate, isWeb3Enabled, isAuthenticated, logout } = useMoralis();
 
     const enableAndAuthenticate = async () => {
         await enableWeb3();
@@ -82,7 +82,7 @@ const ProfileSection = () => {
         // }
         if (!isWeb3Enabled || !isAuthenticated) {
             enableAndAuthenticate();
-            navigate('/pages/login/login3');
+            // navigate('/pages/login/login3');
         } else {
             setSelectedIndex(index);
             handleClose(event);
