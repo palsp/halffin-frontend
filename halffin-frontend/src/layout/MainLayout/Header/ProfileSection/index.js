@@ -52,7 +52,7 @@ const ProfileSection = () => {
     const [notification, setNotification] = useState(false);
     const [selectedIndex, setSelectedIndex] = useState(-1);
     const [open, setOpen] = useState(false);
-    const { enableWeb3, authenticate, isWeb3Enabled, isAuthenticated, logout } = useMoralis();
+    const { enableWeb3, authenticate, isWeb3Enabled, isAuthenticated, logout, user } = useMoralis();
 
     const enableAndAuthenticate = async () => {
         await enableWeb3();
@@ -74,15 +74,8 @@ const ProfileSection = () => {
     };
 
     const handleListItemClick = (event, index, route = '') => {
-        // setSelectedIndex(index);
-        // handleClose(event);
-
-        // if (route && route !== '') {
-        //     navigate(route);
-        // }
         if (!isWeb3Enabled || !isAuthenticated) {
             enableAndAuthenticate();
-            // navigate('/pages/login/login3');
         } else {
             setSelectedIndex(index);
             handleClose(event);
@@ -105,6 +98,7 @@ const ProfileSection = () => {
         prevOpen.current = open;
     }, [open]);
 
+    // console.log('web3 isAuthenticated: ', isWeb3Enabled, isAuthenticated);
     return (
         <>
             <Chip
@@ -177,7 +171,7 @@ const ProfileSection = () => {
                                             <Stack direction="row" spacing={0.5} alignItems="center">
                                                 <Typography variant="h4">Good Morning,</Typography>
                                                 <Typography component="span" variant="h4" sx={{ fontWeight: 400 }}>
-                                                    Johne Doe
+                                                    {user ? user.attributes.username : 'Hello'}
                                                 </Typography>
                                             </Stack>
                                             <Typography variant="subtitle2">Project Admin</Typography>
@@ -243,14 +237,14 @@ const ProfileSection = () => {
                                                 <ListItemButton
                                                     sx={{ borderRadius: `${customization.borderRadius}px` }}
                                                     selected={selectedIndex === 2}
-                                                    onClick={handleLogout}
+                                                    onClick={(event) => handleListItemClick(event, 0, '/my-product')}
                                                 >
                                                     <ListItemIcon>
                                                         <IconBuildingStore stroke={1.5} size="1.3rem" />
                                                     </ListItemIcon>
                                                     <ListItemText primary={<Typography variant="body2">My products</Typography>} />
                                                 </ListItemButton>
-                                                {isAuthenticated && isWeb3Enabled ? (
+                                                {user && isWeb3Enabled ? (
                                                     <ListItemButton
                                                         sx={{ borderRadius: `${customization.borderRadius}px` }}
                                                         selected={selectedIndex === 3}
