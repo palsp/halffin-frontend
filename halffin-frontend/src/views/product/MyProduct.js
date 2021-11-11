@@ -1,5 +1,5 @@
 // material-ui
-import { Box, Card, Grid, Typography } from '@mui/material';
+import { Box, ButtonBase, Card, Grid, IconButton, Typography } from '@mui/material';
 // project imports
 import MainCard from 'ui-component/cards/MainCard';
 import SubCard from 'ui-component/cards/SubCard';
@@ -8,21 +8,21 @@ import { gridSpacing } from 'store/constant';
 import SecondaryAction from 'ui-component/cards/CardSecondaryAction';
 import { IconCirclePlus } from '@tabler/icons';
 import { useNavigate } from 'react-router-dom';
-// ==============================|| SAMPLE PAGE ||============================== //
-
-// const navigate = useNavigate();
-// const handleClickAdd = () => {
-//     navigate('/my-product/create');
-// }
 
 const MyProduct = () => {
     const navigate = useNavigate();
     const handleClickAdd = (route = '') => {
-        // navigate(route);
-        console.log('123');
+        navigate(route);
     };
     return (
-        <MainCard title="My products">
+        <MainCard
+            title="My products"
+            secondary={
+                <IconButton onClick={() => handleClickAdd('/my-product/create')}>
+                    <IconCirclePlus />
+                </IconButton>
+            }
+        >
             <SubCard title="Primary Color">
                 <Grid container spacing={gridSpacing}>
                     <Grid item xs={12} sm={6} md={4} lg={2}>
