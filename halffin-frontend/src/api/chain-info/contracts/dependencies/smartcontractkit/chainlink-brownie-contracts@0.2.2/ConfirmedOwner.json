@@ -1,0 +1,2853 @@
+{
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "from",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "to",
+          "type": "address"
+        }
+      ],
+      "name": "OwnershipTransferRequested",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "from",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "to",
+          "type": "address"
+        }
+      ],
+      "name": "OwnershipTransferred",
+      "type": "event"
+    },
+    {
+      "inputs": [],
+      "name": "acceptOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "owner",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "to",
+          "type": "address"
+        }
+      ],
+      "name": "transferOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "allSourcePaths": {
+    "13": "/Users/palll/.brownie/packages/smartcontractkit/chainlink-brownie-contracts@0.2.2/contracts/src/v0.8/interfaces/OwnableInterface.sol",
+    "6": "/Users/palll/.brownie/packages/smartcontractkit/chainlink-brownie-contracts@0.2.2/contracts/src/v0.8/ConfirmedOwner.sol",
+    "7": "/Users/palll/.brownie/packages/smartcontractkit/chainlink-brownie-contracts@0.2.2/contracts/src/v0.8/ConfirmedOwnerWithProposal.sol"
+  },
+  "ast": {
+    "absolutePath": "/Users/palll/.brownie/packages/smartcontractkit/chainlink-brownie-contracts@0.2.2/contracts/src/v0.8/ConfirmedOwner.sol",
+    "exportedSymbols": {
+      "ConfirmedOwner": [
+        1230
+      ],
+      "ConfirmedOwnerWithProposal": [
+        2132
+      ],
+      "OwnableInterface": [
+        3167
+      ]
+    },
+    "id": 1231,
+    "license": "MIT",
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 1212,
+        "literals": [
+          "solidity",
+          "^",
+          "0.8",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "32:23:6"
+      },
+      {
+        "absolutePath": "/Users/palll/.brownie/packages/smartcontractkit/chainlink-brownie-contracts@0.2.2/contracts/src/v0.8/ConfirmedOwnerWithProposal.sol",
+        "file": "./ConfirmedOwnerWithProposal.sol",
+        "id": 1213,
+        "nameLocation": "-1:-1:-1",
+        "nodeType": "ImportDirective",
+        "scope": 1231,
+        "sourceUnit": 2133,
+        "src": "57:42:6",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "abstract": false,
+        "baseContracts": [
+          {
+            "baseName": {
+              "id": 1215,
+              "name": "ConfirmedOwnerWithProposal",
+              "nodeType": "IdentifierPath",
+              "referencedDeclaration": 2132,
+              "src": "239:26:6"
+            },
+            "id": 1216,
+            "nodeType": "InheritanceSpecifier",
+            "src": "239:26:6"
+          }
+        ],
+        "canonicalName": "ConfirmedOwner",
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": {
+          "id": 1214,
+          "nodeType": "StructuredDocumentation",
+          "src": "101:110:6",
+          "text": " @title The ConfirmedOwner contract\n @notice A contract with helpers for basic contract ownership."
+        },
+        "fullyImplemented": true,
+        "id": 1230,
+        "linearizedBaseContracts": [
+          1230,
+          2132,
+          3167
+        ],
+        "name": "ConfirmedOwner",
+        "nameLocation": "221:14:6",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "body": {
+              "id": 1228,
+              "nodeType": "Block",
+              "src": "382:5:6",
+              "statements": []
+            },
+            "id": 1229,
+            "implemented": true,
+            "kind": "constructor",
+            "modifiers": [
+              {
+                "arguments": [
+                  {
+                    "id": 1221,
+                    "name": "newOwner",
+                    "nodeType": "Identifier",
+                    "overloadedDeclarations": [],
+                    "referencedDeclaration": 1218,
+                    "src": "347:8:6",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  {
+                    "arguments": [
+                      {
+                        "hexValue": "30",
+                        "id": 1224,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": true,
+                        "kind": "number",
+                        "lValueRequested": false,
+                        "nodeType": "Literal",
+                        "src": "371:1:6",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_rational_0_by_1",
+                          "typeString": "int_const 0"
+                        },
+                        "value": "0"
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_rational_0_by_1",
+                          "typeString": "int_const 0"
+                        }
+                      ],
+                      "id": 1223,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": true,
+                      "lValueRequested": false,
+                      "nodeType": "ElementaryTypeNameExpression",
+                      "src": "363:7:6",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_type$_t_address_$",
+                        "typeString": "type(address)"
+                      },
+                      "typeName": {
+                        "id": 1222,
+                        "name": "address",
+                        "nodeType": "ElementaryTypeName",
+                        "src": "363:7:6",
+                        "typeDescriptions": {}
+                      }
+                    },
+                    "id": 1225,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": true,
+                    "kind": "typeConversion",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "363:10:6",
+                    "tryCall": false,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  }
+                ],
+                "id": 1226,
+                "kind": "baseConstructorSpecifier",
+                "modifierName": {
+                  "id": 1220,
+                  "name": "ConfirmedOwnerWithProposal",
+                  "nodeType": "IdentifierPath",
+                  "referencedDeclaration": 2132,
+                  "src": "313:26:6"
+                },
+                "nodeType": "ModifierInvocation",
+                "src": "313:66:6"
+              }
+            ],
+            "name": "",
+            "nameLocation": "-1:-1:-1",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 1219,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 1218,
+                  "mutability": "mutable",
+                  "name": "newOwner",
+                  "nameLocation": "296:8:6",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 1229,
+                  "src": "288:16:6",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 1217,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "288:7:6",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "282:26:6"
+            },
+            "returnParameters": {
+              "id": 1227,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "382:0:6"
+            },
+            "scope": 1230,
+            "src": "271:116:6",
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "public"
+          }
+        ],
+        "scope": 1231,
+        "src": "212:178:6",
+        "usedErrors": []
+      }
+    ],
+    "src": "32:359:6"
+  },
+  "bytecode": "608060405234801561001057600080fd5b5060405161045838038061045883398101604081905261002f9161016f565b8060006001600160a01b03821661008d5760405162461bcd60e51b815260206004820152601860248201527f43616e6e6f7420736574206f776e657220746f207a65726f000000000000000060448201526064015b60405180910390fd5b600080546001600160a01b0319166001600160a01b03848116919091179091558116156100bd576100bd816100c5565b50505061019f565b6001600160a01b03811633141561011e5760405162461bcd60e51b815260206004820152601760248201527f43616e6e6f74207472616e7366657220746f2073656c660000000000000000006044820152606401610084565b600180546001600160a01b0319166001600160a01b0383811691821790925560008054604051929316917fed8889f560326eb138920d842192f0eb3dd22b4f139c87a2c57538e05bae12789190a350565b60006020828403121561018157600080fd5b81516001600160a01b038116811461019857600080fd5b9392505050565b6102aa806101ae6000396000f3fe608060405234801561001057600080fd5b50600436106100415760003560e01c806379ba5097146100465780638da5cb5b14610050578063f2fde38b1461006f575b600080fd5b61004e610082565b005b600054604080516001600160a01b039092168252519081900360200190f35b61004e61007d366004610244565b610131565b6001546001600160a01b031633146100da5760405162461bcd60e51b815260206004820152601660248201527526bab9ba10313290383937b837b9b2b21037bbb732b960511b60448201526064015b60405180910390fd5b60008054336001600160a01b0319808316821784556001805490911690556040516001600160a01b0390921692909183917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e091a350565b610139610145565b6101428161019a565b50565b6000546001600160a01b031633146101985760405162461bcd60e51b815260206004820152601660248201527527b7363c9031b0b63630b1363290313c9037bbb732b960511b60448201526064016100d1565b565b6001600160a01b0381163314156101f35760405162461bcd60e51b815260206004820152601760248201527f43616e6e6f74207472616e7366657220746f2073656c6600000000000000000060448201526064016100d1565b600180546001600160a01b0319166001600160a01b0383811691821790925560008054604051929316917fed8889f560326eb138920d842192f0eb3dd22b4f139c87a2c57538e05bae12789190a350565b60006020828403121561025657600080fd5b81356001600160a01b038116811461026d57600080fd5b939250505056fea264697066735822122050491a46fe6c92e33a7972b6337202a4f62e2a388c0ab049135a74d7ded877f364736f6c63430008090033",
+  "bytecodeSha1": "f3ae1103de2dc20d48fe928ae51036e8c385e5a9",
+  "compiler": {
+    "evm_version": "istanbul",
+    "optimizer": {
+      "enabled": true,
+      "runs": 200
+    },
+    "version": "0.8.9+commit.e5eed63a"
+  },
+  "contractName": "ConfirmedOwner",
+  "coverageMap": {
+    "branches": {
+      "13": {},
+      "6": {},
+      "7": {
+        "ConfirmedOwnerWithProposal._transferOwnership": {
+          "12": [
+            1674,
+            1690,
+            true
+          ]
+        },
+        "ConfirmedOwnerWithProposal._validateOwnership": {
+          "11": [
+            1913,
+            1934,
+            true
+          ]
+        },
+        "ConfirmedOwnerWithProposal.acceptOwnership": {
+          "10": [
+            1146,
+            1174,
+            true
+          ]
+        }
+      }
+    },
+    "statements": {
+      "13": {},
+      "6": {},
+      "7": {
+        "ConfirmedOwnerWithProposal._transferOwnership": {
+          "7": [
+            1666,
+            1718
+          ],
+          "8": [
+            1725,
+            1744
+          ],
+          "9": [
+            1751,
+            1795
+          ]
+        },
+        "ConfirmedOwnerWithProposal._validateOwnership": {
+          "6": [
+            1905,
+            1961
+          ]
+        },
+        "ConfirmedOwnerWithProposal.acceptOwnership": {
+          "1": [
+            1138,
+            1201
+          ],
+          "2": [
+            1240,
+            1260
+          ],
+          "3": [
+            1266,
+            1293
+          ],
+          "4": [
+            1300,
+            1347
+          ]
+        },
+        "ConfirmedOwnerWithProposal.owner": {
+          "0": [
+            1495,
+            1509
+          ]
+        },
+        "ConfirmedOwnerWithProposal.transferOwnership": {
+          "5": [
+            958,
+            980
+          ]
+        }
+      }
+    }
+  },
+  "dependencies": [
+    "smartcontractkit/chainlink-brownie-contracts@0.2.2/ConfirmedOwnerWithProposal",
+    "smartcontractkit/chainlink-brownie-contracts@0.2.2/OwnableInterface"
+  ],
+  "deployedBytecode": "608060405234801561001057600080fd5b50600436106100415760003560e01c806379ba5097146100465780638da5cb5b14610050578063f2fde38b1461006f575b600080fd5b61004e610082565b005b600054604080516001600160a01b039092168252519081900360200190f35b61004e61007d366004610244565b610131565b6001546001600160a01b031633146100da5760405162461bcd60e51b815260206004820152601660248201527526bab9ba10313290383937b837b9b2b21037bbb732b960511b60448201526064015b60405180910390fd5b60008054336001600160a01b0319808316821784556001805490911690556040516001600160a01b0390921692909183917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e091a350565b610139610145565b6101428161019a565b50565b6000546001600160a01b031633146101985760405162461bcd60e51b815260206004820152601660248201527527b7363c9031b0b63630b1363290313c9037bbb732b960511b60448201526064016100d1565b565b6001600160a01b0381163314156101f35760405162461bcd60e51b815260206004820152601760248201527f43616e6e6f74207472616e7366657220746f2073656c6600000000000000000060448201526064016100d1565b600180546001600160a01b0319166001600160a01b0383811691821790925560008054604051929316917fed8889f560326eb138920d842192f0eb3dd22b4f139c87a2c57538e05bae12789190a350565b60006020828403121561025657600080fd5b81356001600160a01b038116811461026d57600080fd5b939250505056fea264697066735822122050491a46fe6c92e33a7972b6337202a4f62e2a388c0ab049135a74d7ded877f364736f6c63430008090033",
+  "deployedSourceMap": "212:178:6:-:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1077:275:7;;;:::i;:::-;;1403:111;1473:7;1502;1403:111;;;-1:-1:-1;;;;;1502:7:7;;;160:51:21;;1403:111:7;;;;;148:2:21;1403:111:7;;;863:122;;;;;;:::i;:::-;;:::i;1077:275::-;1160:14;;-1:-1:-1;;;;;1160:14:7;1146:10;:28;1138:63;;;;-1:-1:-1;;;1138:63:7;;715:2:21;1138:63:7;;;697:21:21;754:2;734:18;;;727:30;-1:-1:-1;;;773:18:21;;;766:52;835:18;;1138:63:7;;;;;;;;;1208:16;1227:7;;1250:10;-1:-1:-1;;;;;;1240:20:7;;;;;;;-1:-1:-1;1266:27:7;;;;;;;1305:42;;-1:-1:-1;;;;;1227:7:7;;;;1250:10;;1227:7;;1305:42;;;1132:220;1077:275::o;863:122::-;2081:20;:18;:20::i;:::-;958:22:::1;977:2;958:18;:22::i;:::-;863:122:::0;:::o;1845:121::-;1927:7;;-1:-1:-1;;;;;1927:7:7;1913:10;:21;1905:56;;;;-1:-1:-1;;;1905:56:7;;1066:2:21;1905:56:7;;;1048:21:21;1105:2;1085:18;;;1078:30;-1:-1:-1;;;1124:18:21;;;1117:52;1186:18;;1905:56:7;864:346:21;1905:56:7;1845:121::o;1598:202::-;-1:-1:-1;;;;;1674:16:7;;1680:10;1674:16;;1666:52;;;;-1:-1:-1;;;1666:52:7;;1417:2:21;1666:52:7;;;1399:21:21;1456:2;1436:18;;;1429:30;1495:25;1475:18;;;1468:53;1538:18;;1666:52:7;1215:347:21;1666:52:7;1725:14;:19;;-1:-1:-1;;;;;;1725:19:7;-1:-1:-1;;;;;1725:19:7;;;;;;;;;-1:-1:-1;1783:7:7;;1756:39;;1725:19;;1783:7;;1756:39;;-1:-1:-1;1756:39:7;1598:202;:::o;222:286:21:-;281:6;334:2;322:9;313:7;309:23;305:32;302:52;;;350:1;347;340:12;302:52;376:23;;-1:-1:-1;;;;;428:31:21;;418:42;;408:70;;474:1;471;464:12;408:70;497:5;222:286;-1:-1:-1;;;222:286:21:o",
+  "language": "Solidity",
+  "natspec": {
+    "kind": "dev",
+    "methods": {
+      "acceptOwnership()": {
+        "notice": "Allows an ownership transfer to be completed by the recipient."
+      },
+      "owner()": {
+        "notice": "Get the current owner"
+      },
+      "transferOwnership(address)": {
+        "notice": "Allows an owner to begin transferring ownership to a new address, pending."
+      }
+    },
+    "notice": "A contract with helpers for basic contract ownership.",
+    "title": "The ConfirmedOwner contract",
+    "version": 1
+  },
+  "offset": [
+    212,
+    390
+  ],
+  "opcodes": "PUSH1 0x80 PUSH1 0x40 MSTORE CALLVALUE DUP1 ISZERO PUSH2 0x10 JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST POP PUSH1 0x4 CALLDATASIZE LT PUSH2 0x41 JUMPI PUSH1 0x0 CALLDATALOAD PUSH1 0xE0 SHR DUP1 PUSH4 0x79BA5097 EQ PUSH2 0x46 JUMPI DUP1 PUSH4 0x8DA5CB5B EQ PUSH2 0x50 JUMPI DUP1 PUSH4 0xF2FDE38B EQ PUSH2 0x6F JUMPI JUMPDEST PUSH1 0x0 DUP1 REVERT JUMPDEST PUSH2 0x4E PUSH2 0x82 JUMP JUMPDEST STOP JUMPDEST PUSH1 0x0 SLOAD PUSH1 0x40 DUP1 MLOAD PUSH1 0x1 PUSH1 0x1 PUSH1 0xA0 SHL SUB SWAP1 SWAP3 AND DUP3 MSTORE MLOAD SWAP1 DUP2 SWAP1 SUB PUSH1 0x20 ADD SWAP1 RETURN JUMPDEST PUSH2 0x4E PUSH2 0x7D CALLDATASIZE PUSH1 0x4 PUSH2 0x244 JUMP JUMPDEST PUSH2 0x131 JUMP JUMPDEST PUSH1 0x1 SLOAD PUSH1 0x1 PUSH1 0x1 PUSH1 0xA0 SHL SUB AND CALLER EQ PUSH2 0xDA JUMPI PUSH1 0x40 MLOAD PUSH3 0x461BCD PUSH1 0xE5 SHL DUP2 MSTORE PUSH1 0x20 PUSH1 0x4 DUP3 ADD MSTORE PUSH1 0x16 PUSH1 0x24 DUP3 ADD MSTORE PUSH22 0x26BAB9BA10313290383937B837B9B2B21037BBB732B9 PUSH1 0x51 SHL PUSH1 0x44 DUP3 ADD MSTORE PUSH1 0x64 ADD JUMPDEST PUSH1 0x40 MLOAD DUP1 SWAP2 SUB SWAP1 REVERT JUMPDEST PUSH1 0x0 DUP1 SLOAD CALLER PUSH1 0x1 PUSH1 0x1 PUSH1 0xA0 SHL SUB NOT DUP1 DUP4 AND DUP3 OR DUP5 SSTORE PUSH1 0x1 DUP1 SLOAD SWAP1 SWAP2 AND SWAP1 SSTORE PUSH1 0x40 MLOAD PUSH1 0x1 PUSH1 0x1 PUSH1 0xA0 SHL SUB SWAP1 SWAP3 AND SWAP3 SWAP1 SWAP2 DUP4 SWAP2 PUSH32 0x8BE0079C531659141344CD1FD0A4F28419497F9722A3DAAFE3B4186F6B6457E0 SWAP2 LOG3 POP JUMP JUMPDEST PUSH2 0x139 PUSH2 0x145 JUMP JUMPDEST PUSH2 0x142 DUP2 PUSH2 0x19A JUMP JUMPDEST POP JUMP JUMPDEST PUSH1 0x0 SLOAD PUSH1 0x1 PUSH1 0x1 PUSH1 0xA0 SHL SUB AND CALLER EQ PUSH2 0x198 JUMPI PUSH1 0x40 MLOAD PUSH3 0x461BCD PUSH1 0xE5 SHL DUP2 MSTORE PUSH1 0x20 PUSH1 0x4 DUP3 ADD MSTORE PUSH1 0x16 PUSH1 0x24 DUP3 ADD MSTORE PUSH22 0x27B7363C9031B0B63630B1363290313C9037BBB732B9 PUSH1 0x51 SHL PUSH1 0x44 DUP3 ADD MSTORE PUSH1 0x64 ADD PUSH2 0xD1 JUMP JUMPDEST JUMP JUMPDEST PUSH1 0x1 PUSH1 0x1 PUSH1 0xA0 SHL SUB DUP2 AND CALLER EQ ISZERO PUSH2 0x1F3 JUMPI PUSH1 0x40 MLOAD PUSH3 0x461BCD PUSH1 0xE5 SHL DUP2 MSTORE PUSH1 0x20 PUSH1 0x4 DUP3 ADD MSTORE PUSH1 0x17 PUSH1 0x24 DUP3 ADD MSTORE PUSH32 0x43616E6E6F74207472616E7366657220746F2073656C66000000000000000000 PUSH1 0x44 DUP3 ADD MSTORE PUSH1 0x64 ADD PUSH2 0xD1 JUMP JUMPDEST PUSH1 0x1 DUP1 SLOAD PUSH1 0x1 PUSH1 0x1 PUSH1 0xA0 SHL SUB NOT AND PUSH1 0x1 PUSH1 0x1 PUSH1 0xA0 SHL SUB DUP4 DUP2 AND SWAP2 DUP3 OR SWAP1 SWAP3 SSTORE PUSH1 0x0 DUP1 SLOAD PUSH1 0x40 MLOAD SWAP3 SWAP4 AND SWAP2 PUSH32 0xED8889F560326EB138920D842192F0EB3DD22B4F139C87A2C57538E05BAE1278 SWAP2 SWAP1 LOG3 POP JUMP JUMPDEST PUSH1 0x0 PUSH1 0x20 DUP3 DUP5 SUB SLT ISZERO PUSH2 0x256 JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST DUP2 CALLDATALOAD PUSH1 0x1 PUSH1 0x1 PUSH1 0xA0 SHL SUB DUP2 AND DUP2 EQ PUSH2 0x26D JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST SWAP4 SWAP3 POP POP POP JUMP INVALID LOG2 PUSH5 0x6970667358 0x22 SLT KECCAK256 POP 0x49 BYTE CHAINID INVALID PUSH13 0x92E33A7972B6337202A4F62E2A CODESIZE DUP13 EXP 0xB0 0x49 SGT GAS PUSH21 0xD7DED877F364736F6C634300080900330000000000 ",
+  "pcMap": {
+    "0": {
+      "offset": [
+        212,
+        390
+      ],
+      "op": "PUSH1",
+      "path": "6",
+      "value": "0x80"
+    },
+    "2": {
+      "fn": null,
+      "offset": [
+        212,
+        390
+      ],
+      "op": "PUSH1",
+      "path": "6",
+      "value": "0x40"
+    },
+    "4": {
+      "fn": null,
+      "offset": [
+        212,
+        390
+      ],
+      "op": "MSTORE",
+      "path": "6"
+    },
+    "5": {
+      "fn": null,
+      "offset": [
+        212,
+        390
+      ],
+      "op": "CALLVALUE",
+      "path": "6"
+    },
+    "6": {
+      "fn": null,
+      "offset": [
+        212,
+        390
+      ],
+      "op": "DUP1",
+      "path": "6"
+    },
+    "7": {
+      "fn": null,
+      "offset": [
+        212,
+        390
+      ],
+      "op": "ISZERO",
+      "path": "6"
+    },
+    "8": {
+      "fn": null,
+      "offset": [
+        212,
+        390
+      ],
+      "op": "PUSH2",
+      "path": "6",
+      "value": "0x10"
+    },
+    "11": {
+      "fn": null,
+      "offset": [
+        212,
+        390
+      ],
+      "op": "JUMPI",
+      "path": "6"
+    },
+    "12": {
+      "fn": null,
+      "offset": [
+        212,
+        390
+      ],
+      "op": "PUSH1",
+      "path": "6",
+      "value": "0x0"
+    },
+    "14": {
+      "fn": null,
+      "offset": [
+        212,
+        390
+      ],
+      "op": "DUP1",
+      "path": "6"
+    },
+    "15": {
+      "dev": "Cannot send ether to nonpayable function",
+      "fn": null,
+      "offset": [
+        212,
+        390
+      ],
+      "op": "REVERT",
+      "path": "6"
+    },
+    "16": {
+      "fn": null,
+      "offset": [
+        212,
+        390
+      ],
+      "op": "JUMPDEST",
+      "path": "6"
+    },
+    "17": {
+      "fn": null,
+      "offset": [
+        212,
+        390
+      ],
+      "op": "POP",
+      "path": "6"
+    },
+    "18": {
+      "fn": null,
+      "offset": [
+        212,
+        390
+      ],
+      "op": "PUSH1",
+      "path": "6",
+      "value": "0x4"
+    },
+    "20": {
+      "fn": null,
+      "offset": [
+        212,
+        390
+      ],
+      "op": "CALLDATASIZE",
+      "path": "6"
+    },
+    "21": {
+      "fn": null,
+      "offset": [
+        212,
+        390
+      ],
+      "op": "LT",
+      "path": "6"
+    },
+    "22": {
+      "fn": null,
+      "offset": [
+        212,
+        390
+      ],
+      "op": "PUSH2",
+      "path": "6",
+      "value": "0x41"
+    },
+    "25": {
+      "fn": null,
+      "offset": [
+        212,
+        390
+      ],
+      "op": "JUMPI",
+      "path": "6"
+    },
+    "26": {
+      "fn": null,
+      "offset": [
+        212,
+        390
+      ],
+      "op": "PUSH1",
+      "path": "6",
+      "value": "0x0"
+    },
+    "28": {
+      "fn": null,
+      "offset": [
+        212,
+        390
+      ],
+      "op": "CALLDATALOAD",
+      "path": "6"
+    },
+    "29": {
+      "fn": null,
+      "offset": [
+        212,
+        390
+      ],
+      "op": "PUSH1",
+      "path": "6",
+      "value": "0xE0"
+    },
+    "31": {
+      "fn": null,
+      "offset": [
+        212,
+        390
+      ],
+      "op": "SHR",
+      "path": "6"
+    },
+    "32": {
+      "fn": null,
+      "offset": [
+        212,
+        390
+      ],
+      "op": "DUP1",
+      "path": "6"
+    },
+    "33": {
+      "fn": null,
+      "offset": [
+        212,
+        390
+      ],
+      "op": "PUSH4",
+      "path": "6",
+      "value": "0x79BA5097"
+    },
+    "38": {
+      "fn": null,
+      "offset": [
+        212,
+        390
+      ],
+      "op": "EQ",
+      "path": "6"
+    },
+    "39": {
+      "fn": null,
+      "offset": [
+        212,
+        390
+      ],
+      "op": "PUSH2",
+      "path": "6",
+      "value": "0x46"
+    },
+    "42": {
+      "fn": null,
+      "offset": [
+        212,
+        390
+      ],
+      "op": "JUMPI",
+      "path": "6"
+    },
+    "43": {
+      "fn": null,
+      "offset": [
+        212,
+        390
+      ],
+      "op": "DUP1",
+      "path": "6"
+    },
+    "44": {
+      "fn": null,
+      "offset": [
+        212,
+        390
+      ],
+      "op": "PUSH4",
+      "path": "6",
+      "value": "0x8DA5CB5B"
+    },
+    "49": {
+      "fn": null,
+      "offset": [
+        212,
+        390
+      ],
+      "op": "EQ",
+      "path": "6"
+    },
+    "50": {
+      "fn": null,
+      "offset": [
+        212,
+        390
+      ],
+      "op": "PUSH2",
+      "path": "6",
+      "value": "0x50"
+    },
+    "53": {
+      "fn": null,
+      "offset": [
+        212,
+        390
+      ],
+      "op": "JUMPI",
+      "path": "6"
+    },
+    "54": {
+      "fn": null,
+      "offset": [
+        212,
+        390
+      ],
+      "op": "DUP1",
+      "path": "6"
+    },
+    "55": {
+      "fn": null,
+      "offset": [
+        212,
+        390
+      ],
+      "op": "PUSH4",
+      "path": "6",
+      "value": "0xF2FDE38B"
+    },
+    "60": {
+      "fn": null,
+      "offset": [
+        212,
+        390
+      ],
+      "op": "EQ",
+      "path": "6"
+    },
+    "61": {
+      "fn": null,
+      "offset": [
+        212,
+        390
+      ],
+      "op": "PUSH2",
+      "path": "6",
+      "value": "0x6F"
+    },
+    "64": {
+      "fn": null,
+      "offset": [
+        212,
+        390
+      ],
+      "op": "JUMPI",
+      "path": "6"
+    },
+    "65": {
+      "fn": null,
+      "offset": [
+        212,
+        390
+      ],
+      "op": "JUMPDEST",
+      "path": "6"
+    },
+    "66": {
+      "fn": null,
+      "offset": [
+        212,
+        390
+      ],
+      "op": "PUSH1",
+      "path": "6",
+      "value": "0x0"
+    },
+    "68": {
+      "fn": null,
+      "offset": [
+        212,
+        390
+      ],
+      "op": "DUP1",
+      "path": "6"
+    },
+    "69": {
+      "first_revert": true,
+      "fn": null,
+      "offset": [
+        212,
+        390
+      ],
+      "op": "REVERT",
+      "path": "6"
+    },
+    "70": {
+      "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
+      "offset": [
+        1077,
+        1352
+      ],
+      "op": "JUMPDEST",
+      "path": "7"
+    },
+    "71": {
+      "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
+      "offset": [
+        1077,
+        1352
+      ],
+      "op": "PUSH2",
+      "path": "7",
+      "value": "0x4E"
+    },
+    "74": {
+      "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
+      "offset": [
+        1077,
+        1352
+      ],
+      "op": "PUSH2",
+      "path": "7",
+      "value": "0x82"
+    },
+    "77": {
+      "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
+      "jump": "i",
+      "offset": [
+        1077,
+        1352
+      ],
+      "op": "JUMP",
+      "path": "7"
+    },
+    "78": {
+      "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
+      "offset": [
+        1077,
+        1352
+      ],
+      "op": "JUMPDEST",
+      "path": "7"
+    },
+    "79": {
+      "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
+      "offset": [
+        1077,
+        1352
+      ],
+      "op": "STOP",
+      "path": "7"
+    },
+    "80": {
+      "fn": "ConfirmedOwnerWithProposal.owner",
+      "offset": [
+        1403,
+        1514
+      ],
+      "op": "JUMPDEST",
+      "path": "7"
+    },
+    "81": {
+      "fn": "ConfirmedOwnerWithProposal.owner",
+      "offset": [
+        1473,
+        1480
+      ],
+      "op": "PUSH1",
+      "path": "7",
+      "value": "0x0"
+    },
+    "83": {
+      "fn": "ConfirmedOwnerWithProposal.owner",
+      "offset": [
+        1502,
+        1509
+      ],
+      "op": "SLOAD",
+      "path": "7",
+      "statement": 0
+    },
+    "84": {
+      "fn": "ConfirmedOwnerWithProposal.owner",
+      "offset": [
+        1403,
+        1514
+      ],
+      "op": "PUSH1",
+      "path": "7",
+      "value": "0x40"
+    },
+    "86": {
+      "fn": "ConfirmedOwnerWithProposal.owner",
+      "offset": [
+        1403,
+        1514
+      ],
+      "op": "DUP1",
+      "path": "7"
+    },
+    "87": {
+      "fn": "ConfirmedOwnerWithProposal.owner",
+      "offset": [
+        1403,
+        1514
+      ],
+      "op": "MLOAD",
+      "path": "7"
+    },
+    "88": {
+      "op": "PUSH1",
+      "value": "0x1"
+    },
+    "90": {
+      "op": "PUSH1",
+      "value": "0x1"
+    },
+    "92": {
+      "op": "PUSH1",
+      "value": "0xA0"
+    },
+    "94": {
+      "op": "SHL"
+    },
+    "95": {
+      "op": "SUB"
+    },
+    "96": {
+      "fn": "ConfirmedOwnerWithProposal.owner",
+      "offset": [
+        1502,
+        1509
+      ],
+      "op": "SWAP1",
+      "path": "7"
+    },
+    "97": {
+      "fn": "ConfirmedOwnerWithProposal.owner",
+      "offset": [
+        1502,
+        1509
+      ],
+      "op": "SWAP3",
+      "path": "7"
+    },
+    "98": {
+      "fn": "ConfirmedOwnerWithProposal.owner",
+      "offset": [
+        1502,
+        1509
+      ],
+      "op": "AND",
+      "path": "7"
+    },
+    "99": {
+      "op": "DUP3"
+    },
+    "100": {
+      "op": "MSTORE"
+    },
+    "101": {
+      "fn": "ConfirmedOwnerWithProposal.owner",
+      "offset": [
+        1403,
+        1514
+      ],
+      "op": "MLOAD",
+      "path": "7"
+    },
+    "102": {
+      "fn": "ConfirmedOwnerWithProposal.owner",
+      "offset": [
+        1403,
+        1514
+      ],
+      "op": "SWAP1",
+      "path": "7"
+    },
+    "103": {
+      "fn": "ConfirmedOwnerWithProposal.owner",
+      "offset": [
+        1403,
+        1514
+      ],
+      "op": "DUP2",
+      "path": "7"
+    },
+    "104": {
+      "fn": "ConfirmedOwnerWithProposal.owner",
+      "offset": [
+        1403,
+        1514
+      ],
+      "op": "SWAP1",
+      "path": "7"
+    },
+    "105": {
+      "fn": "ConfirmedOwnerWithProposal.owner",
+      "offset": [
+        1403,
+        1514
+      ],
+      "op": "SUB",
+      "path": "7"
+    },
+    "106": {
+      "op": "PUSH1",
+      "value": "0x20"
+    },
+    "108": {
+      "fn": "ConfirmedOwnerWithProposal.owner",
+      "offset": [
+        1403,
+        1514
+      ],
+      "op": "ADD",
+      "path": "7"
+    },
+    "109": {
+      "fn": "ConfirmedOwnerWithProposal.owner",
+      "offset": [
+        1403,
+        1514
+      ],
+      "op": "SWAP1",
+      "path": "7"
+    },
+    "110": {
+      "fn": "ConfirmedOwnerWithProposal.owner",
+      "offset": [
+        1403,
+        1514
+      ],
+      "op": "RETURN",
+      "path": "7"
+    },
+    "111": {
+      "fn": "ConfirmedOwnerWithProposal.transferOwnership",
+      "offset": [
+        863,
+        985
+      ],
+      "op": "JUMPDEST",
+      "path": "7"
+    },
+    "112": {
+      "fn": "ConfirmedOwnerWithProposal.transferOwnership",
+      "offset": [
+        863,
+        985
+      ],
+      "op": "PUSH2",
+      "path": "7",
+      "value": "0x4E"
+    },
+    "115": {
+      "fn": "ConfirmedOwnerWithProposal.transferOwnership",
+      "offset": [
+        863,
+        985
+      ],
+      "op": "PUSH2",
+      "path": "7",
+      "value": "0x7D"
+    },
+    "118": {
+      "fn": "ConfirmedOwnerWithProposal.transferOwnership",
+      "offset": [
+        863,
+        985
+      ],
+      "op": "CALLDATASIZE",
+      "path": "7"
+    },
+    "119": {
+      "fn": "ConfirmedOwnerWithProposal.transferOwnership",
+      "offset": [
+        863,
+        985
+      ],
+      "op": "PUSH1",
+      "path": "7",
+      "value": "0x4"
+    },
+    "121": {
+      "fn": "ConfirmedOwnerWithProposal.transferOwnership",
+      "offset": [
+        863,
+        985
+      ],
+      "op": "PUSH2",
+      "path": "7",
+      "value": "0x244"
+    },
+    "124": {
+      "fn": "ConfirmedOwnerWithProposal.transferOwnership",
+      "jump": "i",
+      "offset": [
+        863,
+        985
+      ],
+      "op": "JUMP",
+      "path": "7"
+    },
+    "125": {
+      "fn": "ConfirmedOwnerWithProposal.transferOwnership",
+      "offset": [
+        863,
+        985
+      ],
+      "op": "JUMPDEST",
+      "path": "7"
+    },
+    "126": {
+      "fn": "ConfirmedOwnerWithProposal.transferOwnership",
+      "offset": [
+        863,
+        985
+      ],
+      "op": "PUSH2",
+      "path": "7",
+      "value": "0x131"
+    },
+    "129": {
+      "fn": "ConfirmedOwnerWithProposal.transferOwnership",
+      "jump": "i",
+      "offset": [
+        863,
+        985
+      ],
+      "op": "JUMP",
+      "path": "7"
+    },
+    "130": {
+      "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
+      "offset": [
+        1077,
+        1352
+      ],
+      "op": "JUMPDEST",
+      "path": "7"
+    },
+    "131": {
+      "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
+      "offset": [
+        1160,
+        1174
+      ],
+      "op": "PUSH1",
+      "path": "7",
+      "statement": 1,
+      "value": "0x1"
+    },
+    "133": {
+      "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
+      "offset": [
+        1160,
+        1174
+      ],
+      "op": "SLOAD",
+      "path": "7"
+    },
+    "134": {
+      "op": "PUSH1",
+      "value": "0x1"
+    },
+    "136": {
+      "op": "PUSH1",
+      "value": "0x1"
+    },
+    "138": {
+      "op": "PUSH1",
+      "value": "0xA0"
+    },
+    "140": {
+      "op": "SHL"
+    },
+    "141": {
+      "op": "SUB"
+    },
+    "142": {
+      "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
+      "offset": [
+        1160,
+        1174
+      ],
+      "op": "AND",
+      "path": "7"
+    },
+    "143": {
+      "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
+      "offset": [
+        1146,
+        1156
+      ],
+      "op": "CALLER",
+      "path": "7"
+    },
+    "144": {
+      "branch": 10,
+      "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
+      "offset": [
+        1146,
+        1174
+      ],
+      "op": "EQ",
+      "path": "7"
+    },
+    "145": {
+      "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
+      "offset": [
+        1138,
+        1201
+      ],
+      "op": "PUSH2",
+      "path": "7",
+      "value": "0xDA"
+    },
+    "148": {
+      "branch": 10,
+      "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
+      "offset": [
+        1138,
+        1201
+      ],
+      "op": "JUMPI",
+      "path": "7"
+    },
+    "149": {
+      "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
+      "offset": [
+        1138,
+        1201
+      ],
+      "op": "PUSH1",
+      "path": "7",
+      "value": "0x40"
+    },
+    "151": {
+      "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
+      "offset": [
+        1138,
+        1201
+      ],
+      "op": "MLOAD",
+      "path": "7"
+    },
+    "152": {
+      "op": "PUSH3",
+      "value": "0x461BCD"
+    },
+    "156": {
+      "op": "PUSH1",
+      "value": "0xE5"
+    },
+    "158": {
+      "op": "SHL"
+    },
+    "159": {
+      "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
+      "offset": [
+        1138,
+        1201
+      ],
+      "op": "DUP2",
+      "path": "7"
+    },
+    "160": {
+      "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
+      "offset": [
+        1138,
+        1201
+      ],
+      "op": "MSTORE",
+      "path": "7"
+    },
+    "161": {
+      "op": "PUSH1",
+      "value": "0x20"
+    },
+    "163": {
+      "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
+      "offset": [
+        1138,
+        1201
+      ],
+      "op": "PUSH1",
+      "path": "7",
+      "value": "0x4"
+    },
+    "165": {
+      "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
+      "offset": [
+        1138,
+        1201
+      ],
+      "op": "DUP3",
+      "path": "7"
+    },
+    "166": {
+      "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
+      "offset": [
+        1138,
+        1201
+      ],
+      "op": "ADD",
+      "path": "7"
+    },
+    "167": {
+      "op": "MSTORE"
+    },
+    "168": {
+      "op": "PUSH1",
+      "value": "0x16"
+    },
+    "170": {
+      "op": "PUSH1",
+      "value": "0x24"
+    },
+    "172": {
+      "op": "DUP3"
+    },
+    "173": {
+      "op": "ADD"
+    },
+    "174": {
+      "op": "MSTORE"
+    },
+    "175": {
+      "op": "PUSH22",
+      "value": "0x26BAB9BA10313290383937B837B9B2B21037BBB732B9"
+    },
+    "198": {
+      "op": "PUSH1",
+      "value": "0x51"
+    },
+    "200": {
+      "op": "SHL"
+    },
+    "201": {
+      "op": "PUSH1",
+      "value": "0x44"
+    },
+    "203": {
+      "op": "DUP3"
+    },
+    "204": {
+      "op": "ADD"
+    },
+    "205": {
+      "op": "MSTORE"
+    },
+    "206": {
+      "op": "PUSH1",
+      "value": "0x64"
+    },
+    "208": {
+      "op": "ADD"
+    },
+    "209": {
+      "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
+      "offset": [
+        1138,
+        1201
+      ],
+      "op": "JUMPDEST",
+      "path": "7"
+    },
+    "210": {
+      "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
+      "offset": [
+        1138,
+        1201
+      ],
+      "op": "PUSH1",
+      "path": "7",
+      "value": "0x40"
+    },
+    "212": {
+      "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
+      "offset": [
+        1138,
+        1201
+      ],
+      "op": "MLOAD",
+      "path": "7"
+    },
+    "213": {
+      "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
+      "offset": [
+        1138,
+        1201
+      ],
+      "op": "DUP1",
+      "path": "7"
+    },
+    "214": {
+      "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
+      "offset": [
+        1138,
+        1201
+      ],
+      "op": "SWAP2",
+      "path": "7"
+    },
+    "215": {
+      "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
+      "offset": [
+        1138,
+        1201
+      ],
+      "op": "SUB",
+      "path": "7"
+    },
+    "216": {
+      "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
+      "offset": [
+        1138,
+        1201
+      ],
+      "op": "SWAP1",
+      "path": "7"
+    },
+    "217": {
+      "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
+      "offset": [
+        1138,
+        1201
+      ],
+      "op": "REVERT",
+      "optimizer_revert": true,
+      "path": "7"
+    },
+    "218": {
+      "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
+      "offset": [
+        1138,
+        1201
+      ],
+      "op": "JUMPDEST",
+      "path": "7"
+    },
+    "219": {
+      "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
+      "offset": [
+        1208,
+        1224
+      ],
+      "op": "PUSH1",
+      "path": "7",
+      "value": "0x0"
+    },
+    "221": {
+      "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
+      "offset": [
+        1227,
+        1234
+      ],
+      "op": "DUP1",
+      "path": "7"
+    },
+    "222": {
+      "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
+      "offset": [
+        1227,
+        1234
+      ],
+      "op": "SLOAD",
+      "path": "7"
+    },
+    "223": {
+      "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
+      "offset": [
+        1250,
+        1260
+      ],
+      "op": "CALLER",
+      "path": "7",
+      "statement": 2
+    },
+    "224": {
+      "op": "PUSH1",
+      "value": "0x1"
+    },
+    "226": {
+      "op": "PUSH1",
+      "value": "0x1"
+    },
+    "228": {
+      "op": "PUSH1",
+      "value": "0xA0"
+    },
+    "230": {
+      "op": "SHL"
+    },
+    "231": {
+      "op": "SUB"
+    },
+    "232": {
+      "op": "NOT"
+    },
+    "233": {
+      "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
+      "offset": [
+        1240,
+        1260
+      ],
+      "op": "DUP1",
+      "path": "7"
+    },
+    "234": {
+      "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
+      "offset": [
+        1240,
+        1260
+      ],
+      "op": "DUP4",
+      "path": "7"
+    },
+    "235": {
+      "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
+      "offset": [
+        1240,
+        1260
+      ],
+      "op": "AND",
+      "path": "7"
+    },
+    "236": {
+      "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
+      "offset": [
+        1240,
+        1260
+      ],
+      "op": "DUP3",
+      "path": "7"
+    },
+    "237": {
+      "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
+      "offset": [
+        1240,
+        1260
+      ],
+      "op": "OR",
+      "path": "7"
+    },
+    "238": {
+      "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
+      "offset": [
+        1240,
+        1260
+      ],
+      "op": "DUP5",
+      "path": "7"
+    },
+    "239": {
+      "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
+      "offset": [
+        1240,
+        1260
+      ],
+      "op": "SSTORE",
+      "path": "7"
+    },
+    "240": {
+      "op": "PUSH1",
+      "value": "0x1"
+    },
+    "242": {
+      "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
+      "offset": [
+        1266,
+        1293
+      ],
+      "op": "DUP1",
+      "path": "7",
+      "statement": 3
+    },
+    "243": {
+      "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
+      "offset": [
+        1266,
+        1293
+      ],
+      "op": "SLOAD",
+      "path": "7"
+    },
+    "244": {
+      "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
+      "offset": [
+        1266,
+        1293
+      ],
+      "op": "SWAP1",
+      "path": "7"
+    },
+    "245": {
+      "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
+      "offset": [
+        1266,
+        1293
+      ],
+      "op": "SWAP2",
+      "path": "7"
+    },
+    "246": {
+      "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
+      "offset": [
+        1266,
+        1293
+      ],
+      "op": "AND",
+      "path": "7"
+    },
+    "247": {
+      "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
+      "offset": [
+        1266,
+        1293
+      ],
+      "op": "SWAP1",
+      "path": "7"
+    },
+    "248": {
+      "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
+      "offset": [
+        1266,
+        1293
+      ],
+      "op": "SSTORE",
+      "path": "7"
+    },
+    "249": {
+      "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
+      "offset": [
+        1305,
+        1347
+      ],
+      "op": "PUSH1",
+      "path": "7",
+      "statement": 4,
+      "value": "0x40"
+    },
+    "251": {
+      "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
+      "offset": [
+        1305,
+        1347
+      ],
+      "op": "MLOAD",
+      "path": "7"
+    },
+    "252": {
+      "op": "PUSH1",
+      "value": "0x1"
+    },
+    "254": {
+      "op": "PUSH1",
+      "value": "0x1"
+    },
+    "256": {
+      "op": "PUSH1",
+      "value": "0xA0"
+    },
+    "258": {
+      "op": "SHL"
+    },
+    "259": {
+      "op": "SUB"
+    },
+    "260": {
+      "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
+      "offset": [
+        1227,
+        1234
+      ],
+      "op": "SWAP1",
+      "path": "7"
+    },
+    "261": {
+      "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
+      "offset": [
+        1227,
+        1234
+      ],
+      "op": "SWAP3",
+      "path": "7"
+    },
+    "262": {
+      "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
+      "offset": [
+        1227,
+        1234
+      ],
+      "op": "AND",
+      "path": "7"
+    },
+    "263": {
+      "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
+      "offset": [
+        1227,
+        1234
+      ],
+      "op": "SWAP3",
+      "path": "7"
+    },
+    "264": {
+      "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
+      "offset": [
+        1250,
+        1260
+      ],
+      "op": "SWAP1",
+      "path": "7"
+    },
+    "265": {
+      "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
+      "offset": [
+        1250,
+        1260
+      ],
+      "op": "SWAP2",
+      "path": "7"
+    },
+    "266": {
+      "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
+      "offset": [
+        1227,
+        1234
+      ],
+      "op": "DUP4",
+      "path": "7"
+    },
+    "267": {
+      "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
+      "offset": [
+        1227,
+        1234
+      ],
+      "op": "SWAP2",
+      "path": "7"
+    },
+    "268": {
+      "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
+      "offset": [
+        1305,
+        1347
+      ],
+      "op": "PUSH32",
+      "path": "7",
+      "value": "0x8BE0079C531659141344CD1FD0A4F28419497F9722A3DAAFE3B4186F6B6457E0"
+    },
+    "301": {
+      "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
+      "offset": [
+        1305,
+        1347
+      ],
+      "op": "SWAP2",
+      "path": "7"
+    },
+    "302": {
+      "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
+      "offset": [
+        1305,
+        1347
+      ],
+      "op": "LOG3",
+      "path": "7"
+    },
+    "303": {
+      "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
+      "offset": [
+        1132,
+        1352
+      ],
+      "op": "POP",
+      "path": "7"
+    },
+    "304": {
+      "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
+      "jump": "o",
+      "offset": [
+        1077,
+        1352
+      ],
+      "op": "JUMP",
+      "path": "7"
+    },
+    "305": {
+      "fn": "ConfirmedOwnerWithProposal.transferOwnership",
+      "offset": [
+        863,
+        985
+      ],
+      "op": "JUMPDEST",
+      "path": "7"
+    },
+    "306": {
+      "offset": [
+        2081,
+        2101
+      ],
+      "op": "PUSH2",
+      "path": "7",
+      "value": "0x139"
+    },
+    "309": {
+      "offset": [
+        2081,
+        2099
+      ],
+      "op": "PUSH2",
+      "path": "7",
+      "value": "0x145"
+    },
+    "312": {
+      "jump": "i",
+      "offset": [
+        2081,
+        2101
+      ],
+      "op": "JUMP",
+      "path": "7"
+    },
+    "313": {
+      "fn": "ConfirmedOwnerWithProposal.transferOwnership",
+      "offset": [
+        2081,
+        2101
+      ],
+      "op": "JUMPDEST",
+      "path": "7"
+    },
+    "314": {
+      "fn": "ConfirmedOwnerWithProposal.transferOwnership",
+      "offset": [
+        958,
+        980
+      ],
+      "op": "PUSH2",
+      "path": "7",
+      "statement": 5,
+      "value": "0x142"
+    },
+    "317": {
+      "fn": "ConfirmedOwnerWithProposal.transferOwnership",
+      "offset": [
+        977,
+        979
+      ],
+      "op": "DUP2",
+      "path": "7"
+    },
+    "318": {
+      "fn": "ConfirmedOwnerWithProposal.transferOwnership",
+      "offset": [
+        958,
+        976
+      ],
+      "op": "PUSH2",
+      "path": "7",
+      "value": "0x19A"
+    },
+    "321": {
+      "fn": "ConfirmedOwnerWithProposal.transferOwnership",
+      "jump": "i",
+      "offset": [
+        958,
+        980
+      ],
+      "op": "JUMP",
+      "path": "7"
+    },
+    "322": {
+      "fn": "ConfirmedOwnerWithProposal.transferOwnership",
+      "offset": [
+        958,
+        980
+      ],
+      "op": "JUMPDEST",
+      "path": "7"
+    },
+    "323": {
+      "fn": "ConfirmedOwnerWithProposal.transferOwnership",
+      "offset": [
+        863,
+        985
+      ],
+      "op": "POP",
+      "path": "7"
+    },
+    "324": {
+      "fn": "ConfirmedOwnerWithProposal.transferOwnership",
+      "jump": "o",
+      "offset": [
+        863,
+        985
+      ],
+      "op": "JUMP",
+      "path": "7"
+    },
+    "325": {
+      "fn": "ConfirmedOwnerWithProposal._validateOwnership",
+      "offset": [
+        1845,
+        1966
+      ],
+      "op": "JUMPDEST",
+      "path": "7"
+    },
+    "326": {
+      "fn": "ConfirmedOwnerWithProposal._validateOwnership",
+      "offset": [
+        1927,
+        1934
+      ],
+      "op": "PUSH1",
+      "path": "7",
+      "statement": 6,
+      "value": "0x0"
+    },
+    "328": {
+      "fn": "ConfirmedOwnerWithProposal._validateOwnership",
+      "offset": [
+        1927,
+        1934
+      ],
+      "op": "SLOAD",
+      "path": "7"
+    },
+    "329": {
+      "op": "PUSH1",
+      "value": "0x1"
+    },
+    "331": {
+      "op": "PUSH1",
+      "value": "0x1"
+    },
+    "333": {
+      "op": "PUSH1",
+      "value": "0xA0"
+    },
+    "335": {
+      "op": "SHL"
+    },
+    "336": {
+      "op": "SUB"
+    },
+    "337": {
+      "fn": "ConfirmedOwnerWithProposal._validateOwnership",
+      "offset": [
+        1927,
+        1934
+      ],
+      "op": "AND",
+      "path": "7"
+    },
+    "338": {
+      "fn": "ConfirmedOwnerWithProposal._validateOwnership",
+      "offset": [
+        1913,
+        1923
+      ],
+      "op": "CALLER",
+      "path": "7"
+    },
+    "339": {
+      "branch": 11,
+      "fn": "ConfirmedOwnerWithProposal._validateOwnership",
+      "offset": [
+        1913,
+        1934
+      ],
+      "op": "EQ",
+      "path": "7"
+    },
+    "340": {
+      "fn": "ConfirmedOwnerWithProposal._validateOwnership",
+      "offset": [
+        1905,
+        1961
+      ],
+      "op": "PUSH2",
+      "path": "7",
+      "value": "0x198"
+    },
+    "343": {
+      "branch": 11,
+      "fn": "ConfirmedOwnerWithProposal._validateOwnership",
+      "offset": [
+        1905,
+        1961
+      ],
+      "op": "JUMPI",
+      "path": "7"
+    },
+    "344": {
+      "fn": "ConfirmedOwnerWithProposal._validateOwnership",
+      "offset": [
+        1905,
+        1961
+      ],
+      "op": "PUSH1",
+      "path": "7",
+      "value": "0x40"
+    },
+    "346": {
+      "fn": "ConfirmedOwnerWithProposal._validateOwnership",
+      "offset": [
+        1905,
+        1961
+      ],
+      "op": "MLOAD",
+      "path": "7"
+    },
+    "347": {
+      "op": "PUSH3",
+      "value": "0x461BCD"
+    },
+    "351": {
+      "op": "PUSH1",
+      "value": "0xE5"
+    },
+    "353": {
+      "op": "SHL"
+    },
+    "354": {
+      "fn": "ConfirmedOwnerWithProposal._validateOwnership",
+      "offset": [
+        1905,
+        1961
+      ],
+      "op": "DUP2",
+      "path": "7"
+    },
+    "355": {
+      "fn": "ConfirmedOwnerWithProposal._validateOwnership",
+      "offset": [
+        1905,
+        1961
+      ],
+      "op": "MSTORE",
+      "path": "7"
+    },
+    "356": {
+      "op": "PUSH1",
+      "value": "0x20"
+    },
+    "358": {
+      "fn": "ConfirmedOwnerWithProposal._validateOwnership",
+      "offset": [
+        1905,
+        1961
+      ],
+      "op": "PUSH1",
+      "path": "7",
+      "value": "0x4"
+    },
+    "360": {
+      "fn": "ConfirmedOwnerWithProposal._validateOwnership",
+      "offset": [
+        1905,
+        1961
+      ],
+      "op": "DUP3",
+      "path": "7"
+    },
+    "361": {
+      "fn": "ConfirmedOwnerWithProposal._validateOwnership",
+      "offset": [
+        1905,
+        1961
+      ],
+      "op": "ADD",
+      "path": "7"
+    },
+    "362": {
+      "op": "MSTORE"
+    },
+    "363": {
+      "op": "PUSH1",
+      "value": "0x16"
+    },
+    "365": {
+      "op": "PUSH1",
+      "value": "0x24"
+    },
+    "367": {
+      "op": "DUP3"
+    },
+    "368": {
+      "op": "ADD"
+    },
+    "369": {
+      "op": "MSTORE"
+    },
+    "370": {
+      "op": "PUSH22",
+      "value": "0x27B7363C9031B0B63630B1363290313C9037BBB732B9"
+    },
+    "393": {
+      "op": "PUSH1",
+      "value": "0x51"
+    },
+    "395": {
+      "op": "SHL"
+    },
+    "396": {
+      "op": "PUSH1",
+      "value": "0x44"
+    },
+    "398": {
+      "op": "DUP3"
+    },
+    "399": {
+      "op": "ADD"
+    },
+    "400": {
+      "op": "MSTORE"
+    },
+    "401": {
+      "op": "PUSH1",
+      "value": "0x64"
+    },
+    "403": {
+      "op": "ADD"
+    },
+    "404": {
+      "fn": "ConfirmedOwnerWithProposal._validateOwnership",
+      "offset": [
+        1905,
+        1961
+      ],
+      "op": "PUSH2",
+      "path": "7",
+      "value": "0xD1"
+    },
+    "407": {
+      "op": "JUMP"
+    },
+    "408": {
+      "fn": "ConfirmedOwnerWithProposal._validateOwnership",
+      "offset": [
+        1905,
+        1961
+      ],
+      "op": "JUMPDEST",
+      "path": "7"
+    },
+    "409": {
+      "fn": "ConfirmedOwnerWithProposal._validateOwnership",
+      "jump": "o",
+      "offset": [
+        1845,
+        1966
+      ],
+      "op": "JUMP",
+      "path": "7"
+    },
+    "410": {
+      "fn": "ConfirmedOwnerWithProposal._transferOwnership",
+      "offset": [
+        1598,
+        1800
+      ],
+      "op": "JUMPDEST",
+      "path": "7"
+    },
+    "411": {
+      "op": "PUSH1",
+      "value": "0x1"
+    },
+    "413": {
+      "op": "PUSH1",
+      "value": "0x1"
+    },
+    "415": {
+      "op": "PUSH1",
+      "value": "0xA0"
+    },
+    "417": {
+      "op": "SHL"
+    },
+    "418": {
+      "op": "SUB"
+    },
+    "419": {
+      "fn": "ConfirmedOwnerWithProposal._transferOwnership",
+      "offset": [
+        1674,
+        1690
+      ],
+      "op": "DUP2",
+      "path": "7",
+      "statement": 7
+    },
+    "420": {
+      "fn": "ConfirmedOwnerWithProposal._transferOwnership",
+      "offset": [
+        1674,
+        1690
+      ],
+      "op": "AND",
+      "path": "7"
+    },
+    "421": {
+      "fn": "ConfirmedOwnerWithProposal._transferOwnership",
+      "offset": [
+        1680,
+        1690
+      ],
+      "op": "CALLER",
+      "path": "7"
+    },
+    "422": {
+      "fn": "ConfirmedOwnerWithProposal._transferOwnership",
+      "offset": [
+        1674,
+        1690
+      ],
+      "op": "EQ",
+      "path": "7"
+    },
+    "423": {
+      "branch": 12,
+      "fn": "ConfirmedOwnerWithProposal._transferOwnership",
+      "offset": [
+        1674,
+        1690
+      ],
+      "op": "ISZERO",
+      "path": "7"
+    },
+    "424": {
+      "fn": "ConfirmedOwnerWithProposal._transferOwnership",
+      "offset": [
+        1666,
+        1718
+      ],
+      "op": "PUSH2",
+      "path": "7",
+      "value": "0x1F3"
+    },
+    "427": {
+      "branch": 12,
+      "fn": "ConfirmedOwnerWithProposal._transferOwnership",
+      "offset": [
+        1666,
+        1718
+      ],
+      "op": "JUMPI",
+      "path": "7"
+    },
+    "428": {
+      "fn": "ConfirmedOwnerWithProposal._transferOwnership",
+      "offset": [
+        1666,
+        1718
+      ],
+      "op": "PUSH1",
+      "path": "7",
+      "value": "0x40"
+    },
+    "430": {
+      "fn": "ConfirmedOwnerWithProposal._transferOwnership",
+      "offset": [
+        1666,
+        1718
+      ],
+      "op": "MLOAD",
+      "path": "7"
+    },
+    "431": {
+      "op": "PUSH3",
+      "value": "0x461BCD"
+    },
+    "435": {
+      "op": "PUSH1",
+      "value": "0xE5"
+    },
+    "437": {
+      "op": "SHL"
+    },
+    "438": {
+      "fn": "ConfirmedOwnerWithProposal._transferOwnership",
+      "offset": [
+        1666,
+        1718
+      ],
+      "op": "DUP2",
+      "path": "7"
+    },
+    "439": {
+      "fn": "ConfirmedOwnerWithProposal._transferOwnership",
+      "offset": [
+        1666,
+        1718
+      ],
+      "op": "MSTORE",
+      "path": "7"
+    },
+    "440": {
+      "op": "PUSH1",
+      "value": "0x20"
+    },
+    "442": {
+      "fn": "ConfirmedOwnerWithProposal._transferOwnership",
+      "offset": [
+        1666,
+        1718
+      ],
+      "op": "PUSH1",
+      "path": "7",
+      "value": "0x4"
+    },
+    "444": {
+      "fn": "ConfirmedOwnerWithProposal._transferOwnership",
+      "offset": [
+        1666,
+        1718
+      ],
+      "op": "DUP3",
+      "path": "7"
+    },
+    "445": {
+      "fn": "ConfirmedOwnerWithProposal._transferOwnership",
+      "offset": [
+        1666,
+        1718
+      ],
+      "op": "ADD",
+      "path": "7"
+    },
+    "446": {
+      "op": "MSTORE"
+    },
+    "447": {
+      "op": "PUSH1",
+      "value": "0x17"
+    },
+    "449": {
+      "op": "PUSH1",
+      "value": "0x24"
+    },
+    "451": {
+      "op": "DUP3"
+    },
+    "452": {
+      "op": "ADD"
+    },
+    "453": {
+      "op": "MSTORE"
+    },
+    "454": {
+      "op": "PUSH32",
+      "value": "0x43616E6E6F74207472616E7366657220746F2073656C66000000000000000000"
+    },
+    "487": {
+      "op": "PUSH1",
+      "value": "0x44"
+    },
+    "489": {
+      "op": "DUP3"
+    },
+    "490": {
+      "op": "ADD"
+    },
+    "491": {
+      "op": "MSTORE"
+    },
+    "492": {
+      "op": "PUSH1",
+      "value": "0x64"
+    },
+    "494": {
+      "op": "ADD"
+    },
+    "495": {
+      "fn": "ConfirmedOwnerWithProposal._transferOwnership",
+      "offset": [
+        1666,
+        1718
+      ],
+      "op": "PUSH2",
+      "path": "7",
+      "value": "0xD1"
+    },
+    "498": {
+      "op": "JUMP"
+    },
+    "499": {
+      "fn": "ConfirmedOwnerWithProposal._transferOwnership",
+      "offset": [
+        1666,
+        1718
+      ],
+      "op": "JUMPDEST",
+      "path": "7"
+    },
+    "500": {
+      "fn": "ConfirmedOwnerWithProposal._transferOwnership",
+      "offset": [
+        1725,
+        1739
+      ],
+      "op": "PUSH1",
+      "path": "7",
+      "statement": 8,
+      "value": "0x1"
+    },
+    "502": {
+      "fn": "ConfirmedOwnerWithProposal._transferOwnership",
+      "offset": [
+        1725,
+        1744
+      ],
+      "op": "DUP1",
+      "path": "7"
+    },
+    "503": {
+      "fn": "ConfirmedOwnerWithProposal._transferOwnership",
+      "offset": [
+        1725,
+        1744
+      ],
+      "op": "SLOAD",
+      "path": "7"
+    },
+    "504": {
+      "op": "PUSH1",
+      "value": "0x1"
+    },
+    "506": {
+      "op": "PUSH1",
+      "value": "0x1"
+    },
+    "508": {
+      "op": "PUSH1",
+      "value": "0xA0"
+    },
+    "510": {
+      "op": "SHL"
+    },
+    "511": {
+      "op": "SUB"
+    },
+    "512": {
+      "op": "NOT"
+    },
+    "513": {
+      "fn": "ConfirmedOwnerWithProposal._transferOwnership",
+      "offset": [
+        1725,
+        1744
+      ],
+      "op": "AND",
+      "path": "7"
+    },
+    "514": {
+      "op": "PUSH1",
+      "value": "0x1"
+    },
+    "516": {
+      "op": "PUSH1",
+      "value": "0x1"
+    },
+    "518": {
+      "op": "PUSH1",
+      "value": "0xA0"
+    },
+    "520": {
+      "op": "SHL"
+    },
+    "521": {
+      "op": "SUB"
+    },
+    "522": {
+      "fn": "ConfirmedOwnerWithProposal._transferOwnership",
+      "offset": [
+        1725,
+        1744
+      ],
+      "op": "DUP4",
+      "path": "7"
+    },
+    "523": {
+      "fn": "ConfirmedOwnerWithProposal._transferOwnership",
+      "offset": [
+        1725,
+        1744
+      ],
+      "op": "DUP2",
+      "path": "7"
+    },
+    "524": {
+      "fn": "ConfirmedOwnerWithProposal._transferOwnership",
+      "offset": [
+        1725,
+        1744
+      ],
+      "op": "AND",
+      "path": "7"
+    },
+    "525": {
+      "fn": "ConfirmedOwnerWithProposal._transferOwnership",
+      "offset": [
+        1725,
+        1744
+      ],
+      "op": "SWAP2",
+      "path": "7"
+    },
+    "526": {
+      "fn": "ConfirmedOwnerWithProposal._transferOwnership",
+      "offset": [
+        1725,
+        1744
+      ],
+      "op": "DUP3",
+      "path": "7"
+    },
+    "527": {
+      "fn": "ConfirmedOwnerWithProposal._transferOwnership",
+      "offset": [
+        1725,
+        1744
+      ],
+      "op": "OR",
+      "path": "7"
+    },
+    "528": {
+      "fn": "ConfirmedOwnerWithProposal._transferOwnership",
+      "offset": [
+        1725,
+        1744
+      ],
+      "op": "SWAP1",
+      "path": "7"
+    },
+    "529": {
+      "fn": "ConfirmedOwnerWithProposal._transferOwnership",
+      "offset": [
+        1725,
+        1744
+      ],
+      "op": "SWAP3",
+      "path": "7"
+    },
+    "530": {
+      "fn": "ConfirmedOwnerWithProposal._transferOwnership",
+      "offset": [
+        1725,
+        1744
+      ],
+      "op": "SSTORE",
+      "path": "7"
+    },
+    "531": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "533": {
+      "fn": "ConfirmedOwnerWithProposal._transferOwnership",
+      "offset": [
+        1783,
+        1790
+      ],
+      "op": "DUP1",
+      "path": "7",
+      "statement": 9
+    },
+    "534": {
+      "fn": "ConfirmedOwnerWithProposal._transferOwnership",
+      "offset": [
+        1783,
+        1790
+      ],
+      "op": "SLOAD",
+      "path": "7"
+    },
+    "535": {
+      "fn": "ConfirmedOwnerWithProposal._transferOwnership",
+      "offset": [
+        1756,
+        1795
+      ],
+      "op": "PUSH1",
+      "path": "7",
+      "value": "0x40"
+    },
+    "537": {
+      "fn": "ConfirmedOwnerWithProposal._transferOwnership",
+      "offset": [
+        1756,
+        1795
+      ],
+      "op": "MLOAD",
+      "path": "7"
+    },
+    "538": {
+      "fn": "ConfirmedOwnerWithProposal._transferOwnership",
+      "offset": [
+        1725,
+        1744
+      ],
+      "op": "SWAP3",
+      "path": "7"
+    },
+    "539": {
+      "fn": "ConfirmedOwnerWithProposal._transferOwnership",
+      "offset": [
+        1725,
+        1744
+      ],
+      "op": "SWAP4",
+      "path": "7"
+    },
+    "540": {
+      "fn": "ConfirmedOwnerWithProposal._transferOwnership",
+      "offset": [
+        1783,
+        1790
+      ],
+      "op": "AND",
+      "path": "7"
+    },
+    "541": {
+      "fn": "ConfirmedOwnerWithProposal._transferOwnership",
+      "offset": [
+        1783,
+        1790
+      ],
+      "op": "SWAP2",
+      "path": "7"
+    },
+    "542": {
+      "fn": "ConfirmedOwnerWithProposal._transferOwnership",
+      "offset": [
+        1756,
+        1795
+      ],
+      "op": "PUSH32",
+      "path": "7",
+      "value": "0xED8889F560326EB138920D842192F0EB3DD22B4F139C87A2C57538E05BAE1278"
+    },
+    "575": {
+      "fn": "ConfirmedOwnerWithProposal._transferOwnership",
+      "offset": [
+        1756,
+        1795
+      ],
+      "op": "SWAP2",
+      "path": "7"
+    },
+    "576": {
+      "op": "SWAP1"
+    },
+    "577": {
+      "fn": "ConfirmedOwnerWithProposal._transferOwnership",
+      "offset": [
+        1756,
+        1795
+      ],
+      "op": "LOG3",
+      "path": "7"
+    },
+    "578": {
+      "fn": "ConfirmedOwnerWithProposal._transferOwnership",
+      "offset": [
+        1598,
+        1800
+      ],
+      "op": "POP",
+      "path": "7"
+    },
+    "579": {
+      "fn": "ConfirmedOwnerWithProposal._transferOwnership",
+      "jump": "o",
+      "offset": [
+        1598,
+        1800
+      ],
+      "op": "JUMP",
+      "path": "7"
+    },
+    "580": {
+      "op": "JUMPDEST"
+    },
+    "581": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "583": {
+      "op": "PUSH1",
+      "value": "0x20"
+    },
+    "585": {
+      "op": "DUP3"
+    },
+    "586": {
+      "op": "DUP5"
+    },
+    "587": {
+      "op": "SUB"
+    },
+    "588": {
+      "op": "SLT"
+    },
+    "589": {
+      "op": "ISZERO"
+    },
+    "590": {
+      "op": "PUSH2",
+      "value": "0x256"
+    },
+    "593": {
+      "op": "JUMPI"
+    },
+    "594": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "596": {
+      "op": "DUP1"
+    },
+    "597": {
+      "op": "REVERT"
+    },
+    "598": {
+      "op": "JUMPDEST"
+    },
+    "599": {
+      "op": "DUP2"
+    },
+    "600": {
+      "op": "CALLDATALOAD"
+    },
+    "601": {
+      "op": "PUSH1",
+      "value": "0x1"
+    },
+    "603": {
+      "op": "PUSH1",
+      "value": "0x1"
+    },
+    "605": {
+      "op": "PUSH1",
+      "value": "0xA0"
+    },
+    "607": {
+      "op": "SHL"
+    },
+    "608": {
+      "op": "SUB"
+    },
+    "609": {
+      "op": "DUP2"
+    },
+    "610": {
+      "op": "AND"
+    },
+    "611": {
+      "op": "DUP2"
+    },
+    "612": {
+      "op": "EQ"
+    },
+    "613": {
+      "op": "PUSH2",
+      "value": "0x26D"
+    },
+    "616": {
+      "op": "JUMPI"
+    },
+    "617": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "619": {
+      "op": "DUP1"
+    },
+    "620": {
+      "op": "REVERT"
+    },
+    "621": {
+      "op": "JUMPDEST"
+    },
+    "622": {
+      "op": "SWAP4"
+    },
+    "623": {
+      "op": "SWAP3"
+    },
+    "624": {
+      "op": "POP"
+    },
+    "625": {
+      "op": "POP"
+    },
+    "626": {
+      "op": "POP"
+    },
+    "627": {
+      "jump": "o",
+      "op": "JUMP"
+    }
+  },
+  "sha1": "966b63d720e9f57792a07858811a2d113af28637",
+  "source": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.0;\n\nimport \"./ConfirmedOwnerWithProposal.sol\";\n\n/**\n * @title The ConfirmedOwner contract\n * @notice A contract with helpers for basic contract ownership.\n */\ncontract ConfirmedOwner is ConfirmedOwnerWithProposal {\n\n  constructor(\n    address newOwner\n  )\n    ConfirmedOwnerWithProposal(\n      newOwner,\n      address(0)\n    )\n  {\n  }\n\n}\n",
+  "sourceMap": "212:178:6:-:0;;;271:116;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;347:8;371:1;-1:-1:-1;;;;;589:22:7;;581:59;;;;-1:-1:-1;;;581:59:7;;511:2:21;581:59:7;;;493:21:21;550:2;530:18;;;523:30;589:26;569:18;;;562:54;633:18;;581:59:7;;;;;;;;;647:7;:18;;-1:-1:-1;;;;;;647:18:7;-1:-1:-1;;;;;647:18:7;;;;;;;;;;675:26;;;671:79;;711:32;730:12;711:18;:32::i;:::-;511:243;;271:116:6;212:178;;1598:202:7;-1:-1:-1;;;;;1674:16:7;;1680:10;1674:16;;1666:52;;;;-1:-1:-1;;;1666:52:7;;864:2:21;1666:52:7;;;846:21:21;903:2;883:18;;;876:30;942:25;922:18;;;915:53;985:18;;1666:52:7;662:347:21;1666:52:7;1725:14;:19;;-1:-1:-1;;;;;;1725:19:7;-1:-1:-1;;;;;1725:19:7;;;;;;;;;-1:-1:-1;1783:7:7;;1756:39;;1725:19;;1783:7;;1756:39;;-1:-1:-1;1756:39:7;1598:202;:::o;14:290:21:-;84:6;137:2;125:9;116:7;112:23;108:32;105:52;;;153:1;150;143:12;105:52;179:16;;-1:-1:-1;;;;;224:31:21;;214:42;;204:70;;270:1;267;260:12;204:70;293:5;14:290;-1:-1:-1;;;14:290:21:o;662:347::-;212:178:6;;;;;;",
+  "sourcePath": "/Users/palll/.brownie/packages/smartcontractkit/chainlink-brownie-contracts@0.2.2/contracts/src/v0.8/ConfirmedOwner.sol",
+  "type": "contract"
+}

@@ -24,12 +24,12 @@ const App = () => {
     };
 
     useLayoutEffect(() => {
-        console.log('web3 isAuthenticated: ', isWeb3Enabled, isAuthenticated, user);
+        // console.log('web3 isAuthenticated: ', isWeb3Enabled, isAuthenticated, user);
         if (!isWeb3Enabled || !isAuthenticated) {
             enableAndAuthenticate();
         }
     }, []);
-    console.log('web3 isAuthenticated: ', isWeb3Enabled, isAuthenticated, user);
+    // console.log('web3 isAuthenticated: ', isWeb3Enabled, isAuthenticated, user);
     return (
         <StyledEngineProvider injectFirst>
             <ThemeProvider theme={themes(customization)}>

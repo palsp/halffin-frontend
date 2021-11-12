@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useMoralis } from 'react-moralis';
 // material-ui
 import { Box, Card, Grid, Typography, TextField, Button } from '@mui/material';
@@ -8,18 +8,41 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import MainCard from 'ui-component/cards/MainCard';
 import SubCard from 'ui-component/cards/SubCard';
 import { AlternateEmail } from '@mui/icons-material';
+import { abi } from 'api/chain-info/contracts/EscrowFactory.json';
+import networkMapping from 'api/chain-info/deployments/map.json';
+import { constants } from 'ethers';
 
 const CreateProduct = () => {
-    const { Moralis } = useMoralis();
+    const { Moralis, authenticate, enableWeb3, isAuthenticated, isWeb3Enabled, user } = useMoralis();
+    const web3 = new Moralis.Web3();
     const theme = useTheme();
     const formRef = useRef(null);
     const [selectedImage, setSelectedImage] = useState();
     const [productDetail, setProductDetail] = useState({
-        name: '',
-        description: '',
+        // name: '',
+        // description: '',
         price: 0,
         lockTime: 0
     });
+    const [factoryAddress, setFactoryAddress] = useState('');
+
+    const enableAndAuthenticate = async () => {
+        await enableWeb3();
+        await authenticate();
+    };
+
+    const getChainId = async () => {
+        const chainId = await Moralis.getChainId();
+        console.log(chainId); // 56
+        const address = chainId ? networkMapping[chainId.toString()] : constants.AddressZero;
+        setFactoryAddress(address);
+    };
+
+    useEffect(() => {
+        getChainId();
+    }, []);
+
+    const [txState, setTxState] = useState({ status: null });
 
     const imageChange = (e) => {
         if (e.target.files && e.target.files.length > 0) {
@@ -31,23 +54,33 @@ const CreateProduct = () => {
         setSelectedImage();
     };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log(productDetail);
-    };
-
     const createProduct = async (productDetail) => {
+        const web3 = await Moralis.enableWeb3();
+        const newPrice = web3.utils.toWei(productDetail.price, 'ether');
+        console.log(web3.eth.getAccounts()[0]);
+        const contract = new web3.eth.Contract(abi, factoryAddress.EscrowFactory[0]);
         try {
-            const res = await Moralis.executeFunction({
-                functionname: 'create_product',
-                params: productDetail
-            });
-            console.log(res);
+            contract.methods
+                .createProduct(newPrice, productDetail.lockTime)
+                .send({ from: user.attributes.ethAddress })
+                .on('confirmation', (confirmationNumber, receipt) => {
+                    console.log(confirmationNumber);
+                })
+                .on('receipt', (receipt) => {
+                    console.log(receipt);
+                });
         } catch (e) {
+            setTxState({ status: null });
             console.log(e);
+            console.log(factoryAddress.EscrowFactory);
         }
     };
 
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log(productDetail);
+        createProduct(productDetail);
+    };
     return (
         <MainCard title="Create new item">
             <form ref={formRef} noValidate autoComplete="off">

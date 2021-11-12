@@ -15,8 +15,7 @@ import 'assets/scss/style.scss';
 // ==============================|| REACT DOM RENDER  ||============================== //
 
 ReactDOM.render(
-    // <MoralisProvider appId={process.env.REACT_APP_MORALIS_APP_ID} serverUrl={process.env.REACT_APP_MORALIS_SERVER_URL}>
-    <MoralisProvider appId="9sDlWxGJkDG7BLxWDvOogYhqwRd48JmWcSxA9TeQ" serverUrl="https://pl7svk5saa0u.usemoralis.com:2053/server">
+    <MoralisProvider appId={process.env.REACT_APP_MORALIS_APP_ID} serverUrl={process.env.REACT_APP_MORALIS_SERVER_URL}>
         <Provider store={store}>
             <BrowserRouter>
                 <App />
