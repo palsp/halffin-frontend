@@ -1,6 +1,6 @@
 // material-ui
 import { Typography } from '@mui/material';
-
+import Avatar from '@mui/material/Avatar';
 // project imports
 import MainCard from 'ui-component/cards/MainCard';
 
@@ -8,6 +8,7 @@ import MainCard from 'ui-component/cards/MainCard';
 
 const SamplePage = () => (
     <MainCard title="Sample Card">
+        <Avatar src="https://picsum.photos/200" />
         <Typography variant="body2">
             Lorem ipsum dolor sit amen, consenter nipissing eli, sed do elusion tempos incident ut laborers et doolie magna alissa. Ut enif
             ad minim venice, quin nostrum exercitation illampu laborings nisi ut liquid ex ea commons construal. Duos aube grue dolor in

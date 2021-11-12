@@ -95,8 +95,11 @@ const ProfileSection = () => {
             anchorRef.current.focus();
         }
 
+        if (isAuthenticated) {
+            enableWeb3();
+        }
         prevOpen.current = open;
-    }, [open]);
+    }, [open, isAuthenticated]);
 
     // console.log('web3 isAuthenticated: ', isWeb3Enabled, isAuthenticated);
     return (
@@ -199,7 +202,7 @@ const ProfileSection = () => {
                                                 <ListItemButton
                                                     sx={{ borderRadius: `${customization.borderRadius}px` }}
                                                     selected={selectedIndex === 0}
-                                                    onClick={(event) => handleListItemClick(event, 0, '/user/account-profile/profile1')}
+                                                    onClick={(event) => handleListItemClick(event, 0, '/user/account-profile')}
                                                 >
                                                     <ListItemIcon>
                                                         <IconUser stroke={1.5} size="1.3rem" />

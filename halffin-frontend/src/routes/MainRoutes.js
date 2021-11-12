@@ -18,6 +18,7 @@ const UtilsTablerIcons = Loadable(lazy(() => import('views/utilities/TablerIcons
 const SamplePage = Loadable(lazy(() => import('views/sample-page')));
 const MyProduct = Loadable(lazy(() => import('views/product/MyProduct')));
 const CreateProduct = Loadable(lazy(() => import('views/product/CreateProduct')));
+const UserProfile = Loadable(lazy(() => import('views/user/UserProfile')));
 // ==============================|| MAIN ROUTING ||============================== //
 
 const MainRoutes = {
@@ -63,6 +64,10 @@ const MainRoutes = {
         {
             path: '/my-product/create',
             element: <CreateProduct />
+        },
+        {
+            path: '/user/account-profile',
+            element: <UserProfile />
         }
     ]
 };
