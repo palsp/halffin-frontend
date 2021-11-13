@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import { useLayoutEffect } from 'react';
+import { useEffect } from 'react';
 import { ThemeProvider } from '@mui/material/styles';
 import { CssBaseline, StyledEngineProvider } from '@mui/material';
 import { useMoralis } from 'react-moralis';
@@ -23,12 +23,11 @@ const App = () => {
         await authenticate();
     };
 
-    useLayoutEffect(() => {
-        // console.log('web3 isAuthenticated: ', isWeb3Enabled, isAuthenticated, user);
-        if (!isWeb3Enabled || !isAuthenticated) {
-            enableAndAuthenticate();
+    useEffect(() => {
+        if (isAuthenticated) {
+            enableWeb3();
         }
-    }, []);
+    }, [isAuthenticated]);
     // console.log('web3 isAuthenticated: ', isWeb3Enabled, isAuthenticated, user);
     return (
         <StyledEngineProvider injectFirst>
