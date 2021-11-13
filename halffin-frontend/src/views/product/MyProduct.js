@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 // material-ui
 import { Box, ButtonBase, Card, Grid, IconButton, Typography } from '@mui/material';
 // project imports
@@ -8,12 +9,17 @@ import { gridSpacing } from 'store/constant';
 import SecondaryAction from 'ui-component/cards/CardSecondaryAction';
 import { IconCirclePlus } from '@tabler/icons';
 import { useNavigate } from 'react-router-dom';
+import ProductCard from './ProductCard';
 
 const MyProduct = () => {
     const navigate = useNavigate();
+    const [isLoading, setLoading] = useState(true);
     const handleClickAdd = (route = '') => {
         navigate(route);
     };
+    useEffect(() => {
+        setLoading(false);
+    }, []);
     return (
         <MainCard
             title="My products"
@@ -23,13 +29,7 @@ const MyProduct = () => {
                 </IconButton>
             }
         >
-            <SubCard title="Primary Color">
-                <Grid container spacing={gridSpacing}>
-                    <Grid item xs={12} sm={6} md={4} lg={2}>
-                        <ItemBox bgcolor="primary.light" data={{ label: 'description', color: 'Price' }} title="photo here" dark />
-                    </Grid>
-                </Grid>
-            </SubCard>
+            <ProductCard isLoading={isLoading} />
         </MainCard>
     );
 };

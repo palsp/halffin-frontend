@@ -11,8 +11,21 @@ import { AlternateEmail } from '@mui/icons-material';
 import { abi } from 'api/chain-info/contracts/EscrowFactory.json';
 import networkMapping from 'api/chain-info/deployments/map.json';
 import { constants } from 'ethers';
+import useFactory from 'api/factory';
+import { makeStyles } from '@mui/styles';
+
+const useStyles = makeStyles((theme) => ({
+    image: {
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'cover',
+        backgroundPposition: 'center',
+        backgroundOrigin: 'border-box',
+        backgroundClip: 'border-box'
+    }
+}));
 
 const CreateProduct = () => {
+    const classes = useStyles();
     const { Moralis, authenticate, enableWeb3, isAuthenticated, isWeb3Enabled, user } = useMoralis();
     const web3 = new Moralis.Web3();
     const theme = useTheme();
@@ -24,7 +37,9 @@ const CreateProduct = () => {
         price: 0,
         lockTime: 0
     });
+
     const [factoryAddress, setFactoryAddress] = useState('');
+    const { addProduct } = useFactory(factoryAddress);
 
     const enableAndAuthenticate = async () => {
         await enableWeb3();
@@ -34,7 +49,7 @@ const CreateProduct = () => {
     const getChainId = async () => {
         const chainId = await Moralis.getChainId();
         console.log(chainId); // 56
-        const address = chainId ? networkMapping[chainId.toString()] : constants.AddressZero;
+        const address = chainId ? networkMapping[chainId.toString()].EscrowFactory[0] : constants.AddressZero;
         setFactoryAddress(address);
     };
 
@@ -79,7 +94,8 @@ const CreateProduct = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(productDetail);
-        createProduct(productDetail);
+        // createProduct(productDetail);
+        addProduct(productDetail);
     };
     return (
         <MainCard title="Create new item">
@@ -88,8 +104,11 @@ const CreateProduct = () => {
                     <Grid item xs={12} sm={6}>
                         <input accept="image/*" type="file" onChange={imageChange} />
                         {selectedImage && (
-                            <div>
-                                <img src={URL.createObjectURL(selectedImage)} alt="" />
+                            <div
+                                className={classes.image}
+                                style={{ width: '300px', height: '300px', backgroundImage: `url(${URL.createObjectURL(selectedImage)})` }}
+                            >
+                                {/* <img src={URL.createObjectURL(selectedImage)} alt="" /> */}
                                 <Button onClick={removeSelectedImage} startIcon={<DeleteIcon />}>
                                     Remove This Image
                                 </Button>
