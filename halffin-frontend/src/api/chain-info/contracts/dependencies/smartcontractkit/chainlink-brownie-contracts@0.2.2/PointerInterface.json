@@ -15,21 +15,21 @@
     }
   ],
   "allSourcePaths": {
-    "14": "/Users/palll/.brownie/packages/smartcontractkit/chainlink-brownie-contracts@0.2.2/contracts/src/v0.8/interfaces/PointerInterface.sol"
+    "9": "/Users/palll/.brownie/packages/smartcontractkit/chainlink-brownie-contracts@0.2.2/contracts/src/v0.8/interfaces/PointerInterface.sol"
   },
   "ast": {
     "absolutePath": "/Users/palll/.brownie/packages/smartcontractkit/chainlink-brownie-contracts@0.2.2/contracts/src/v0.8/interfaces/PointerInterface.sol",
     "exportedSymbols": {
       "PointerInterface": [
-        1960
+        1929
       ]
     },
-    "id": 1961,
+    "id": 1930,
     "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 1954,
+        "id": 1923,
         "literals": [
           "solidity",
           "^",
@@ -37,7 +37,7 @@
           ".0"
         ],
         "nodeType": "PragmaDirective",
-        "src": "32:23:14"
+        "src": "32:23:9"
       },
       {
         "abstract": false,
@@ -46,42 +46,42 @@
         "contractDependencies": [],
         "contractKind": "interface",
         "fullyImplemented": false,
-        "id": 1960,
+        "id": 1929,
         "linearizedBaseContracts": [
-          1960
+          1929
         ],
         "name": "PointerInterface",
-        "nameLocation": "67:16:14",
+        "nameLocation": "67:16:9",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "functionSelector": "38cc4831",
-            "id": 1959,
+            "id": 1928,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
             "name": "getAddress",
-            "nameLocation": "100:10:14",
+            "nameLocation": "100:10:9",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 1955,
+              "id": 1924,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "110:2:14"
+              "src": "110:2:9"
             },
             "returnParameters": {
-              "id": 1958,
+              "id": 1927,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1957,
+                  "id": 1926,
                   "mutability": "mutable",
                   "name": "",
                   "nameLocation": "-1:-1:-1",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1959,
-                  "src": "155:7:14",
+                  "scope": 1928,
+                  "src": "155:7:9",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -89,10 +89,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 1956,
+                    "id": 1925,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "155:7:14",
+                    "src": "155:7:9",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -102,21 +102,21 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "147:21:14"
+              "src": "147:21:9"
             },
-            "scope": 1960,
-            "src": "91:78:14",
+            "scope": 1929,
+            "src": "91:78:9",
             "stateMutability": "view",
             "virtual": false,
             "visibility": "external"
           }
         ],
-        "scope": 1961,
-        "src": "57:114:14",
+        "scope": 1930,
+        "src": "57:114:9",
         "usedErrors": []
       }
     ],
-    "src": "32:140:14"
+    "src": "32:140:9"
   },
   "bytecode": "",
   "bytecodeSha1": "da39a3ee5e6b4b0d3255bfef95601890afd80709",

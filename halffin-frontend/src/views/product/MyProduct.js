@@ -20,6 +20,7 @@ const MyProduct = () => {
     useEffect(() => {
         setLoading(false);
     }, []);
+
     return (
         <MainCard
             title="My products"

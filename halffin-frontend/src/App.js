@@ -28,7 +28,6 @@ const App = () => {
             enableWeb3();
         }
     }, [isAuthenticated]);
-    // console.log('web3 isAuthenticated: ', isWeb3Enabled, isAuthenticated, user);
     return (
         <StyledEngineProvider injectFirst>
             <ThemeProvider theme={themes(customization)}>

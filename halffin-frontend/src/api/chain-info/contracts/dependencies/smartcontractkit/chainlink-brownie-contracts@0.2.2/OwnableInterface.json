@@ -35,21 +35,21 @@
     }
   ],
   "allSourcePaths": {
-    "13": "/Users/palll/.brownie/packages/smartcontractkit/chainlink-brownie-contracts@0.2.2/contracts/src/v0.8/interfaces/OwnableInterface.sol"
+    "11": "/Users/palll/.brownie/packages/smartcontractkit/chainlink-brownie-contracts@0.2.2/contracts/src/v0.8/interfaces/OwnableInterface.sol"
   },
   "ast": {
     "absolutePath": "/Users/palll/.brownie/packages/smartcontractkit/chainlink-brownie-contracts@0.2.2/contracts/src/v0.8/interfaces/OwnableInterface.sol",
     "exportedSymbols": {
       "OwnableInterface": [
-        3167
+        3290
       ]
     },
-    "id": 3168,
+    "id": 3291,
     "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 3153,
+        "id": 3276,
         "literals": [
           "solidity",
           "^",
@@ -57,7 +57,7 @@
           ".0"
         ],
         "nodeType": "PragmaDirective",
-        "src": "32:23:13"
+        "src": "32:23:11"
       },
       {
         "abstract": false,
@@ -66,42 +66,42 @@
         "contractDependencies": [],
         "contractKind": "interface",
         "fullyImplemented": false,
-        "id": 3167,
+        "id": 3290,
         "linearizedBaseContracts": [
-          3167
+          3290
         ],
         "name": "OwnableInterface",
-        "nameLocation": "67:16:13",
+        "nameLocation": "67:16:11",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "functionSelector": "8da5cb5b",
-            "id": 3158,
+            "id": 3281,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
             "name": "owner",
-            "nameLocation": "97:5:13",
+            "nameLocation": "97:5:11",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 3154,
+              "id": 3277,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "102:2:13"
+              "src": "102:2:11"
             },
             "returnParameters": {
-              "id": 3157,
+              "id": 3280,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 3156,
+                  "id": 3279,
                   "mutability": "mutable",
                   "name": "",
                   "nameLocation": "-1:-1:-1",
                   "nodeType": "VariableDeclaration",
-                  "scope": 3158,
-                  "src": "138:7:13",
+                  "scope": 3281,
+                  "src": "138:7:11",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -109,10 +109,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 3155,
+                    "id": 3278,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "138:7:13",
+                    "src": "138:7:11",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -122,36 +122,36 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "130:21:13"
+              "src": "130:21:11"
             },
-            "scope": 3167,
-            "src": "88:64:13",
+            "scope": 3290,
+            "src": "88:64:11",
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "external"
           },
           {
             "functionSelector": "f2fde38b",
-            "id": 3163,
+            "id": 3286,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
             "name": "transferOwnership",
-            "nameLocation": "165:17:13",
+            "nameLocation": "165:17:11",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 3161,
+              "id": 3284,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 3160,
+                  "id": 3283,
                   "mutability": "mutable",
                   "name": "recipient",
-                  "nameLocation": "196:9:13",
+                  "nameLocation": "196:9:11",
                   "nodeType": "VariableDeclaration",
-                  "scope": 3163,
-                  "src": "188:17:13",
+                  "scope": 3286,
+                  "src": "188:17:11",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -159,10 +159,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 3159,
+                    "id": 3282,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "188:7:13",
+                    "src": "188:7:11",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -172,54 +172,54 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "182:27:13"
+              "src": "182:27:11"
             },
             "returnParameters": {
-              "id": 3162,
+              "id": 3285,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "222:0:13"
+              "src": "222:0:11"
             },
-            "scope": 3167,
-            "src": "156:67:13",
+            "scope": 3290,
+            "src": "156:67:11",
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "external"
           },
           {
             "functionSelector": "79ba5097",
-            "id": 3166,
+            "id": 3289,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
             "name": "acceptOwnership",
-            "nameLocation": "236:15:13",
+            "nameLocation": "236:15:11",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 3164,
+              "id": 3287,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "251:2:13"
+              "src": "251:2:11"
             },
             "returnParameters": {
-              "id": 3165,
+              "id": 3288,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "266:0:13"
+              "src": "266:0:11"
             },
-            "scope": 3167,
-            "src": "227:40:13",
+            "scope": 3290,
+            "src": "227:40:11",
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "external"
           }
         ],
-        "scope": 3168,
-        "src": "57:212:13",
+        "scope": 3291,
+        "src": "57:212:11",
         "usedErrors": []
       }
     ],
-    "src": "32:238:13"
+    "src": "32:238:11"
   },
   "bytecode": "",
   "bytecodeSha1": "da39a3ee5e6b4b0d3255bfef95601890afd80709",

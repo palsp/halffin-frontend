@@ -84,29 +84,29 @@
     }
   ],
   "allSourcePaths": {
-    "13": "/Users/palll/.brownie/packages/smartcontractkit/chainlink-brownie-contracts@0.2.2/contracts/src/v0.8/interfaces/OwnableInterface.sol",
-    "6": "/Users/palll/.brownie/packages/smartcontractkit/chainlink-brownie-contracts@0.2.2/contracts/src/v0.8/ConfirmedOwner.sol",
-    "7": "/Users/palll/.brownie/packages/smartcontractkit/chainlink-brownie-contracts@0.2.2/contracts/src/v0.8/ConfirmedOwnerWithProposal.sol"
+    "11": "/Users/palll/.brownie/packages/smartcontractkit/chainlink-brownie-contracts@0.2.2/contracts/src/v0.8/interfaces/OwnableInterface.sol",
+    "4": "/Users/palll/.brownie/packages/smartcontractkit/chainlink-brownie-contracts@0.2.2/contracts/src/v0.8/ConfirmedOwner.sol",
+    "5": "/Users/palll/.brownie/packages/smartcontractkit/chainlink-brownie-contracts@0.2.2/contracts/src/v0.8/ConfirmedOwnerWithProposal.sol"
   },
   "ast": {
     "absolutePath": "/Users/palll/.brownie/packages/smartcontractkit/chainlink-brownie-contracts@0.2.2/contracts/src/v0.8/ConfirmedOwner.sol",
     "exportedSymbols": {
       "ConfirmedOwner": [
-        1230
+        1423
       ],
       "ConfirmedOwnerWithProposal": [
-        2132
+        2233
       ],
       "OwnableInterface": [
-        3167
+        3290
       ]
     },
-    "id": 1231,
+    "id": 1424,
     "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 1212,
+        "id": 1405,
         "literals": [
           "solidity",
           "^",
@@ -114,17 +114,17 @@
           ".0"
         ],
         "nodeType": "PragmaDirective",
-        "src": "32:23:6"
+        "src": "32:23:4"
       },
       {
         "absolutePath": "/Users/palll/.brownie/packages/smartcontractkit/chainlink-brownie-contracts@0.2.2/contracts/src/v0.8/ConfirmedOwnerWithProposal.sol",
         "file": "./ConfirmedOwnerWithProposal.sol",
-        "id": 1213,
+        "id": 1406,
         "nameLocation": "-1:-1:-1",
         "nodeType": "ImportDirective",
-        "scope": 1231,
-        "sourceUnit": 2133,
-        "src": "57:42:6",
+        "scope": 1424,
+        "sourceUnit": 2234,
+        "src": "57:42:4",
         "symbolAliases": [],
         "unitAlias": ""
       },
@@ -133,57 +133,57 @@
         "baseContracts": [
           {
             "baseName": {
-              "id": 1215,
+              "id": 1408,
               "name": "ConfirmedOwnerWithProposal",
               "nodeType": "IdentifierPath",
-              "referencedDeclaration": 2132,
-              "src": "239:26:6"
+              "referencedDeclaration": 2233,
+              "src": "239:26:4"
             },
-            "id": 1216,
+            "id": 1409,
             "nodeType": "InheritanceSpecifier",
-            "src": "239:26:6"
+            "src": "239:26:4"
           }
         ],
         "canonicalName": "ConfirmedOwner",
         "contractDependencies": [],
         "contractKind": "contract",
         "documentation": {
-          "id": 1214,
+          "id": 1407,
           "nodeType": "StructuredDocumentation",
-          "src": "101:110:6",
+          "src": "101:110:4",
           "text": " @title The ConfirmedOwner contract\n @notice A contract with helpers for basic contract ownership."
         },
         "fullyImplemented": true,
-        "id": 1230,
+        "id": 1423,
         "linearizedBaseContracts": [
-          1230,
-          2132,
-          3167
+          1423,
+          2233,
+          3290
         ],
         "name": "ConfirmedOwner",
-        "nameLocation": "221:14:6",
+        "nameLocation": "221:14:4",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "body": {
-              "id": 1228,
+              "id": 1421,
               "nodeType": "Block",
-              "src": "382:5:6",
+              "src": "382:5:4",
               "statements": []
             },
-            "id": 1229,
+            "id": 1422,
             "implemented": true,
             "kind": "constructor",
             "modifiers": [
               {
                 "arguments": [
                   {
-                    "id": 1221,
+                    "id": 1414,
                     "name": "newOwner",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 1218,
-                    "src": "347:8:6",
+                    "referencedDeclaration": 1411,
+                    "src": "347:8:4",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
@@ -193,14 +193,14 @@
                     "arguments": [
                       {
                         "hexValue": "30",
-                        "id": 1224,
+                        "id": 1417,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": true,
                         "kind": "number",
                         "lValueRequested": false,
                         "nodeType": "Literal",
-                        "src": "371:1:6",
+                        "src": "371:1:4",
                         "typeDescriptions": {
                           "typeIdentifier": "t_rational_0_by_1",
                           "typeString": "int_const 0"
@@ -215,26 +215,26 @@
                           "typeString": "int_const 0"
                         }
                       ],
-                      "id": 1223,
+                      "id": 1416,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": true,
                       "lValueRequested": false,
                       "nodeType": "ElementaryTypeNameExpression",
-                      "src": "363:7:6",
+                      "src": "363:7:4",
                       "typeDescriptions": {
                         "typeIdentifier": "t_type$_t_address_$",
                         "typeString": "type(address)"
                       },
                       "typeName": {
-                        "id": 1222,
+                        "id": 1415,
                         "name": "address",
                         "nodeType": "ElementaryTypeName",
-                        "src": "363:7:6",
+                        "src": "363:7:4",
                         "typeDescriptions": {}
                       }
                     },
-                    "id": 1225,
+                    "id": 1418,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": true,
@@ -242,7 +242,7 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "363:10:6",
+                    "src": "363:10:4",
                     "tryCall": false,
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -250,35 +250,35 @@
                     }
                   }
                 ],
-                "id": 1226,
+                "id": 1419,
                 "kind": "baseConstructorSpecifier",
                 "modifierName": {
-                  "id": 1220,
+                  "id": 1413,
                   "name": "ConfirmedOwnerWithProposal",
                   "nodeType": "IdentifierPath",
-                  "referencedDeclaration": 2132,
-                  "src": "313:26:6"
+                  "referencedDeclaration": 2233,
+                  "src": "313:26:4"
                 },
                 "nodeType": "ModifierInvocation",
-                "src": "313:66:6"
+                "src": "313:66:4"
               }
             ],
             "name": "",
             "nameLocation": "-1:-1:-1",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 1219,
+              "id": 1412,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1218,
+                  "id": 1411,
                   "mutability": "mutable",
                   "name": "newOwner",
-                  "nameLocation": "296:8:6",
+                  "nameLocation": "296:8:4",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1229,
-                  "src": "288:16:6",
+                  "scope": 1422,
+                  "src": "288:16:4",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -286,10 +286,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 1217,
+                    "id": 1410,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "288:7:6",
+                    "src": "288:7:4",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -299,27 +299,27 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "282:26:6"
+              "src": "282:26:4"
             },
             "returnParameters": {
-              "id": 1227,
+              "id": 1420,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "382:0:6"
+              "src": "382:0:4"
             },
-            "scope": 1230,
-            "src": "271:116:6",
+            "scope": 1423,
+            "src": "271:116:4",
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "public"
           }
         ],
-        "scope": 1231,
-        "src": "212:178:6",
+        "scope": 1424,
+        "src": "212:178:4",
         "usedErrors": []
       }
     ],
-    "src": "32:359:6"
+    "src": "32:359:4"
   },
   "bytecode": "608060405234801561001057600080fd5b5060405161045838038061045883398101604081905261002f9161016f565b8060006001600160a01b03821661008d5760405162461bcd60e51b815260206004820152601860248201527f43616e6e6f7420736574206f776e657220746f207a65726f000000000000000060448201526064015b60405180910390fd5b600080546001600160a01b0319166001600160a01b03848116919091179091558116156100bd576100bd816100c5565b50505061019f565b6001600160a01b03811633141561011e5760405162461bcd60e51b815260206004820152601760248201527f43616e6e6f74207472616e7366657220746f2073656c660000000000000000006044820152606401610084565b600180546001600160a01b0319166001600160a01b0383811691821790925560008054604051929316917fed8889f560326eb138920d842192f0eb3dd22b4f139c87a2c57538e05bae12789190a350565b60006020828403121561018157600080fd5b81516001600160a01b038116811461019857600080fd5b9392505050565b6102aa806101ae6000396000f3fe608060405234801561001057600080fd5b50600436106100415760003560e01c806379ba5097146100465780638da5cb5b14610050578063f2fde38b1461006f575b600080fd5b61004e610082565b005b600054604080516001600160a01b039092168252519081900360200190f35b61004e61007d366004610244565b610131565b6001546001600160a01b031633146100da5760405162461bcd60e51b815260206004820152601660248201527526bab9ba10313290383937b837b9b2b21037bbb732b960511b60448201526064015b60405180910390fd5b60008054336001600160a01b0319808316821784556001805490911690556040516001600160a01b0390921692909183917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e091a350565b610139610145565b6101428161019a565b50565b6000546001600160a01b031633146101985760405162461bcd60e51b815260206004820152601660248201527527b7363c9031b0b63630b1363290313c9037bbb732b960511b60448201526064016100d1565b565b6001600160a01b0381163314156101f35760405162461bcd60e51b815260206004820152601760248201527f43616e6e6f74207472616e7366657220746f2073656c6600000000000000000060448201526064016100d1565b600180546001600160a01b0319166001600160a01b0383811691821790925560008054604051929316917fed8889f560326eb138920d842192f0eb3dd22b4f139c87a2c57538e05bae12789190a350565b60006020828403121561025657600080fd5b81356001600160a01b038116811461026d57600080fd5b939250505056fea264697066735822122050491a46fe6c92e33a7972b6337202a4f62e2a388c0ab049135a74d7ded877f364736f6c63430008090033",
   "bytecodeSha1": "f3ae1103de2dc20d48fe928ae51036e8c385e5a9",
@@ -334,9 +334,9 @@
   "contractName": "ConfirmedOwner",
   "coverageMap": {
     "branches": {
-      "13": {},
-      "6": {},
-      "7": {
+      "11": {},
+      "4": {},
+      "5": {
         "ConfirmedOwnerWithProposal._transferOwnership": {
           "12": [
             1674,
@@ -361,9 +361,9 @@
       }
     },
     "statements": {
-      "13": {},
-      "6": {},
-      "7": {
+      "11": {},
+      "4": {},
+      "5": {
         "ConfirmedOwnerWithProposal._transferOwnership": {
           "7": [
             1666,
@@ -422,7 +422,7 @@
     "smartcontractkit/chainlink-brownie-contracts@0.2.2/OwnableInterface"
   ],
   "deployedBytecode": "608060405234801561001057600080fd5b50600436106100415760003560e01c806379ba5097146100465780638da5cb5b14610050578063f2fde38b1461006f575b600080fd5b61004e610082565b005b600054604080516001600160a01b039092168252519081900360200190f35b61004e61007d366004610244565b610131565b6001546001600160a01b031633146100da5760405162461bcd60e51b815260206004820152601660248201527526bab9ba10313290383937b837b9b2b21037bbb732b960511b60448201526064015b60405180910390fd5b60008054336001600160a01b0319808316821784556001805490911690556040516001600160a01b0390921692909183917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e091a350565b610139610145565b6101428161019a565b50565b6000546001600160a01b031633146101985760405162461bcd60e51b815260206004820152601660248201527527b7363c9031b0b63630b1363290313c9037bbb732b960511b60448201526064016100d1565b565b6001600160a01b0381163314156101f35760405162461bcd60e51b815260206004820152601760248201527f43616e6e6f74207472616e7366657220746f2073656c6600000000000000000060448201526064016100d1565b600180546001600160a01b0319166001600160a01b0383811691821790925560008054604051929316917fed8889f560326eb138920d842192f0eb3dd22b4f139c87a2c57538e05bae12789190a350565b60006020828403121561025657600080fd5b81356001600160a01b038116811461026d57600080fd5b939250505056fea264697066735822122050491a46fe6c92e33a7972b6337202a4f62e2a388c0ab049135a74d7ded877f364736f6c63430008090033",
-  "deployedSourceMap": "212:178:6:-:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1077:275:7;;;:::i;:::-;;1403:111;1473:7;1502;1403:111;;;-1:-1:-1;;;;;1502:7:7;;;160:51:21;;1403:111:7;;;;;148:2:21;1403:111:7;;;863:122;;;;;;:::i;:::-;;:::i;1077:275::-;1160:14;;-1:-1:-1;;;;;1160:14:7;1146:10;:28;1138:63;;;;-1:-1:-1;;;1138:63:7;;715:2:21;1138:63:7;;;697:21:21;754:2;734:18;;;727:30;-1:-1:-1;;;773:18:21;;;766:52;835:18;;1138:63:7;;;;;;;;;1208:16;1227:7;;1250:10;-1:-1:-1;;;;;;1240:20:7;;;;;;;-1:-1:-1;1266:27:7;;;;;;;1305:42;;-1:-1:-1;;;;;1227:7:7;;;;1250:10;;1227:7;;1305:42;;;1132:220;1077:275::o;863:122::-;2081:20;:18;:20::i;:::-;958:22:::1;977:2;958:18;:22::i;:::-;863:122:::0;:::o;1845:121::-;1927:7;;-1:-1:-1;;;;;1927:7:7;1913:10;:21;1905:56;;;;-1:-1:-1;;;1905:56:7;;1066:2:21;1905:56:7;;;1048:21:21;1105:2;1085:18;;;1078:30;-1:-1:-1;;;1124:18:21;;;1117:52;1186:18;;1905:56:7;864:346:21;1905:56:7;1845:121::o;1598:202::-;-1:-1:-1;;;;;1674:16:7;;1680:10;1674:16;;1666:52;;;;-1:-1:-1;;;1666:52:7;;1417:2:21;1666:52:7;;;1399:21:21;1456:2;1436:18;;;1429:30;1495:25;1475:18;;;1468:53;1538:18;;1666:52:7;1215:347:21;1666:52:7;1725:14;:19;;-1:-1:-1;;;;;;1725:19:7;-1:-1:-1;;;;;1725:19:7;;;;;;;;;-1:-1:-1;1783:7:7;;1756:39;;1725:19;;1783:7;;1756:39;;-1:-1:-1;1756:39:7;1598:202;:::o;222:286:21:-;281:6;334:2;322:9;313:7;309:23;305:32;302:52;;;350:1;347;340:12;302:52;376:23;;-1:-1:-1;;;;;428:31:21;;418:42;;408:70;;474:1;471;464:12;408:70;497:5;222:286;-1:-1:-1;;;222:286:21:o",
+  "deployedSourceMap": "212:178:4:-:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1077:275:5;;;:::i;:::-;;1403:111;1473:7;1502;1403:111;;;-1:-1:-1;;;;;1502:7:5;;;160:51:20;;1403:111:5;;;;;148:2:20;1403:111:5;;;863:122;;;;;;:::i;:::-;;:::i;1077:275::-;1160:14;;-1:-1:-1;;;;;1160:14:5;1146:10;:28;1138:63;;;;-1:-1:-1;;;1138:63:5;;715:2:20;1138:63:5;;;697:21:20;754:2;734:18;;;727:30;-1:-1:-1;;;773:18:20;;;766:52;835:18;;1138:63:5;;;;;;;;;1208:16;1227:7;;1250:10;-1:-1:-1;;;;;;1240:20:5;;;;;;;-1:-1:-1;1266:27:5;;;;;;;1305:42;;-1:-1:-1;;;;;1227:7:5;;;;1250:10;;1227:7;;1305:42;;;1132:220;1077:275::o;863:122::-;2081:20;:18;:20::i;:::-;958:22:::1;977:2;958:18;:22::i;:::-;863:122:::0;:::o;1845:121::-;1927:7;;-1:-1:-1;;;;;1927:7:5;1913:10;:21;1905:56;;;;-1:-1:-1;;;1905:56:5;;1066:2:20;1905:56:5;;;1048:21:20;1105:2;1085:18;;;1078:30;-1:-1:-1;;;1124:18:20;;;1117:52;1186:18;;1905:56:5;864:346:20;1905:56:5;1845:121::o;1598:202::-;-1:-1:-1;;;;;1674:16:5;;1680:10;1674:16;;1666:52;;;;-1:-1:-1;;;1666:52:5;;1417:2:20;1666:52:5;;;1399:21:20;1456:2;1436:18;;;1429:30;1495:25;1475:18;;;1468:53;1538:18;;1666:52:5;1215:347:20;1666:52:5;1725:14;:19;;-1:-1:-1;;;;;;1725:19:5;-1:-1:-1;;;;;1725:19:5;;;;;;;;;-1:-1:-1;1783:7:5;;1756:39;;1725:19;;1783:7;;1756:39;;-1:-1:-1;1756:39:5;1598:202;:::o;222:286:20:-;281:6;334:2;322:9;313:7;309:23;305:32;302:52;;;350:1;347;340:12;302:52;376:23;;-1:-1:-1;;;;;428:31:20;;418:42;;408:70;;474:1;471;464:12;408:70;497:5;222:286;-1:-1:-1;;;222:286:20:o",
   "language": "Solidity",
   "natspec": {
     "kind": "dev",
@@ -453,7 +453,7 @@
         390
       ],
       "op": "PUSH1",
-      "path": "6",
+      "path": "4",
       "value": "0x80"
     },
     "2": {
@@ -463,7 +463,7 @@
         390
       ],
       "op": "PUSH1",
-      "path": "6",
+      "path": "4",
       "value": "0x40"
     },
     "4": {
@@ -473,7 +473,7 @@
         390
       ],
       "op": "MSTORE",
-      "path": "6"
+      "path": "4"
     },
     "5": {
       "fn": null,
@@ -482,7 +482,7 @@
         390
       ],
       "op": "CALLVALUE",
-      "path": "6"
+      "path": "4"
     },
     "6": {
       "fn": null,
@@ -491,7 +491,7 @@
         390
       ],
       "op": "DUP1",
-      "path": "6"
+      "path": "4"
     },
     "7": {
       "fn": null,
@@ -500,7 +500,7 @@
         390
       ],
       "op": "ISZERO",
-      "path": "6"
+      "path": "4"
     },
     "8": {
       "fn": null,
@@ -509,7 +509,7 @@
         390
       ],
       "op": "PUSH2",
-      "path": "6",
+      "path": "4",
       "value": "0x10"
     },
     "11": {
@@ -519,7 +519,7 @@
         390
       ],
       "op": "JUMPI",
-      "path": "6"
+      "path": "4"
     },
     "12": {
       "fn": null,
@@ -528,7 +528,7 @@
         390
       ],
       "op": "PUSH1",
-      "path": "6",
+      "path": "4",
       "value": "0x0"
     },
     "14": {
@@ -538,7 +538,7 @@
         390
       ],
       "op": "DUP1",
-      "path": "6"
+      "path": "4"
     },
     "15": {
       "dev": "Cannot send ether to nonpayable function",
@@ -548,7 +548,7 @@
         390
       ],
       "op": "REVERT",
-      "path": "6"
+      "path": "4"
     },
     "16": {
       "fn": null,
@@ -557,7 +557,7 @@
         390
       ],
       "op": "JUMPDEST",
-      "path": "6"
+      "path": "4"
     },
     "17": {
       "fn": null,
@@ -566,7 +566,7 @@
         390
       ],
       "op": "POP",
-      "path": "6"
+      "path": "4"
     },
     "18": {
       "fn": null,
@@ -575,7 +575,7 @@
         390
       ],
       "op": "PUSH1",
-      "path": "6",
+      "path": "4",
       "value": "0x4"
     },
     "20": {
@@ -585,7 +585,7 @@
         390
       ],
       "op": "CALLDATASIZE",
-      "path": "6"
+      "path": "4"
     },
     "21": {
       "fn": null,
@@ -594,7 +594,7 @@
         390
       ],
       "op": "LT",
-      "path": "6"
+      "path": "4"
     },
     "22": {
       "fn": null,
@@ -603,7 +603,7 @@
         390
       ],
       "op": "PUSH2",
-      "path": "6",
+      "path": "4",
       "value": "0x41"
     },
     "25": {
@@ -613,7 +613,7 @@
         390
       ],
       "op": "JUMPI",
-      "path": "6"
+      "path": "4"
     },
     "26": {
       "fn": null,
@@ -622,7 +622,7 @@
         390
       ],
       "op": "PUSH1",
-      "path": "6",
+      "path": "4",
       "value": "0x0"
     },
     "28": {
@@ -632,7 +632,7 @@
         390
       ],
       "op": "CALLDATALOAD",
-      "path": "6"
+      "path": "4"
     },
     "29": {
       "fn": null,
@@ -641,7 +641,7 @@
         390
       ],
       "op": "PUSH1",
-      "path": "6",
+      "path": "4",
       "value": "0xE0"
     },
     "31": {
@@ -651,7 +651,7 @@
         390
       ],
       "op": "SHR",
-      "path": "6"
+      "path": "4"
     },
     "32": {
       "fn": null,
@@ -660,7 +660,7 @@
         390
       ],
       "op": "DUP1",
-      "path": "6"
+      "path": "4"
     },
     "33": {
       "fn": null,
@@ -669,7 +669,7 @@
         390
       ],
       "op": "PUSH4",
-      "path": "6",
+      "path": "4",
       "value": "0x79BA5097"
     },
     "38": {
@@ -679,7 +679,7 @@
         390
       ],
       "op": "EQ",
-      "path": "6"
+      "path": "4"
     },
     "39": {
       "fn": null,
@@ -688,7 +688,7 @@
         390
       ],
       "op": "PUSH2",
-      "path": "6",
+      "path": "4",
       "value": "0x46"
     },
     "42": {
@@ -698,7 +698,7 @@
         390
       ],
       "op": "JUMPI",
-      "path": "6"
+      "path": "4"
     },
     "43": {
       "fn": null,
@@ -707,7 +707,7 @@
         390
       ],
       "op": "DUP1",
-      "path": "6"
+      "path": "4"
     },
     "44": {
       "fn": null,
@@ -716,7 +716,7 @@
         390
       ],
       "op": "PUSH4",
-      "path": "6",
+      "path": "4",
       "value": "0x8DA5CB5B"
     },
     "49": {
@@ -726,7 +726,7 @@
         390
       ],
       "op": "EQ",
-      "path": "6"
+      "path": "4"
     },
     "50": {
       "fn": null,
@@ -735,7 +735,7 @@
         390
       ],
       "op": "PUSH2",
-      "path": "6",
+      "path": "4",
       "value": "0x50"
     },
     "53": {
@@ -745,7 +745,7 @@
         390
       ],
       "op": "JUMPI",
-      "path": "6"
+      "path": "4"
     },
     "54": {
       "fn": null,
@@ -754,7 +754,7 @@
         390
       ],
       "op": "DUP1",
-      "path": "6"
+      "path": "4"
     },
     "55": {
       "fn": null,
@@ -763,7 +763,7 @@
         390
       ],
       "op": "PUSH4",
-      "path": "6",
+      "path": "4",
       "value": "0xF2FDE38B"
     },
     "60": {
@@ -773,7 +773,7 @@
         390
       ],
       "op": "EQ",
-      "path": "6"
+      "path": "4"
     },
     "61": {
       "fn": null,
@@ -782,7 +782,7 @@
         390
       ],
       "op": "PUSH2",
-      "path": "6",
+      "path": "4",
       "value": "0x6F"
     },
     "64": {
@@ -792,7 +792,7 @@
         390
       ],
       "op": "JUMPI",
-      "path": "6"
+      "path": "4"
     },
     "65": {
       "fn": null,
@@ -801,7 +801,7 @@
         390
       ],
       "op": "JUMPDEST",
-      "path": "6"
+      "path": "4"
     },
     "66": {
       "fn": null,
@@ -810,7 +810,7 @@
         390
       ],
       "op": "PUSH1",
-      "path": "6",
+      "path": "4",
       "value": "0x0"
     },
     "68": {
@@ -820,7 +820,7 @@
         390
       ],
       "op": "DUP1",
-      "path": "6"
+      "path": "4"
     },
     "69": {
       "first_revert": true,
@@ -830,7 +830,7 @@
         390
       ],
       "op": "REVERT",
-      "path": "6"
+      "path": "4"
     },
     "70": {
       "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
@@ -839,7 +839,7 @@
         1352
       ],
       "op": "JUMPDEST",
-      "path": "7"
+      "path": "5"
     },
     "71": {
       "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
@@ -848,7 +848,7 @@
         1352
       ],
       "op": "PUSH2",
-      "path": "7",
+      "path": "5",
       "value": "0x4E"
     },
     "74": {
@@ -858,7 +858,7 @@
         1352
       ],
       "op": "PUSH2",
-      "path": "7",
+      "path": "5",
       "value": "0x82"
     },
     "77": {
@@ -869,7 +869,7 @@
         1352
       ],
       "op": "JUMP",
-      "path": "7"
+      "path": "5"
     },
     "78": {
       "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
@@ -878,7 +878,7 @@
         1352
       ],
       "op": "JUMPDEST",
-      "path": "7"
+      "path": "5"
     },
     "79": {
       "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
@@ -887,7 +887,7 @@
         1352
       ],
       "op": "STOP",
-      "path": "7"
+      "path": "5"
     },
     "80": {
       "fn": "ConfirmedOwnerWithProposal.owner",
@@ -896,7 +896,7 @@
         1514
       ],
       "op": "JUMPDEST",
-      "path": "7"
+      "path": "5"
     },
     "81": {
       "fn": "ConfirmedOwnerWithProposal.owner",
@@ -905,7 +905,7 @@
         1480
       ],
       "op": "PUSH1",
-      "path": "7",
+      "path": "5",
       "value": "0x0"
     },
     "83": {
@@ -915,7 +915,7 @@
         1509
       ],
       "op": "SLOAD",
-      "path": "7",
+      "path": "5",
       "statement": 0
     },
     "84": {
@@ -925,7 +925,7 @@
         1514
       ],
       "op": "PUSH1",
-      "path": "7",
+      "path": "5",
       "value": "0x40"
     },
     "86": {
@@ -935,7 +935,7 @@
         1514
       ],
       "op": "DUP1",
-      "path": "7"
+      "path": "5"
     },
     "87": {
       "fn": "ConfirmedOwnerWithProposal.owner",
@@ -944,7 +944,7 @@
         1514
       ],
       "op": "MLOAD",
-      "path": "7"
+      "path": "5"
     },
     "88": {
       "op": "PUSH1",
@@ -971,7 +971,7 @@
         1509
       ],
       "op": "SWAP1",
-      "path": "7"
+      "path": "5"
     },
     "97": {
       "fn": "ConfirmedOwnerWithProposal.owner",
@@ -980,7 +980,7 @@
         1509
       ],
       "op": "SWAP3",
-      "path": "7"
+      "path": "5"
     },
     "98": {
       "fn": "ConfirmedOwnerWithProposal.owner",
@@ -989,7 +989,7 @@
         1509
       ],
       "op": "AND",
-      "path": "7"
+      "path": "5"
     },
     "99": {
       "op": "DUP3"
@@ -1004,7 +1004,7 @@
         1514
       ],
       "op": "MLOAD",
-      "path": "7"
+      "path": "5"
     },
     "102": {
       "fn": "ConfirmedOwnerWithProposal.owner",
@@ -1013,7 +1013,7 @@
         1514
       ],
       "op": "SWAP1",
-      "path": "7"
+      "path": "5"
     },
     "103": {
       "fn": "ConfirmedOwnerWithProposal.owner",
@@ -1022,7 +1022,7 @@
         1514
       ],
       "op": "DUP2",
-      "path": "7"
+      "path": "5"
     },
     "104": {
       "fn": "ConfirmedOwnerWithProposal.owner",
@@ -1031,7 +1031,7 @@
         1514
       ],
       "op": "SWAP1",
-      "path": "7"
+      "path": "5"
     },
     "105": {
       "fn": "ConfirmedOwnerWithProposal.owner",
@@ -1040,7 +1040,7 @@
         1514
       ],
       "op": "SUB",
-      "path": "7"
+      "path": "5"
     },
     "106": {
       "op": "PUSH1",
@@ -1053,7 +1053,7 @@
         1514
       ],
       "op": "ADD",
-      "path": "7"
+      "path": "5"
     },
     "109": {
       "fn": "ConfirmedOwnerWithProposal.owner",
@@ -1062,7 +1062,7 @@
         1514
       ],
       "op": "SWAP1",
-      "path": "7"
+      "path": "5"
     },
     "110": {
       "fn": "ConfirmedOwnerWithProposal.owner",
@@ -1071,7 +1071,7 @@
         1514
       ],
       "op": "RETURN",
-      "path": "7"
+      "path": "5"
     },
     "111": {
       "fn": "ConfirmedOwnerWithProposal.transferOwnership",
@@ -1080,7 +1080,7 @@
         985
       ],
       "op": "JUMPDEST",
-      "path": "7"
+      "path": "5"
     },
     "112": {
       "fn": "ConfirmedOwnerWithProposal.transferOwnership",
@@ -1089,7 +1089,7 @@
         985
       ],
       "op": "PUSH2",
-      "path": "7",
+      "path": "5",
       "value": "0x4E"
     },
     "115": {
@@ -1099,7 +1099,7 @@
         985
       ],
       "op": "PUSH2",
-      "path": "7",
+      "path": "5",
       "value": "0x7D"
     },
     "118": {
@@ -1109,7 +1109,7 @@
         985
       ],
       "op": "CALLDATASIZE",
-      "path": "7"
+      "path": "5"
     },
     "119": {
       "fn": "ConfirmedOwnerWithProposal.transferOwnership",
@@ -1118,7 +1118,7 @@
         985
       ],
       "op": "PUSH1",
-      "path": "7",
+      "path": "5",
       "value": "0x4"
     },
     "121": {
@@ -1128,7 +1128,7 @@
         985
       ],
       "op": "PUSH2",
-      "path": "7",
+      "path": "5",
       "value": "0x244"
     },
     "124": {
@@ -1139,7 +1139,7 @@
         985
       ],
       "op": "JUMP",
-      "path": "7"
+      "path": "5"
     },
     "125": {
       "fn": "ConfirmedOwnerWithProposal.transferOwnership",
@@ -1148,7 +1148,7 @@
         985
       ],
       "op": "JUMPDEST",
-      "path": "7"
+      "path": "5"
     },
     "126": {
       "fn": "ConfirmedOwnerWithProposal.transferOwnership",
@@ -1157,7 +1157,7 @@
         985
       ],
       "op": "PUSH2",
-      "path": "7",
+      "path": "5",
       "value": "0x131"
     },
     "129": {
@@ -1168,7 +1168,7 @@
         985
       ],
       "op": "JUMP",
-      "path": "7"
+      "path": "5"
     },
     "130": {
       "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
@@ -1177,7 +1177,7 @@
         1352
       ],
       "op": "JUMPDEST",
-      "path": "7"
+      "path": "5"
     },
     "131": {
       "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
@@ -1186,7 +1186,7 @@
         1174
       ],
       "op": "PUSH1",
-      "path": "7",
+      "path": "5",
       "statement": 1,
       "value": "0x1"
     },
@@ -1197,7 +1197,7 @@
         1174
       ],
       "op": "SLOAD",
-      "path": "7"
+      "path": "5"
     },
     "134": {
       "op": "PUSH1",
@@ -1224,7 +1224,7 @@
         1174
       ],
       "op": "AND",
-      "path": "7"
+      "path": "5"
     },
     "143": {
       "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
@@ -1233,7 +1233,7 @@
         1156
       ],
       "op": "CALLER",
-      "path": "7"
+      "path": "5"
     },
     "144": {
       "branch": 10,
@@ -1243,7 +1243,7 @@
         1174
       ],
       "op": "EQ",
-      "path": "7"
+      "path": "5"
     },
     "145": {
       "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
@@ -1252,7 +1252,7 @@
         1201
       ],
       "op": "PUSH2",
-      "path": "7",
+      "path": "5",
       "value": "0xDA"
     },
     "148": {
@@ -1263,7 +1263,7 @@
         1201
       ],
       "op": "JUMPI",
-      "path": "7"
+      "path": "5"
     },
     "149": {
       "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
@@ -1272,7 +1272,7 @@
         1201
       ],
       "op": "PUSH1",
-      "path": "7",
+      "path": "5",
       "value": "0x40"
     },
     "151": {
@@ -1282,7 +1282,7 @@
         1201
       ],
       "op": "MLOAD",
-      "path": "7"
+      "path": "5"
     },
     "152": {
       "op": "PUSH3",
@@ -1302,7 +1302,7 @@
         1201
       ],
       "op": "DUP2",
-      "path": "7"
+      "path": "5"
     },
     "160": {
       "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
@@ -1311,7 +1311,7 @@
         1201
       ],
       "op": "MSTORE",
-      "path": "7"
+      "path": "5"
     },
     "161": {
       "op": "PUSH1",
@@ -1324,7 +1324,7 @@
         1201
       ],
       "op": "PUSH1",
-      "path": "7",
+      "path": "5",
       "value": "0x4"
     },
     "165": {
@@ -1334,7 +1334,7 @@
         1201
       ],
       "op": "DUP3",
-      "path": "7"
+      "path": "5"
     },
     "166": {
       "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
@@ -1343,7 +1343,7 @@
         1201
       ],
       "op": "ADD",
-      "path": "7"
+      "path": "5"
     },
     "167": {
       "op": "MSTORE"
@@ -1403,7 +1403,7 @@
         1201
       ],
       "op": "JUMPDEST",
-      "path": "7"
+      "path": "5"
     },
     "210": {
       "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
@@ -1412,7 +1412,7 @@
         1201
       ],
       "op": "PUSH1",
-      "path": "7",
+      "path": "5",
       "value": "0x40"
     },
     "212": {
@@ -1422,7 +1422,7 @@
         1201
       ],
       "op": "MLOAD",
-      "path": "7"
+      "path": "5"
     },
     "213": {
       "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
@@ -1431,7 +1431,7 @@
         1201
       ],
       "op": "DUP1",
-      "path": "7"
+      "path": "5"
     },
     "214": {
       "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
@@ -1440,7 +1440,7 @@
         1201
       ],
       "op": "SWAP2",
-      "path": "7"
+      "path": "5"
     },
     "215": {
       "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
@@ -1449,7 +1449,7 @@
         1201
       ],
       "op": "SUB",
-      "path": "7"
+      "path": "5"
     },
     "216": {
       "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
@@ -1458,7 +1458,7 @@
         1201
       ],
       "op": "SWAP1",
-      "path": "7"
+      "path": "5"
     },
     "217": {
       "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
@@ -1468,7 +1468,7 @@
       ],
       "op": "REVERT",
       "optimizer_revert": true,
-      "path": "7"
+      "path": "5"
     },
     "218": {
       "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
@@ -1477,7 +1477,7 @@
         1201
       ],
       "op": "JUMPDEST",
-      "path": "7"
+      "path": "5"
     },
     "219": {
       "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
@@ -1486,7 +1486,7 @@
         1224
       ],
       "op": "PUSH1",
-      "path": "7",
+      "path": "5",
       "value": "0x0"
     },
     "221": {
@@ -1496,7 +1496,7 @@
         1234
       ],
       "op": "DUP1",
-      "path": "7"
+      "path": "5"
     },
     "222": {
       "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
@@ -1505,7 +1505,7 @@
         1234
       ],
       "op": "SLOAD",
-      "path": "7"
+      "path": "5"
     },
     "223": {
       "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
@@ -1514,7 +1514,7 @@
         1260
       ],
       "op": "CALLER",
-      "path": "7",
+      "path": "5",
       "statement": 2
     },
     "224": {
@@ -1545,7 +1545,7 @@
         1260
       ],
       "op": "DUP1",
-      "path": "7"
+      "path": "5"
     },
     "234": {
       "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
@@ -1554,7 +1554,7 @@
         1260
       ],
       "op": "DUP4",
-      "path": "7"
+      "path": "5"
     },
     "235": {
       "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
@@ -1563,7 +1563,7 @@
         1260
       ],
       "op": "AND",
-      "path": "7"
+      "path": "5"
     },
     "236": {
       "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
@@ -1572,7 +1572,7 @@
         1260
       ],
       "op": "DUP3",
-      "path": "7"
+      "path": "5"
     },
     "237": {
       "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
@@ -1581,7 +1581,7 @@
         1260
       ],
       "op": "OR",
-      "path": "7"
+      "path": "5"
     },
     "238": {
       "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
@@ -1590,7 +1590,7 @@
         1260
       ],
       "op": "DUP5",
-      "path": "7"
+      "path": "5"
     },
     "239": {
       "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
@@ -1599,7 +1599,7 @@
         1260
       ],
       "op": "SSTORE",
-      "path": "7"
+      "path": "5"
     },
     "240": {
       "op": "PUSH1",
@@ -1612,7 +1612,7 @@
         1293
       ],
       "op": "DUP1",
-      "path": "7",
+      "path": "5",
       "statement": 3
     },
     "243": {
@@ -1622,7 +1622,7 @@
         1293
       ],
       "op": "SLOAD",
-      "path": "7"
+      "path": "5"
     },
     "244": {
       "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
@@ -1631,7 +1631,7 @@
         1293
       ],
       "op": "SWAP1",
-      "path": "7"
+      "path": "5"
     },
     "245": {
       "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
@@ -1640,7 +1640,7 @@
         1293
       ],
       "op": "SWAP2",
-      "path": "7"
+      "path": "5"
     },
     "246": {
       "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
@@ -1649,7 +1649,7 @@
         1293
       ],
       "op": "AND",
-      "path": "7"
+      "path": "5"
     },
     "247": {
       "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
@@ -1658,7 +1658,7 @@
         1293
       ],
       "op": "SWAP1",
-      "path": "7"
+      "path": "5"
     },
     "248": {
       "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
@@ -1667,7 +1667,7 @@
         1293
       ],
       "op": "SSTORE",
-      "path": "7"
+      "path": "5"
     },
     "249": {
       "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
@@ -1676,7 +1676,7 @@
         1347
       ],
       "op": "PUSH1",
-      "path": "7",
+      "path": "5",
       "statement": 4,
       "value": "0x40"
     },
@@ -1687,7 +1687,7 @@
         1347
       ],
       "op": "MLOAD",
-      "path": "7"
+      "path": "5"
     },
     "252": {
       "op": "PUSH1",
@@ -1714,7 +1714,7 @@
         1234
       ],
       "op": "SWAP1",
-      "path": "7"
+      "path": "5"
     },
     "261": {
       "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
@@ -1723,7 +1723,7 @@
         1234
       ],
       "op": "SWAP3",
-      "path": "7"
+      "path": "5"
     },
     "262": {
       "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
@@ -1732,7 +1732,7 @@
         1234
       ],
       "op": "AND",
-      "path": "7"
+      "path": "5"
     },
     "263": {
       "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
@@ -1741,7 +1741,7 @@
         1234
       ],
       "op": "SWAP3",
-      "path": "7"
+      "path": "5"
     },
     "264": {
       "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
@@ -1750,7 +1750,7 @@
         1260
       ],
       "op": "SWAP1",
-      "path": "7"
+      "path": "5"
     },
     "265": {
       "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
@@ -1759,7 +1759,7 @@
         1260
       ],
       "op": "SWAP2",
-      "path": "7"
+      "path": "5"
     },
     "266": {
       "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
@@ -1768,7 +1768,7 @@
         1234
       ],
       "op": "DUP4",
-      "path": "7"
+      "path": "5"
     },
     "267": {
       "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
@@ -1777,7 +1777,7 @@
         1234
       ],
       "op": "SWAP2",
-      "path": "7"
+      "path": "5"
     },
     "268": {
       "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
@@ -1786,7 +1786,7 @@
         1347
       ],
       "op": "PUSH32",
-      "path": "7",
+      "path": "5",
       "value": "0x8BE0079C531659141344CD1FD0A4F28419497F9722A3DAAFE3B4186F6B6457E0"
     },
     "301": {
@@ -1796,7 +1796,7 @@
         1347
       ],
       "op": "SWAP2",
-      "path": "7"
+      "path": "5"
     },
     "302": {
       "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
@@ -1805,7 +1805,7 @@
         1347
       ],
       "op": "LOG3",
-      "path": "7"
+      "path": "5"
     },
     "303": {
       "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
@@ -1814,7 +1814,7 @@
         1352
       ],
       "op": "POP",
-      "path": "7"
+      "path": "5"
     },
     "304": {
       "fn": "ConfirmedOwnerWithProposal.acceptOwnership",
@@ -1824,7 +1824,7 @@
         1352
       ],
       "op": "JUMP",
-      "path": "7"
+      "path": "5"
     },
     "305": {
       "fn": "ConfirmedOwnerWithProposal.transferOwnership",
@@ -1833,7 +1833,7 @@
         985
       ],
       "op": "JUMPDEST",
-      "path": "7"
+      "path": "5"
     },
     "306": {
       "offset": [
@@ -1841,7 +1841,7 @@
         2101
       ],
       "op": "PUSH2",
-      "path": "7",
+      "path": "5",
       "value": "0x139"
     },
     "309": {
@@ -1850,7 +1850,7 @@
         2099
       ],
       "op": "PUSH2",
-      "path": "7",
+      "path": "5",
       "value": "0x145"
     },
     "312": {
@@ -1860,7 +1860,7 @@
         2101
       ],
       "op": "JUMP",
-      "path": "7"
+      "path": "5"
     },
     "313": {
       "fn": "ConfirmedOwnerWithProposal.transferOwnership",
@@ -1869,7 +1869,7 @@
         2101
       ],
       "op": "JUMPDEST",
-      "path": "7"
+      "path": "5"
     },
     "314": {
       "fn": "ConfirmedOwnerWithProposal.transferOwnership",
@@ -1878,7 +1878,7 @@
         980
       ],
       "op": "PUSH2",
-      "path": "7",
+      "path": "5",
       "statement": 5,
       "value": "0x142"
     },
@@ -1889,7 +1889,7 @@
         979
       ],
       "op": "DUP2",
-      "path": "7"
+      "path": "5"
     },
     "318": {
       "fn": "ConfirmedOwnerWithProposal.transferOwnership",
@@ -1898,7 +1898,7 @@
         976
       ],
       "op": "PUSH2",
-      "path": "7",
+      "path": "5",
       "value": "0x19A"
     },
     "321": {
@@ -1909,7 +1909,7 @@
         980
       ],
       "op": "JUMP",
-      "path": "7"
+      "path": "5"
     },
     "322": {
       "fn": "ConfirmedOwnerWithProposal.transferOwnership",
@@ -1918,7 +1918,7 @@
         980
       ],
       "op": "JUMPDEST",
-      "path": "7"
+      "path": "5"
     },
     "323": {
       "fn": "ConfirmedOwnerWithProposal.transferOwnership",
@@ -1927,7 +1927,7 @@
         985
       ],
       "op": "POP",
-      "path": "7"
+      "path": "5"
     },
     "324": {
       "fn": "ConfirmedOwnerWithProposal.transferOwnership",
@@ -1937,7 +1937,7 @@
         985
       ],
       "op": "JUMP",
-      "path": "7"
+      "path": "5"
     },
     "325": {
       "fn": "ConfirmedOwnerWithProposal._validateOwnership",
@@ -1946,7 +1946,7 @@
         1966
       ],
       "op": "JUMPDEST",
-      "path": "7"
+      "path": "5"
     },
     "326": {
       "fn": "ConfirmedOwnerWithProposal._validateOwnership",
@@ -1955,7 +1955,7 @@
         1934
       ],
       "op": "PUSH1",
-      "path": "7",
+      "path": "5",
       "statement": 6,
       "value": "0x0"
     },
@@ -1966,7 +1966,7 @@
         1934
       ],
       "op": "SLOAD",
-      "path": "7"
+      "path": "5"
     },
     "329": {
       "op": "PUSH1",
@@ -1993,7 +1993,7 @@
         1934
       ],
       "op": "AND",
-      "path": "7"
+      "path": "5"
     },
     "338": {
       "fn": "ConfirmedOwnerWithProposal._validateOwnership",
@@ -2002,7 +2002,7 @@
         1923
       ],
       "op": "CALLER",
-      "path": "7"
+      "path": "5"
     },
     "339": {
       "branch": 11,
@@ -2012,7 +2012,7 @@
         1934
       ],
       "op": "EQ",
-      "path": "7"
+      "path": "5"
     },
     "340": {
       "fn": "ConfirmedOwnerWithProposal._validateOwnership",
@@ -2021,7 +2021,7 @@
         1961
       ],
       "op": "PUSH2",
-      "path": "7",
+      "path": "5",
       "value": "0x198"
     },
     "343": {
@@ -2032,7 +2032,7 @@
         1961
       ],
       "op": "JUMPI",
-      "path": "7"
+      "path": "5"
     },
     "344": {
       "fn": "ConfirmedOwnerWithProposal._validateOwnership",
@@ -2041,7 +2041,7 @@
         1961
       ],
       "op": "PUSH1",
-      "path": "7",
+      "path": "5",
       "value": "0x40"
     },
     "346": {
@@ -2051,7 +2051,7 @@
         1961
       ],
       "op": "MLOAD",
-      "path": "7"
+      "path": "5"
     },
     "347": {
       "op": "PUSH3",
@@ -2071,7 +2071,7 @@
         1961
       ],
       "op": "DUP2",
-      "path": "7"
+      "path": "5"
     },
     "355": {
       "fn": "ConfirmedOwnerWithProposal._validateOwnership",
@@ -2080,7 +2080,7 @@
         1961
       ],
       "op": "MSTORE",
-      "path": "7"
+      "path": "5"
     },
     "356": {
       "op": "PUSH1",
@@ -2093,7 +2093,7 @@
         1961
       ],
       "op": "PUSH1",
-      "path": "7",
+      "path": "5",
       "value": "0x4"
     },
     "360": {
@@ -2103,7 +2103,7 @@
         1961
       ],
       "op": "DUP3",
-      "path": "7"
+      "path": "5"
     },
     "361": {
       "fn": "ConfirmedOwnerWithProposal._validateOwnership",
@@ -2112,7 +2112,7 @@
         1961
       ],
       "op": "ADD",
-      "path": "7"
+      "path": "5"
     },
     "362": {
       "op": "MSTORE"
@@ -2172,7 +2172,7 @@
         1961
       ],
       "op": "PUSH2",
-      "path": "7",
+      "path": "5",
       "value": "0xD1"
     },
     "407": {
@@ -2185,7 +2185,7 @@
         1961
       ],
       "op": "JUMPDEST",
-      "path": "7"
+      "path": "5"
     },
     "409": {
       "fn": "ConfirmedOwnerWithProposal._validateOwnership",
@@ -2195,7 +2195,7 @@
         1966
       ],
       "op": "JUMP",
-      "path": "7"
+      "path": "5"
     },
     "410": {
       "fn": "ConfirmedOwnerWithProposal._transferOwnership",
@@ -2204,7 +2204,7 @@
         1800
       ],
       "op": "JUMPDEST",
-      "path": "7"
+      "path": "5"
     },
     "411": {
       "op": "PUSH1",
@@ -2231,7 +2231,7 @@
         1690
       ],
       "op": "DUP2",
-      "path": "7",
+      "path": "5",
       "statement": 7
     },
     "420": {
@@ -2241,7 +2241,7 @@
         1690
       ],
       "op": "AND",
-      "path": "7"
+      "path": "5"
     },
     "421": {
       "fn": "ConfirmedOwnerWithProposal._transferOwnership",
@@ -2250,7 +2250,7 @@
         1690
       ],
       "op": "CALLER",
-      "path": "7"
+      "path": "5"
     },
     "422": {
       "fn": "ConfirmedOwnerWithProposal._transferOwnership",
@@ -2259,7 +2259,7 @@
         1690
       ],
       "op": "EQ",
-      "path": "7"
+      "path": "5"
     },
     "423": {
       "branch": 12,
@@ -2269,7 +2269,7 @@
         1690
       ],
       "op": "ISZERO",
-      "path": "7"
+      "path": "5"
     },
     "424": {
       "fn": "ConfirmedOwnerWithProposal._transferOwnership",
@@ -2278,7 +2278,7 @@
         1718
       ],
       "op": "PUSH2",
-      "path": "7",
+      "path": "5",
       "value": "0x1F3"
     },
     "427": {
@@ -2289,7 +2289,7 @@
         1718
       ],
       "op": "JUMPI",
-      "path": "7"
+      "path": "5"
     },
     "428": {
       "fn": "ConfirmedOwnerWithProposal._transferOwnership",
@@ -2298,7 +2298,7 @@
         1718
       ],
       "op": "PUSH1",
-      "path": "7",
+      "path": "5",
       "value": "0x40"
     },
     "430": {
@@ -2308,7 +2308,7 @@
         1718
       ],
       "op": "MLOAD",
-      "path": "7"
+      "path": "5"
     },
     "431": {
       "op": "PUSH3",
@@ -2328,7 +2328,7 @@
         1718
       ],
       "op": "DUP2",
-      "path": "7"
+      "path": "5"
     },
     "439": {
       "fn": "ConfirmedOwnerWithProposal._transferOwnership",
@@ -2337,7 +2337,7 @@
         1718
       ],
       "op": "MSTORE",
-      "path": "7"
+      "path": "5"
     },
     "440": {
       "op": "PUSH1",
@@ -2350,7 +2350,7 @@
         1718
       ],
       "op": "PUSH1",
-      "path": "7",
+      "path": "5",
       "value": "0x4"
     },
     "444": {
@@ -2360,7 +2360,7 @@
         1718
       ],
       "op": "DUP3",
-      "path": "7"
+      "path": "5"
     },
     "445": {
       "fn": "ConfirmedOwnerWithProposal._transferOwnership",
@@ -2369,7 +2369,7 @@
         1718
       ],
       "op": "ADD",
-      "path": "7"
+      "path": "5"
     },
     "446": {
       "op": "MSTORE"
@@ -2422,7 +2422,7 @@
         1718
       ],
       "op": "PUSH2",
-      "path": "7",
+      "path": "5",
       "value": "0xD1"
     },
     "498": {
@@ -2435,7 +2435,7 @@
         1718
       ],
       "op": "JUMPDEST",
-      "path": "7"
+      "path": "5"
     },
     "500": {
       "fn": "ConfirmedOwnerWithProposal._transferOwnership",
@@ -2444,7 +2444,7 @@
         1739
       ],
       "op": "PUSH1",
-      "path": "7",
+      "path": "5",
       "statement": 8,
       "value": "0x1"
     },
@@ -2455,7 +2455,7 @@
         1744
       ],
       "op": "DUP1",
-      "path": "7"
+      "path": "5"
     },
     "503": {
       "fn": "ConfirmedOwnerWithProposal._transferOwnership",
@@ -2464,7 +2464,7 @@
         1744
       ],
       "op": "SLOAD",
-      "path": "7"
+      "path": "5"
     },
     "504": {
       "op": "PUSH1",
@@ -2494,7 +2494,7 @@
         1744
       ],
       "op": "AND",
-      "path": "7"
+      "path": "5"
     },
     "514": {
       "op": "PUSH1",
@@ -2521,7 +2521,7 @@
         1744
       ],
       "op": "DUP4",
-      "path": "7"
+      "path": "5"
     },
     "523": {
       "fn": "ConfirmedOwnerWithProposal._transferOwnership",
@@ -2530,7 +2530,7 @@
         1744
       ],
       "op": "DUP2",
-      "path": "7"
+      "path": "5"
     },
     "524": {
       "fn": "ConfirmedOwnerWithProposal._transferOwnership",
@@ -2539,7 +2539,7 @@
         1744
       ],
       "op": "AND",
-      "path": "7"
+      "path": "5"
     },
     "525": {
       "fn": "ConfirmedOwnerWithProposal._transferOwnership",
@@ -2548,7 +2548,7 @@
         1744
       ],
       "op": "SWAP2",
-      "path": "7"
+      "path": "5"
     },
     "526": {
       "fn": "ConfirmedOwnerWithProposal._transferOwnership",
@@ -2557,7 +2557,7 @@
         1744
       ],
       "op": "DUP3",
-      "path": "7"
+      "path": "5"
     },
     "527": {
       "fn": "ConfirmedOwnerWithProposal._transferOwnership",
@@ -2566,7 +2566,7 @@
         1744
       ],
       "op": "OR",
-      "path": "7"
+      "path": "5"
     },
     "528": {
       "fn": "ConfirmedOwnerWithProposal._transferOwnership",
@@ -2575,7 +2575,7 @@
         1744
       ],
       "op": "SWAP1",
-      "path": "7"
+      "path": "5"
     },
     "529": {
       "fn": "ConfirmedOwnerWithProposal._transferOwnership",
@@ -2584,7 +2584,7 @@
         1744
       ],
       "op": "SWAP3",
-      "path": "7"
+      "path": "5"
     },
     "530": {
       "fn": "ConfirmedOwnerWithProposal._transferOwnership",
@@ -2593,7 +2593,7 @@
         1744
       ],
       "op": "SSTORE",
-      "path": "7"
+      "path": "5"
     },
     "531": {
       "op": "PUSH1",
@@ -2606,7 +2606,7 @@
         1790
       ],
       "op": "DUP1",
-      "path": "7",
+      "path": "5",
       "statement": 9
     },
     "534": {
@@ -2616,7 +2616,7 @@
         1790
       ],
       "op": "SLOAD",
-      "path": "7"
+      "path": "5"
     },
     "535": {
       "fn": "ConfirmedOwnerWithProposal._transferOwnership",
@@ -2625,7 +2625,7 @@
         1795
       ],
       "op": "PUSH1",
-      "path": "7",
+      "path": "5",
       "value": "0x40"
     },
     "537": {
@@ -2635,7 +2635,7 @@
         1795
       ],
       "op": "MLOAD",
-      "path": "7"
+      "path": "5"
     },
     "538": {
       "fn": "ConfirmedOwnerWithProposal._transferOwnership",
@@ -2644,7 +2644,7 @@
         1744
       ],
       "op": "SWAP3",
-      "path": "7"
+      "path": "5"
     },
     "539": {
       "fn": "ConfirmedOwnerWithProposal._transferOwnership",
@@ -2653,7 +2653,7 @@
         1744
       ],
       "op": "SWAP4",
-      "path": "7"
+      "path": "5"
     },
     "540": {
       "fn": "ConfirmedOwnerWithProposal._transferOwnership",
@@ -2662,7 +2662,7 @@
         1790
       ],
       "op": "AND",
-      "path": "7"
+      "path": "5"
     },
     "541": {
       "fn": "ConfirmedOwnerWithProposal._transferOwnership",
@@ -2671,7 +2671,7 @@
         1790
       ],
       "op": "SWAP2",
-      "path": "7"
+      "path": "5"
     },
     "542": {
       "fn": "ConfirmedOwnerWithProposal._transferOwnership",
@@ -2680,7 +2680,7 @@
         1795
       ],
       "op": "PUSH32",
-      "path": "7",
+      "path": "5",
       "value": "0xED8889F560326EB138920D842192F0EB3DD22B4F139C87A2C57538E05BAE1278"
     },
     "575": {
@@ -2690,7 +2690,7 @@
         1795
       ],
       "op": "SWAP2",
-      "path": "7"
+      "path": "5"
     },
     "576": {
       "op": "SWAP1"
@@ -2702,7 +2702,7 @@
         1795
       ],
       "op": "LOG3",
-      "path": "7"
+      "path": "5"
     },
     "578": {
       "fn": "ConfirmedOwnerWithProposal._transferOwnership",
@@ -2711,7 +2711,7 @@
         1800
       ],
       "op": "POP",
-      "path": "7"
+      "path": "5"
     },
     "579": {
       "fn": "ConfirmedOwnerWithProposal._transferOwnership",
@@ -2721,7 +2721,7 @@
         1800
       ],
       "op": "JUMP",
-      "path": "7"
+      "path": "5"
     },
     "580": {
       "op": "JUMPDEST"
@@ -2847,7 +2847,7 @@
   },
   "sha1": "966b63d720e9f57792a07858811a2d113af28637",
   "source": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.0;\n\nimport \"./ConfirmedOwnerWithProposal.sol\";\n\n/**\n * @title The ConfirmedOwner contract\n * @notice A contract with helpers for basic contract ownership.\n */\ncontract ConfirmedOwner is ConfirmedOwnerWithProposal {\n\n  constructor(\n    address newOwner\n  )\n    ConfirmedOwnerWithProposal(\n      newOwner,\n      address(0)\n    )\n  {\n  }\n\n}\n",
-  "sourceMap": "212:178:6:-:0;;;271:116;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;347:8;371:1;-1:-1:-1;;;;;589:22:7;;581:59;;;;-1:-1:-1;;;581:59:7;;511:2:21;581:59:7;;;493:21:21;550:2;530:18;;;523:30;589:26;569:18;;;562:54;633:18;;581:59:7;;;;;;;;;647:7;:18;;-1:-1:-1;;;;;;647:18:7;-1:-1:-1;;;;;647:18:7;;;;;;;;;;675:26;;;671:79;;711:32;730:12;711:18;:32::i;:::-;511:243;;271:116:6;212:178;;1598:202:7;-1:-1:-1;;;;;1674:16:7;;1680:10;1674:16;;1666:52;;;;-1:-1:-1;;;1666:52:7;;864:2:21;1666:52:7;;;846:21:21;903:2;883:18;;;876:30;942:25;922:18;;;915:53;985:18;;1666:52:7;662:347:21;1666:52:7;1725:14;:19;;-1:-1:-1;;;;;;1725:19:7;-1:-1:-1;;;;;1725:19:7;;;;;;;;;-1:-1:-1;1783:7:7;;1756:39;;1725:19;;1783:7;;1756:39;;-1:-1:-1;1756:39:7;1598:202;:::o;14:290:21:-;84:6;137:2;125:9;116:7;112:23;108:32;105:52;;;153:1;150;143:12;105:52;179:16;;-1:-1:-1;;;;;224:31:21;;214:42;;204:70;;270:1;267;260:12;204:70;293:5;14:290;-1:-1:-1;;;14:290:21:o;662:347::-;212:178:6;;;;;;",
+  "sourceMap": "212:178:4:-:0;;;271:116;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;347:8;371:1;-1:-1:-1;;;;;589:22:5;;581:59;;;;-1:-1:-1;;;581:59:5;;511:2:20;581:59:5;;;493:21:20;550:2;530:18;;;523:30;589:26;569:18;;;562:54;633:18;;581:59:5;;;;;;;;;647:7;:18;;-1:-1:-1;;;;;;647:18:5;-1:-1:-1;;;;;647:18:5;;;;;;;;;;675:26;;;671:79;;711:32;730:12;711:18;:32::i;:::-;511:243;;271:116:4;212:178;;1598:202:5;-1:-1:-1;;;;;1674:16:5;;1680:10;1674:16;;1666:52;;;;-1:-1:-1;;;1666:52:5;;864:2:20;1666:52:5;;;846:21:20;903:2;883:18;;;876:30;942:25;922:18;;;915:53;985:18;;1666:52:5;662:347:20;1666:52:5;1725:14;:19;;-1:-1:-1;;;;;;1725:19:5;-1:-1:-1;;;;;1725:19:5;;;;;;;;;-1:-1:-1;1783:7:5;;1756:39;;1725:19;;1783:7;;1756:39;;-1:-1:-1;1756:39:5;1598:202;:::o;14:290:20:-;84:6;137:2;125:9;116:7;112:23;108:32;105:52;;;153:1;150;143:12;105:52;179:16;;-1:-1:-1;;;;;224:31:20;;214:42;;204:70;;270:1;267;260:12;204:70;293:5;14:290;-1:-1:-1;;;14:290:20:o;662:347::-;212:178:4;;;;;;",
   "sourcePath": "/Users/palll/.brownie/packages/smartcontractkit/chainlink-brownie-contracts@0.2.2/contracts/src/v0.8/ConfirmedOwner.sol",
   "type": "contract"
 }
