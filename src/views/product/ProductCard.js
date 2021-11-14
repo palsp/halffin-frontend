@@ -10,7 +10,7 @@ import MuiTypography from '@mui/material/Typography';
 import MainCard from 'ui-component/cards/MainCard';
 import SkeletonEarningCard from 'ui-component/cards/Skeleton/EarningCard';
 import SubCard from 'ui-component/cards/SubCard';
-import {gridSpacing, marginLeftProductCard} from 'store/constant';
+import {gridSpacing} from 'store/constant';
 import ItemBox from 'ui-component/extended/ItemBox';
 import ethIcon from '../../assets/images/icons/eth.svg';
 // ===========================|| DASHBOARD DEFAULT - EARNING CARD ||=========================== //
@@ -27,6 +27,8 @@ const ProductCard = ({isLoading, product}) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  console.log("product : ", product);
 
   return (
     <>
@@ -80,7 +82,7 @@ const ProductCard = ({isLoading, product}) => {
 };
 
 ProductCard.propTypes = {
-  isLoading: PropTypes.bool,
+  isLoading: PropTypes.any,
   product: PropTypes.any,
 };
 
