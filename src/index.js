@@ -1,28 +1,34 @@
-import ReactDOM from 'react-dom';
+import ReactDOM from "react-dom";
 
 // third party
-import { BrowserRouter } from 'react-router-dom';
-import { Provider } from 'react-redux';
+import { BrowserRouter } from "react-router-dom";
+import { Provider } from "react-redux";
 
 // project imports
-import * as serviceWorker from 'serviceWorker';
-import App from 'App';
-import { store } from 'store';
-import { MoralisProvider } from 'react-moralis';
+import * as serviceWorker from "serviceWorker";
+import App from "App";
+import { store } from "store";
+import { MoralisProvider } from "react-moralis";
 // style + assets
-import 'assets/scss/style.scss';
+import "assets/scss/style.scss";
+import { ProductProvider } from "context";
 
 // ==============================|| REACT DOM RENDER  ||============================== //
 
 ReactDOM.render(
-    <MoralisProvider appId={process.env.REACT_APP_MORALIS_APP_ID} serverUrl={process.env.REACT_APP_MORALIS_SERVER_URL}>
-        <Provider store={store}>
-            <BrowserRouter>
-                <App />
-            </BrowserRouter>
-        </Provider>
-    </MoralisProvider>,
-    document.getElementById('root')
+  <MoralisProvider
+    appId={process.env.REACT_APP_MORALIS_APP_ID}
+    serverUrl={process.env.REACT_APP_MORALIS_SERVER_URL}
+  >
+    <ProductProvider>
+      <Provider store={store}>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </Provider>
+    </ProductProvider>
+  </MoralisProvider>,
+  document.getElementById("root")
 );
 
 // If you want your app to work offline and load faster, you can change

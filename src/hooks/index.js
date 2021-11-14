@@ -1,3 +1,5 @@
-export * as useEscrow from './useEscrow';
-export * as useEscrowFactory from './useEscrowFactory';
-export * as useWeb3 from './useWeb3';
+import useEscrowFactory from "./useEscrowFactory";
+import useEscrow from "./useEscrow";
+import useWeb3 from "./useWeb3";
+
+export { useEscrow, useEscrowFactory, useWeb3 };

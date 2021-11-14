@@ -62,9 +62,6 @@ const ProfileSection = () => {
   const customization = useSelector((state) => state.customization);
   const navigate = useNavigate();
 
-  const [sdm, setSdm] = useState(true);
-  const [value, setValue] = useState("");
-  const [notification, setNotification] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(-1);
   const [open, setOpen] = useState(false);
   const {
@@ -123,7 +120,6 @@ const ProfileSection = () => {
     prevOpen.current = open;
   }, [open, isAuthenticated]);
 
-  // console.log('web3 isAuthenticated: ', isWeb3Enabled, isAuthenticated);
   return (
     <>
       {!isAuthenticated || !isWeb3Enabled ? (
