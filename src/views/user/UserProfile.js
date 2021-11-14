@@ -1,17 +1,17 @@
 import { useState } from "react";
 // material-ui
-import { Typography } from "@mui/material";
-import Avatar from "@mui/material/Avatar";
-import Grid from "@mui/material/Grid";
-import MainCard from "ui-component/cards/MainCard";
-import { useMoralis } from "react-moralis";
-import Box from "@mui/material/Box";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
-import PropTypes from "prop-types";
-import MuiTypography from "@mui/material/Typography";
-import Products from "views/product/Products";
+import { Typography } from '@mui/material';
+import Avatar from '@mui/material/Avatar';
+import Grid from '@mui/material/Grid';
+import MainCard from 'ui-component/cards/MainCard';
+import { useMoralis } from 'react-moralis';
+import Box from '@mui/material/Box';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import PropTypes from 'prop-types';
+import MuiTypography from '@mui/material/Typography';
 import { useProduct } from "context";
+import Products from  '../product/Products';
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
