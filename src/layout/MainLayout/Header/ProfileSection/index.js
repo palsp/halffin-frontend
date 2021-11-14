@@ -225,52 +225,9 @@ const ProfileSection = () => {
                               sx={{
                                 borderRadius: `${customization.borderRadius}px`,
                               }}
-                              selected={selectedIndex === 1}
-                              onClick={(event) =>
-                                handleListItemClick(
-                                  event,
-                                  1,
-                                  "/user/social-profile/posts"
-                                )
-                              }
-                            >
-                              <ListItemIcon>
-                                <IconBasket stroke={1.5} size="1.3rem" />
-                              </ListItemIcon>
-                              <ListItemText
-                                primary={
-                                  <Grid
-                                    container
-                                    spacing={1}
-                                    justifyContent="space-between"
-                                  >
-                                    <Grid item>
-                                      <Typography variant="body2">
-                                        My purchases
-                                      </Typography>
-                                    </Grid>
-                                    <Grid item>
-                                      <Chip
-                                        label="02"
-                                        size="small"
-                                        sx={{
-                                          bgcolor: theme.palette.warning.dark,
-                                          color:
-                                            theme.palette.background.default,
-                                        }}
-                                      />
-                                    </Grid>
-                                  </Grid>
-                                }
-                              />
-                            </ListItemButton>
-                            <ListItemButton
-                              sx={{
-                                borderRadius: `${customization.borderRadius}px`,
-                              }}
                               selected={selectedIndex === 2}
                               onClick={(event) =>
-                                handleListItemClick(event, 0, "/my-product")
+                                handleListItemClick(event, 0, "/")
                               }
                             >
                               <ListItemIcon>
@@ -279,7 +236,7 @@ const ProfileSection = () => {
                               <ListItemText
                                 primary={
                                   <Typography variant="body2">
-                                    My products
+                                    Market Place
                                   </Typography>
                                 }
                               />
