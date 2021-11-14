@@ -14,6 +14,12 @@ import ProductCard from './ProductCard';
 const MyProduct = () => {
     const navigate = useNavigate();
     const [isLoading, setLoading] = useState(true);
+    const [mockProduct, setMockProduct] = useState({
+        name : "test",
+        description : "1243fsdgfasdt1243fsdgfasdt1243fsdgfasdt1243fsdgfasdt1243fsdgfasdts",
+        price : 0.001,
+        imageUrl : "https://picsum.photos/200"
+    })
     const handleClickAdd = (route = '') => {
         navigate(route);
     };
@@ -30,7 +36,7 @@ const MyProduct = () => {
                 </IconButton>
             }
         >
-            <ProductCard isLoading={isLoading} />
+            <ProductCard isLoading={isLoading} product={mockProduct} />
         </MainCard>
     );
 };
