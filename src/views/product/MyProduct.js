@@ -6,10 +6,12 @@ import MainCard from "ui-component/cards/MainCard";
 import { IconCirclePlus } from "@tabler/icons";
 import { useNavigate } from "react-router-dom";
 import ProductCard from "./ProductCard";
+import { useProduct } from "context";
 
 const MyProduct = () => {
   const navigate = useNavigate();
   const [isLoading, setLoading] = useState(true);
+  const { products } = useProduct();
   const [mockProduct, setMockProduct] = useState({
     name: "test",
     description:
@@ -17,18 +19,22 @@ const MyProduct = () => {
     price: 0.001,
     imageUrl: "https://picsum.photos/200",
   });
-  const handleClickAdd = (route = "") => {
-    navigate(route);
-  };
+  
   useEffect(() => {
-    setLoading(false);
-  }, []);
+      setLoading(false);
+    }, []);
+    
+    const handleNavigate = (route = "") => {
+        console.log('route', route);
+      navigate(route);
+    };
+
 
   return (
     <MainCard
       title="My products"
       secondary={
-        <IconButton onClick={() => handleClickAdd("/my-product/create")}>
+        <IconButton onClick={() => handleNavigate("/my-product/create")}>
           <IconCirclePlus />
         </IconButton>
       }

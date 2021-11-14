@@ -20,6 +20,7 @@ const SamplePage = Loadable(lazy(() => import('views/sample-page')));
 const MyProduct = Loadable(lazy(() => import('views/product/MyProduct')));
 const CreateProduct = Loadable(lazy(() => import('views/product/CreateProduct')));
 const UserProfile = Loadable(lazy(() => import('views/user/UserProfile')));
+const SingleProduct = Loadable(lazy(() => import('views/product/SingleProduct') ));
 // ==============================|| MAIN ROUTING ||============================== //
 
 const MainRoutes = {
@@ -69,6 +70,10 @@ const MainRoutes = {
         {
             path: '/user/account-profile',
             element: <UserProfile />
+        },
+        {
+            path:  '/product/productid',
+            element: <SingleProduct />,
         }
     ]
 };

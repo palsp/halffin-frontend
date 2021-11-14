@@ -32,7 +32,7 @@ const CreateProduct = () => {
     const formRef = useRef(null);
     const [selectedImage, setSelectedImage] = useState();
     const [productDetail, setProductDetail] = useState({
-        // name: '',
+        name: '',
         // description: '',
         price: 0,
         lockTime: 0
@@ -69,32 +69,9 @@ const CreateProduct = () => {
         setSelectedImage();
     };
 
-    const createProduct = async (productDetail) => {
-        const web3 = await Moralis.enableWeb3();
-        const newPrice = web3.utils.toWei(productDetail.price, 'ether');
-        console.log(web3.eth.getAccounts()[0]);
-        const contract = new web3.eth.Contract(abi, factoryAddress.EscrowFactory[0]);
-        try {
-            contract.methods
-                .createProduct(newPrice, productDetail.lockTime)
-                .send({ from: user.attributes.ethAddress })
-                .on('confirmation', (confirmationNumber, receipt) => {
-                    console.log(confirmationNumber);
-                })
-                .on('receipt', (receipt) => {
-                    console.log(receipt);
-                });
-        } catch (e) {
-            setTxState({ status: null });
-            console.log(e);
-            console.log(factoryAddress.EscrowFactory);
-        }
-    };
-
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(productDetail);
-        // createProduct(productDetail);
         addProduct(productDetail);
     };
     return (
