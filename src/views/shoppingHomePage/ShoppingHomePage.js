@@ -27,6 +27,8 @@ const ShoppingHomePage = () => {
     navigate(route);
   };
 
+  console.log(products);
+
   return (
     <MainCard>
       <ProductCard isLoading={isLoading} product={mockProduct} />
