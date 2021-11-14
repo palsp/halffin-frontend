@@ -34,7 +34,7 @@ const useFactory = () => {
         console.log(web3.eth.getAccounts()[0]);
         try {
             contract.methods
-                .createProduct(newPrice, productDetail.lockTime)
+                .createProduct(productDetail.name ,newPrice, productDetail.lockTime)
                 .send({ from: user.attributes.ethAddress })
                 .on('confirmation', (confirmationNumber, _receipt) => {
                     console.log(confirmationNumber);

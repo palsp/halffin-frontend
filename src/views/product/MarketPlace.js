@@ -22,7 +22,7 @@ const MarketPlace = () => {
     <MainCard
       title="Market"
       secondary={
-        <IconButton onClick={() => handleClickAdd("/my-product/create")}>
+        <IconButton onClick={() => handleNavigate("/my-product/create")}>
           <IconCirclePlus />
         </IconButton>
       }
