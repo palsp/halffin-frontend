@@ -1,44 +1,38 @@
-import { useEffect, useState } from "react";
-
+import {useEffect, useState} from 'react';
 // material-ui
-import { Grid } from "@mui/material";
-
 // project imports
-import { gridSpacing } from "store/constant";
-import EarningCard from "../dashboard/Default/EarningCard";
-import ProductCard from "views/product/ProductCard";
-// ==============================|| DEFAULT DASHBOARD ||============================== //
+import MainCard from 'ui-component/cards/MainCard';
+import {useNavigate} from 'react-router-dom';
+import ProductCard from '../product/ProductCard';
+import {useProduct} from 'context';
 
 const ShoppingHomePage = () => {
+  const navigate = useNavigate();
   const [isLoading, setLoading] = useState(true);
+  const {products} = useProduct();
+  const [mockProduct, setMockProduct] = useState({
+    name: 'test',
+    description:
+      '1243fsdgfasdt1243fsdgfasdt1243fsdgfasdt1243fsdgfasdt1243fsdgfasdts',
+    price: 0.001,
+    imageUrl: 'https://picsum.photos/200',
+  });
+
   useEffect(() => {
     setLoading(false);
   }, []);
 
+  const handleNavigate = (route = '') => {
+    console.log('route', route);
+    navigate(route);
+  };
+
+  console.log(products);
+
   return (
-    <Grid container spacing={gridSpacing}>
-      <Grid item xs={12}>
-        Hi form ShoppingHomePage
-        <Grid container spacing={gridSpacing}>
-          <Grid item lg={4} md={6} sm={6} xs={12}>
-            {/* <ProductCard isLoading={isLoading} /> */}
-          </Grid>
-          <Grid item lg={4} md={6} sm={6} xs={12}>
-            <EarningCard isLoading={isLoading} />
-          </Grid>
-          <Grid item lg={4} md={12} sm={12} xs={12}>
-            <Grid container spacing={gridSpacing}>
-              <Grid item sm={6} xs={12} md={6} lg={12}>
-                <EarningCard isLoading={isLoading} />
-              </Grid>
-              <Grid item sm={6} xs={12} md={6} lg={12}>
-                <EarningCard isLoading={isLoading} />
-              </Grid>
-            </Grid>
-          </Grid>
-        </Grid>
-      </Grid>
-    </Grid>
+    <MainCard>
+      <ProductCard isLoading={isLoading} product={mockProduct} />
+    </MainCard>
   );
 };
 

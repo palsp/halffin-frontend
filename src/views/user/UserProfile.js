@@ -10,9 +10,9 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import PropTypes from "prop-types";
 import MuiTypography from "@mui/material/Typography";
-import Products from "views/product/Products";
 import { useProduct } from "context";
 import { useNavigate } from "react-router-dom";
+import Products from "../product/Products";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
