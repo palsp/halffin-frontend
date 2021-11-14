@@ -3,6 +3,7 @@ import { shortenIfAddress } from "@usedapp/core";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useMoralis } from "react-moralis";
+import ConnectWallet from "../../../../views/wallet/ConnectWallet";
 
 // material-ui
 import { useTheme } from "@mui/material/styles";
@@ -10,7 +11,6 @@ import {
   Box,
   Chip,
   ClickAwayListener,
-  Grid,
   List,
   ListItemButton,
   ListItemIcon,
@@ -123,11 +123,7 @@ const ProfileSection = () => {
   return (
     <>
       {!isAuthenticated || !isWeb3Enabled ? (
-        <Chip
-          sx={chipSX(theme)}
-          onClick={enableAndAuthenticate}
-          label={<h4>Connect & Login</h4>}
-        />
+        <ConnectWallet />
       ) : (
         <>
           <Chip

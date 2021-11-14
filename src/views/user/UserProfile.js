@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 // material-ui
 import { Typography } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
@@ -12,6 +12,7 @@ import PropTypes from "prop-types";
 import MuiTypography from "@mui/material/Typography";
 import Products from "views/product/Products";
 import { useProduct } from "context";
+import { useNavigate } from "react-router-dom";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -41,8 +42,13 @@ TabPanel.propTypes = {
 const UserProfile = () => {
   const [value, setValue] = useState(0);
   const { user, isAuthenticated } = useMoralis();
+  const navigate = useNavigate();
   const { products, getProductsOfSeller, getProductsOfBuyer } = useProduct();
-  products.forEach((product) => console.log(product.buyer));
+  useEffect(() => {
+    if (!user) {
+      navigate("/");
+    }
+  }, [user]);
 
   const handleChange = (event, newvalue) => {
     setValue(newvalue);
@@ -73,14 +79,18 @@ const UserProfile = () => {
             <Tab label="To Confirm" />
           </Tabs>
           <TabPanel value={value} index={0}>
-            <Products
-              products={getProductsOfSeller(user.attributes.ethAddress)}
-            />
+            {user && (
+              <Products
+                products={getProductsOfSeller(user.attributes.ethAddress)}
+              />
+            )}
           </TabPanel>
           <TabPanel value={value} index={1}>
-            <Products
-              products={getProductsOfBuyer(user.attributes.ethAddress)}
-            />
+            {user && (
+              <Products
+                products={getProductsOfBuyer(user.attributes.ethAddress)}
+              />
+            )}
           </TabPanel>
           <TabPanel value={value} index={2}>
             To Confirm

@@ -12,9 +12,6 @@ import themes from "themes";
 // project imports
 import NavigationScroll from "layout/NavigationScroll";
 
-// context
-import { ProductProvider } from "context";
-
 // ==============================|| APP ||============================== //
 
 const App = () => {

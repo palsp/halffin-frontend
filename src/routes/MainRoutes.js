@@ -3,6 +3,7 @@ import { lazy } from "react";
 // project imports
 import MainLayout from "layout/MainLayout";
 import Loadable from "ui-component/Loadable";
+import { Navigate } from "react-router-dom";
 
 // dashboard routing
 const DashboardDefault = Loadable(
@@ -81,6 +82,10 @@ const MainRoutes = {
     {
       path: "/user/account-profile",
       element: <UserProfile />,
+    },
+    {
+      path: "*",
+      element: <Navigate to="/" />,
     },
   ],
 };
