@@ -7,24 +7,16 @@ import { useMoralis } from "react-moralis";
 // material-ui
 import { useTheme } from "@mui/material/styles";
 import {
-  Avatar,
   Box,
-  Card,
-  CardContent,
   Chip,
   ClickAwayListener,
-  Divider,
   Grid,
-  InputAdornment,
   List,
   ListItemButton,
   ListItemIcon,
   ListItemText,
-  OutlinedInput,
   Paper,
   Popper,
-  Stack,
-  Switch,
   Typography,
 } from "@mui/material";
 
@@ -34,20 +26,36 @@ import PerfectScrollbar from "react-perfect-scrollbar";
 // project imports
 import MainCard from "ui-component/cards/MainCard";
 import Transitions from "ui-component/extended/Transitions";
-import UpgradePlanCard from "./UpgradePlanCard";
-import User1 from "assets/images/users/user-round.svg";
 
 // assets
 import {
-  IconSettings,
   IconUser,
   IconBasket,
   IconBuildingStore,
   IconLogout,
-  IconH4,
 } from "@tabler/icons";
 
 // ==============================|| PROFILE MENU ||============================== //
+
+const chipSX = (theme) => ({
+  height: "48px",
+  alignItems: "center",
+  borderRadius: "27px",
+  transition: "all .2s ease-in-out",
+  borderColor: theme.palette.primary.light,
+  backgroundColor: theme.palette.primary.light,
+  '&[aria-controls="menu-list-grow"], &:hover': {
+    borderColor: theme.palette.primary.main,
+    background: `${theme.palette.primary.main}!important`,
+    color: theme.palette.primary.light,
+    "& svg": {
+      stroke: theme.palette.primary.light,
+    },
+  },
+  "& .MuiChip-label": {
+    lineHeight: 0,
+  },
+});
 
 const ProfileSection = () => {
   const theme = useTheme();
@@ -120,37 +128,18 @@ const ProfileSection = () => {
     <>
       {!isAuthenticated || !isWeb3Enabled ? (
         <Chip
+          sx={chipSX(theme)}
           onClick={enableAndAuthenticate}
           label={<h4>Connect & Login</h4>}
         />
       ) : (
         <>
           <Chip
-            sx={{
-              height: "48px",
-              alignItems: "center",
-              borderRadius: "27px",
-              transition: "all .2s ease-in-out",
-              borderColor: theme.palette.primary.light,
-              backgroundColor: theme.palette.primary.light,
-              '&[aria-controls="menu-list-grow"], &:hover': {
-                borderColor: theme.palette.primary.main,
-                background: `${theme.palette.primary.main}!important`,
-                color: theme.palette.primary.light,
-                "& svg": {
-                  stroke: theme.palette.primary.light,
-                },
-              },
-              "& .MuiChip-label": {
-                lineHeight: 0,
-              },
-            }}
+            sx={chipSX(theme)}
             label={
-              <IconSettings
-                stroke={1.5}
-                size="1.5rem"
-                color={theme.palette.primary.main}
-              />
+              <h4>
+                {user ? shortenIfAddress(user.attributes.ethAddress) : ""}
+              </h4>
             }
             variant="outlined"
             ref={anchorRef}
@@ -188,27 +177,6 @@ const ProfileSection = () => {
                       boxShadow
                       shadow={theme.shadows[16]}
                     >
-                      <Box sx={{ p: 2 }}>
-                        <Stack>
-                          <Stack
-                            direction="row"
-                            spacing={1}
-                            alignItems="center"
-                          >
-                            <Typography variant="h4">Hello, </Typography>
-                            <Typography
-                              component="span"
-                              variant="h4"
-                              sx={{ fontWeight: 400 }}
-                            >
-                              {user
-                                ? shortenIfAddress(user.attributes.ethAddress)
-                                : ""}
-                            </Typography>
-                          </Stack>
-                        </Stack>
-                        <Divider />
-                      </Box>
                       <PerfectScrollbar
                         style={{
                           height: "100%",
