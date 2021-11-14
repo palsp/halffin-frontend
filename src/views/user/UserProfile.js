@@ -3,14 +3,12 @@ import { useState } from 'react';
 import { Typography } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 import Grid from '@mui/material/Grid';
-import Card from '@mui/material/Card';
 import MainCard from 'ui-component/cards/MainCard';
 import { useMoralis } from 'react-moralis';
 import Box from '@mui/material/Box';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import PropTypes from 'prop-types';
-import { gridSpacing } from 'store/constant';
 import MuiTypography from '@mui/material/Typography';
 
 function TabPanel(props) {
