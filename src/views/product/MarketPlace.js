@@ -11,9 +11,11 @@ import Products from "./Products";
 const MarketPlace = () => {
   const navigate = useNavigate();
   const [isLoading, setLoading] = useState(true);
-  const handleClickAdd = (route = "") => {
+  const handleNavigate = (route = "") => {
+    console.log("route", route);
     navigate(route);
   };
+
   useEffect(() => {
     setLoading(false);
   }, []);

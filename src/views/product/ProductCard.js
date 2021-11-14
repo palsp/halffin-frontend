@@ -8,12 +8,10 @@ import { Avatar, Grid, CardActionArea } from "@mui/material";
 import MuiTypography from "@mui/material/Typography";
 
 // project imports
-import MainCard from "ui-component/cards/MainCard";
 import SkeletonEarningCard from "ui-component/cards/Skeleton/EarningCard";
 import SubCard from "ui-component/cards/SubCard";
 import { gridSpacing } from "store/constant";
 import ethIcon from "../../assets/images/icons/eth.svg";
-import ItemBox from "ui-component/extended/ItemBox";
 
 // ===========================|| DASHBOARD DEFAULT - EARNING CARD ||=========================== //
 
