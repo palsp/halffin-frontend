@@ -2,12 +2,10 @@ import ReactDOM from "react-dom";
 
 // third party
 import { BrowserRouter } from "react-router-dom";
-import { Provider } from "react-redux";
 
 // project imports
 import * as serviceWorker from "serviceWorker";
 import App from "App";
-import { store } from "store";
 import { MoralisProvider } from "react-moralis";
 // style + assets
 import "assets/scss/style.scss";
@@ -21,11 +19,9 @@ ReactDOM.render(
     serverUrl={process.env.REACT_APP_MORALIS_SERVER_URL}
   >
     <ProductProvider>
-      <Provider store={store}>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      </Provider>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
     </ProductProvider>
   </MoralisProvider>,
   document.getElementById("root")

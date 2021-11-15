@@ -12,7 +12,7 @@ import NotificationSection from "./NotificationSection";
 
 // ==============================|| MAIN NAVBAR / HEADER ||============================== //
 
-const Header = ({ handleLeftDrawerToggle }) => {
+const Header = () => {
   const theme = useTheme();
 
   return (
@@ -45,10 +45,6 @@ const Header = ({ handleLeftDrawerToggle }) => {
       <ProfileSection />
     </>
   );
-};
-
-Header.propTypes = {
-  handleLeftDrawerToggle: PropTypes.func,
 };
 
 export default Header;
