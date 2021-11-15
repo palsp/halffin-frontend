@@ -29,7 +29,6 @@ const ProductCard = ({ isLoading, product }) => {
   };
 
   const handleNavigate = (route = "") => {
-    console.log("route", route);
     navigate(route);
   };
 

@@ -7,6 +7,7 @@ import { IconCirclePlus } from "@tabler/icons";
 import { useNavigate } from "react-router-dom";
 import { useProduct } from "context";
 import Products from "./Products";
+import ProductSkeleton from "views/Skeleton/ProductSkeleton";
 
 const MarketPlace = () => {
   const navigate = useNavigate();
@@ -15,11 +16,13 @@ const MarketPlace = () => {
     console.log("route", route);
     navigate(route);
   };
-
-  useEffect(() => {
-    setLoading(false);
-  }, []);
   const { products } = useProduct();
+  
+  useEffect(() => {
+    if(products) {
+      setLoading(false);
+    }
+  }, [products]);
   return (
     <MainCard
       title="Market"
@@ -29,7 +32,9 @@ const MarketPlace = () => {
         </IconButton>
       }
     >
-      <Products isLoading={isLoading} products={products} />
+      {
+        isLoading && products ? <ProductSkeleton /> : <Products isLoading={isLoading} products={products} /> 
+      }
     </MainCard>
   );
 };
