@@ -33,6 +33,7 @@ const CreateProduct = Loadable(
   lazy(() => import("views/product/CreateProduct"))
 );
 const UserProfile = Loadable(lazy(() => import("views/user/UserProfile")));
+const SingleProduct = Loadable(lazy(() => import('views/product/SingleProduct') ));
 // ==============================|| MAIN ROUTING ||============================== //
 
 const MainRoutes = {
@@ -86,6 +87,10 @@ const MainRoutes = {
     {
       path: "*",
       element: <Navigate to="/" />,
+    },
+    {
+      path: '/product/id',
+      element: <SingleProduct />,
     },
   ],
 };

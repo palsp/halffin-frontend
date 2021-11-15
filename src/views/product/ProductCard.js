@@ -41,7 +41,7 @@ const ProductCard = ({ isLoading, product }) => {
         <Grid item lg={4} md={6} sm={6} xs={12}>
           <SubCard title={product.name} style={{ width: "275px" }}>
             <CardActionArea
-              onClick={() => handleNavigate("/product/productId")}
+              onClick={() => handleNavigate("/product/id")}
             >
               <Grid
                 container
