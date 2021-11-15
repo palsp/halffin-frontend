@@ -1,4 +1,3 @@
-import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import { ThemeProvider } from "@mui/material/styles";
 import { CssBaseline, StyledEngineProvider } from "@mui/material";
@@ -11,11 +10,11 @@ import themes from "themes";
 
 // project imports
 import NavigationScroll from "layout/NavigationScroll";
+import config from "config";
 
 // ==============================|| APP ||============================== //
 
 const App = () => {
-  const customization = useSelector((state) => state.customization);
   const { enableWeb3, authenticate, isWeb3Enabled, isAuthenticated, user } =
     useMoralis();
 
@@ -31,7 +30,12 @@ const App = () => {
   }, [isAuthenticated]);
   return (
     <StyledEngineProvider injectFirst>
-      <ThemeProvider theme={themes(customization)}>
+      <ThemeProvider
+        theme={themes({
+          fontFamily: config.fontFamily,
+          borderRadius: config.borderRadius,
+        })}
+      >
         <CssBaseline />
         <NavigationScroll>
           <Routes />

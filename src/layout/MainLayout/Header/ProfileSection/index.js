@@ -1,9 +1,9 @@
 import { useState, useRef, useEffect } from "react";
 import { shortenIfAddress } from "@usedapp/core";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
 import { useMoralis } from "react-moralis";
 import ConnectWallet from "../../../../views/wallet/ConnectWallet";
+import config from "config";
 
 // material-ui
 import { useTheme } from "@mui/material/styles";
@@ -28,12 +28,7 @@ import MainCard from "ui-component/cards/MainCard";
 import Transitions from "ui-component/extended/Transitions";
 
 // assets
-import {
-  IconUser,
-  IconBasket,
-  IconBuildingStore,
-  IconLogout,
-} from "@tabler/icons";
+import { IconUser, IconBuildingStore, IconLogout } from "@tabler/icons";
 
 // ==============================|| PROFILE MENU ||============================== //
 
@@ -59,7 +54,6 @@ const chipSX = (theme) => ({
 
 const ProfileSection = () => {
   const theme = useTheme();
-  const customization = useSelector((state) => state.customization);
   const navigate = useNavigate();
 
   const [selectedIndex, setSelectedIndex] = useState(-1);
@@ -195,7 +189,7 @@ const ProfileSection = () => {
                           >
                             <ListItemButton
                               sx={{
-                                borderRadius: `${customization.borderRadius}px`,
+                                borderRadius: `${config.borderRadius}px`,
                               }}
                               selected={selectedIndex === 0}
                               onClick={(event) =>
@@ -219,7 +213,7 @@ const ProfileSection = () => {
                             </ListItemButton>
                             <ListItemButton
                               sx={{
-                                borderRadius: `${customization.borderRadius}px`,
+                                borderRadius: `${config.borderRadius}px`,
                               }}
                               selected={selectedIndex === 2}
                               onClick={(event) =>
@@ -240,7 +234,7 @@ const ProfileSection = () => {
                             {user && isWeb3Enabled ? (
                               <ListItemButton
                                 sx={{
-                                  borderRadius: `${customization.borderRadius}px`,
+                                  borderRadius: `${config.borderRadius}px`,
                                 }}
                                 selected={selectedIndex === 3}
                                 onClick={handleLogout}
