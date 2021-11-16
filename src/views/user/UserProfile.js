@@ -12,7 +12,9 @@ import PropTypes from "prop-types";
 import MuiTypography from "@mui/material/Typography";
 import { useProduct } from "context";
 import { useNavigate } from "react-router-dom";
-import Products from "../product/Products";
+import ProductList from "../product/ProductList/ProductList";
+
+import { useLocation } from "react-router-dom";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -43,7 +45,13 @@ const UserProfile = () => {
   const [value, setValue] = useState(0);
   const { user, isAuthenticated } = useMoralis();
   const navigate = useNavigate();
-  const { products, getProductsOfSeller, getProductsOfBuyer } = useProduct();
+  const { state } = useLocation();
+  useEffect(() => {
+    if (state && state.value && state.value < 3) {
+      setValue(state.value);
+    }
+  }, [state]);
+  const { getProductsOfSeller, getProductsOfBuyer } = useProduct();
   useEffect(() => {
     if (!user) {
       navigate("/");
@@ -80,14 +88,14 @@ const UserProfile = () => {
           </Tabs>
           <TabPanel value={value} index={0}>
             {user && (
-              <Products
+              <ProductList
                 products={getProductsOfSeller(user.attributes.ethAddress)}
               />
             )}
           </TabPanel>
           <TabPanel value={value} index={1}>
             {user && (
-              <Products
+              <ProductList
                 products={getProductsOfBuyer(user.attributes.ethAddress)}
               />
             )}

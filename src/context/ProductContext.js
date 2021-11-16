@@ -21,7 +21,7 @@ const ProductProvider = ({ children }) => {
             returnValues: { product: productAddress },
           } = event;
           const productDetail = await getProductDetail(productAddress);
-          productDetail.addAddress(productAddress);
+
           setProducts((prevState) => {
             return [...prevState, productDetail];
           });
@@ -36,6 +36,10 @@ const ProductProvider = ({ children }) => {
     [products]
   );
 
+  const getProductById = (id) => {
+    return products.find((product) => product.id === id);
+  };
+
   const getProductsOfBuyer = useCallback(
     (address) => {
       return products.filter((product) => addressEqual(address, product.buyer));
@@ -43,12 +47,27 @@ const ProductProvider = ({ children }) => {
     [products]
   );
 
+  const updateProductInfo = async (id) => {
+    const productIndex = products.findIndex((product) => product.id === id);
+    if (productIndex < 0) return null;
+    const productDetail = products[productIndex];
+    const newProductDetail = await getProductDetail(productDetail.address);
+    setProducts((prevState) => {
+      const temp = [...prevState];
+      temp[productIndex] = newProductDetail;
+      return temp;
+    });
+    return newProductDetail;
+  };
+
   return (
     <ProductContext.Provider
       value={{
         products,
         getProductsOfBuyer,
         getProductsOfSeller,
+        getProductById,
+        updateProductInfo,
       }}
     >
       {children}

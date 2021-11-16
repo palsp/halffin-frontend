@@ -9,8 +9,8 @@ const useEscrow = () => {
 
   const getContractInstance = (contractAddress) =>
     new web3.eth.Contract(abi, contractAddress);
-  const serializeProduct = (productDetail) =>
-    new Product({
+  const serializeProduct = (productDetail, productAddress) => {
+    const product = new Product({
       id: productDetail.id,
       name: productDetail.name,
       owner: productDetail.owner,
@@ -21,15 +21,19 @@ const useEscrow = () => {
       deliveryStatus: productDetail.deliveryStatus,
     });
 
+    product.addAddress(productAddress);
+    return product;
+  };
+
   const getProductDetail = async (contractAddress) => {
     const contractInstance = getContractInstance(contractAddress);
     const result = await contractInstance.methods.product().call();
-    return serializeProduct(result);
+    return serializeProduct(result, contractAddress);
   };
 
   const order = (contractAddress, price) => {
     const contractInstance = getContractInstance(contractAddress);
-    contractInstance.methods.order().send({
+    return contractInstance.methods.order().send({
       from: user.attributes.ethAddress,
       value: web3.utils.toWei(price, "ether"),
     });
@@ -37,28 +41,35 @@ const useEscrow = () => {
 
   const cancelOrder = (contractAddress) => {
     const contractInstance = getContractInstance(contractAddress);
-    contractInstance.methods
+    return contractInstance.methods
       .cancelOrder()
       .send({ from: user.attributes.ethAddress });
   };
 
   const updateShipment = (contractAddress, trackingId) => {
     const contractInstance = getContractInstance(contractAddress);
-    contractInstance.methods
+    return contractInstance.methods
       .updateShipment(trackingId)
       .send({ from: user.attributes.ethAddress });
   };
 
-  const requestShippingDetail = (contractAddress) => {
+  const requestShippingDetail = async (
+    contractAddress,
+    cb,
+    onTrackingUpdate
+  ) => {
     const contractInstance = getContractInstance(contractAddress);
-    contractInstance.methods
+    await contractInstance.methods
       .requestShippingDetail()
       .send({ from: user.attributes.ethAddress });
+    cb();
+    // TODO: change to ShipmentUpdated
+    contractInstance.once("ShipmentDelivered", onTrackingUpdate);
   };
 
   const reclaimFund = (contractAddress) => {
     const contractInstance = getContractInstance(contractAddress);
-    contractInstance.methods
+    return contractInstance.methods
       .reclaimFund()
       .send({ from: user.attributes.ethAddress });
   };
