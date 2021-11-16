@@ -5,10 +5,6 @@ import MainLayout from "layout/MainLayout";
 import Loadable from "ui-component/Loadable";
 import { Navigate } from "react-router-dom";
 
-const ShoppingHomePage = Loadable(
-  lazy(() => import("views/shoppingHomePage/ShoppingHomePage"))
-);
-
 // sample page routing
 const MarketPlace = Loadable(lazy(() => import("views/product/MarketPlace")));
 const CreateProduct = Loadable(
@@ -27,10 +23,6 @@ const MainRoutes = {
     {
       path: "",
       element: <MarketPlace />,
-    },
-    {
-      path: "/shopping",
-      element: <ShoppingHomePage />,
     },
     {
       path: "/my-product/create",

@@ -23,9 +23,10 @@ const useEscrowFactory = () => {
     setContract(contractInstance);
   }, [web3, chainId]);
 
-  const createProduct = ({ name, price, lockTime }) => {
+  const createProduct = ({ name, price, lockTime}, setNextStep) => {
     const newPrice = web3.utils.toWei(price, "ether");
     try {
+      setNextStep(1);
       contract.methods
         .createProduct(name, newPrice, lockTime)
         .send({ from: user.attributes.ethAddress })
@@ -34,9 +35,12 @@ const useEscrowFactory = () => {
         })
         .on("receipt", (receipt) => {
           console.log("receipt", receipt);
+          setNextStep(2);
+          setNextStep(3);
         })
         .on("error", (error, receipt) => {
           console.log("on error", error);
+          setNextStep(0);
         });
     } catch (e) {
       console.log(e);
