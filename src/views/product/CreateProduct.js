@@ -53,6 +53,7 @@ const CreateProduct = () => {
   const [activeStep, setActiveStep] = useState(0);
   const [completed, setCompleted] = useState({});
   const [open, setOpen] = useState(false);
+  const [txhash, setTxHash] = useState('');
 
   const {createProduct} = useEscrowFactory();
 
@@ -68,7 +69,7 @@ const CreateProduct = () => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    createProduct(productDetail, setNextStep);
+    createProduct(productDetail, setNextStep, setTxHash);
     handleClickOpen();
   };
 
@@ -94,11 +95,6 @@ const CreateProduct = () => {
 
   const setNextStep = (step) => {
     setActiveStep(step);
-    console.log('activeStep : ', activeStep);
-  };
-
-  const resetStep = () => {
-    // setActiveStep(0);
   };
 
   return (
@@ -190,7 +186,7 @@ const CreateProduct = () => {
           </Button>
         </form>
       )}
-      <Dialog open={open}>
+      <Dialog open={open} maxWidth>
         <DialogContent>
           <Box sx={{width: '100%'}}>
             <Stepper activeStep={activeStep} alternativeLabel>
@@ -214,11 +210,14 @@ const CreateProduct = () => {
                   <Typography sx={{mt: 2, mb: 1}} variant="body1">
                     Your product has been created.
                   </Typography>
+                  <Typography sx={{mt: 2, mb: 1}} variant="body2" style={{textOverflow: 'ellipsis', whiteSpace: 'nowrap', display: 'inherit'}}>
+                    Transaction hash : <a href={`https://kovan.etherscan.io/tx/${txhash}`}>{txhash}</a>
+                  </Typography>                  
                 </Grid>
               ) : (
                 <>
                   <Typography sx={{mt: 2, mb: 1}}>
-                    {description[activeStep]} {}
+                    {description[activeStep]}
                   </Typography>
                 </>
               )}

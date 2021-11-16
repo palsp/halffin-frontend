@@ -23,7 +23,7 @@ const useEscrowFactory = () => {
     setContract(contractInstance);
   }, [web3, chainId]);
 
-  const createProduct = ({ name, price, lockTime}, setNextStep) => {
+  const createProduct = ({ name, price, lockTime}, setNextStep, setTxHash) => {
     const newPrice = web3.utils.toWei(price, "ether");
     try {
       setNextStep(1);
@@ -34,8 +34,10 @@ const useEscrowFactory = () => {
           console.log("confirm", confirmationNumber);
         })
         .on("receipt", (receipt) => {
-          console.log("receipt", receipt);
           setNextStep(2);
+          console.log("receipt", receipt);
+          console.log("receipt", receipt.transactionHash);
+          setTxHash(receipt.transactionHash);
           setNextStep(3);
         })
         .on("error", (error, receipt) => {
