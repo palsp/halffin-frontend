@@ -1,3 +1,5 @@
+import mapStage from "api/stage";
+
 class Product {
   #name;
   constructor({
@@ -25,6 +27,30 @@ class Product {
   }
   get name() {
     return `${this.#name} #${this.id}`;
+  }
+
+  get isAbleToBuy() {
+    return this.checkStage(0);
+  }
+
+  get isWaitForShipping() {
+    return this.checkStage(1);
+  }
+
+  get isAbleToCheckTrackingStatus() {
+    return this.checkStage(2);
+  }
+
+  get isAbleToClaimFund() {
+    return this.checkStage(3);
+  }
+
+  get isEnd() {
+    return this.checkStage(4);
+  }
+
+  checkStage(stage) {
+    return mapStage[stage] === this.stage;
   }
 }
 

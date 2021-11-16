@@ -6,7 +6,7 @@ import MainCard from "ui-component/cards/MainCard";
 import { IconCirclePlus } from "@tabler/icons";
 import { useNavigate } from "react-router-dom";
 import { useProduct } from "context";
-import Products from "./Products";
+import ProductList from "./ProductList/ProductList";
 import ProductSkeleton from "views/Skeleton/ProductSkeleton";
 
 const MarketPlace = () => {
@@ -17,9 +17,9 @@ const MarketPlace = () => {
     navigate(route);
   };
   const { products } = useProduct();
-  
+
   useEffect(() => {
-    if(products) {
+    if (products) {
       setLoading(false);
     }
   }, [products]);
@@ -32,9 +32,14 @@ const MarketPlace = () => {
         </IconButton>
       }
     >
-      {
-        isLoading && products ? <ProductSkeleton /> : <Products isLoading={isLoading} products={products} /> 
-      }
+      {isLoading && products ? (
+        <ProductSkeleton />
+      ) : (
+        <ProductList
+          isLoading={isLoading}
+          products={products.filter((product) => product.isAbleToBuy)}
+        />
+      )}
     </MainCard>
   );
 };

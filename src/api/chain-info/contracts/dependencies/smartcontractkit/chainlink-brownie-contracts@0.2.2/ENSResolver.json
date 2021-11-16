@@ -27,15 +27,15 @@
     "absolutePath": "/Users/palll/.brownie/packages/smartcontractkit/chainlink-brownie-contracts@0.2.2/contracts/src/v0.8/vendor/ENSResolver.sol",
     "exportedSymbols": {
       "ENSResolver": [
-        1939
+        1952
       ]
     },
-    "id": 1940,
+    "id": 1953,
     "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 1931,
+        "id": 1944,
         "literals": [
           "solidity",
           "^",
@@ -52,9 +52,9 @@
         "contractDependencies": [],
         "contractKind": "contract",
         "fullyImplemented": false,
-        "id": 1939,
+        "id": 1952,
         "linearizedBaseContracts": [
-          1939
+          1952
         ],
         "name": "ENSResolver",
         "nameLocation": "75:11:12",
@@ -62,7 +62,7 @@
         "nodes": [
           {
             "functionSelector": "3b3b57de",
-            "id": 1938,
+            "id": 1951,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
@@ -70,17 +70,17 @@
             "nameLocation": "100:4:12",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 1934,
+              "id": 1947,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1933,
+                  "id": 1946,
                   "mutability": "mutable",
                   "name": "node",
                   "nameLocation": "118:4:12",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1938,
+                  "scope": 1951,
                   "src": "110:12:12",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -89,7 +89,7 @@
                     "typeString": "bytes32"
                   },
                   "typeName": {
-                    "id": 1932,
+                    "id": 1945,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
                     "src": "110:7:12",
@@ -104,17 +104,17 @@
               "src": "104:22:12"
             },
             "returnParameters": {
-              "id": 1937,
+              "id": 1950,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1936,
+                  "id": 1949,
                   "mutability": "mutable",
                   "name": "",
                   "nameLocation": "-1:-1:-1",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1938,
+                  "scope": 1951,
                   "src": "179:7:12",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -123,7 +123,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 1935,
+                    "id": 1948,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "179:7:12",
@@ -138,14 +138,14 @@
               ],
               "src": "171:21:12"
             },
-            "scope": 1939,
+            "scope": 1952,
             "src": "91:102:12",
             "stateMutability": "view",
             "virtual": true,
             "visibility": "public"
           }
         ],
-        "scope": 1940,
+        "scope": 1953,
         "src": "57:138:12",
         "usedErrors": []
       }

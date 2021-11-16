@@ -22,7 +22,6 @@ const App = () => {
     await enableWeb3();
     await authenticate();
   };
-
   useEffect(() => {
     if (isAuthenticated) {
       enableWeb3();

@@ -21,15 +21,15 @@
     "absolutePath": "/Users/palll/.brownie/packages/smartcontractkit/chainlink-brownie-contracts@0.2.2/contracts/src/v0.8/interfaces/PointerInterface.sol",
     "exportedSymbols": {
       "PointerInterface": [
-        1929
+        1942
       ]
     },
-    "id": 1930,
+    "id": 1943,
     "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 1923,
+        "id": 1936,
         "literals": [
           "solidity",
           "^",
@@ -46,9 +46,9 @@
         "contractDependencies": [],
         "contractKind": "interface",
         "fullyImplemented": false,
-        "id": 1929,
+        "id": 1942,
         "linearizedBaseContracts": [
-          1929
+          1942
         ],
         "name": "PointerInterface",
         "nameLocation": "67:16:9",
@@ -56,7 +56,7 @@
         "nodes": [
           {
             "functionSelector": "38cc4831",
-            "id": 1928,
+            "id": 1941,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
@@ -64,23 +64,23 @@
             "nameLocation": "100:10:9",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 1924,
+              "id": 1937,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "110:2:9"
             },
             "returnParameters": {
-              "id": 1927,
+              "id": 1940,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1926,
+                  "id": 1939,
                   "mutability": "mutable",
                   "name": "",
                   "nameLocation": "-1:-1:-1",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1928,
+                  "scope": 1941,
                   "src": "155:7:9",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -89,7 +89,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 1925,
+                    "id": 1938,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "155:7:9",
@@ -104,14 +104,14 @@
               ],
               "src": "147:21:9"
             },
-            "scope": 1929,
+            "scope": 1942,
             "src": "91:78:9",
             "stateMutability": "view",
             "virtual": false,
             "visibility": "external"
           }
         ],
-        "scope": 1930,
+        "scope": 1943,
         "src": "57:114:9",
         "usedErrors": []
       }

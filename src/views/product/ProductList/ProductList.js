@@ -1,5 +1,5 @@
 import { Grid } from "@mui/material";
-import ProductCard from "./ProductCard";
+import ProductCard from "../ProductCard";
 
 const Products = ({ products, isLoading }) => (
   <Grid container spacing={3}>
