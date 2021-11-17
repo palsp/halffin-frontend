@@ -15,6 +15,7 @@ import { useNavigate } from "react-router-dom";
 import ProductList from "../product/ProductList/ProductList";
 
 import { useLocation } from "react-router-dom";
+import { shortenIfAddress } from "@usedapp/core";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -76,7 +77,9 @@ const UserProfile = () => {
             sx={{ width: 100, height: 100 }}
           />
           <MuiTypography variant="subtitle1" gutterBottom>
-            {isAuthenticated ? user.attributes.username : ""}
+            {isAuthenticated
+              ? shortenIfAddress(user.attributes.ethAddress)
+              : ""}
           </MuiTypography>
           <MuiTypography variant="subtitle2">
             {isAuthenticated ? user.attributes.createdAt.toString() : ""}

@@ -33,23 +33,22 @@ const MarketPlace = () => {
     );
   }
 
-  if (user)
-    return (
-      <MainCard
-        title="Market"
-        secondary={
-          <IconButton onClick={() => handleNavigate("/my-product/create")}>
-            <IconCirclePlus />
-          </IconButton>
-        }
-      >
-        {isLoading && products ? (
-          <ProductSkeleton />
-        ) : (
-          <ProductList isLoading={isLoading} products={displayProducts} />
-        )}
-      </MainCard>
-    );
+  return (
+    <MainCard
+      title="Market"
+      secondary={
+        <IconButton onClick={() => handleNavigate("/my-product/create")}>
+          <IconCirclePlus />
+        </IconButton>
+      }
+    >
+      {isLoading && products ? (
+        <ProductSkeleton />
+      ) : (
+        <ProductList isLoading={isLoading} products={displayProducts} />
+      )}
+    </MainCard>
+  );
 };
 
 export default MarketPlace;
