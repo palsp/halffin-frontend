@@ -58,7 +58,6 @@ const CreateProduct = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     signAndSendTransaction(() => createProduct(productDetail));
-    handleOpen();
   };
 
   return (

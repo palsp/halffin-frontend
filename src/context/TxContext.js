@@ -50,6 +50,9 @@ const TxContext = React.createContext({
   handleNextStep: (nextStep) => {
     return;
   },
+  signAndSendTransaction: () => {
+    return;
+  },
 });
 
 const TxProvider = ({ children }) => {
@@ -76,8 +79,9 @@ const TxProvider = ({ children }) => {
     dispatch({ type: "ERROR", message: error.message });
 
   const signAndSendTransaction = (fn) => {
+    handleOpen();
     handleNextStep(1);
-    fn()
+    return fn()
       .on("receipt", (receipt) => {
         handleNextStep(2);
         handleTx(receipt.transactionHash);

@@ -52,18 +52,16 @@ const useEscrow = () => {
       .send({ from: user.attributes.ethAddress });
   };
 
-  const requestShippingDetail = async (
-    contractAddress,
-    cb,
-    onTrackingUpdate
-  ) => {
+  const requestShippingDetail = (contractAddress) => {
     const contractInstance = getContractInstance(contractAddress);
-    await contractInstance.methods
+    return contractInstance.methods
       .requestShippingDetail()
       .send({ from: user.attributes.ethAddress });
-    cb();
-    // TODO: change to ShipmentUpdated
-    contractInstance.once("ShipmentDelivered", onTrackingUpdate);
+  };
+
+  const listenOnShipmentDetail = (contractAddress, cb) => {
+    const contractInstance = getContractInstance(contractAddress);
+    return contractInstance.once("ShipmentDelivered", cb);
   };
 
   const reclaimFund = (contractAddress) => {
@@ -81,6 +79,7 @@ const useEscrow = () => {
     updateShipment,
     requestShippingDetail,
     reclaimFund,
+    listenOnShipmentDetail,
   };
 };
 

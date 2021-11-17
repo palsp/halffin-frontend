@@ -12,9 +12,12 @@ import {
   Typography,
   CircularProgress,
 } from "@mui/material";
-import WarningIcon from "@mui/icons-material/Warning";
-import { useTx } from "hooks";
+import { useTx, useWeb3 } from "hooks";
 import { makeStyles } from "@mui/styles";
+import {
+  shortenIfTransactionHash,
+  getExplorerTransactionLink,
+} from "@usedapp/core";
 
 const useStyles = makeStyles((theme) => ({
   txTag: {
@@ -28,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
 
 const TransactionModal = () => {
   const classes = useStyles();
+  const { chainId } = useWeb3();
   const { txState, steps, isComplete, handleClose } = useTx();
   const { open, txhash, step, error, errorMessage } = txState;
   const dom = document.getElementById("tx-modal-overlay");
@@ -76,10 +80,10 @@ const TransactionModal = () => {
                       Transaction hash :{" "}
                       <a
                         className={classes.txTag}
-                        href={`https://kovan.etherscan.io/tx/${txhash}`}
+                        href={getExplorerTransactionLink(txhash, chainId)}
                         target="_blank"
                       >
-                        {txhash}
+                        {shortenIfTransactionHash(txhash)}
                       </a>
                     </Typography>
                   </Grid>
