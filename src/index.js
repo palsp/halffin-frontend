@@ -9,7 +9,7 @@ import App from "App";
 import { MoralisProvider } from "react-moralis";
 // style + assets
 import "assets/scss/style.scss";
-import { ProductProvider } from "context";
+import { ProductProvider, TxProvider } from "context";
 
 // ==============================|| REACT DOM RENDER  ||============================== //
 
@@ -18,11 +18,13 @@ ReactDOM.render(
     appId={process.env.REACT_APP_MORALIS_APP_ID}
     serverUrl={process.env.REACT_APP_MORALIS_SERVER_URL}
   >
-    <ProductProvider>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </ProductProvider>
+    <TxProvider>
+      <ProductProvider>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </ProductProvider>
+    </TxProvider>
   </MoralisProvider>,
   document.getElementById("root")
 );

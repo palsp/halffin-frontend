@@ -2,6 +2,7 @@ import mapStage from "api/stage";
 
 class Product {
   #name;
+  #stage;
   constructor({
     id,
     name,
@@ -17,7 +18,7 @@ class Product {
     this.owner = owner;
     this.buyer = buyer;
     this.price = price;
-    this.stage = stage;
+    this.#stage = stage;
     this.trackingId = trackingId;
     this.deliveryStatus = deliveryStatus;
   }
@@ -49,8 +50,16 @@ class Product {
     return this.checkStage(4);
   }
 
+  get stage() {
+    return mapStage[this.#stage];
+  }
+
+  get _stage() {
+    return this.#stage;
+  }
+
   checkStage(stage) {
-    return mapStage[stage] === this.stage;
+    return mapStage[stage] === this.#stage;
   }
 }
 

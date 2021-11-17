@@ -18,19 +18,16 @@ import ethIcon from "../../assets/images/icons/eth.svg";
 const ProductCard = ({ isLoading, product }) => {
   const theme = useTheme();
   const navigate = useNavigate();
-  const [anchorEl, setAnchorEl] = useState(null);
-
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
 
   const handleNavigate = (route = "") => {
     navigate(route);
   };
+
+  const cardTitle = [product.name];
+  if (!product.isAbleToBuy) {
+    cardTitle.push("-");
+    cardTitle.push(product.stage.toUpperCase());
+  }
 
   return (
     <>
@@ -38,7 +35,13 @@ const ProductCard = ({ isLoading, product }) => {
         <SkeletonEarningCard />
       ) : (
         <Grid item lg={4} md={6} sm={6} xs={12}>
-          <SubCard title={product.name} style={{ width: "275px" }}>
+          <SubCard
+            title={cardTitle.join(" ")}
+            style={{
+              width: "275px",
+              backgroundColor: theme.palette.stage[product._stage],
+            }}
+          >
             <CardActionArea
               onClick={() => handleNavigate(`/product/${product.id}`)}
             >
