@@ -7,6 +7,7 @@ import { AppBar, Box, CssBaseline, Toolbar } from "@mui/material";
 // project imports
 import Breadcrumbs from "ui-component/extended/Breadcrumbs";
 import Header from "./Header";
+import TransactionModal from "../../views/transactionModal/TransactionModal";
 import { drawerWidth } from "store/constant";
 
 // assets
@@ -41,6 +42,7 @@ const MainLayout = () => {
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
+      <TransactionModal />
       {/* header */}
       <AppBar
         enableColorOnDark
@@ -59,6 +61,7 @@ const MainLayout = () => {
       {/* main content */}
       <Main theme={theme}>
         {/* breadcrumb */}
+
         <Breadcrumbs separator={IconChevronRight} icon title rightAlign />
         <Outlet />
       </Main>
