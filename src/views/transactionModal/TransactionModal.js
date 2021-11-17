@@ -1,4 +1,4 @@
-import ReactDOM from "react-dom";
+import ReactDOM from 'react-dom';
 import {
   Dialog,
   DialogContent,
@@ -10,16 +10,16 @@ import {
   StepButton,
   Grid,
   Typography,
-} from "@mui/material";
-import { useTx } from "hooks";
-import Spinner from "ui-component/extended/Spinner";
-import { makeStyles } from "@mui/styles";
+} from '@mui/material';
+import {useTx} from 'hooks';
+import Spinner from 'ui-component/extended/Spinner';
+import {makeStyles} from '@mui/styles';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   txTag: {
-    textDecoration: "none",
+    textDecoration: 'none',
     color: theme.palette.primary.main,
-    "&:hover": {
+    '&:hover': {
       color: theme.palette.secondary.main,
     },
   },
@@ -27,16 +27,16 @@ const useStyles = makeStyles((theme) => ({
 
 const TransactionModal = () => {
   const classes = useStyles();
-  const { txState, steps, isComplete, handleClose } = useTx();
-  const { open, txhash, step } = txState;
-  const dom = document.getElementById("tx-modal-overlay");
+  const {txState, steps, isComplete, handleClose} = useTx();
+  const {open, txhash, step} = txState;
+  const dom = document.getElementById('tx-modal-overlay');
   return (
     <>
       {ReactDOM.createPortal(
         <Dialog open={open} maxWidth>
           <DialogContent>
-            <Box sx={{ width: "100%" }}>
-              <Stepper activeStep={step} alternativeLabel>
+            <Box sx={{width: '100%', overflowY: 'visible'}}>
+              <Stepper activeStep={step} alternativeLabel >
                 {steps.map((label, index) => (
                   <Step key={label}>
                     <StepButton color="inherit">{label}</StepButton>
@@ -51,22 +51,22 @@ const TransactionModal = () => {
                     justifyContent="center"
                     alignItems="center"
                   >
-                    <Typography sx={{ mt: 2, mb: 1 }} variant="h3">
+                    <Typography sx={{mt: 2, mb: 1}} variant="h3">
                       Request Complete
                     </Typography>
-                    <Typography sx={{ mt: 2, mb: 1 }} variant="body1">
+                    <Typography sx={{mt: 2, mb: 1}} variant="body1">
                       Your product has been created.
                     </Typography>
                     <Typography
-                      sx={{ mt: 2, mb: 1 }}
+                      sx={{mt: 2, mb: 1}}
                       variant="body2"
                       style={{
-                        textOverflow: "ellipsis",
-                        whiteSpace: "nowrap",
-                        display: "inherit",
+                        textOverflow: 'ellipsis',
+                        whiteSpace: 'nowrap',
+                        display: 'inherit',
                       }}
                     >
-                      Transaction hash :{" "}
+                      Transaction hash :{' '}
                       <a
                         className={classes.txTag}
                         href={`https://kovan.etherscan.io/tx/${txhash}`}
@@ -78,9 +78,13 @@ const TransactionModal = () => {
                   </Grid>
                 ) : (
                   <>
-                    <Typography sx={{ mt: 2, mb: 1 }} textAlign="center">
-                      <Spinner />
-                    </Typography>
+                    {step === 0 ? (
+                      <div></div>
+                    ) : (
+                      <Typography sx={{mt: 2, mb: 1}} textAlign="center">
+                        <Spinner />
+                      </Typography>
+                    )}
                   </>
                 )}
               </div>
