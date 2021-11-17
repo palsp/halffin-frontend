@@ -10,6 +10,8 @@ import MainCard from "ui-component/cards/MainCard";
 import { useEscrowFactory, useTx } from "hooks";
 import { makeStyles } from "@mui/styles";
 import ConnectWallet from "../wallet/ConnectWallet";
+import Storage from "store/filecoin";
+import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
   image: {
@@ -55,8 +57,11 @@ const CreateProduct = () => {
     setSelectedImage();
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // const store = new Storage();
+    // await store.uploadToFileCoin("pet.jpeg", selectedImage);
     signAndSendTransaction(() => createProduct(productDetail));
   };
 
