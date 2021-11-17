@@ -13,11 +13,10 @@ const MarketPlace = () => {
   const navigate = useNavigate();
   const [isLoading, setLoading] = useState(true);
   const handleNavigate = (route = "") => {
-    console.log("route", route);
     navigate(route);
   };
   const { products } = useProduct();
-
+  products.forEach((product) => console.log(product.name, product._stage));
   useEffect(() => {
     if (products) {
       setLoading(false);
