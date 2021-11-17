@@ -40,7 +40,7 @@ const TransactionModal = () => {
       {ReactDOM.createPortal(
         <Dialog open={open} maxWidth>
           <DialogContent>
-            <Box sx={{ width: "100%" }}>
+            <Box sx={{ width: "100%", overflowY: "visible" }}>
               <Stepper activeStep={step} alternativeLabel>
                 {steps.map((label, index) => {
                   const labelProps = {};
