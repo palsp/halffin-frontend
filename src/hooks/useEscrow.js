@@ -1,7 +1,6 @@
 import useWeb3 from "hooks/useWeb3";
 import { abi } from "api/chain-info/contracts/Escrow.json";
 import { useMoralis } from "react-moralis";
-import mapStageToString from "api/stage";
 import Product from "model/Product";
 const useEscrow = () => {
   const { web3 } = useWeb3();
@@ -16,7 +15,7 @@ const useEscrow = () => {
       owner: productDetail.owner,
       buyer: productDetail.buyer,
       price: web3.utils.fromWei(productDetail.price, "ether"),
-      stage: mapStageToString[productDetail.stage],
+      stage: productDetail.stage,
       trackingId: productDetail.trackingId,
       deliveryStatus: productDetail.deliveryStatus,
     });
