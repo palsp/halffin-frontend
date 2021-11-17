@@ -1,4 +1,4 @@
-import ReactDOM from 'react-dom';
+import ReactDOM from "react-dom";
 import {
   Dialog,
   DialogContent,
@@ -7,19 +7,23 @@ import {
   Box,
   Stepper,
   Step,
-  StepButton,
+  StepLabel,
   Grid,
   Typography,
-} from '@mui/material';
-import {useTx} from 'hooks';
-import Spinner from 'ui-component/extended/Spinner';
-import {makeStyles} from '@mui/styles';
+  CircularProgress,
+} from "@mui/material";
+import { useTx, useWeb3 } from "hooks";
+import { makeStyles } from "@mui/styles";
+import {
+  shortenIfTransactionHash,
+  getExplorerTransactionLink,
+} from "@usedapp/core";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   txTag: {
-    textDecoration: 'none',
+    textDecoration: "none",
     color: theme.palette.primary.main,
-    '&:hover': {
+    "&:hover": {
       color: theme.palette.secondary.main,
     },
   },
@@ -27,21 +31,28 @@ const useStyles = makeStyles(theme => ({
 
 const TransactionModal = () => {
   const classes = useStyles();
-  const {txState, steps, isComplete, handleClose} = useTx();
-  const {open, txhash, step} = txState;
-  const dom = document.getElementById('tx-modal-overlay');
+  const { chainId } = useWeb3();
+  const { txState, steps, isComplete, handleClose } = useTx();
+  const { open, txhash, step, error, errorMessage } = txState;
+  const dom = document.getElementById("tx-modal-overlay");
   return (
     <>
       {ReactDOM.createPortal(
         <Dialog open={open} maxWidth>
           <DialogContent>
-            <Box sx={{width: '100%', overflowY: 'visible'}}>
-              <Stepper activeStep={step} alternativeLabel >
-                {steps.map((label, index) => (
-                  <Step key={label}>
-                    <StepButton color="inherit">{label}</StepButton>
-                  </Step>
-                ))}
+            <Box sx={{ width: "100%", overflowY: "visible" }}>
+              <Stepper activeStep={step} alternativeLabel>
+                {steps.map((label, index) => {
+                  const labelProps = {};
+                  if (error && step === index) {
+                    labelProps.error = true;
+                  }
+                  return (
+                    <Step key={label}>
+                      <StepLabel {...labelProps}>{label}</StepLabel>
+                    </Step>
+                  );
+                })}
               </Stepper>
               <div>
                 {isComplete() ? (
@@ -51,47 +62,49 @@ const TransactionModal = () => {
                     justifyContent="center"
                     alignItems="center"
                   >
-                    <Typography sx={{mt: 2, mb: 1}} variant="h3">
+                    <Typography sx={{ mt: 2, mb: 1 }} variant="h3">
                       Request Complete
                     </Typography>
-                    <Typography sx={{mt: 2, mb: 1}} variant="body1">
+                    <Typography sx={{ mt: 2, mb: 1 }} variant="body1">
                       Your product has been created.
                     </Typography>
                     <Typography
-                      sx={{mt: 2, mb: 1}}
+                      sx={{ mt: 2, mb: 1 }}
                       variant="body2"
                       style={{
-                        textOverflow: 'ellipsis',
-                        whiteSpace: 'nowrap',
-                        display: 'inherit',
+                        textOverflow: "ellipsis",
+                        whiteSpace: "nowrap",
+                        display: "inherit",
                       }}
                     >
-                      Transaction hash :{' '}
+                      Transaction hash :{" "}
                       <a
                         className={classes.txTag}
-                        href={`https://kovan.etherscan.io/tx/${txhash}`}
+                        href={getExplorerTransactionLink(txhash, chainId)}
                         target="_blank"
                       >
-                        {txhash}
+                        {shortenIfTransactionHash(txhash)}
                       </a>
                     </Typography>
                   </Grid>
+                ) : error ? (
+                  <Typography
+                    sx={{ mt: 2, mb: 1 }}
+                    textAlign="center"
+                    sx={{ color: "red", fontWeight: "bold" }}
+                  >
+                    {errorMessage}
+                  </Typography>
                 ) : (
-                  <>
-                    {step === 0 ? (
-                      <div></div>
-                    ) : (
-                      <Typography sx={{mt: 2, mb: 1}} textAlign="center">
-                        <Spinner />
-                      </Typography>
-                    )}
-                  </>
+                  <Typography sx={{ mt: 2, mb: 1 }} textAlign="center">
+                    <CircularProgress color="inherit" />
+                  </Typography>
                 )}
               </div>
             </Box>
           </DialogContent>
           <DialogActions>
-            <Button disabled={step === 1} onClick={handleClose}>
+            <Button disabled={!error && !isComplete()} onClick={handleClose}>
               Close
             </Button>
           </DialogActions>

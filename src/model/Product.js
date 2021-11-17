@@ -59,7 +59,7 @@ class Product {
   }
 
   checkStage(stage) {
-    return mapStage[stage] === this.#stage;
+    return stage == this.#stage;
   }
 }
 

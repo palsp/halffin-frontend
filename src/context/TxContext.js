@@ -4,6 +4,8 @@ const initialState = {
   open: false,
   txhash: "",
   step: 0,
+  error: false,
+  errorMessage: "",
 };
 export const reducer = (state, action) => {
   switch (action.type) {
@@ -13,6 +15,8 @@ export const reducer = (state, action) => {
       return { ...state, txhash: action.tx };
     case "NEXT_STEP":
       return { ...state, step: action.step };
+    case "ERROR":
+      return { ...state, error: true, errorMessage: action.message };
     case "CLOSE":
       return initialState;
     default:
@@ -40,7 +44,13 @@ const TxContext = React.createContext({
   isComplete: () => {
     return;
   },
+  handleError: () => {
+    return;
+  },
   handleNextStep: (nextStep) => {
+    return;
+  },
+  signAndSendTransaction: () => {
     return;
   },
 });
@@ -65,6 +75,22 @@ const TxProvider = ({ children }) => {
   const handleNextStep = (nextStep) =>
     dispatch({ type: "NEXT_STEP", step: nextStep });
   const isComplete = () => txState.step === steps.length;
+  const handleError = (error) =>
+    dispatch({ type: "ERROR", message: error.message });
+
+  const signAndSendTransaction = (fn) => {
+    handleOpen();
+    handleNextStep(1);
+    return fn()
+      .on("receipt", (receipt) => {
+        handleNextStep(2);
+        handleTx(receipt.transactionHash);
+        handleNextStep(3);
+      })
+      .on("error", (error, receipt) => {
+        handleError(error);
+      });
+  };
 
   return (
     <TxContext.Provider
@@ -76,7 +102,9 @@ const TxProvider = ({ children }) => {
         handleOpen,
         handleTx,
         handleNextStep,
+        handleError,
         isComplete,
+        signAndSendTransaction,
       }}
     >
       {children}

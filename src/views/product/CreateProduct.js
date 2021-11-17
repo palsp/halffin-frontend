@@ -2,17 +2,9 @@ import { useState, useRef } from "react";
 
 import { useMoralis } from "react-moralis";
 // material-ui
-import { Box, Card, Grid, Typography, TextField, Button } from "@mui/material";
+import { Grid, TextField, Button } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import DeleteIcon from "@mui/icons-material/Delete";
-import Stepper from "@mui/material/Stepper";
-import Step from "@mui/material/Step";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
-import StepButton from "@mui/material/StepButton";
 // project imports
 import MainCard from "ui-component/cards/MainCard";
 import { useEscrowFactory, useTx } from "hooks";
@@ -49,7 +41,7 @@ const CreateProduct = () => {
     lockTime: 0,
   });
 
-  const { handleOpen, handleNextStep, handleTx } = useTx();
+  const { signAndSendTransaction, handleOpen } = useTx();
 
   const { createProduct } = useEscrowFactory();
 
@@ -65,8 +57,7 @@ const CreateProduct = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    createProduct(productDetail, handleNextStep, handleTx);
-    handleOpen();
+    signAndSendTransaction(() => createProduct(productDetail));
   };
 
   return (

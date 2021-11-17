@@ -15,18 +15,20 @@ import config from "config";
 // ==============================|| APP ||============================== //
 
 const App = () => {
-  const { enableWeb3, authenticate, isWeb3Enabled, isAuthenticated, user } =
-    useMoralis();
+  const { enableWeb3, isAuthenticated, Moralis } = useMoralis();
 
-  const enableAndAuthenticate = async () => {
-    await enableWeb3();
-    await authenticate();
-  };
+  useEffect(() => {
+    Moralis.onAccountsChanged(async (accounts) => {
+      await Moralis.link(accounts[0]);
+    });
+  }, []);
+
   useEffect(() => {
     if (isAuthenticated) {
       enableWeb3();
     }
   }, [isAuthenticated]);
+
   return (
     <StyledEngineProvider injectFirst>
       <ThemeProvider

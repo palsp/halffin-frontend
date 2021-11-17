@@ -8,7 +8,7 @@ import { useTheme } from "@mui/material/styles";
 
 // hooks
 import { useEscrow } from "hooks";
-import { useProduct } from "context";
+import { useTx } from "hooks";
 import { makeStyles } from "@mui/styles";
 import { createTracking } from "api/tracking_server";
 
@@ -27,8 +27,14 @@ const SellerView = ({ onUpdate, product }) => {
   const classes = useStyles();
   const theme = useTheme();
   const [isLoading, setLoading] = useState(true);
+  const { signAndSendTransaction } = useTx();
   const [isShipmentUpdating, setIsShipmentUpdating] = useState(false);
-  const { updateShipment, requestShippingDetail, reclaimFund } = useEscrow();
+  const {
+    updateShipment,
+    requestShippingDetail,
+    reclaimFund,
+    listenOnShipmentDetail,
+  } = useEscrow();
   const [trackingNo, setTrackingNo] = useState("");
 
   const updateTracking = async (e) => {
@@ -36,7 +42,9 @@ const SellerView = ({ onUpdate, product }) => {
     try {
       const response = await createTracking(product.id, trackingNo.trim());
       const trackingId = response.data.tracking.id;
-      await updateShipment(product.address, trackingId);
+      await signAndSendTransaction(() =>
+        updateShipment(product.address, trackingId)
+      );
       await onUpdate(product.id);
     } catch (err) {
       console.log(err);
@@ -44,21 +52,19 @@ const SellerView = ({ onUpdate, product }) => {
   };
 
   const handleRequestShippingDetail = async () => {
-    await requestShippingDetail(
-      product.address,
-      () => {
-        setIsShipmentUpdating(true);
-      },
-      async (error, event) => {
-        console.log("handleRequestShippingDetail", event);
-        await onUpdate(product.id);
-        setIsShipmentUpdating(false);
-      }
-    );
+    await signAndSendTransaction(() => requestShippingDetail(product.address));
+
+    setIsShipmentUpdating(true);
+
+    listenOnShipmentDetail(product.address, async (error, event) => {
+      await onUpdate(product.id);
+      setIsShipmentUpdating(false);
+    });
   };
 
   const handleReclaimFund = async () => {
-    await reclaimFund(product.address);
+    await signAndSendTransaction(() => reclaimFund(product.address));
+    await onUpdate(product.id);
   };
 
   useEffect(() => {
