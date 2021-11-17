@@ -7,12 +7,13 @@ import {
   Box,
   Stepper,
   Step,
-  StepButton,
+  StepLabel,
   Grid,
   Typography,
+  CircularProgress,
 } from "@mui/material";
+import WarningIcon from "@mui/icons-material/Warning";
 import { useTx } from "hooks";
-import Spinner from "ui-component/extended/Spinner";
 import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles((theme) => ({
@@ -28,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
 const TransactionModal = () => {
   const classes = useStyles();
   const { txState, steps, isComplete, handleClose } = useTx();
-  const { open, txhash, step } = txState;
+  const { open, txhash, step, error, errorMessage } = txState;
   const dom = document.getElementById("tx-modal-overlay");
   return (
     <>
@@ -37,11 +38,17 @@ const TransactionModal = () => {
           <DialogContent>
             <Box sx={{ width: "100%" }}>
               <Stepper activeStep={step} alternativeLabel>
-                {steps.map((label, index) => (
-                  <Step key={label}>
-                    <StepButton color="inherit">{label}</StepButton>
-                  </Step>
-                ))}
+                {steps.map((label, index) => {
+                  const labelProps = {};
+                  if (error && step === index) {
+                    labelProps.error = true;
+                  }
+                  return (
+                    <Step key={label}>
+                      <StepLabel {...labelProps}>{label}</StepLabel>
+                    </Step>
+                  );
+                })}
               </Stepper>
               <div>
                 {isComplete() ? (
@@ -76,18 +83,24 @@ const TransactionModal = () => {
                       </a>
                     </Typography>
                   </Grid>
+                ) : error ? (
+                  <Typography
+                    sx={{ mt: 2, mb: 1 }}
+                    textAlign="center"
+                    sx={{ color: "red", fontWeight: "bold" }}
+                  >
+                    {errorMessage}
+                  </Typography>
                 ) : (
-                  <>
-                    <Typography sx={{ mt: 2, mb: 1 }} textAlign="center">
-                      <Spinner />
-                    </Typography>
-                  </>
+                  <Typography sx={{ mt: 2, mb: 1 }} textAlign="center">
+                    <CircularProgress color="inherit" />
+                  </Typography>
                 )}
               </div>
             </Box>
           </DialogContent>
           <DialogActions>
-            <Button disabled={step === 1} onClick={handleClose}>
+            <Button disabled={!error && !isComplete()} onClick={handleClose}>
               Close
             </Button>
           </DialogActions>
