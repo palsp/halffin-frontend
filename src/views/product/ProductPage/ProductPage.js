@@ -1,33 +1,49 @@
-import { useState, useEffect } from "react";
-import BuyerView from "./BuyerView/BuyerView";
-import SellerView from "./SellerView/SellerView";
+import {useState, useEffect} from 'react';
+import BuyerView from './BuyerView/BuyerView';
+import SellerView from './SellerView/SellerView';
 // material-ui
-import Grid from "@mui/material/Grid";
-import Card from "@mui/material/Card";
-import MuiTypography from "@mui/material/Typography";
-import { useParams, useNavigate } from "react-router-dom";
-import { useProduct } from "context";
-import Product from "model/Product";
-import { useMoralis } from "react-moralis";
-import ConnectWallet from "../../wallet/ConnectWallet";
-import MainCard from "ui-component/cards/MainCard";
-import ethIcon from "assets/images/icons/eth.svg";
-import { shortenIfAddress, addressEqual } from "@usedapp/core";
+import Grid from '@mui/material/Grid';
+import Card from '@mui/material/Card';
+import MuiTypography from '@mui/material/Typography';
+import {useParams, useNavigate} from 'react-router-dom';
+import {useProduct} from 'context';
+import Product from 'model/Product';
+import {useMoralis} from 'react-moralis';
+import ConnectWallet from '../../wallet/ConnectWallet';
+import MainCard from 'ui-component/cards/MainCard';
+import ethIcon from 'assets/images/icons/eth.svg';
+import {shortenIfAddress, addressEqual} from '@usedapp/core';
+import ProductPageSkeleton from '../../Skeleton/ProductPageSkeleton';
+import axios from "axios";
 
 const ProductPage = () => {
-  const { id } = useParams();
+  const {id} = useParams();
   const navigate = useNavigate();
-  const { getProductById, updateProductInfo } = useProduct();
-  const { user } = useMoralis();
+  const {getProductById, updateProductInfo} = useProduct();
+  const {user} = useMoralis();
   const [product, setProduct] = useState();
-
-  const handleUpdate = async (_id) => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [image, setImage] = useState();
+  const handleUpdate = async _id => {
     const newProduct = await updateProductInfo(_id);
     setProduct(newProduct);
   };
 
   useEffect(() => {
     const prod = getProductById(id);
+    const url = "https://picsum.photos/508";
+    axios
+    .get(
+      url,
+      {
+        responseType: "arraybuffer",
+      }
+    )
+    .then((response) => {
+      setImage(Buffer.from(response.data, "binary").toString("base64"))
+      setIsLoading(false);
+    }
+    );
     if (!prod) {
       // go back to prev page
       navigate(-1);
@@ -37,8 +53,8 @@ const ProductPage = () => {
 
   return (
     <>
-      {!product ? (
-        <div>isLoading</div>
+      {isLoading ? (
+        <ProductPageSkeleton />
       ) : (
         <MainCard>
           <Grid
@@ -53,7 +69,7 @@ const ProductPage = () => {
                 <img src="https://picsum.photos/508" alt="Product Image" />
               </Card>
             </Grid>
-            <Grid item style={{ marginTop: "8px" }}>
+            <Grid item style={{marginTop: '8px'}}>
               <Grid
                 container
                 direction="column"
@@ -81,14 +97,14 @@ const ProductPage = () => {
                     Stage: {product.stage}
                   </MuiTypography>
                 </Grid>
-                {product.trackingId != "" && (
+                {product.trackingId != '' && (
                   <Grid item>
                     <MuiTypography variant="h4" gutterBottom>
                       Tracking ID: {product.trackingId}
                     </MuiTypography>
                   </Grid>
                 )}
-                {product.deliveryStatus !== "" && (
+                {product.deliveryStatus !== '' && (
                   <Grid item>
                     <MuiTypography variant="h4" gutterBottom>
                       Delivery Status: {product.deliveryStatus}
@@ -102,7 +118,7 @@ const ProductPage = () => {
                     <img
                       src={ethIcon}
                       alt="ethIcon"
-                      style={{ width: "35px", height: "35px" }}
+                      style={{width: '35px', height: '35px'}}
                     />
                   </MuiTypography>
                 </Grid>
