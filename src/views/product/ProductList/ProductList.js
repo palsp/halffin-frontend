@@ -2,9 +2,15 @@ import { Grid } from "@mui/material";
 import ProductCard from "../ProductCard";
 
 const Products = ({ products, isLoading }) => (
-  <Grid container spacing={4}>
+  <Grid container
+  direction="row"
+  justifyContent="flex-start"
+  alignItems="flex-start"
+  spacing={4}>
     {products.map((product) => (
-      <ProductCard key={product.name} isLoading={isLoading} product={product} />
+      <Grid item>
+        <ProductCard key={product.name} isLoading={isLoading} product={product} />
+      </Grid>
     ))}
   </Grid>
 );

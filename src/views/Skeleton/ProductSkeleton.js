@@ -24,7 +24,7 @@ const ProductSkeleton = () => {
               container
               xs={12}
               direction="row"
-              justifyContent="flex-end"
+              justifyContent="center"
               style={{marginTop: '8px'}}
             >
               <Grid item xs={6} md={4}>
