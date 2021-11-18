@@ -65,10 +65,10 @@ const ProductCard = ({ isLoading, product }) => {
                   justifyContent="center"
                   style={{ marginTop: "8px" }}
                 >
-                  <Grid item xs={6} md={4}>
+                  <Grid container xs={6} md={4} justifyContent="center" alignItems="center" style={{marginLeft: '20px'}} >
+                    <Grid item>
                     <MuiTypography
                       variant="subtitle1"
-                      style={{ marginLeft: "22px" }}
                     >
                       <div
                         style={{ display: "flex", justifyContent: "baseline" }}
@@ -81,6 +81,7 @@ const ProductCard = ({ isLoading, product }) => {
                         {product.price}
                       </div>
                     </MuiTypography>
+                    </Grid>
                   </Grid>
                 </Grid>
               </Grid>

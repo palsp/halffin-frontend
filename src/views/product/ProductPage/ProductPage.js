@@ -14,6 +14,8 @@ import ethIcon from "assets/images/icons/eth.svg";
 import { shortenIfAddress, addressEqual } from "@usedapp/core";
 import ProgressBar from "ui-component/extended/ProgressBar";
 import stages from "api/stage";
+import ProductPageSkeleton from "../../Skeleton/ProductPageSkeleton";
+import axios from "axios";
 
 const ProductPage = () => {
   const { id } = useParams();
@@ -21,7 +23,8 @@ const ProductPage = () => {
   const { getProductById, updateProductInfo } = useProduct();
   const { user } = useMoralis();
   const [product, setProduct] = useState();
-
+  const [isLoading, setIsLoading] = useState(true);
+  const [image, setImage] = useState();
   const handleUpdate = async (_id) => {
     const newProduct = await updateProductInfo(_id);
     setProduct(newProduct);
@@ -29,6 +32,15 @@ const ProductPage = () => {
 
   useEffect(() => {
     const prod = getProductById(id);
+    const url = "https://picsum.photos/508";
+    axios
+      .get(url, {
+        responseType: "arraybuffer",
+      })
+      .then((response) => {
+        setImage(Buffer.from(response.data, "binary").toString("base64"));
+        setIsLoading(false);
+      });
     if (!prod) {
       // go back to prev page
       navigate(-1);
@@ -38,8 +50,8 @@ const ProductPage = () => {
 
   return (
     <>
-      {!product ? (
-        <div>isLoading</div>
+      {isLoading ? (
+        <ProductPageSkeleton />
       ) : (
         <MainCard>
           <Grid
