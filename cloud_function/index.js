@@ -1,6 +1,21 @@
 /* eslint-disable no-undef */
 
 Moralis.Cloud.define(
+  'getUserByEthAddress',
+  async (request) => {
+    const query = new Moralis.Query('_User');
+    query.equalTo('ethAddress', request.params.targetEthAddr.toLowerCase());
+    return query.first({ useMasterKey: true });
+  },
+  {
+    fields: {
+      targetEthAddr: String,
+    },
+  },
+  validationRules
+);
+
+Moralis.Cloud.define(
   'getUserDetail',
   async (request) => {
     const UserDetails = Moralis.Object.extend('UserDetails');
@@ -63,7 +78,7 @@ Moralis.Cloud.define(
   },
   {
     fields: {
-      targetId: UserId,
+      targetId: String,
     },
   },
   validationRules

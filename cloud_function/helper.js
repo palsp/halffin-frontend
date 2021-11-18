@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+/* eslint-disable no-undef */
 
 const validationRules = (request) => {
   if (request.master) {
@@ -58,4 +59,23 @@ const Address = {
     required: true,
     type: String,
   },
+};
+
+/**
+ * Set Read Access ACL to targetId for the userId
+ * @param {string} userId the one who will allow targetId
+ * @param {string} targetId targetId to set acl permission
+ * @param {boolean} state true = allow | false = not allow
+ * @returns void
+ */
+const setReadACL = async ({ userId, targetId, state }) => {
+  const Address = Moralis.Object.extend('Address');
+  const query = new Moralis.Query(Address);
+  query.equalTo('userId', userId);
+  const result = await query.first({ useMasterKey: true });
+
+  const acl = result.getACL();
+  acl.setReadAccess(targetId, state);
+  result.setACL(acl);
+  await result.save(null, { useMasterKey: true });
 };
