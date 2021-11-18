@@ -16,6 +16,7 @@ import ProgressBar from "ui-component/extended/ProgressBar";
 import stages from "api/stage";
 import ProductPageSkeleton from "../../Skeleton/ProductPageSkeleton";
 import axios from "axios";
+import fileStorage from 'store/filecoin';
 
 const ProductPage = () => {
   const { id } = useParams();
@@ -33,6 +34,9 @@ const ProductPage = () => {
   useEffect(() => {
     const prod = getProductById(id);
     const url = "https://picsum.photos/508";
+    const mockMetaUrl = "ipfs://bafyreib6pdejakv6m6axxe6bdkhsjw546doswtqg3a5cfalbuev7jkqcha/metadata.json";
+    const mockGateWayUrl = fileStorage.convertMetaDataUrlToGateWayUrl(mockMetaUrl);
+    console.log(mockGateWayUrl);
     axios
       .get(url, {
         responseType: "arraybuffer",
@@ -41,6 +45,14 @@ const ProductPage = () => {
         setImage(Buffer.from(response.data, "binary").toString("base64"));
         setIsLoading(false);
       });
+    axios
+      .get(mockGateWayUrl.href)
+      .then((response) => {
+        console.log("res : ", response);
+      })
+      .catch((err) => {
+        console.log("err : ", err);
+      })
     if (!prod) {
       // go back to prev page
       navigate(-1);

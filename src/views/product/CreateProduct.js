@@ -7,16 +7,16 @@ import { useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import DeleteIcon from "@mui/icons-material/Delete";
 // project imports
-import MainCard from "ui-component/cards/MainCard";
-import { useEscrowFactory, useTransaction } from "hooks";
-import { makeStyles } from "@mui/styles";
-import ConnectWallet from "../wallet/ConnectWallet";
-import TransactionModal from "ui-component/extended/Modal/TransactionModal";
-import store from "store/filecoin";
+import MainCard from 'ui-component/cards/MainCard';
+import {useEscrowFactory, useTx, useTransaction} from 'hooks';
+import {makeStyles} from '@mui/styles';
+import ConnectWallet from '../wallet/ConnectWallet';
+import TransactionModal from 'ui-component/extended/Modal/TransactionModal';
+import {IconCamera} from '@tabler/icons';
+import IconButton from '@mui/material/IconButton';
+import fileStorage from 'store/filecoin';
 
-import { IconCamera } from "@tabler/icons";
-import IconButton from "@mui/material/IconButton";
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   image: {
     backgroundRepeat: "no-repeat",
     backgroundSize: "cover",
@@ -26,19 +26,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const steps = ["Sign transaction", "Transaction initiated", "Confirmation"];
-const description = [
-  "Sign transaction",
-  "Creating a product to your account, please wait a moment.",
-  "",
-];
-
 const CreateProduct = () => {
   const classes = useStyles();
   const { Moralis, authenticate, enableWeb3, user } = useMoralis();
   const theme = useTheme();
   const formRef = useRef(null);
   const [selectedImage, setSelectedImage] = useState();
+  const [fileName, setFileName] = useState();
   const [productDetail, setProductDetail] = useState({
     name: "",
     description: "",
@@ -46,11 +40,11 @@ const CreateProduct = () => {
     lockTime: 0,
   });
 
-  // const { signAndSendTransaction, handleOpen } = useTx();
-  const { signAndSendTransaction, txState, ...txProps } = useTransaction([
-    "Sign transaction",
-    "Transaction initiated",
-    "Confirmation",
+  const {signAndSendTransaction, txState, ...txProps} = useTransaction([
+    'Uploading Information',
+    'Sign transaction',
+    'Transaction initiated',
+    'Confirmation',
   ]);
 
   const { createProduct } = useEscrowFactory();
@@ -58,6 +52,7 @@ const CreateProduct = () => {
   const imageChange = (e) => {
     if (e.target.files && e.target.files.length > 0) {
       setSelectedImage(e.target.files[0]);
+      setFileName(e.target.files[0].name);
     }
   };
 
@@ -68,8 +63,15 @@ const CreateProduct = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     txProps.handleOpen();
-    // await store.uploadToFileCoin("pet.jpeg", selectedImage);
-    await signAndSendTransaction(() => createProduct(productDetail));
+    // await store.uploadToFileCoin(fileName, selectedImage, productDetail.description);
+    try {
+      const ipfsUrl = await fileStorage.uploadToFileCoin(fileName, selectedImage, productDetail.description);
+      console.log('ipfsUrl :', ipfsUrl);
+      txProps.handleNextStep();
+      await signAndSendTransaction(() => createProduct(productDetail,ipfsUrl));
+    } catch (err) {
+      txProps.handleError(err);
+    }
   };
 
   return (
@@ -151,7 +153,10 @@ const CreateProduct = () => {
                   defaultValue=""
                   multiline
                   rows={4}
-                  sx={{ ...theme.typography.customInput }}
+                  sx={{...theme.typography.customInput}}
+                  onChange={e =>
+                    setProductDetail({...productDetail, description: e.target.value})
+                  }
                 />
                 <TextField
                   required
