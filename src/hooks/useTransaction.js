@@ -48,7 +48,6 @@ const useTransaction = (steps) => {
     dispatch({ type: "ERROR", message: error.message });
 
   const signAndSendTransaction = (fn) => {
-    handleOpen();
     handleNextStep();
     return fn()
       .on("receipt", (receipt) => {

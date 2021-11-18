@@ -11,6 +11,7 @@ import {
   DialogActions,
   Button,
 } from "@mui/material";
+import ProgressBar from "ui-component/extended/ProgressBar";
 
 const ProgressModal = ({
   open,
@@ -35,17 +36,11 @@ const ProgressModal = ({
   return (
     <Dialog open={open} maxWidth>
       <DialogContent>
-        <Box sx={{ width: "100%", overflowY: "visible" }}>
-          <Stepper activeStep={activeStep} alternativeLabel>
-            {steps.map((label, index) => (
-              <Step key={label}>
-                <StepLabel error={error && activeStep === index}>
-                  {label}
-                </StepLabel>
-              </Step>
-            ))}
-          </Stepper>
-        </Box>
+        <ProgressBar
+          steps={steps}
+          activeStep={activeStep}
+          isError={(index) => error && activeStep === index}
+        />
       </DialogContent>
       <div>{progress}</div>
       <DialogActions>

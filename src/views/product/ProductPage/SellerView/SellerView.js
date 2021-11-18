@@ -2,15 +2,16 @@ import { useEffect, useState } from "react";
 // material-ui
 import Grid from "@mui/material/Grid";
 // project imports
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { TextField, Button } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 
 // hooks
-import { useEscrow } from "hooks";
-import { useTx } from "hooks";
+import { useEscrow, useTransaction } from "hooks";
 import { makeStyles } from "@mui/styles";
 import { createTracking } from "api/tracking_server";
+import TransactionModal from "ui-component/extended/Modal/TransactionModal";
+import { defaultTxSteps } from "store/constant";
 
 const useStyles = makeStyles((theme) => ({
   trackingForm: {
@@ -23,11 +24,17 @@ const useStyles = makeStyles((theme) => ({
 // api
 
 const SellerView = ({ onUpdate, product }) => {
-  const navigate = useNavigate();
   const classes = useStyles();
   const theme = useTheme();
-  const [isLoading, setLoading] = useState(true);
-  const { signAndSendTransaction } = useTx();
+  const {
+    signAndSendTransaction: signAndSendUpdateShippingTx,
+    txState: updateShippingTxState,
+    ...updateShippingTxProps
+  } = useTransaction(["update shipping detail"].concat(defaultTxSteps));
+
+  const { signAndSendTransaction, txState, ...txProps } =
+    useTransaction(defaultTxSteps);
+
   const [isShipmentUpdating, setIsShipmentUpdating] = useState(false);
   const {
     updateShipment,
@@ -37,21 +44,28 @@ const SellerView = ({ onUpdate, product }) => {
   } = useEscrow();
   const [trackingNo, setTrackingNo] = useState("");
 
-  const updateTracking = async (e) => {
+  const handleTracking = async (e) => {
     e.preventDefault();
+    updateShippingTxProps.handleOpen();
     try {
       const response = await createTracking(product.id, trackingNo.trim());
       const trackingId = response.data.tracking.id;
-      await signAndSendTransaction(() =>
-        updateShipment(product.address, trackingId)
-      );
-      await onUpdate(product.id);
+      updateShippingTxProps.handleNextStep();
+      updateTracking(trackingId);
     } catch (err) {
-      console.log(err);
+      updateShippingTxProps.handleError(err);
     }
   };
 
+  const updateTracking = async (trackingId) => {
+    await signAndSendUpdateShippingTx(() =>
+      updateShipment(product.address, trackingId)
+    );
+    await onUpdate(product.id);
+  };
+
   const handleRequestShippingDetail = async () => {
+    txProps.handleOpen();
     await signAndSendTransaction(() => requestShippingDetail(product.address));
 
     setIsShipmentUpdating(true);
@@ -63,16 +77,15 @@ const SellerView = ({ onUpdate, product }) => {
   };
 
   const handleReclaimFund = async () => {
+    txProps.handleOpen();
     await signAndSendTransaction(() => reclaimFund(product.address));
     await onUpdate(product.id);
   };
 
-  useEffect(() => {
-    setLoading(false);
-  }, []);
-
   return (
     <>
+      <TransactionModal {...updateShippingTxState} {...updateShippingTxProps} />
+      <TransactionModal {...txState} {...txProps} />
       <Grid item>
         {product.isWaitForShipping && (
           <form className={classes.trackingForm}>
@@ -93,7 +106,7 @@ const SellerView = ({ onUpdate, product }) => {
               disabled={trackingNo.trim() === ""}
               size="small"
               type="submit"
-              onClick={(e) => updateTracking(e)}
+              onClick={handleTracking}
             >
               Update
             </Button>

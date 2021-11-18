@@ -63,10 +63,10 @@ const CreateProduct = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    txProps.handleOpen();
     // const store = new Storage();
     // await store.uploadToFileCoin("pet.jpeg", selectedImage);
-    signAndSendTransaction(() => createProduct(productDetail));
+    await signAndSendTransaction(() => createProduct(productDetail));
   };
 
   return (
