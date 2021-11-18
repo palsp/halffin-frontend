@@ -49,6 +49,7 @@ const useTransaction = (steps) => {
 
   const signAndSendTransaction = (fn) => {
     handleNextStep();
+
     return fn()
       .on("receipt", (receipt) => {
         handleNextStep();

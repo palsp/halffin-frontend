@@ -7,10 +7,11 @@ import { useTheme } from "@mui/material/styles";
 import DeleteIcon from "@mui/icons-material/Delete";
 // project imports
 import MainCard from "ui-component/cards/MainCard";
-import { useEscrowFactory, useTx, useTransaction } from "hooks";
+import { useEscrowFactory, useTransaction } from "hooks";
 import { makeStyles } from "@mui/styles";
 import ConnectWallet from "../wallet/ConnectWallet";
 import TransactionModal from "ui-component/extended/Modal/TransactionModal";
+import store from "store/filecoin";
 
 const useStyles = makeStyles((theme) => ({
   image: {
@@ -64,7 +65,6 @@ const CreateProduct = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     txProps.handleOpen();
-    // const store = new Storage();
     // await store.uploadToFileCoin("pet.jpeg", selectedImage);
     await signAndSendTransaction(() => createProduct(productDetail));
   };

@@ -1,6 +1,6 @@
 import { NFTStorage } from "nft.storage";
 
-export default class FileStorage {
+class FileStorage {
   constructor(token = process.env.REACT_APP_NFTSTORAGE_TOKEN) {
     this.client = new NFTStorage({ token });
   }
@@ -23,3 +23,5 @@ export default class FileStorage {
     }
   }
 }
+
+export default new FileStorage();
