@@ -7,21 +7,26 @@ import { constants } from "ethers";
 import useWeb3 from "hooks/useWeb3";
 
 const useEscrowFactory = () => {
-  const { web3, chainId } = useWeb3();
-  const { user } = useMoralis();
+  const { user, Moralis } = useMoralis();
   const [contract, setContract] = useState();
   const [factoryAddress, setFactoryAddress] = useState();
+  const [web3, setWeb3] = useState(null);
 
   useEffect(() => {
-    if (!web3 || !chainId) return;
+    const init = async () => {
+      const web3Instance = await Moralis.enableWeb3();
+      const chainId = await Moralis.getChainId();
+      const address = chainId
+        ? networkMapping[chainId.toString()].EscrowFactory[0]
+        : constants.AddressZero;
+      const contractInstance = new web3Instance.eth.Contract(abi, address);
+      setWeb3(web3Instance);
+      setFactoryAddress(address);
+      setContract(contractInstance);
+    };
 
-    const address = chainId
-      ? networkMapping[chainId.toString()].EscrowFactory[0]
-      : constants.AddressZero;
-    const contractInstance = new web3.eth.Contract(abi, address);
-    setFactoryAddress(address);
-    setContract(contractInstance);
-  }, [web3, chainId]);
+    init();
+  }, []);
 
   const createProduct = ({ name, price, lockTime }) => {
     const newPrice = web3.utils.toWei(price, "ether");

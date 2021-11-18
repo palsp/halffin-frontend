@@ -1,20 +1,21 @@
-import useWeb3 from "hooks/useWeb3";
 import { abi } from "api/chain-info/contracts/Escrow.json";
 import { useMoralis } from "react-moralis";
 import Product from "model/Product";
+import { useWeb3 } from ".";
 const useEscrow = () => {
-  const { web3 } = useWeb3();
-  const { user } = useMoralis();
+  const { user, Moralis } = useMoralis();
+  const { web3, web3Utils } = useWeb3();
 
-  const getContractInstance = (contractAddress) =>
-    new web3.eth.Contract(abi, contractAddress);
+  const getContractInstance = (contractAddress, web3Instance = web3) =>
+    new web3Instance.eth.Contract(abi, contractAddress);
+
   const serializeProduct = (productDetail, productAddress) => {
     const product = new Product({
       id: productDetail.id,
       name: productDetail.name,
       owner: productDetail.owner,
       buyer: productDetail.buyer,
-      price: web3.utils.fromWei(productDetail.price, "ether"),
+      price: web3Utils.fromWei(productDetail.price, "ether"),
       stage: productDetail.stage,
       trackingId: productDetail.trackingId,
       deliveryStatus: productDetail.deliveryStatus,
@@ -25,7 +26,8 @@ const useEscrow = () => {
   };
 
   const getProductDetail = async (contractAddress) => {
-    const contractInstance = getContractInstance(contractAddress);
+    const web3Instance = await Moralis.enableWeb3();
+    const contractInstance = getContractInstance(contractAddress, web3Instance);
     const result = await contractInstance.methods.product().call();
     return serializeProduct(result, contractAddress);
   };
@@ -34,7 +36,7 @@ const useEscrow = () => {
     const contractInstance = getContractInstance(contractAddress);
     return contractInstance.methods.order().send({
       from: user.attributes.ethAddress,
-      value: web3.utils.toWei(price, "ether"),
+      value: web3Utils.toWei(price, "ether"),
     });
   };
 
@@ -64,7 +66,7 @@ const useEscrow = () => {
     return contractInstance.once("ShipmentDelivered", cb);
   };
 
-  const reclaimFund = (contractAddress) => {
+  const reclaimFund = async (contractAddress) => {
     const contractInstance = getContractInstance(contractAddress);
     return contractInstance.methods
       .reclaimFund()

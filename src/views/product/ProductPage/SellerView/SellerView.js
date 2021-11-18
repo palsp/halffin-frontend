@@ -1,57 +1,29 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 // material-ui
 import Grid from "@mui/material/Grid";
 // project imports
-import { useNavigate, useParams } from "react-router-dom";
-import { TextField, Button } from "@mui/material";
-import { useTheme } from "@mui/material/styles";
 
 // hooks
-import { useEscrow } from "hooks";
-import { useTx } from "hooks";
-import { makeStyles } from "@mui/styles";
-import { createTracking } from "api/tracking_server";
-
-const useStyles = makeStyles((theme) => ({
-  trackingForm: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-}));
-
-// api
+import { useEscrow, useTransaction } from "hooks";
+import TransactionModal from "ui-component/extended/Modal/TransactionModal";
+import { defaultTxSteps } from "store/constant";
+import UpdateTrackingPrompt from "./UpdateTrackingPrompt";
+import BaseButton from "ui-component/extended/BaseButton";
 
 const SellerView = ({ onUpdate, product }) => {
-  const navigate = useNavigate();
-  const classes = useStyles();
-  const theme = useTheme();
-  const [isLoading, setLoading] = useState(true);
-  const { signAndSendTransaction } = useTx();
+  const { signAndSendTransaction, txState, ...txProps } =
+    useTransaction(defaultTxSteps);
+
   const [isShipmentUpdating, setIsShipmentUpdating] = useState(false);
   const {
-    updateShipment,
     requestShippingDetail,
     reclaimFund,
     listenOnShipmentDetail,
+    updateShipment,
   } = useEscrow();
-  const [trackingNo, setTrackingNo] = useState("");
-
-  const updateTracking = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await createTracking(product.id, trackingNo.trim());
-      const trackingId = response.data.tracking.id;
-      await signAndSendTransaction(() =>
-        updateShipment(product.address, trackingId)
-      );
-      await onUpdate(product.id);
-    } catch (err) {
-      console.log(err);
-    }
-  };
 
   const handleRequestShippingDetail = async () => {
+    txProps.handleOpen();
     await signAndSendTransaction(() => requestShippingDetail(product.address));
 
     setIsShipmentUpdating(true);
@@ -63,68 +35,32 @@ const SellerView = ({ onUpdate, product }) => {
   };
 
   const handleReclaimFund = async () => {
+    txProps.handleOpen();
     await signAndSendTransaction(() => reclaimFund(product.address));
     await onUpdate(product.id);
   };
-
-  useEffect(() => {
-    setLoading(false);
-  }, []);
-
   return (
     <>
+      <TransactionModal {...txState} {...txProps} />
       <Grid item>
         {product.isWaitForShipping && (
-          <form className={classes.trackingForm}>
-            <TextField
-              fullWidth
-              required
-              label="Tracking Number"
-              margin="normal"
-              name="trackingNumber"
-              type="text"
-              defaultValue=""
-              sx={{ ...theme.typography.customInput }}
-              value={trackingNo}
-              onChange={(e) => setTrackingNo(e.target.value)}
-            />
-            <Button
-              sx={{ padding: "none" }}
-              disabled={trackingNo.trim() === ""}
-              size="small"
-              type="submit"
-              onClick={(e) => updateTracking(e)}
-            >
-              Update
-            </Button>
-          </form>
+          <UpdateTrackingPrompt
+            product={product}
+            onSendTransaction={updateShipment}
+            onUpdate={onUpdate}
+          />
         )}
         {isShipmentUpdating && (
           <div>check inprogress. this may take a while</div>
         )}
         {!isShipmentUpdating && product.isAbleToCheckTrackingStatus && (
-          <Button
-            size="small"
-            type="button"
-            size="large"
-            variant="contained"
-            color="primary"
-            onClick={handleRequestShippingDetail}
-          >
+          <BaseButton onClick={handleRequestShippingDetail}>
             Check Tracking Status
-          </Button>
+          </BaseButton>
         )}
+
         {product.isAbleToClaimFund && (
-          <Button
-            size="small"
-            type="button"
-            size="large"
-            variant="contained"
-            color="primary"
-            onClick={handleReclaimFund}
-          >
-            Claim Fund
-          </Button>
+          <BaseButton onClick={handleReclaimFund}>Claim Fund</BaseButton>
         )}
       </Grid>
     </>
