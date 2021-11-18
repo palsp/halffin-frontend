@@ -7,12 +7,13 @@ import Card from "@mui/material/Card";
 import MuiTypography from "@mui/material/Typography";
 import { useParams, useNavigate } from "react-router-dom";
 import { useProduct } from "context";
-import Product from "model/Product";
 import { useMoralis } from "react-moralis";
 import ConnectWallet from "../../wallet/ConnectWallet";
 import MainCard from "ui-component/cards/MainCard";
 import ethIcon from "assets/images/icons/eth.svg";
 import { shortenIfAddress, addressEqual } from "@usedapp/core";
+import ProgressBar from "ui-component/extended/ProgressBar";
+import stages from "api/stage";
 
 const ProductPage = () => {
   const { id } = useParams();
@@ -109,6 +110,14 @@ const ProductPage = () => {
                 {!user && (
                   <Grid item>
                     <ConnectWallet />
+                  </Grid>
+                )}
+                {user && (
+                  <Grid item>
+                    <ProgressBar
+                      steps={Object.values(stages)}
+                      activeStep={+product._stage}
+                    />
                   </Grid>
                 )}
                 {user &&

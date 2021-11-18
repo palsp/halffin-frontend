@@ -1,8 +1,7 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 // material-ui
 import Grid from "@mui/material/Grid";
 // project imports
-import { useNavigate } from "react-router-dom";
 import { TextField, Button } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 
@@ -81,7 +80,6 @@ const SellerView = ({ onUpdate, product }) => {
     await signAndSendTransaction(() => reclaimFund(product.address));
     await onUpdate(product.id);
   };
-
   return (
     <>
       <TransactionModal {...updateShippingTxState} {...updateShippingTxProps} />
