@@ -63,10 +63,10 @@ const useEscrow = () => {
 
   const listenOnShipmentDetail = (contractAddress, cb) => {
     const contractInstance = getContractInstance(contractAddress);
-    return contractInstance.once("ShipmentDelivered", cb);
+    return contractInstance.once("ShipmentUpdated", cb);
   };
 
-  const reclaimFund = async (contractAddress) => {
+  const reclaimFund = (contractAddress) => {
     const contractInstance = getContractInstance(contractAddress);
     return contractInstance.methods
       .reclaimFund()

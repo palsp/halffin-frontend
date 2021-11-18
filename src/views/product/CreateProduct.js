@@ -47,6 +47,8 @@ const CreateProduct = () => {
     'Confirmation',
   ]);
 
+  const { handleOpen } = txProps;
+
   const { createProduct } = useEscrowFactory();
 
   const imageChange = (e) => {
