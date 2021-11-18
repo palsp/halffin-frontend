@@ -53,6 +53,8 @@ const CreateProduct = () => {
     "Confirmation",
   ]);
 
+  const { handleOpen } = txProps;
+
   const { createProduct } = useEscrowFactory();
 
   const imageChange = (e) => {
@@ -67,7 +69,8 @@ const CreateProduct = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    txProps.handleOpen();
+    handleOpen();
+
     // await store.uploadToFileCoin("pet.jpeg", selectedImage);
     await signAndSendTransaction(() => createProduct(productDetail));
   };

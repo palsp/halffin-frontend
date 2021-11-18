@@ -1,5 +1,4 @@
 import PropTypes from "prop-types";
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 // material-ui
@@ -65,22 +64,30 @@ const ProductCard = ({ isLoading, product }) => {
                   justifyContent="center"
                   style={{ marginTop: "8px" }}
                 >
-                  <Grid container xs={6} md={4} justifyContent="center" alignItems="center" style={{marginLeft: '20px'}} >
+                  <Grid
+                    container
+                    xs={6}
+                    md={4}
+                    justifyContent="center"
+                    alignItems="center"
+                    style={{ marginLeft: "20px" }}
+                  >
                     <Grid item>
-                    <MuiTypography
-                      variant="subtitle1"
-                    >
-                      <div
-                        style={{ display: "flex", justifyContent: "baseline" }}
-                      >
-                        <img
-                          src={ethIcon}
-                          alt="ethIcon"
-                          style={{ width: "25px", height: "25px" }}
-                        />
-                        {product.price}
-                      </div>
-                    </MuiTypography>
+                      <MuiTypography variant="subtitle1">
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "baseline",
+                          }}
+                        >
+                          <img
+                            src={ethIcon}
+                            alt="ethIcon"
+                            style={{ width: "25px", height: "25px" }}
+                          />
+                          {product.price}
+                        </div>
+                      </MuiTypography>
                     </Grid>
                   </Grid>
                 </Grid>
