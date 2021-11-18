@@ -1,26 +1,40 @@
-import { useState } from "react";
+import { useState } from 'react';
 // material-ui
-import Grid from "@mui/material/Grid";
+import Grid from '@mui/material/Grid';
 // project imports
 
 // hooks
-import { useEscrow, useTransaction } from "hooks";
-import TransactionModal from "ui-component/extended/Modal/TransactionModal";
-import { defaultTxSteps } from "store/constant";
-import UpdateTrackingPrompt from "./UpdateTrackingPrompt";
-import BaseButton from "ui-component/extended/BaseButton";
+import { useEscrow, useTransaction } from 'hooks';
+import TransactionModal from 'ui-component/extended/Modal/TransactionModal';
+import { defaultTxSteps } from 'store/constant';
+import UpdateTrackingPrompt from './UpdateTrackingPrompt';
+import BaseButton from 'ui-component/extended/BaseButton';
+import { useMoralis } from 'react-moralis';
 
 const SellerView = ({ onUpdate, product }) => {
-  const { signAndSendTransaction, txState, ...txProps } =
-    useTransaction(defaultTxSteps);
+  const { signAndSendTransaction, txState, ...txProps } = useTransaction(defaultTxSteps);
 
   const [isShipmentUpdating, setIsShipmentUpdating] = useState(false);
-  const {
-    requestShippingDetail,
-    reclaimFund,
-    listenOnShipmentDetail,
-    updateShipment,
-  } = useEscrow();
+  const { requestShippingDetail, reclaimFund, listenOnShipmentDetail, updateShipment } =
+    useEscrow();
+
+  const { Moralis } = useMoralis();
+
+  const getBuyerAddress = async () => {
+    const buyer = await Moralis.Cloud.run('getUserByEthAddress', {
+      targetEthAddr: product.buyer,
+    });
+
+    // const res = await Moralis.Cloud.run('getAddress', {
+    //   targetId: buyer.id,
+    // });
+
+    const query = new Moralis.Query('Address');
+    query.equalTo('userId', buyer.id);
+    const res = await query.first();
+
+    console.log('get Buyer Address', res.attributes);
+  };
 
   const handleRequestShippingDetail = async () => {
     txProps.handleOpen();
@@ -42,6 +56,7 @@ const SellerView = ({ onUpdate, product }) => {
   return (
     <>
       <TransactionModal {...txState} {...txProps} />
+      <button onClick={getBuyerAddress}>Get Buyer Address</button>
       <Grid item>
         {product.isWaitForShipping && (
           <UpdateTrackingPrompt
@@ -50,13 +65,9 @@ const SellerView = ({ onUpdate, product }) => {
             onUpdate={onUpdate}
           />
         )}
-        {isShipmentUpdating && (
-          <div>check inprogress. this may take a while</div>
-        )}
+        {isShipmentUpdating && <div>check inprogress. this may take a while</div>}
         {!isShipmentUpdating && product.isAbleToCheckTrackingStatus && (
-          <BaseButton onClick={handleRequestShippingDetail}>
-            Check Tracking Status
-          </BaseButton>
+          <BaseButton onClick={handleRequestShippingDetail}>Check Tracking Status</BaseButton>
         )}
 
         {product.isAbleToClaimFund && (
