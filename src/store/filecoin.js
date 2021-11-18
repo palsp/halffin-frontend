@@ -5,11 +5,11 @@ class FileStorage {
     this.client = new NFTStorage({ token });
   }
 
-  async uploadToFileCoin(filename, image) {
+  async uploadToFileCoin(filename, image, description) {
     try {
       const metadata = await this.client.store({
         name: filename,
-        description: "a cool image",
+        description: description,
         image: image,
       });
       console.log("IPFS URL for the metadata: ", metadata.url);

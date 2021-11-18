@@ -4,6 +4,7 @@ import { useMoralis } from "react-moralis";
 // material-ui
 import { Grid, TextField, Button } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
+import Box from "@mui/material/Box";
 import DeleteIcon from "@mui/icons-material/Delete";
 // project imports
 import MainCard from "ui-component/cards/MainCard";
@@ -13,6 +14,8 @@ import ConnectWallet from "../wallet/ConnectWallet";
 import TransactionModal from "ui-component/extended/Modal/TransactionModal";
 import store from "store/filecoin";
 
+import { IconCamera } from "@tabler/icons";
+import IconButton from "@mui/material/IconButton";
 const useStyles = makeStyles((theme) => ({
   image: {
     backgroundRepeat: "no-repeat",
@@ -37,8 +40,8 @@ const CreateProduct = () => {
   const formRef = useRef(null);
   const [selectedImage, setSelectedImage] = useState();
   const [productDetail, setProductDetail] = useState({
-    // name: '',
-    // description: '',
+    name: "",
+    description: "",
     price: 0,
     lockTime: 0,
   });
@@ -78,27 +81,52 @@ const CreateProduct = () => {
           <TransactionModal {...txProps} {...txState} />
           <form ref={formRef} noValidate autoComplete="off">
             <Grid container spacing={8}>
-              <Grid item xs={12} sm={6}>
-                <input accept="image/*" type="file" onChange={imageChange} />
+              <Grid item xs={12} sm={6} justifyContent="flex-start">
+                <Box
+                  sx={{
+                    p: 2,
+                    border: "1px dashed grey",
+                    width: 500,
+                    height: 300,
+                    display: selectedImage ? "none" : "block",
+                  }}
+                >
+                  <label htmlFor="icon-button-file">
+                    <input
+                      accept="image/*"
+                      id="icon-button-file"
+                      type="file"
+                      style={{ display: "none" }}
+                      onChange={imageChange}
+                    />
+                    <IconButton
+                      color="primary"
+                      aria-label="upload picture"
+                      component="span"
+                    >
+                      <IconCamera />
+                    </IconButton>
+                  </label>
+                </Box>
                 {selectedImage && (
-                  <div
-                    className={classes.image}
-                    style={{
-                      width: "300px",
-                      height: "300px",
-                      backgroundImage: `url(${URL.createObjectURL(
-                        selectedImage
-                      )})`,
-                    }}
-                  >
-                    {/* <img src={URL.createObjectURL(selectedImage)} alt="" /> */}
+                  <>
+                    <div
+                      className={classes.image}
+                      style={{
+                        width: "300px",
+                        height: "300px",
+                        backgroundImage: `url(${URL.createObjectURL(
+                          selectedImage
+                        )})`,
+                      }}
+                    />
                     <Button
                       onClick={removeSelectedImage}
                       startIcon={<DeleteIcon />}
                     >
                       Remove This Image
                     </Button>
-                  </div>
+                  </>
                 )}
                 <TextField
                   fullWidth
