@@ -73,12 +73,19 @@ const UserProfile = () => {
                 value={myPurchaseValue}
                 onChange={(e, newValue) => setMyPurchaseValue(newValue)}
                 labels={[
+                  "My product",
                   "Waiting For Shipment",
                   "To Be Delivered",
                   "To Be Claimed",
                   "Complete",
                 ]}
                 components={[
+                  <ProductList
+                    products={productsOfSeller.filter(
+                      (product) => product.isAbleToBuy
+                    )}
+                  />
+                  ,
                   <ProductList
                     products={productsOfSeller.filter(
                       (product) => product.isWaitForShipping
