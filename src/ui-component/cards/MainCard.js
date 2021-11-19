@@ -3,13 +3,7 @@ import { forwardRef } from "react";
 
 // material-ui
 import { useTheme } from "@mui/material/styles";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  Divider,
-  Typography,
-} from "@mui/material";
+import { Card, CardContent, CardHeader, Typography } from "@mui/material";
 
 // constant
 const headerSX = {
@@ -62,7 +56,11 @@ const MainCard = forwardRef(
         {darkTitle && title && (
           <CardHeader
             sx={headerSX}
-            title={<Typography variant="h3" sx={{color: theme.palette.text.base}}>{title}</Typography>}
+            title={
+              <Typography variant="h3" sx={{ color: theme.palette.text.base }}>
+                {title}
+              </Typography>
+            }
             action={secondary}
           />
         )}
