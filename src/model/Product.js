@@ -34,6 +34,14 @@ class Product {
     return `${this.#name} #${this.id}`;
   }
 
+  get nameForDisplay() {
+    let display = this.#name;
+    if (this.#name.length > 10) {
+      display = this.#name.substr(0, 10) + "...";
+    }
+    return `${display} #${this.id}`;
+  }
+
   get isAbleToBuy() {
     return this.checkStage(0);
   }
