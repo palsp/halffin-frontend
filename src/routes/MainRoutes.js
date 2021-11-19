@@ -6,7 +6,7 @@ import Loadable from "ui-component/Loadable";
 import { Navigate } from "react-router-dom";
 
 // sample page routing
-const MarketPlace = Loadable(lazy(() => import("views/product/MarketPlace")));
+const MarketPlace = Loadable(lazy(() => import("views/product/Marketplace")));
 const CreateProduct = Loadable(
   lazy(() => import("views/product/CreateProduct"))
 );
