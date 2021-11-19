@@ -25,14 +25,13 @@ const SellerView = ({ onUpdate, product }) => {
       targetEthAddr: product.buyer,
     });
 
-    // const res = await Moralis.Cloud.run('getAddress', {
-    //   targetId: buyer.id,
-    // });
-
     const query = new Moralis.Query('Address');
     query.equalTo('userId', buyer.id);
     const res = await query.first();
 
+    if (!res) {
+      throw new Error('Address detail locked!');
+    }
     console.log('get Buyer Address', res.attributes);
   };
 

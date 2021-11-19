@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 // material-ui
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
@@ -5,9 +6,11 @@ import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 // project imports
 import { useNavigate } from 'react-router-dom';
 
+import FormModal from 'ui-component/Address/FormModal';
+import AddressDetail from 'ui-component/Address/AddressDetail';
 // hooks
 import { useEscrow, useTransaction } from 'hooks';
-import { useProduct } from 'context';
+import { useAddress, useProduct } from 'context';
 import TransactionModal from '../../../../ui-component/extended/Modal/TransactionModal';
 import { useMoralis } from 'react-moralis';
 
@@ -22,7 +25,18 @@ const BuyerView = ({ product }) => {
   ]);
   const { handleNextStep, handleOpen } = txProps;
   const { order } = useEscrow();
-  const { Moralis } = useMoralis();
+  const { Moralis, user } = useMoralis();
+
+  const { address, getAddress, addAddress } = useAddress();
+
+  // Form Modal
+  const [modalOpen, setModalOpen] = useState(false);
+  const handleModalOpen = () => {
+    setModalOpen(true);
+  };
+  const handleModalClose = () => {
+    setModalOpen(false);
+  };
 
   const allowPermission = async () => {
     const seller = await Moralis.Cloud.run('getUserByEthAddress', {
@@ -33,7 +47,7 @@ const BuyerView = ({ product }) => {
       targetId: seller.id,
     });
 
-    console.log('allow permission', res);
+    return res;
   };
 
   const handleClick = () => {
@@ -41,15 +55,26 @@ const BuyerView = ({ product }) => {
   };
 
   const handleEnterShippingAddress = async () => {
-    // do sth with address
-
-    // check if user have address
-    /// add address first
+    // check if user really have shipping address
+    const Address = Moralis.Object.extend('Address');
+    const query = new Moralis.Query(Address);
+    query.equalTo('userId', user.id);
+    console.log(user.id);
+    const address = await query.first();
+    if (!address || address.attributes.firstName.length === 0) {
+      setModalOpen(true);
+      return;
+    }
 
     handleNextStep();
     await handleBuy();
 
     // Send ACL to seller
+    const res = await allowPermission();
+
+    if (!res.success) {
+      throw new Error('Something went wrong..');
+    }
   };
 
   const handleBuy = async () => {
@@ -59,19 +84,30 @@ const BuyerView = ({ product }) => {
     navigate('/user/account-profile', { state: { value: 1 } });
   };
 
+  useEffect(() => {
+    getAddress();
+  }, [modalOpen]);
+
   return (
     <>
-      <button onClick={allowPermission}>test allow</button>
-
       {product.isAbleToBuy && (
         <>
           <TransactionModal
             {...txState}
             {...txProps}
+            style={{ width: '1000px', height: '150px' }}
             components={{
               0: (
                 <Grid container direction="column" justifyContent="center" alignItems="center">
-                  Enter Shipping Address
+                  <h1> Please Check your Shipping Address</h1>
+                  <FormModal
+                    open={modalOpen}
+                    handleOpen={handleModalOpen}
+                    handleClose={handleModalClose}
+                    address={address}
+                    addAddress={addAddress}
+                  />
+                  {<AddressDetail address={address} />}
                   <Button onClick={handleEnterShippingAddress}> Continue </Button>
                 </Grid>
               ),

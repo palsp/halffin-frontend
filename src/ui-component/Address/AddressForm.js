@@ -2,7 +2,7 @@ import styles from './AddressForm.module.css';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
-const AddressForm = ({ address, addAddress }) => {
+const AddressForm = ({ address, addAddress, handleClose }) => {
   return (
     <Formik
       initialValues={address}
@@ -23,83 +23,112 @@ const AddressForm = ({ address, addAddress }) => {
 
         addAddress(values).then(() => {
           setSubmitting(false);
+          handleClose();
         });
       }}
     >
       <Form className={styles.form}>
-        <div className={styles.input}>
-          <label htmlFor="firstName">First Name</label>
-          <Field name="firstName" type="text" />
-          <ErrorMessage
-            name="firstName"
-            render={(msg) => <div className={styles.errorMessage}>{msg}</div>}
-          />
+        <div className={styles.grid}>
+          <div className={styles.left}>
+            <label className={styles.label} htmlFor="firstName">
+              First Name
+            </label>
+            <Field className={styles.field} name="firstName" type="text" />
+            <ErrorMessage
+              name="firstName"
+              render={(msg) => <div className={styles.errorMessage}>{msg}</div>}
+            />
+
+            <label className={styles.label} htmlFor="email">
+              Email Address
+            </label>
+            <Field className={styles.field} name="email" type="email" />
+            <ErrorMessage
+              name="email"
+              render={(msg) => <div className={styles.errorMessage}>{msg}</div>}
+            />
+
+            <label className={styles.label} htmlFor="address1">
+              Address Line 1
+            </label>
+            <Field className={styles.field} name="address1" as="textarea" />
+            <ErrorMessage
+              name="address1"
+              render={(msg) => <div className={styles.errorMessage}>{msg}</div>}
+            />
+
+            <label className={styles.label} htmlFor="address2">
+              Address Line 2
+            </label>
+            <Field className={styles.field} name="address2" as="textarea" />
+            <ErrorMessage
+              name="address2"
+              render={(msg) => <div className={styles.errorMessage}>{msg}</div>}
+            />
+
+            <label className={styles.label} htmlFor="countryCode">
+              Country Code
+            </label>
+            <Field className={styles.field} name="countryCode" type="text" />
+            <ErrorMessage
+              name="countryCode"
+              render={(msg) => <div className={styles.errorMessage}>{msg}</div>}
+            />
+          </div>
+
+          <div className={styles.right}>
+            <label className={styles.label} htmlFor="lastName">
+              Last Name
+            </label>
+            <Field className={styles.field} name="lastName" type="text" />
+            <ErrorMessage
+              name="lastName"
+              render={(msg) => <div className={styles.errorMessage}>{msg}</div>}
+            />
+
+            <label className={styles.label} htmlFor="city">
+              City
+            </label>
+            <Field className={styles.field} name="city" type="text" />
+            <ErrorMessage
+              name="city"
+              render={(msg) => <div className={styles.errorMessage}>{msg}</div>}
+            />
+
+            <label className={styles.label} htmlFor="state">
+              State
+            </label>
+            <Field className={styles.field} name="state" type="state" />
+            <ErrorMessage
+              name="state"
+              render={(msg) => <div className={styles.errorMessage}>{msg}</div>}
+            />
+
+            <label className={styles.label} htmlFor="postalCode">
+              Postal Code
+            </label>
+            <Field className={styles.field} name="postalCode" type="text" />
+            <ErrorMessage
+              name="postalCode"
+              render={(msg) => <div className={styles.errorMessage}>{msg}</div>}
+            />
+
+            <label className={styles.label} htmlFor="phoneNumber">
+              Phone number
+            </label>
+            <Field className={styles.field} name="phoneNumber" type="text" />
+            <ErrorMessage
+              name="phoneNumber"
+              render={(msg) => <div className={styles.errorMessage}>{msg}</div>}
+            />
+          </div>
         </div>
 
-        <label htmlFor="lastName">Last Name</label>
-        <Field name="lastName" type="text" />
-        <ErrorMessage
-          name="lastName"
-          render={(msg) => <div className={styles.errorMessage}>{msg}</div>}
-        />
-
-        <label htmlFor="email">Email Address</label>
-        <Field name="email" type="email" />
-        <ErrorMessage
-          name="email"
-          render={(msg) => <div className={styles.errorMessage}>{msg}</div>}
-        />
-
-        <label htmlFor="address1">Address Line 1</label>
-        <Field name="address1" as="textarea" />
-        <ErrorMessage
-          name="address1"
-          render={(msg) => <div className={styles.errorMessage}>{msg}</div>}
-        />
-
-        <label htmlFor="address2">Address Line 2</label>
-        <Field name="address2" as="textarea" />
-        <ErrorMessage
-          name="address2"
-          render={(msg) => <div className={styles.errorMessage}>{msg}</div>}
-        />
-
-        <label htmlFor="city">City</label>
-        <Field name="city" type="text" />
-        <ErrorMessage
-          name="city"
-          render={(msg) => <div className={styles.errorMessage}>{msg}</div>}
-        />
-
-        <label htmlFor="state">State</label>
-        <Field name="state" type="state" />
-        <ErrorMessage
-          name="state"
-          render={(msg) => <div className={styles.errorMessage}>{msg}</div>}
-        />
-
-        <label htmlFor="postalCode">Postal Code</label>
-        <Field name="postalCode" type="text" />
-        <ErrorMessage
-          name="postalCode"
-          render={(msg) => <div className={styles.errorMessage}>{msg}</div>}
-        />
-
-        <label htmlFor="countryCode">Country Code</label>
-        <Field name="countryCode" type="text" />
-        <ErrorMessage
-          name="countryCode"
-          render={(msg) => <div className={styles.errorMessage}>{msg}</div>}
-        />
-
-        <label htmlFor="phoneNumber">Phone number</label>
-        <Field name="phoneNumber" type="text" />
-        <ErrorMessage
-          name="phoneNumber"
-          render={(msg) => <div className={styles.errorMessage}>{msg}</div>}
-        />
-
-        <button type="submit">Submit</button>
+        <div className={styles.centered}>
+          <button className={styles.button} type="submit">
+            Submit
+          </button>
+        </div>
       </Form>
     </Formik>
   );

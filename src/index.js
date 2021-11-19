@@ -1,15 +1,15 @@
-import ReactDOM from "react-dom";
+import ReactDOM from 'react-dom';
 
 // third party
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter } from 'react-router-dom';
 
 // project imports
-import * as serviceWorker from "serviceWorker";
-import App from "App";
-import { MoralisProvider } from "react-moralis";
+import * as serviceWorker from 'serviceWorker';
+import App from 'App';
+import { MoralisProvider } from 'react-moralis';
 // style + assets
-import "assets/scss/style.scss";
-import { ProductProvider, TxProvider } from "context";
+import 'assets/scss/style.scss';
+import { AddressProvider, ProductProvider, TxProvider } from 'context';
 
 // ==============================|| REACT DOM RENDER  ||============================== //
 
@@ -20,13 +20,15 @@ ReactDOM.render(
   >
     <TxProvider>
       <ProductProvider>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
+        <AddressProvider>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </AddressProvider>
       </ProductProvider>
     </TxProvider>
   </MoralisProvider>,
-  document.getElementById("root")
+  document.getElementById('root')
 );
 
 // If you want your app to work offline and load faster, you can change

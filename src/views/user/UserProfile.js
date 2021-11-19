@@ -7,7 +7,7 @@ import { Grid, Avatar, Box, Tabs, Tab, Typography } from '@mui/material';
 import MuiTypography from '@mui/material/Typography';
 
 import PropTypes from 'prop-types';
-import { useProduct } from 'context';
+import { useAddress, useProduct } from 'context';
 import { useNavigate } from 'react-router-dom';
 import ProductList from '../product/ProductList/ProductList';
 import AddressDetail from 'ui-component/Address/AddressDetail';
@@ -50,21 +50,10 @@ const UserProfile = () => {
     setOpen(false);
   };
 
-  const [address, setAddress] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    address1: '',
-    address2: '',
-    city: '',
-    state: '',
-    postalCode: '',
-    countryCode: '',
-    phoneNumber: '',
-  });
+  const { address, getAddress, addAddress } = useAddress();
 
   const [value, setValue] = useState(0);
-  const { user, isAuthenticated, Moralis } = useMoralis();
+  const { user, isAuthenticated } = useMoralis();
   const navigate = useNavigate();
   const { state } = useLocation();
 
@@ -82,47 +71,8 @@ const UserProfile = () => {
   }, [user]);
 
   useEffect(() => {
-    if (user) {
-      getAddress();
-    }
-  }, []);
-
-  const addAddress = async (address) => {
-    try {
-      const res = await Moralis.Cloud.run('addAddress', address);
-
-      console.log('add address', res);
-    } catch (err) {
-      console.log('Error', err.message);
-    }
-  };
-
-  const getAddress = async () => {
-    try {
-      const currentUser = await Moralis.User.currentAsync();
-
-      const query = new Moralis.Query('Address');
-      query.equalTo('userId', currentUser.id);
-      const res = await query.first();
-      console.log(res.attributes);
-      const addr = {
-        firstName: res.attributes.firstName,
-        lastName: res.attributes.lastName,
-        email: res.attributes.email,
-        address1: res.attributes.address1,
-        address2: res.attributes.address2,
-        city: res.attributes.city,
-        state: res.attributes.state,
-        postalCode: res.attributes.postalCode,
-        countryCode: res.attributes.countryCode,
-        phoneNumber: res.attributes.phoneNumber,
-      };
-      setAddress(addr);
-      console.log('add', Object.keys(address));
-    } catch (err) {
-      console.log('Error', err.message);
-    }
-  };
+    getAddress();
+  }, [user, open]);
 
   const handleChange = (event, newvalue) => {
     setValue(newvalue);

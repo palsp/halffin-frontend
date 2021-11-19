@@ -1,4 +1,4 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import {
   Dialog,
   Stepper,
@@ -10,8 +10,8 @@ import {
   Typography,
   DialogActions,
   Button,
-} from "@mui/material";
-import ProgressBar from "ui-component/extended/ProgressBar";
+} from '@mui/material';
+import ProgressBar from 'ui-component/extended/ProgressBar';
 
 const ProgressModal = ({
   open,
@@ -22,6 +22,7 @@ const ProgressModal = ({
   components,
   isAbleToClose,
   onClose,
+  style,
 }) => {
   let progress = components[activeStep];
   if (error) {
@@ -35,7 +36,7 @@ const ProgressModal = ({
   }
   return (
     <Dialog open={open} maxWidth>
-      <DialogContent>
+      <DialogContent style={style}>
         <ProgressBar
           steps={steps}
           activeStep={activeStep}
