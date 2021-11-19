@@ -1,0 +1,13 @@
+.detail {
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+}
+
+.title {
+  font-size: 1.4vw;
+  color: #b09880;
+}
+
+.description {
+  font-size: 1.3vw;
+}
