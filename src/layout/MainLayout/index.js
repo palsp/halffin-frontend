@@ -48,7 +48,8 @@ const MainLayout = () => {
         color="inherit"
         elevation={0}
         sx={{
-          bgcolor: theme.palette.primary[200],
+          bgcolor: theme.palette.dark[800],
+          borderBottom: `1px solid ${theme.palette.background.default}`,
         }}
       >
         <Toolbar>
