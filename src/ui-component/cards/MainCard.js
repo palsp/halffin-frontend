@@ -67,9 +67,6 @@ const MainCard = forwardRef(
           />
         )}
 
-        {/* content & header divider */}
-        {title && <Divider />}
-
         {/* card content */}
         {content && (
           <CardContent sx={contentSX} className={contentClass}>
