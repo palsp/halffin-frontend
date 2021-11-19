@@ -29,6 +29,7 @@ const TransactionModal = ({
   handleClose,
   totalStep,
   components,
+  style = {},
 }) => {
   const classes = useStyles();
   const { chainId } = useWeb3();
@@ -38,6 +39,7 @@ const TransactionModal = ({
     <>
       {ReactDOM.createPortal(
         <ProgressModal
+          style={style}
           open={open}
           steps={steps}
           error={error}

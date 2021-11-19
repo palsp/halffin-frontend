@@ -14,6 +14,7 @@ const UserProfile = Loadable(lazy(() => import("views/user/UserProfile")));
 const ProductPage = Loadable(
   lazy(() => import("views/product/ProductPage/ProductPage"))
 );
+const TestForm = Loadable(lazy(() => import("views/TestForm")));
 // ==============================|| MAIN ROUTING ||============================== //
 
 const MainRoutes = {
@@ -39,6 +40,10 @@ const MainRoutes = {
     {
       path: "/product/:id",
       element: <ProductPage />,
+    },
+    {
+      path: "/form",
+      element: <TestForm />,
     },
   ],
 };
