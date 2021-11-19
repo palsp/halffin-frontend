@@ -21,8 +21,15 @@ const UserProfile = () => {
   const navigate = useNavigate();
   const { state } = useLocation();
   useEffect(() => {
-    if (state && state.value && state.value < 3) {
-      setValue(state.value);
+    if (state) {
+      state.value && state.value < 3 && setValue(state.value);
+      state.myPurchaseValue &&
+        state.myPurchaseValue < 3 &&
+        setMyPurchaseValue(state.myPurchaseValue);
+
+      state.myProductValue &&
+        state.myProductValue < 4 &&
+        setMyProductValue(state.myProductValue);
     }
   }, [state]);
   const { getProductsOfSeller, getProductsOfBuyer } = useProduct();
@@ -70,8 +77,8 @@ const UserProfile = () => {
             labels={["My Product", "My Purchase"]}
             components={[
               <TabPanels
-                value={myPurchaseValue}
-                onChange={(e, newValue) => setMyPurchaseValue(newValue)}
+                value={myProductValue}
+                onChange={(e, newValue) => setMyProductValue(newValue)}
                 labels={[
                   "My product",
                   "Waiting For Shipment",
@@ -84,8 +91,7 @@ const UserProfile = () => {
                     products={productsOfSeller.filter(
                       (product) => product.isAbleToBuy
                     )}
-                  />
-                  ,
+                  />,
                   <ProductList
                     products={productsOfSeller.filter(
                       (product) => product.isWaitForShipping
@@ -109,8 +115,8 @@ const UserProfile = () => {
                 ]}
               />,
               <TabPanels
-                value={myProductValue}
-                onChange={(e, newValue) => setMyProductValue(newValue)}
+                value={myPurchaseValue}
+                onChange={(e, newValue) => setMyPurchaseValue(newValue)}
                 labels={["Waiting For Shipment", "To Be Delivered", "Complete"]}
                 components={[
                   <ProductList
@@ -132,51 +138,6 @@ const UserProfile = () => {
               />,
             ]}
           />
-          {/* <Tabs value={value} onChange={handleChange}>
-            <Tab label="My Product" />
-            <Tab label="My Purchase" />
-            <Tab label="To Confirm" />
-          </Tabs>
-          <TabPanel value={value} index={0}>
-            <MyPurchase
-              labels={[
-                "Waiting For Shipment",
-                "To Be Delivered",
-                "To Be Claimed",
-                "Complete",
-              ]}
-              components={[
-                <ProductList
-                  products={productsOfSeller.filter(
-                    (product) => product.isWaitForShipping
-                  )}
-                />,
-                <ProductList
-                  products={productsOfSeller.filter(
-                    (product) => product.isAbleToCheckTrackingStatus
-                  )}
-                />,
-                <ProductList
-                  products={productsOfSeller.filter(
-                    (product) => product.isAbleToClaimFund
-                  )}
-                />,
-                <ProductList
-                  products={productsOfSeller.filter((product) => product.isEnd)}
-                />,
-              ]}
-            />
-          </TabPanel>
-          <TabPanel value={value} index={1}>
-            {user && (
-              <ProductList
-                products={getProductsOfBuyer(user.attributes.ethAddress)}
-              />
-            )}
-          </TabPanel>
-          <TabPanel value={value} index={2}>
-            To Confirm
-          </TabPanel> */}
         </Grid>
       </MainCard>
     </>
