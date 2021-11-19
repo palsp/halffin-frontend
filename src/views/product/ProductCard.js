@@ -1,23 +1,26 @@
+import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 
 // material-ui
 import { useTheme } from "@mui/material/styles";
-import { Avatar, Grid, CardActionArea } from "@mui/material";
+import { Avatar, Grid, CardActionArea, Skeleton } from "@mui/material";
 import MuiTypography from "@mui/material/Typography";
 
 // project imports
 import SkeletonEarningCard from "ui-component/cards/Skeleton/EarningCard";
 import SubCard from "ui-component/cards/SubCard";
 import { gridSpacing } from "store/constant";
-import ethIcon from "../../assets/images/icons/eth.svg";
+import ethIcon from "assets/images/icons/eth.svg";
+import { getImageAsync } from "utils";
+import BaseImage from "../../ui-component/extended/BaseImage";
 
 // ===========================|| DASHBOARD DEFAULT - EARNING CARD ||=========================== //
 
 const ProductCard = ({ isLoading, product }) => {
   const theme = useTheme();
   const navigate = useNavigate();
-
+  const [isImageLoading, setIsImageLoading] = useState(false);
   const handleNavigate = (route = "") => {
     navigate(route);
   };
@@ -51,10 +54,11 @@ const ProductCard = ({ isLoading, product }) => {
                 spacing={gridSpacing}
               >
                 <Grid item xs={12} sm={12} md={12}>
-                  <Avatar
-                    variant="square"
-                    src="https://picsum.photos/200"
-                    style={{ width: "100%", height: "200px" }}
+                  <BaseImage
+                    product={product}
+                    isLoading={isImageLoading}
+                    onStartLoading={() => setIsImageLoading(true)}
+                    onFinishLoading={() => setIsImageLoading(false)}
                   />
                 </Grid>
                 <Grid

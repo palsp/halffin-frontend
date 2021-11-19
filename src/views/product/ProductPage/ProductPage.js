@@ -16,16 +16,18 @@ import ProgressBar from "ui-component/extended/ProgressBar";
 import stages from "api/stage";
 import ProductPageSkeleton from "../../Skeleton/ProductPageSkeleton";
 import axios from "axios";
-import fileStorage from 'store/filecoin';
+import fileStorage from "store/filecoin";
+import BaseImage from "ui-component/extended/BaseImage";
+import Product from "model/Product";
 
 const ProductPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { getProductById, updateProductInfo } = useProduct();
   const { user } = useMoralis();
-  const [product, setProduct] = useState();
+  const [product, setProduct] = useState(new Product({}));
   const [isLoading, setIsLoading] = useState(true);
-  const [image, setImage] = useState();
+  const [isImageLoading, setIsImageLoading] = useState(false);
   const handleUpdate = async (_id) => {
     const newProduct = await updateProductInfo(_id);
     setProduct(newProduct);
@@ -33,31 +35,13 @@ const ProductPage = () => {
 
   useEffect(() => {
     const prod = getProductById(id);
-    const url = "https://picsum.photos/508";
-    const mockMetaUrl = "ipfs://bafyreib6pdejakv6m6axxe6bdkhsjw546doswtqg3a5cfalbuev7jkqcha/metadata.json";
-    const mockGateWayUrl = fileStorage.convertMetaDataUrlToGateWayUrl(mockMetaUrl);
-    console.log(mockGateWayUrl);
-    axios
-      .get(url, {
-        responseType: "arraybuffer",
-      })
-      .then((response) => {
-        setImage(Buffer.from(response.data, "binary").toString("base64"));
-        setIsLoading(false);
-      });
-    axios
-      .get(mockGateWayUrl.href)
-      .then((response) => {
-        console.log("res : ", response);
-      })
-      .catch((err) => {
-        console.log("err : ", err);
-      })
+    console.log(prod);
     if (!prod) {
       // go back to prev page
-      navigate(-1);
+      navigate("/");
     }
     setProduct(prod);
+    setIsLoading(false);
   }, [id]);
 
   return (
@@ -73,10 +57,24 @@ const ProductPage = () => {
             alignItems="flex-start"
             spacing={3}
           >
-            <Grid item>
-              <Card>
-                <img src="https://picsum.photos/508" alt="Product Image" />
-              </Card>
+            <Grid
+              item
+              sx={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
+              <BaseImage
+                product={product}
+                isLoading={isImageLoading}
+                onFinishLoading={() => setIsImageLoading(false)}
+                onStartLoading={() => setIsImageLoading(true)}
+                sx={{
+                  width: "50%",
+                  height: "40vh",
+                }}
+              />
             </Grid>
             <Grid item style={{ marginTop: "8px" }}>
               <Grid

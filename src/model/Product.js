@@ -1,4 +1,6 @@
 import mapStage from "api/stage";
+import axios from "axios";
+import fileStorage from "store/filecoin";
 
 class Product {
   #name;
@@ -12,6 +14,7 @@ class Product {
     stage,
     trackingId,
     deliveryStatus,
+    productURI,
   }) {
     this.id = id;
     this.#name = name;
@@ -21,6 +24,7 @@ class Product {
     this.#stage = stage;
     this.trackingId = trackingId;
     this.deliveryStatus = deliveryStatus;
+    this.productUri = productURI;
   }
 
   addAddress(addr) {
@@ -56,6 +60,28 @@ class Product {
 
   get _stage() {
     return this.#stage;
+  }
+
+  setBase64Image(base64) {
+    this.base64Image = base64;
+  }
+
+  async fetchImage() {
+    try {
+      const metadata = fileStorage.convertMetaDataUrlToGateWayUrl(
+        this.productUri
+      );
+
+      const {
+        data: { image, description },
+      } = await axios.get(metadata);
+      this.imageURI = fileStorage.convertMetaDataUrlToGateWayUrl(image);
+      this.description = description;
+    } catch (err) {
+      this.description = "";
+      this.imageURI = "https://picsum.photos/200";
+    }
+    return this.imageURI;
   }
 
   checkStage(stage) {

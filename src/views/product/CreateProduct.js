@@ -7,16 +7,16 @@ import { useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import DeleteIcon from "@mui/icons-material/Delete";
 // project imports
-import MainCard from 'ui-component/cards/MainCard';
-import {useEscrowFactory, useTx, useTransaction} from 'hooks';
-import {makeStyles} from '@mui/styles';
-import ConnectWallet from '../wallet/ConnectWallet';
-import TransactionModal from 'ui-component/extended/Modal/TransactionModal';
-import {IconCamera} from '@tabler/icons';
-import IconButton from '@mui/material/IconButton';
-import fileStorage from 'store/filecoin';
+import MainCard from "ui-component/cards/MainCard";
+import { useEscrowFactory, useTx, useTransaction } from "hooks";
+import { makeStyles } from "@mui/styles";
+import ConnectWallet from "../wallet/ConnectWallet";
+import TransactionModal from "ui-component/extended/Modal/TransactionModal";
+import { IconCamera } from "@tabler/icons";
+import IconButton from "@mui/material/IconButton";
+import fileStorage from "store/filecoin";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   image: {
     backgroundRepeat: "no-repeat",
     backgroundSize: "cover",
@@ -40,11 +40,11 @@ const CreateProduct = () => {
     lockTime: 0,
   });
 
-  const {signAndSendTransaction, txState, ...txProps} = useTransaction([
-    'Uploading Information',
-    'Sign transaction',
-    'Transaction initiated',
-    'Confirmation',
+  const { signAndSendTransaction, txState, ...txProps } = useTransaction([
+    "Uploading Information",
+    "Sign transaction",
+    "Transaction initiated",
+    "Confirmation",
   ]);
 
   const { handleOpen } = txProps;
@@ -65,12 +65,17 @@ const CreateProduct = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     txProps.handleOpen();
-    // await store.uploadToFileCoin(fileName, selectedImage, productDetail.description);
     try {
-      const ipfsUrl = await fileStorage.uploadToFileCoin(fileName, selectedImage, productDetail.description);
-      console.log('ipfsUrl :', ipfsUrl);
+      const ipfsUrl = await fileStorage.uploadToFileCoin(
+        fileName,
+        selectedImage,
+        productDetail.description
+      );
+      console.log("ipfsUrl :", ipfsUrl);
       txProps.handleNextStep();
-      await signAndSendTransaction(() => createProduct(productDetail,ipfsUrl));
+      await signAndSendTransaction(() =>
+        createProduct({ ...productDetail, productURI: ipfsUrl })
+      );
     } catch (err) {
       txProps.handleError(err);
     }
@@ -155,9 +160,12 @@ const CreateProduct = () => {
                   defaultValue=""
                   multiline
                   rows={4}
-                  sx={{...theme.typography.customInput}}
-                  onChange={e =>
-                    setProductDetail({...productDetail, description: e.target.value})
+                  sx={{ ...theme.typography.customInput }}
+                  onChange={(e) =>
+                    setProductDetail({
+                      ...productDetail,
+                      description: e.target.value,
+                    })
                   }
                 />
                 <TextField

@@ -4,7 +4,7 @@ import { useMoralis } from "react-moralis";
 const useWeb3 = () => {
   const { Moralis } = useMoralis();
   const [web3, setWeb3] = useState();
-  const [web3Utils, setWeb3Utils] = useState(new Moralis.Web3().utils);
+  const [web3Utils] = useState(new Moralis.Web3().utils);
   const [chainId, setChainId] = useState(0);
 
   useEffect(() => {

@@ -1,18 +1,6 @@
 import ReactDOM from "react-dom";
-import {
-  Dialog,
-  DialogContent,
-  DialogActions,
-  Button,
-  Box,
-  Stepper,
-  Step,
-  StepLabel,
-  Grid,
-  Typography,
-  CircularProgress,
-} from "@mui/material";
-import { useTx, useWeb3 } from "hooks";
+import { Grid, Typography, CircularProgress } from "@mui/material";
+import { useWeb3 } from "hooks";
 import { makeStyles } from "@mui/styles";
 import {
   shortenIfTransactionHash,

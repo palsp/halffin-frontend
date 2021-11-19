@@ -21,8 +21,8 @@ class FileStorage {
     return metadata.url;
   }
 
-  async convertMetaDataUrlToGateWayUrl (metaDataUrl) {
-    return toGatewayURL(metaDataUrl)
+  convertMetaDataUrlToGateWayUrl(metaDataUrl) {
+    return toGatewayURL(metaDataUrl);
   }
 }
 
