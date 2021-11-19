@@ -11,8 +11,10 @@ import ProductList from "../ProductList/ProductList";
 import ProductSkeleton from "views/Skeleton/ProductSkeleton";
 import { useMoralis } from "react-moralis";
 import { addressEqual } from "@usedapp/core";
+import { useTheme } from "@mui/material/styles";
 
 const MarketPlace = () => {
+  const theme = useTheme();
   const navigate = useNavigate();
   const [isLoading, setLoading] = useState(true);
   const handleNavigate = (route = "") => {
@@ -39,7 +41,7 @@ const MarketPlace = () => {
       title="Market"
       secondary={
         <IconButton onClick={() => handleNavigate("/my-product/create")}>
-          <IconCirclePlus />
+          <IconCirclePlus style={{color: theme.palette.text.base}} />
         </IconButton>
       }
     >

@@ -19,8 +19,10 @@ import axios from "axios";
 import fileStorage from "store/filecoin";
 import BaseImage from "ui-component/extended/BaseImage";
 import Product from "model/Product";
+import {useTheme} from "@mui/material/styles"
 
 const ProductPage = () => {
+  const theme = useTheme();
   const { id } = useParams();
   const navigate = useNavigate();
   const { getProductById, updateProductInfo } = useProduct();
@@ -84,43 +86,43 @@ const ProductPage = () => {
                 alignItems="flex-start"
                 spacing={3}
               >
-                <Grid item>
-                  <MuiTypography variant="h2" gutterBottom>
+                <Grid item> 
+                  <MuiTypography variant="h2" gutterBottom style={{color: theme.palette.text.base}}>
                     {product.name}
                   </MuiTypography>
                 </Grid>
                 <Grid item>
-                  <MuiTypography variant="h4" gutterBottom>
+                  <MuiTypography variant="h4" gutterBottom style={{color: theme.palette.text.base}}>
                     Owner: {shortenIfAddress(product.owner)}
                   </MuiTypography>
                 </Grid>
                 <Grid item>
-                  <MuiTypography variant="h4" gutterBottom>
+                  <MuiTypography variant="h4" gutterBottom style={{color: theme.palette.text.base}}>
                     Contract Address: {product.address}
                   </MuiTypography>
                 </Grid>
                 <Grid item>
-                  <MuiTypography variant="h4" gutterBottom>
+                  <MuiTypography variant="h4" gutterBottom style={{color: theme.palette.text.base}}>
                     Stage: {product.stage}
                   </MuiTypography>
                 </Grid>
                 {product.trackingId != "" && (
                   <Grid item>
-                    <MuiTypography variant="h4" gutterBottom>
+                    <MuiTypography variant="h4" gutterBottom style={{color: theme.palette.text.base}}>
                       Tracking ID: {product.trackingId}
                     </MuiTypography>
                   </Grid>
                 )}
                 {product.deliveryStatus !== "" && (
                   <Grid item>
-                    <MuiTypography variant="h4" gutterBottom>
+                    <MuiTypography variant="h4" gutterBottom style={{color: theme.palette.text.base}}>
                       Delivery Status: {product.deliveryStatus}
                     </MuiTypography>
                   </Grid>
                 )}
 
                 <Grid item>
-                  <MuiTypography variant="h2" gutterBottom textAlign="center">
+                  <MuiTypography variant="h2" gutterBottom textAlign="center" style={{color: theme.palette.text.base}}>
                     Price: {product.price}
                     <img
                       src={ethIcon}
