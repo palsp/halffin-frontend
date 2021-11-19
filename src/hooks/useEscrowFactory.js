@@ -28,10 +28,10 @@ const useEscrowFactory = () => {
     init();
   }, []);
 
-  const createProduct = ({ name, price, lockTime }) => {
+  const createProduct = ({ name, price, productURI = "", lockTime }) => {
     const newPrice = web3.utils.toWei(price, "ether");
     return contract.methods
-      .createProduct(name, newPrice, lockTime)
+      .createProduct(name, newPrice, productURI, lockTime)
       .send({ from: user.attributes.ethAddress });
   };
 

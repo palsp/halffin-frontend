@@ -1,45 +1,48 @@
-import { lazy } from 'react';
+import { lazy } from "react";
 
 // project imports
-import MainLayout from 'layout/MainLayout';
-import Loadable from 'ui-component/Loadable';
-import { Navigate } from 'react-router-dom';
+import MainLayout from "layout/MainLayout";
+import Loadable from "ui-component/Loadable";
+import { Navigate } from "react-router-dom";
 
 // sample page routing
-const MarketPlace = Loadable(lazy(() => import('views/product/MarketPlace')));
-const CreateProduct = Loadable(lazy(() => import('views/product/CreateProduct')));
-const UserProfile = Loadable(lazy(() => import('views/user/UserProfile')));
-const ProductPage = Loadable(lazy(() => import('views/product/ProductPage/ProductPage')));
-
-const TestForm = Loadable(lazy(() => import('views/TestForm')));
+const MarketPlace = Loadable(lazy(() => import("views/product/Marketplace")));
+const CreateProduct = Loadable(
+  lazy(() => import("views/product/CreateProduct"))
+);
+const UserProfile = Loadable(lazy(() => import("views/user/UserProfile")));
+const ProductPage = Loadable(
+  lazy(() => import("views/product/ProductPage/ProductPage"))
+);
+const TestForm = Loadable(lazy(() => import("views/TestForm")));
 // ==============================|| MAIN ROUTING ||============================== //
 
 const MainRoutes = {
-  path: '/',
+  path: "/",
   element: <MainLayout />,
   children: [
     {
-      path: '',
+      path: "",
       element: <MarketPlace />,
     },
     {
-      path: '/my-product/create',
+      path: "/my-product/create",
       element: <CreateProduct />,
     },
     {
-      path: '/user/account-profile',
+      path: "/user/account-profile",
       element: <UserProfile />,
     },
     {
-      path: '*',
+      path: "*",
       element: <Navigate to="/" />,
     },
     {
-      path: '/product/:id',
+      path: "/product/:id",
       element: <ProductPage />,
     },
     {
-      path: '/form',
+      path: "/form",
       element: <TestForm />,
     },
   ],

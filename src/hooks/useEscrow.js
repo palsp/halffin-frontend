@@ -11,14 +11,8 @@ const useEscrow = () => {
 
   const serializeProduct = (productDetail, productAddress) => {
     const product = new Product({
-      id: productDetail.id,
-      name: productDetail.name,
-      owner: productDetail.owner,
-      buyer: productDetail.buyer,
+      ...productDetail,
       price: web3Utils.fromWei(productDetail.price, "ether"),
-      stage: productDetail.stage,
-      trackingId: productDetail.trackingId,
-      deliveryStatus: productDetail.deliveryStatus,
     });
 
     product.addAddress(productAddress);
@@ -63,10 +57,10 @@ const useEscrow = () => {
 
   const listenOnShipmentDetail = (contractAddress, cb) => {
     const contractInstance = getContractInstance(contractAddress);
-    return contractInstance.once("ShipmentDelivered", cb);
+    return contractInstance.once("ShipmentUpdated", cb);
   };
 
-  const reclaimFund = async (contractAddress) => {
+  const reclaimFund = (contractAddress) => {
     const contractInstance = getContractInstance(contractAddress);
     return contractInstance.methods
       .reclaimFund()

@@ -16,15 +16,20 @@ import ProgressBar from "ui-component/extended/ProgressBar";
 import stages from "api/stage";
 import ProductPageSkeleton from "../../Skeleton/ProductPageSkeleton";
 import axios from "axios";
+import fileStorage from "store/filecoin";
+import BaseImage from "ui-component/extended/BaseImage";
+import Product from "model/Product";
+import {useTheme} from "@mui/material/styles"
 
 const ProductPage = () => {
+  const theme = useTheme();
   const { id } = useParams();
   const navigate = useNavigate();
   const { getProductById, updateProductInfo } = useProduct();
   const { user } = useMoralis();
-  const [product, setProduct] = useState();
+  const [product, setProduct] = useState(new Product({}));
   const [isLoading, setIsLoading] = useState(true);
-  const [image, setImage] = useState();
+  const [isImageLoading, setIsImageLoading] = useState(false);
   const handleUpdate = async (_id) => {
     const newProduct = await updateProductInfo(_id);
     setProduct(newProduct);
@@ -32,20 +37,13 @@ const ProductPage = () => {
 
   useEffect(() => {
     const prod = getProductById(id);
-    const url = "https://picsum.photos/508";
-    axios
-      .get(url, {
-        responseType: "arraybuffer",
-      })
-      .then((response) => {
-        setImage(Buffer.from(response.data, "binary").toString("base64"));
-        setIsLoading(false);
-      });
+    console.log(prod);
     if (!prod) {
       // go back to prev page
-      navigate(-1);
+      navigate("/");
     }
     setProduct(prod);
+    setIsLoading(false);
   }, [id]);
 
   return (
@@ -61,10 +59,24 @@ const ProductPage = () => {
             alignItems="flex-start"
             spacing={3}
           >
-            <Grid item>
-              <Card>
-                <img src="https://picsum.photos/508" alt="Product Image" />
-              </Card>
+            <Grid
+              item
+              sx={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
+              <BaseImage
+                product={product}
+                isLoading={isImageLoading}
+                onFinishLoading={() => setIsImageLoading(false)}
+                onStartLoading={() => setIsImageLoading(true)}
+                sx={{
+                  width: "50%",
+                  height: "40vh",
+                }}
+              />
             </Grid>
             <Grid item style={{ marginTop: "8px" }}>
               <Grid
@@ -74,43 +86,43 @@ const ProductPage = () => {
                 alignItems="flex-start"
                 spacing={3}
               >
-                <Grid item>
-                  <MuiTypography variant="h2" gutterBottom>
+                <Grid item> 
+                  <MuiTypography variant="h2" gutterBottom style={{color: theme.palette.text.base}}>
                     {product.name}
                   </MuiTypography>
                 </Grid>
                 <Grid item>
-                  <MuiTypography variant="h4" gutterBottom>
+                  <MuiTypography variant="h4" gutterBottom style={{color: theme.palette.text.base}}>
                     Owner: {shortenIfAddress(product.owner)}
                   </MuiTypography>
                 </Grid>
                 <Grid item>
-                  <MuiTypography variant="h4" gutterBottom>
+                  <MuiTypography variant="h4" gutterBottom style={{color: theme.palette.text.base}}>
                     Contract Address: {product.address}
                   </MuiTypography>
                 </Grid>
                 <Grid item>
-                  <MuiTypography variant="h4" gutterBottom>
+                  <MuiTypography variant="h4" gutterBottom style={{color: theme.palette.text.base}}>
                     Stage: {product.stage}
                   </MuiTypography>
                 </Grid>
                 {product.trackingId != "" && (
                   <Grid item>
-                    <MuiTypography variant="h4" gutterBottom>
+                    <MuiTypography variant="h4" gutterBottom style={{color: theme.palette.text.base}}>
                       Tracking ID: {product.trackingId}
                     </MuiTypography>
                   </Grid>
                 )}
                 {product.deliveryStatus !== "" && (
                   <Grid item>
-                    <MuiTypography variant="h4" gutterBottom>
+                    <MuiTypography variant="h4" gutterBottom style={{color: theme.palette.text.base}}>
                       Delivery Status: {product.deliveryStatus}
                     </MuiTypography>
                   </Grid>
                 )}
 
                 <Grid item>
-                  <MuiTypography variant="h2" gutterBottom textAlign="center">
+                  <MuiTypography variant="h2" gutterBottom textAlign="center" style={{color: theme.palette.text.base}}>
                     Price: {product.price}
                     <img
                       src={ethIcon}

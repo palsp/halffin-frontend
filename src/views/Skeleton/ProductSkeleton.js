@@ -10,7 +10,7 @@ const ProductSkeleton = () => {
     <>
       {/* <Skeleton variant="rectangular" width={210} height={118} /> */}
       <Grid item lg={4} md={6} sm={6} xs={12}>
-        <SubCard style={{width: '275px'}}>
+        <SubCard style={{width: '275px', backgroundColor: `rgba(107,195,238,0.1)`}}>
           <Grid
             container
             direction="column"

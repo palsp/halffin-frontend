@@ -1,27 +1,18 @@
-import ReactDOM from 'react-dom';
+import ReactDOM from "react-dom";
+import { Grid, Typography, CircularProgress } from "@mui/material";
+import { useWeb3 } from "hooks";
+import { makeStyles } from "@mui/styles";
 import {
-  Dialog,
-  DialogContent,
-  DialogActions,
-  Button,
-  Box,
-  Stepper,
-  Step,
-  StepLabel,
-  Grid,
-  Typography,
-  CircularProgress,
-} from '@mui/material';
-import { useTx, useWeb3 } from 'hooks';
-import { makeStyles } from '@mui/styles';
-import { shortenIfTransactionHash, getExplorerTransactionLink } from '@usedapp/core';
-import ProgressModal from '../ProgressModal';
+  shortenIfTransactionHash,
+  getExplorerTransactionLink,
+} from "@usedapp/core";
+import ProgressModal from "../ProgressModal";
 
 const useStyles = makeStyles((theme) => ({
   txTag: {
-    textDecoration: 'none',
+    textDecoration: "none",
     color: theme.palette.primary.main,
-    '&:hover': {
+    "&:hover": {
       color: theme.palette.secondary.main,
     },
   },
@@ -42,7 +33,7 @@ const TransactionModal = ({
 }) => {
   const classes = useStyles();
   const { chainId } = useWeb3();
-  const dom = document.getElementById('tx-modal-overlay');
+  const dom = document.getElementById("tx-modal-overlay");
 
   return (
     <>
@@ -58,7 +49,12 @@ const TransactionModal = ({
           onClose={handleClose}
           components={{
             [totalStep]: (
-              <Grid container direction="column" justifyContent="center" alignItems="center">
+              <Grid
+                container
+                direction="column"
+                justifyContent="center"
+                alignItems="center"
+              >
                 <Typography sx={{ mt: 2, mb: 1 }} variant="h3">
                   Request Complete
                 </Typography>
@@ -69,12 +65,12 @@ const TransactionModal = ({
                   sx={{ mt: 2, mb: 1 }}
                   variant="body2"
                   style={{
-                    textOverflow: 'ellipsis',
-                    whiteSpace: 'nowrap',
-                    display: 'inherit',
+                    textOverflow: "ellipsis",
+                    whiteSpace: "nowrap",
+                    display: "inherit",
                   }}
                 >
-                  Transaction hash :{' '}
+                  Transaction hash :{" "}
                   <a
                     className={classes.txTag}
                     href={getExplorerTransactionLink(txhash, chainId)}
