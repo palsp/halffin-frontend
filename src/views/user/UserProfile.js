@@ -11,8 +11,10 @@ import ProductList from "../product/ProductList/ProductList";
 
 import { shortenIfAddress } from "@usedapp/core";
 import TabPanels from "ui-component/extended/TabPanels";
+import { useTheme } from "@mui/material/styles";
 
 const UserProfile = () => {
+  const theme = useTheme();
   const [value, setValue] = useState(0);
   const [myPurchaseValue, setMyPurchaseValue] = useState(0);
   const [myProductValue, setMyProductValue] = useState(0);
@@ -56,12 +58,12 @@ const UserProfile = () => {
             src="https://picsum.photos/200"
             sx={{ width: 100, height: 100 }}
           />
-          <MuiTypography variant="subtitle1" gutterBottom>
+          <MuiTypography variant="subtitle1" gutterBottom style={{color: theme.palette.text.base}}>
             {isAuthenticated
               ? shortenIfAddress(user.attributes.ethAddress)
               : ""}
           </MuiTypography>
-          <MuiTypography variant="subtitle2">
+          <MuiTypography variant="subtitle2" style={{color: theme.palette.text.base}}>
             {isAuthenticated ? user.attributes.createdAt.toString() : ""}
           </MuiTypography>
           <TabPanels
@@ -132,51 +134,6 @@ const UserProfile = () => {
               />,
             ]}
           />
-          {/* <Tabs value={value} onChange={handleChange}>
-            <Tab label="My Product" />
-            <Tab label="My Purchase" />
-            <Tab label="To Confirm" />
-          </Tabs>
-          <TabPanel value={value} index={0}>
-            <MyPurchase
-              labels={[
-                "Waiting For Shipment",
-                "To Be Delivered",
-                "To Be Claimed",
-                "Complete",
-              ]}
-              components={[
-                <ProductList
-                  products={productsOfSeller.filter(
-                    (product) => product.isWaitForShipping
-                  )}
-                />,
-                <ProductList
-                  products={productsOfSeller.filter(
-                    (product) => product.isAbleToCheckTrackingStatus
-                  )}
-                />,
-                <ProductList
-                  products={productsOfSeller.filter(
-                    (product) => product.isAbleToClaimFund
-                  )}
-                />,
-                <ProductList
-                  products={productsOfSeller.filter((product) => product.isEnd)}
-                />,
-              ]}
-            />
-          </TabPanel>
-          <TabPanel value={value} index={1}>
-            {user && (
-              <ProductList
-                products={getProductsOfBuyer(user.attributes.ethAddress)}
-              />
-            )}
-          </TabPanel>
-          <TabPanel value={value} index={2}>
-            To Confirm
-          </TabPanel> */}
         </Grid>
       </MainCard>
     </>

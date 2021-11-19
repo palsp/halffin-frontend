@@ -65,18 +65,13 @@ const ProductCard = ({ isLoading, product }) => {
                 container
                 xs={12}
                 direction="row"
-                justifyContent="center"
-                alignItems="center"
                 style={{ marginTop: "8px" }}
               >
                 <Grid
                   container
                   xs={6}
                   md={4}
-                  justifyContent="center"
-                  alignItems="center"
                   style={{ marginLeft: "20px" }}
-                  direction="column"
                   rowSpacing={1}
                 >
                   <Grid item>
