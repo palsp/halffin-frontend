@@ -69,6 +69,7 @@ const CreateProduct = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(daysToBlock(+productDetail.lockTime));
     txProps.handleOpen();
     try {
       const ipfsUrl = await fileStorage.uploadToFileCoin(
@@ -81,7 +82,7 @@ const CreateProduct = () => {
         createProduct({
           ...productDetail,
           productURI: ipfsUrl,
-          price: daysToBlock(+productDetail.lockTime),
+          lockTime: daysToBlock(+productDetail.lockTime),
         })
       );
       navigate("/user/account-profile", {

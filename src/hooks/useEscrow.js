@@ -1,3 +1,4 @@
+import { useCallback } from "react";
 import { abi } from "api/chain-info/contracts/Escrow.json";
 import { useMoralis } from "react-moralis";
 import Product from "model/Product";
@@ -6,8 +7,11 @@ const useEscrow = () => {
   const { user, Moralis } = useMoralis();
   const { web3, web3Utils } = useWeb3();
 
-  const getContractInstance = (contractAddress, web3Instance = web3) =>
-    new web3Instance.eth.Contract(abi, contractAddress);
+  const getContractInstance = useCallback(
+    (contractAddress, web3Instance = web3) =>
+      new web3Instance.eth.Contract(abi, contractAddress),
+    [web3]
+  );
 
   const serializeProduct = (productDetail, productAddress) => {
     const product = new Product({
@@ -24,6 +28,12 @@ const useEscrow = () => {
     const contractInstance = getContractInstance(contractAddress, web3Instance);
     const result = await contractInstance.methods.product().call();
     return serializeProduct(result, contractAddress);
+  };
+
+  const checkForCancelOrder = async (contractAddress) => {
+    const web3Instance = await Moralis.enableWeb3();
+    const contractInstance = getContractInstance(contractAddress, web3Instance);
+    return contractInstance.methods.isAbleTocancelOrder().call();
   };
 
   const order = (contractAddress, price) => {
@@ -76,6 +86,7 @@ const useEscrow = () => {
     requestShippingDetail,
     reclaimFund,
     listenOnShipmentDetail,
+    checkForCancelOrder,
   };
 };
 

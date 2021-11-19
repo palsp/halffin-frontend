@@ -3,7 +3,6 @@ import BuyerView from "./BuyerView/BuyerView";
 import SellerView from "./SellerView/SellerView";
 // material-ui
 import Grid from "@mui/material/Grid";
-import Card from "@mui/material/Card";
 import MuiTypography from "@mui/material/Typography";
 import { useParams, useNavigate } from "react-router-dom";
 import { useProduct } from "context";
@@ -15,11 +14,9 @@ import { shortenIfAddress, addressEqual } from "@usedapp/core";
 import ProgressBar from "ui-component/extended/ProgressBar";
 import stages from "api/stage";
 import ProductPageSkeleton from "../../Skeleton/ProductPageSkeleton";
-import axios from "axios";
-import fileStorage from "store/filecoin";
 import BaseImage from "ui-component/extended/BaseImage";
 import Product from "model/Product";
-import {useTheme} from "@mui/material/styles"
+import { useTheme } from "@mui/material/styles";
 
 const ProductPage = () => {
   const theme = useTheme();
@@ -86,43 +83,81 @@ const ProductPage = () => {
                 alignItems="flex-start"
                 spacing={3}
               >
-                <Grid item> 
-                  <MuiTypography variant="h2" gutterBottom style={{color: theme.palette.text.base}}>
+                <Grid item>
+                  <MuiTypography
+                    variant="h2"
+                    gutterBottom
+                    style={{ color: theme.palette.text.base }}
+                  >
                     {product.name}
                   </MuiTypography>
                 </Grid>
                 <Grid item>
-                  <MuiTypography variant="h4" gutterBottom style={{color: theme.palette.text.base}}>
+                  <MuiTypography
+                    variant="h4"
+                    gutterBottom
+                    style={{ color: theme.palette.text.base }}
+                  >
                     Owner: {shortenIfAddress(product.owner)}
                   </MuiTypography>
                 </Grid>
                 <Grid item>
-                  <MuiTypography variant="h4" gutterBottom style={{color: theme.palette.text.base}}>
+                  <MuiTypography
+                    variant="h4"
+                    gutterBottom
+                    style={{ color: theme.palette.text.base }}
+                  >
                     Contract Address: {product.address}
                   </MuiTypography>
                 </Grid>
                 <Grid item>
-                  <MuiTypography variant="h4" gutterBottom style={{color: theme.palette.text.base}}>
+                  <MuiTypography
+                    variant="h4"
+                    gutterBottom
+                    style={{ color: theme.palette.text.base }}
+                  >
+                    Lock time: {product.lockPeriod} days
+                  </MuiTypography>
+                </Grid>
+                <Grid item>
+                  <MuiTypography
+                    variant="h4"
+                    gutterBottom
+                    style={{ color: theme.palette.text.base }}
+                  >
                     Stage: {product.stage}
                   </MuiTypography>
                 </Grid>
                 {product.trackingId != "" && (
                   <Grid item>
-                    <MuiTypography variant="h4" gutterBottom style={{color: theme.palette.text.base}}>
+                    <MuiTypography
+                      variant="h4"
+                      gutterBottom
+                      style={{ color: theme.palette.text.base }}
+                    >
                       Tracking ID: {product.trackingId}
                     </MuiTypography>
                   </Grid>
                 )}
                 {product.deliveryStatus !== "" && (
                   <Grid item>
-                    <MuiTypography variant="h4" gutterBottom style={{color: theme.palette.text.base}}>
+                    <MuiTypography
+                      variant="h4"
+                      gutterBottom
+                      style={{ color: theme.palette.text.base }}
+                    >
                       Delivery Status: {product.deliveryStatus}
                     </MuiTypography>
                   </Grid>
                 )}
 
                 <Grid item>
-                  <MuiTypography variant="h2" gutterBottom textAlign="center" style={{color: theme.palette.text.base}}>
+                  <MuiTypography
+                    variant="h2"
+                    gutterBottom
+                    textAlign="center"
+                    style={{ color: theme.palette.text.base }}
+                  >
                     Price: {product.price}
                     <img
                       src={ethIcon}
@@ -148,7 +183,7 @@ const ProductPage = () => {
                 addressEqual(user.attributes.ethAddress, product.owner) ? (
                   <SellerView product={product} onUpdate={handleUpdate} />
                 ) : (
-                  <BuyerView product={product} />
+                  <BuyerView product={product} onUpdate={handleUpdate} />
                 )}
               </Grid>
             </Grid>

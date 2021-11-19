@@ -16,6 +16,7 @@ class Product {
     trackingId,
     deliveryStatus,
     productURI,
+    lockPeriod,
   }) {
     this.id = id;
     this.#name = name;
@@ -26,6 +27,7 @@ class Product {
     this.trackingId = trackingId;
     this.deliveryStatus = deliveryStatus;
     this.productUri = productURI;
+    this.lockPeriod = lockPeriod;
   }
 
   addAddress(addr) {
@@ -69,6 +71,10 @@ class Product {
 
   get _stage() {
     return this.#stage;
+  }
+
+  get lockPeriodInDays() {
+    return blocksToDays(+this.lockPeriod);
   }
 
   setBase64Image(base64) {
