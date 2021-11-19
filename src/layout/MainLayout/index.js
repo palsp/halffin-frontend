@@ -15,15 +15,15 @@ import { IconChevronRight } from "@tabler/icons";
 // styles
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
   ({ theme }) => ({
-    ...theme.typography.mainContent,
     transition: theme.transitions.create("margin", {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
     }),
+    ...theme.typography.mainContent,
     marginLeft: 0,
     borderBottomLeftRadius: 0,
     borderBottomRightRadius: 0,
-    width: `calc(100% - ${drawerWidth}px)`,
+    width: "100%",
     [theme.breakpoints.down("md")]: {
       marginLeft: "20px",
     },
@@ -48,7 +48,7 @@ const MainLayout = () => {
         color="inherit"
         elevation={0}
         sx={{
-          bgcolor: theme.palette.background.default,
+          bgcolor: theme.palette.primary[200],
         }}
       >
         <Toolbar>

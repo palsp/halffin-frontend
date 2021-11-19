@@ -44,7 +44,12 @@ const BaseImage = ({
         <Avatar
           variant="square"
           src={`data:image/jpeg;charset=utf-8;base64,${base64}`}
-          style={{ width: "100%", height: "200px", ...sx }}
+          style={{
+            width: "100%",
+            height: "200px",
+            borderRadius: "10px",
+            ...sx,
+          }}
         />
       )}
     </>
