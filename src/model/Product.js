@@ -1,6 +1,7 @@
 import mapStage from "api/stage";
 import axios from "axios";
 import fileStorage from "store/filecoin";
+import { blocksToDays } from "utils";
 
 class Product {
   #name;

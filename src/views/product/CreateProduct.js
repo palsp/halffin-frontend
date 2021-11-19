@@ -14,8 +14,9 @@ import ConnectWallet from "../wallet/ConnectWallet";
 import TransactionModal from "ui-component/extended/Modal/TransactionModal";
 import { IconCamera } from "@tabler/icons";
 import IconButton from "@mui/material/IconButton";
-import fileStorage from "store/filecoin";
 import { useNavigate } from "react-router";
+import fileStorage from "store/filecoin";
+import { daysToBlock } from "utils";
 
 const useStyles = makeStyles((theme) => ({
   image: {
@@ -75,10 +76,13 @@ const CreateProduct = () => {
         selectedImage,
         productDetail.description
       );
-      console.log("ipfsUrl :", ipfsUrl);
       txProps.handleNextStep();
       await signAndSendTransaction(() =>
-        createProduct({ ...productDetail, productURI: ipfsUrl })
+        createProduct({
+          ...productDetail,
+          productURI: ipfsUrl,
+          price: daysToBlock(+productDetail.lockTime),
+        })
       );
       navigate("/user/account-profile", {
         state: { value: 0, myProductValue: 0 },
@@ -157,7 +161,10 @@ const CreateProduct = () => {
                   sx={{ ...theme.typography.customInput }}
                   value={productDetail.name}
                   onChange={(e) =>
-                    setProductDetail({ ...productDetail, name: e.target.value })
+                    setProductDetail((prevState) => ({
+                      ...prevState,
+                      name: e.target.value,
+                    }))
                   }
                 />
                 <TextField
@@ -171,41 +178,53 @@ const CreateProduct = () => {
                   rows={4}
                   sx={{ ...theme.typography.customInput }}
                   onChange={(e) =>
-                    setProductDetail({
-                      ...productDetail,
+                    setProductDetail((prevState) => ({
+                      ...prevState,
                       description: e.target.value,
-                    })
+                    }))
                   }
                 />
                 <TextField
                   required
                   label="Price"
                   margin="normal"
+                  fullWidth
                   name="price"
                   type="number"
                   defaultValue=""
                   sx={{ ...theme.typography.customInput }}
                   value={productDetail.price}
                   onChange={(e) =>
-                    setProductDetail({
-                      ...productDetail,
+                    setProductDetail((prevState) => ({
+                      ...prevState,
                       price: e.target.value,
-                    })
+                    }))
                   }
                 />
                 <TextField
+                  required
                   fullWidth
-                  label="Lock Time"
+                  label="Lock Time (in days)"
                   margin="normal"
-                  name="description"
+                  name="lockTime"
                   type="number"
-                  defaultValue="3"
+                  value={productDetail.lockTime}
+                  onChange={(e) =>
+                    setProductDetail((prevState) => ({
+                      ...prevState,
+                      lockTime: e.target.value,
+                    }))
+                  }
                   sx={{ ...theme.typography.customInput }}
                 />
               </Grid>
             </Grid>
             <Button
-              disabled={!productDetail.name || productDetail.price <= 0}
+              disabled={
+                !productDetail.name ||
+                productDetail.price <= 0 ||
+                productDetail.lockTime < 0
+              }
               size="large"
               variant="contained"
               color="secondary"
