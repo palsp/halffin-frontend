@@ -34,7 +34,7 @@ const ProductCard = ({ isLoading, product }) => {
           <SubCard
             style={{
               width: "275px",
-
+              maxHeight: "300px",
               backgroundColor: `rgba(107,195,238,0.1)`,
               border: `1px solid white`,
               borderRadius: "10px",
@@ -91,7 +91,7 @@ const ProductCard = ({ isLoading, product }) => {
                         sx={{ display: "flex" }}
                         color={theme.palette.text.base}
                       >
-                        {product.name}
+                        {product.nameForDisplay}
                       </MuiTypography>
                     </div>
                   </Grid>
