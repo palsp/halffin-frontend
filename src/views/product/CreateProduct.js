@@ -15,6 +15,7 @@ import TransactionModal from "ui-component/extended/Modal/TransactionModal";
 import { IconCamera } from "@tabler/icons";
 import IconButton from "@mui/material/IconButton";
 import fileStorage from "store/filecoin";
+import { useNavigate } from "react-router";
 
 const useStyles = makeStyles((theme) => ({
   image: {
@@ -32,7 +33,8 @@ const useStyles = makeStyles((theme) => ({
 
 const CreateProduct = () => {
   const classes = useStyles();
-  const { Moralis, authenticate, enableWeb3, user } = useMoralis();
+  const { user } = useMoralis();
+  const navigate = useNavigate();
   const theme = useTheme();
   const formRef = useRef(null);
   const [selectedImage, setSelectedImage] = useState();
@@ -50,8 +52,6 @@ const CreateProduct = () => {
     "Transaction initiated",
     "Confirmation",
   ]);
-
-  const { handleOpen } = txProps;
 
   const { createProduct } = useEscrowFactory();
 
@@ -80,6 +80,9 @@ const CreateProduct = () => {
       await signAndSendTransaction(() =>
         createProduct({ ...productDetail, productURI: ipfsUrl })
       );
+      navigate("/user/account-profile", {
+        state: { value: 0, myProductValue: 0 },
+      });
     } catch (err) {
       txProps.handleError(err);
     }
