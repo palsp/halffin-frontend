@@ -1,49 +1,22 @@
 import { useState, useEffect } from "react";
 // material-ui
-import { Typography } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
 import Grid from "@mui/material/Grid";
 import MainCard from "ui-component/cards/MainCard";
 import { useMoralis } from "react-moralis";
-import Box from "@mui/material/Box";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
-import PropTypes from "prop-types";
 import MuiTypography from "@mui/material/Typography";
 import { useProduct } from "context";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import ProductList from "../product/ProductList/ProductList";
 
-import { useLocation } from "react-router-dom";
 import { shortenIfAddress } from "@usedapp/core";
-function TabPanel(props) {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
-  );
-}
-
-TabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.number.isRequired,
-  value: PropTypes.number.isRequired,
-};
+import TabPanels from "ui-component/extended/TabPanels";
 
 const UserProfile = () => {
   const [value, setValue] = useState(0);
+  const [myPurchaseValue, setMyPurchaseValue] = useState(0);
+  const [myProductValue, setMyProductValue] = useState(0);
+
   const { user, isAuthenticated } = useMoralis();
   const navigate = useNavigate();
   const { state } = useLocation();
@@ -62,6 +35,13 @@ const UserProfile = () => {
   const handleChange = (event, newvalue) => {
     setValue(newvalue);
   };
+
+  let productsOfSeller = [];
+  let productsOfBuyers = [];
+  if (user) {
+    productsOfSeller = getProductsOfSeller(user.attributes.ethAddress);
+    productsOfBuyers = getProductsOfBuyer(user.attributes.ethAddress);
+  }
 
   return (
     <>
@@ -84,17 +64,101 @@ const UserProfile = () => {
           <MuiTypography variant="subtitle2">
             {isAuthenticated ? user.attributes.createdAt.toString() : ""}
           </MuiTypography>
-          <Tabs value={value} onChange={handleChange}>
+          <TabPanels
+            value={value}
+            onChange={(e, newValue) => setValue(newValue)}
+            labels={["My Product", "My Purchase"]}
+            components={[
+              <TabPanels
+                value={myPurchaseValue}
+                onChange={(e, newValue) => setMyPurchaseValue(newValue)}
+                labels={[
+                  "Waiting For Shipment",
+                  "To Be Delivered",
+                  "To Be Claimed",
+                  "Complete",
+                ]}
+                components={[
+                  <ProductList
+                    products={productsOfSeller.filter(
+                      (product) => product.isWaitForShipping
+                    )}
+                  />,
+                  <ProductList
+                    products={productsOfSeller.filter(
+                      (product) => product.isAbleToCheckTrackingStatus
+                    )}
+                  />,
+                  <ProductList
+                    products={productsOfSeller.filter(
+                      (product) => product.isAbleToClaimFund
+                    )}
+                  />,
+                  <ProductList
+                    products={productsOfSeller.filter(
+                      (product) => product.isEnd
+                    )}
+                  />,
+                ]}
+              />,
+              <TabPanels
+                value={myProductValue}
+                onChange={(e, newValue) => setMyProductValue(newValue)}
+                labels={["Waiting For Shipment", "To Be Delivered", "Complete"]}
+                components={[
+                  <ProductList
+                    products={productsOfBuyers.filter(
+                      (product) => product.isWaitForShipping
+                    )}
+                  />,
+                  <ProductList
+                    products={productsOfBuyers.filter(
+                      (product) => product.isAbleToCheckTrackingStatus
+                    )}
+                  />,
+                  <ProductList
+                    products={productsOfBuyers.filter(
+                      (product) => product.isAbleToClaimFund || product.isEnd
+                    )}
+                  />,
+                ]}
+              />,
+            ]}
+          />
+          {/* <Tabs value={value} onChange={handleChange}>
             <Tab label="My Product" />
             <Tab label="My Purchase" />
             <Tab label="To Confirm" />
           </Tabs>
           <TabPanel value={value} index={0}>
-            {user && (
-              <ProductList
-                products={getProductsOfSeller(user.attributes.ethAddress)}
-              />
-            )}
+            <MyPurchase
+              labels={[
+                "Waiting For Shipment",
+                "To Be Delivered",
+                "To Be Claimed",
+                "Complete",
+              ]}
+              components={[
+                <ProductList
+                  products={productsOfSeller.filter(
+                    (product) => product.isWaitForShipping
+                  )}
+                />,
+                <ProductList
+                  products={productsOfSeller.filter(
+                    (product) => product.isAbleToCheckTrackingStatus
+                  )}
+                />,
+                <ProductList
+                  products={productsOfSeller.filter(
+                    (product) => product.isAbleToClaimFund
+                  )}
+                />,
+                <ProductList
+                  products={productsOfSeller.filter((product) => product.isEnd)}
+                />,
+              ]}
+            />
           </TabPanel>
           <TabPanel value={value} index={1}>
             {user && (
@@ -105,7 +169,7 @@ const UserProfile = () => {
           </TabPanel>
           <TabPanel value={value} index={2}>
             To Confirm
-          </TabPanel>
+          </TabPanel> */}
         </Grid>
       </MainCard>
     </>
