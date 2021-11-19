@@ -25,12 +25,6 @@ const ProductCard = ({ isLoading, product }) => {
     navigate(route);
   };
 
-  const cardTitle = [product.name];
-  if (!product.isAbleToBuy) {
-    cardTitle.push("-");
-    cardTitle.push(product.stage.toUpperCase());
-  }
-
   return (
     <>
       {isLoading ? (
@@ -53,14 +47,6 @@ const ProductCard = ({ isLoading, product }) => {
               },
             }}
           >
-            {/* <CardActionArea
-              onClick={() => handleNavigate(`/product/${product.id}`)}
-              sx={{
-                ":hover": {
-                  backgroundColor: "red",
-                },
-              }}
-            > */}
             <Grid
               container
               direction="column"
@@ -105,7 +91,7 @@ const ProductCard = ({ isLoading, product }) => {
                         sx={{ display: "flex" }}
                         color={theme.palette.text.base}
                       >
-                        {cardTitle.join(" ")}
+                        {product.name}
                       </MuiTypography>
                     </div>
                   </Grid>
