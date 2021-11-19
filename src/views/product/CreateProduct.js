@@ -24,6 +24,10 @@ const useStyles = makeStyles((theme) => ({
     backgroundOrigin: "border-box",
     backgroundClip: "border-box",
   },
+  imageInput: {
+    display: "flex",
+    alignItems: "center",
+  },
 }));
 
 const CreateProduct = () => {
@@ -97,7 +101,9 @@ const CreateProduct = () => {
                     border: "1px dashed grey",
                     width: 500,
                     height: 300,
-                    display: selectedImage ? "none" : "block",
+                    display: selectedImage ? "none" : "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
                   }}
                 >
                   <label htmlFor="icon-button-file">

@@ -41,62 +41,79 @@ const ProductCard = ({ isLoading, product }) => {
             title={cardTitle.join(" ")}
             style={{
               width: "275px",
-              backgroundColor: theme.palette.stage[product._stage],
+              backgroundColor: `rgba(107,195,238,0.1)`,
+              border: `1px solid white`,
+              borderRadius: "10px",
+            }}
+            onClick={() => handleNavigate(`/product/${product.id}`)}
+            actionSX={{
+              ":hover": {
+                backgroundImage:
+                  "linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0)), linear-gradient(95.5deg, rgba(0, 0, 0, 0.3) 12.82%, rgba(70, 72, 70, 0.3) 41.96%, rgba(15, 53, 70, 0.08) 75.06%, rgba(15, 53, 255, 0.11) 107.66%) ",
+              },
             }}
           >
-            <CardActionArea
+            {/* <CardActionArea
               onClick={() => handleNavigate(`/product/${product.id}`)}
+              sx={{
+                ":hover": {
+                  backgroundColor: "red",
+                },
+              }}
+            > */}
+            <Grid
+              container
+              direction="column"
+              justifyContent="flex-start"
+              spacing={gridSpacing}
             >
+              <Grid item xs={12} sm={12} md={12}>
+                <BaseImage
+                  product={product}
+                  isLoading={isImageLoading}
+                  onStartLoading={() => setIsImageLoading(true)}
+                  onFinishLoading={() => setIsImageLoading(false)}
+                />
+              </Grid>
               <Grid
                 container
-                direction="column"
-                justifyContent="flex-start"
-                spacing={gridSpacing}
+                xs={12}
+                direction="row"
+                justifyContent="center"
+                style={{ marginTop: "8px" }}
               >
-                <Grid item xs={12} sm={12} md={12}>
-                  <BaseImage
-                    product={product}
-                    isLoading={isImageLoading}
-                    onStartLoading={() => setIsImageLoading(true)}
-                    onFinishLoading={() => setIsImageLoading(false)}
-                  />
-                </Grid>
                 <Grid
                   container
-                  xs={12}
-                  direction="row"
+                  xs={6}
+                  md={4}
                   justifyContent="center"
-                  style={{ marginTop: "8px" }}
+                  alignItems="center"
+                  style={{ marginLeft: "20px" }}
                 >
-                  <Grid
-                    container
-                    xs={6}
-                    md={4}
-                    justifyContent="center"
-                    alignItems="center"
-                    style={{ marginLeft: "20px" }}
-                  >
-                    <Grid item>
-                      <MuiTypography variant="subtitle1">
-                        <div
-                          style={{
-                            display: "flex",
-                            justifyContent: "baseline",
-                          }}
-                        >
-                          <img
-                            src={ethIcon}
-                            alt="ethIcon"
-                            style={{ width: "25px", height: "25px" }}
-                          />
-                          {product.price}
-                        </div>
-                      </MuiTypography>
-                    </Grid>
+                  <Grid item>
+                    <MuiTypography
+                      variant="subtitle1"
+                      color={theme.palette.text.base}
+                    >
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "baseline",
+                        }}
+                      >
+                        <img
+                          src={ethIcon}
+                          alt="ethIcon"
+                          style={{ width: "25px", height: "25px" }}
+                        />
+                        {product.price}
+                      </div>
+                    </MuiTypography>
                   </Grid>
                 </Grid>
               </Grid>
-            </CardActionArea>
+            </Grid>
+            {/* </CardActionArea> */}
           </SubCard>
         </Grid>
       )}
