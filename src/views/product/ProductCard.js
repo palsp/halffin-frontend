@@ -93,9 +93,18 @@ const ProductCard = ({isLoading, product}) => {
                   rowSpacing={1}
                 >
                   <Grid item>
-                    <MuiTypography variant="h3" color={theme.palette.text.base}>
-                      {cardTitle.join(' ')}
-                    </MuiTypography>
+                    <div
+                      style={{
+                        display: 'flex',
+                      }}
+                    >
+                      <MuiTypography
+                        variant="h3"
+                        color={theme.palette.text.base}
+                      >
+                        {cardTitle.join(' ')}
+                      </MuiTypography>
+                    </div>
                   </Grid>
                   <Grid item>
                     <div
@@ -109,7 +118,12 @@ const ProductCard = ({isLoading, product}) => {
                         alt="ethIcon"
                         style={{width: '25px', height: '25px'}}
                       />
-                      <MuiTypography variant="subtitle1" color={theme.palette.text.base}>{product.price}</MuiTypography>
+                      <MuiTypography
+                        variant="subtitle1"
+                        color={theme.palette.text.base}
+                      >
+                        {product.price}
+                      </MuiTypography>
                     </div>
                   </Grid>
                 </Grid>
