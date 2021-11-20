@@ -17,6 +17,7 @@ const useEscrow = () => {
     const product = new Product({
       ...productDetail,
       price: web3Utils.fromWei(productDetail.price, "ether"),
+      deliveryStatus: web3Utils.toAscii(productDetail.deliveryStatus),
     });
 
     product.addAddress(productAddress);
@@ -33,7 +34,13 @@ const useEscrow = () => {
   const checkForCancelOrder = async (contractAddress) => {
     const web3Instance = await Moralis.enableWeb3();
     const contractInstance = getContractInstance(contractAddress, web3Instance);
-    return contractInstance.methods.isAbleTocancelOrder().call();
+    return contractInstance.methods.isAbleToCancelOrder().call();
+  };
+
+  const checkForFailDeliver = async (contractAddress) => {
+    const web3Instance = await Moralis.enableWeb3();
+    const contractInstance = getContractInstance(contractAddress, web3Instance);
+    return contractInstance.methods.isDeliveredFail().call();
   };
 
   const order = (contractAddress, price) => {
@@ -77,6 +84,13 @@ const useEscrow = () => {
       .send({ from: user.attributes.ethAddress });
   };
 
+  const reclaimBuyer = (contractAddress) => {
+    const contractInstance = getContractInstance(contractAddress);
+    return contractInstance.methods
+      .reclaimBuyer(true)
+      .send({ from: user.attributes.ethAddress });
+  };
+
   return {
     getContractInstance,
     getProductDetail,
@@ -85,8 +99,10 @@ const useEscrow = () => {
     updateShipment,
     requestShippingDetail,
     reclaimFund,
+    reclaimBuyer,
     listenOnShipmentDetail,
     checkForCancelOrder,
+    checkForFailDeliver,
   };
 };
 

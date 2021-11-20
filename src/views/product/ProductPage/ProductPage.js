@@ -17,15 +17,18 @@ import ProductPageSkeleton from "../../Skeleton/ProductPageSkeleton";
 import BaseImage from "ui-component/extended/BaseImage";
 import Product from "model/Product";
 import { useTheme } from "@mui/material/styles";
+import { useEscrow } from "../../../hooks";
 
 const ProductPage = () => {
   const theme = useTheme();
   const { id } = useParams();
   const navigate = useNavigate();
   const { getProductById, updateProductInfo } = useProduct();
+  const { checkForFailDeliver } = useEscrow();
   const { user } = useMoralis();
   const [product, setProduct] = useState(new Product({}));
   const [isLoading, setIsLoading] = useState(true);
+  const [isDeliveredFail, setIsDeliveredFail] = useState(false);
   const [isImageLoading, setIsImageLoading] = useState(false);
   const handleUpdate = async (_id) => {
     const newProduct = await updateProductInfo(_id);
@@ -34,7 +37,6 @@ const ProductPage = () => {
 
   useEffect(() => {
     const prod = getProductById(id);
-    console.log(prod);
     if (!prod) {
       // go back to prev page
       navigate("/");
@@ -42,6 +44,17 @@ const ProductPage = () => {
     setProduct(prod);
     setIsLoading(false);
   }, [id]);
+
+  useEffect(() => {
+    const fetch = async (address) => {
+      const res = await checkForFailDeliver(address);
+      setIsDeliveredFail(res);
+    };
+
+    if (product.address) {
+      fetch(product.address);
+    }
+  }, [product]);
 
   return (
     <>
@@ -181,9 +194,17 @@ const ProductPage = () => {
                 )}
                 {user &&
                 addressEqual(user.attributes.ethAddress, product.owner) ? (
-                  <SellerView product={product} onUpdate={handleUpdate} />
+                  <SellerView
+                    product={product}
+                    onUpdate={handleUpdate}
+                    isDeliveredFail={isDeliveredFail}
+                  />
                 ) : (
-                  <BuyerView product={product} onUpdate={handleUpdate} />
+                  <BuyerView
+                    product={product}
+                    onUpdate={handleUpdate}
+                    isDeliveredFail={isDeliveredFail}
+                  />
                 )}
               </Grid>
             </Grid>

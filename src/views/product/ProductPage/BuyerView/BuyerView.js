@@ -11,12 +11,17 @@ import TransactionModal from "../../../../ui-component/extended/Modal/Transactio
 import BuyProductPrompt from "./BuyProductPrompt";
 import { defaultTxSteps } from "../../../../store/constant";
 
-const BuyerView = ({ product, onUpdate }) => {
+const BuyerView = ({ product, onUpdate, isDeliveredFail }) => {
   const { signAndSendTransaction, txState, ...txProps } =
     useTransaction(defaultTxSteps);
-  const { checkForCancelOrder, cancelOrder } = useEscrow();
+  const { checkForCancelOrder, cancelOrder, reclaimBuyer } = useEscrow();
   const [isAbleToCancel, setIsAbleToCancel] = useState(false);
 
+  const handleReclaimBuyer = async () => {
+    txProps.handleOpen();
+    await signAndSendTransaction(() => reclaimBuyer(product.address));
+    await onUpdate(product.id);
+  };
   const handleCancelOrder = async () => {
     txProps.handleOpen();
     await signAndSendTransaction(() => cancelOrder(product.address));
@@ -34,10 +39,17 @@ const BuyerView = ({ product, onUpdate }) => {
   return (
     <>
       <TransactionModal {...txState} {...txProps} />
+      {isDeliveredFail && (
+        <Grid item>
+          <Button variant="contained" onClick={handleReclaimBuyer}>
+            Reclaim Fund
+          </Button>
+        </Grid>
+      )}
       {product.isAbleToBuy && (
         <BuyProductPrompt product={product} onUpdate={onUpdate} />
       )}
-      {product.isWaitForShipping && isAbleToCancel && (
+      {product.isWaitForShipping && isAbleToCancel && !isDeliveredFail && (
         <Grid item>
           <Button variant="contained" onClick={handleCancelOrder}>
             Cancel Order
