@@ -26,8 +26,8 @@ class Product {
 
   get nameForDisplay() {
     let display = this.#name;
-    if (this.#name.length > 7) {
-      display = this.#name.substr(0, 7) + '...';
+    if (this.#name.length > 17) {
+      display = this.#name.substr(0, 17) + '...';
     }
     return `${display} #${this.id}`;
   }
