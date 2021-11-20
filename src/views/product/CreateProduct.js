@@ -18,7 +18,7 @@ import { useNavigate } from "react-router";
 import fileStorage from "store/filecoin";
 import { daysToBlock } from "utils";
 
-import { useFormik } from "formik";
+import { useFormik, ErrorMessage, Field } from "formik";
 import * as yup from "yup";
 
 const useStyles = makeStyles((theme) => ({
@@ -32,6 +32,18 @@ const useStyles = makeStyles((theme) => ({
   imageInput: {
     display: "flex",
     alignItems: "center",
+  },
+  errorText: {
+    color: "#f44336",
+    fontSize: "0.75rem",
+    fontWeight: 400,
+    fontFamily: "inherit",
+    lineHeight: 1.66,
+    textAlign: "left",
+    marginTop: "3px",
+    marginRight: "14px",
+    marginBottom: 0,
+    marginLeft: "14px",
   },
 }));
 
@@ -47,8 +59,9 @@ const validationSchema = yup.object({
   lockTime: yup
     .number("Enter lock time")
     .integer("Lock Time must be an integer")
-    .moreThan(0, "Price must be greater than 0")
+    .min(0, "Price must be greater than 0")
     .required("Lock Time is required"),
+  file: yup.mixed().required("Image is required"),
 });
 
 const CreateProduct = () => {
@@ -57,15 +70,7 @@ const CreateProduct = () => {
   const navigate = useNavigate();
   const theme = useTheme();
   const formRef = useRef(null);
-  const [selectedImage, setSelectedImage] = useState();
   const [previewImage, setPreviewImage] = useState();
-  const [fileName, setFileName] = useState();
-  const [productDetail, setProductDetail] = useState({
-    name: "",
-    description: "",
-    price: 0,
-    lockTime: 0,
-  });
 
   const formik = useFormik({
     initialValues: {
@@ -73,9 +78,10 @@ const CreateProduct = () => {
       description: "",
       price: 0,
       lockTime: 0,
+      file: null,
     },
     validationSchema,
-    onSubmit: (values) => alert(JSON.stringify(values, null, 2)),
+    onSubmit: async (values) => handleSubmit(values),
   });
 
   const { signAndSendTransaction, txState, ...txProps } = useTransaction([
@@ -89,32 +95,31 @@ const CreateProduct = () => {
 
   const imageChange = (e) => {
     if (e.target.files && e.target.files.length > 0) {
-      setSelectedImage(e.target.files[0]);
-      setFileName(e.target.files[0].name);
+      formik.setFieldValue("file", e.target.files[0]);
       setPreviewImage(URL.createObjectURL(e.target.files[0]));
     }
   };
 
   const removeSelectedImage = () => {
-    setSelectedImage();
+    formik.setFieldValue("file", null);
+    setPreviewImage(null);
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    console.log(daysToBlock(+productDetail.lockTime));
+  const handleSubmit = async (formValues) => {
     txProps.handleOpen();
     try {
       const ipfsUrl = await fileStorage.uploadToFileCoin(
-        fileName,
-        selectedImage,
-        productDetail.description
+        formValues.file.name,
+        formValues.file,
+        formValues.description
       );
+      alert(ipfsUrl);
       txProps.handleNextStep();
       await signAndSendTransaction(() =>
         createProduct({
-          ...productDetail,
+          ...formValues,
           productURI: ipfsUrl,
-          lockTime: daysToBlock(+productDetail.lockTime),
+          lockTime: daysToBlock(formValues.lockTime),
         })
       );
       navigate("/user/account-profile", {
@@ -143,10 +148,12 @@ const CreateProduct = () => {
                 <Box
                   sx={{
                     p: 2,
-                    border: "1px dashed grey",
+                    border: formik.errors.file
+                      ? "1px dashed red"
+                      : "1px dashed grey",
                     width: 500,
                     height: 300,
-                    display: selectedImage ? "none" : "flex",
+                    display: formik.values.file ? "none" : "flex",
                     justifyContent: "center",
                     alignItems: "center",
                   }}
@@ -155,6 +162,7 @@ const CreateProduct = () => {
                     <input
                       accept="image/*"
                       id="icon-button-file"
+                      name="file"
                       type="file"
                       style={{ display: "none" }}
                       onChange={imageChange}
@@ -168,6 +176,9 @@ const CreateProduct = () => {
                     </IconButton>
                   </label>
                 </Box>
+                {formik.errors.file && (
+                  <p className={classes.errorText}>{formik.errors.file}</p>
+                )}
                 {previewImage && (
                   <>
                     <div
