@@ -2,7 +2,6 @@ import Skeleton from '@mui/material/Skeleton';
 import SubCard from 'ui-component/cards/SubCard';
 import {Grid} from '@mui/material';
 import {gridSpacing} from 'store/constant';
-import ethIcon from '../../assets/images/icons/eth.svg';
 import MuiTypography from '@mui/material/Typography';
 import MainCard from 'ui-component/cards/MainCard';
 import Card from '@mui/material/Card';
