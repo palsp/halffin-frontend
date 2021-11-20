@@ -32,12 +32,13 @@ const ProductCard = ({ isLoading, product }) => {
       ) : (
         <Grid item lg={4} md={6} sm={6} xs={12}>
           <SubCard
-            style={{
+            sx={{
               width: "275px",
-              maxHeight: "300px",
+              height: "300px",
               backgroundColor: `rgba(107,195,238,0.1)`,
               border: `1px solid white`,
               borderRadius: "10px",
+              padding: "0px",
             }}
             onClick={() => handleNavigate(`/product/${product.id}`)}
             actionSX={{
@@ -50,8 +51,8 @@ const ProductCard = ({ isLoading, product }) => {
             <Grid
               container
               direction="column"
-              justifyContent="flex-start"
-              spacing={gridSpacing}
+              justifyContent="space-between"
+              alignItems="stretch"
             >
               <Grid item xs={12} sm={12} md={12}>
                 <BaseImage
@@ -61,18 +62,11 @@ const ProductCard = ({ isLoading, product }) => {
                   onFinishLoading={() => setIsImageLoading(false)}
                 />
               </Grid>
-              <Grid
-                container
-                xs={12}
-                direction="row"
-                style={{ marginTop: "8px" }}
-              >
                 <Grid
                   container
                   xs={6}
                   md={4}
-                  style={{ marginLeft: "20px" }}
-                  rowSpacing={1}
+                  direction="row"
                 >
                   <Grid item>
                     <div
@@ -112,7 +106,6 @@ const ProductCard = ({ isLoading, product }) => {
                   </Grid>
                 </Grid>
               </Grid>
-            </Grid>
             {/* </CardActionArea> */}
           </SubCard>
         </Grid>
