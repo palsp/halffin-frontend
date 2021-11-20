@@ -1,4 +1,4 @@
-import { NFTStorage, toGatewayURL } from "nft.storage";
+import { NFTStorage, toGatewayURL } from 'nft.storage';
 
 class FileStorage {
   constructor(token = process.env.REACT_APP_NFTSTORAGE_TOKEN) {

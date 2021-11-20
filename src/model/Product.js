@@ -1,21 +1,11 @@
-import mapStage from "api/stage";
-import axios from "axios";
-import fileStorage from "store/filecoin";
+import mapStage from 'api/stage';
+import axios from 'axios';
+import fileStorage from 'store/filecoin';
 
 class Product {
   #name;
   #stage;
-  constructor({
-    id,
-    name,
-    owner,
-    buyer,
-    price,
-    stage,
-    trackingId,
-    deliveryStatus,
-    productURI,
-  }) {
+  constructor({ id, name, owner, buyer, price, stage, trackingId, deliveryStatus, productURI }) {
     this.id = id;
     this.#name = name;
     this.owner = owner;
@@ -37,7 +27,7 @@ class Product {
   get nameForDisplay() {
     let display = this.#name;
     if (this.#name.length > 7) {
-      display = this.#name.substr(0, 7) + "...";
+      display = this.#name.substr(0, 7) + '...';
     }
     return `${display} #${this.id}`;
   }
@@ -76,9 +66,7 @@ class Product {
 
   async fetchImage() {
     try {
-      const metadata = fileStorage.convertMetaDataUrlToGateWayUrl(
-        this.productUri
-      );
+      const metadata = fileStorage.convertMetaDataUrlToGateWayUrl(this.productUri);
 
       const {
         data: { image, description },
@@ -86,8 +74,8 @@ class Product {
       this.imageURI = fileStorage.convertMetaDataUrlToGateWayUrl(image);
       this.description = description;
     } catch (err) {
-      this.description = "";
-      this.imageURI = "https://picsum.photos/200";
+      this.description = '';
+      this.imageURI = 'https://picsum.photos/200';
     }
     return this.imageURI;
   }
