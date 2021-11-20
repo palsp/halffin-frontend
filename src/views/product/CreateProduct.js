@@ -18,6 +18,9 @@ import { useNavigate } from "react-router";
 import fileStorage from "store/filecoin";
 import { daysToBlock } from "utils";
 
+import { useFormik } from "formik";
+import * as yup from "yup";
+
 const useStyles = makeStyles((theme) => ({
   image: {
     backgroundRepeat: "no-repeat",
@@ -32,6 +35,22 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const validationSchema = yup.object({
+  name: yup.string("Enter your email").required("Name is required"),
+  description: yup
+    .string("Enter description")
+    .required("Description is required"),
+  price: yup
+    .number("Enter price")
+    .moreThan(0, "Price must be greater than 0")
+    .required("Price is required"),
+  lockTime: yup
+    .number("Enter lock time")
+    .integer("Lock Time must be an integer")
+    .moreThan(0, "Price must be greater than 0")
+    .required("Lock Time is required"),
+});
+
 const CreateProduct = () => {
   const classes = useStyles();
   const { user } = useMoralis();
@@ -39,12 +58,24 @@ const CreateProduct = () => {
   const theme = useTheme();
   const formRef = useRef(null);
   const [selectedImage, setSelectedImage] = useState();
+  const [previewImage, setPreviewImage] = useState();
   const [fileName, setFileName] = useState();
   const [productDetail, setProductDetail] = useState({
     name: "",
     description: "",
     price: 0,
     lockTime: 0,
+  });
+
+  const formik = useFormik({
+    initialValues: {
+      name: "",
+      description: "",
+      price: 0,
+      lockTime: 0,
+    },
+    validationSchema,
+    onSubmit: (values) => alert(JSON.stringify(values, null, 2)),
   });
 
   const { signAndSendTransaction, txState, ...txProps } = useTransaction([
@@ -60,6 +91,7 @@ const CreateProduct = () => {
     if (e.target.files && e.target.files.length > 0) {
       setSelectedImage(e.target.files[0]);
       setFileName(e.target.files[0].name);
+      setPreviewImage(URL.createObjectURL(e.target.files[0]));
     }
   };
 
@@ -100,7 +132,12 @@ const CreateProduct = () => {
       ) : (
         <>
           <TransactionModal {...txProps} {...txState} />
-          <form ref={formRef} noValidate autoComplete="off">
+          <form
+            ref={formRef}
+            noValidate
+            autoComplete="off"
+            onSubmit={formik.handleSubmit}
+          >
             <Grid container spacing={8}>
               <Grid item xs={12} sm={6} justifyContent="flex-start">
                 <Box
@@ -131,16 +168,14 @@ const CreateProduct = () => {
                     </IconButton>
                   </label>
                 </Box>
-                {selectedImage && (
+                {previewImage && (
                   <>
                     <div
                       className={classes.image}
                       style={{
                         width: "300px",
                         height: "300px",
-                        backgroundImage: `url(${URL.createObjectURL(
-                          selectedImage
-                        )})`,
+                        backgroundImage: `url(${previewImage})`,
                       }}
                     />
                     <Button
@@ -154,35 +189,38 @@ const CreateProduct = () => {
                 <TextField
                   fullWidth
                   required
+                  id="name"
+                  name="name"
                   label="Item Name"
                   margin="normal"
-                  name="productName"
                   type="text"
-                  defaultValue=""
                   sx={{ ...theme.typography.customInput }}
-                  value={productDetail.name}
-                  onChange={(e) =>
-                    setProductDetail((prevState) => ({
-                      ...prevState,
-                      name: e.target.value,
-                    }))
-                  }
+                  value={formik.values.name}
+                  onChange={formik.handleChange}
+                  error={formik.touched.name && Boolean(formik.errors.name)}
+                  helperText={formik.touched.name && formik.errors.name}
                 />
                 <TextField
                   fullWidth
                   label="Description"
                   margin="normal"
                   name="description"
-                  type="text"
-                  defaultValue=""
+                  type="textarea"
                   multiline
-                  rows={4}
-                  sx={{ ...theme.typography.customInput }}
-                  onChange={(e) =>
-                    setProductDetail((prevState) => ({
-                      ...prevState,
-                      description: e.target.value,
-                    }))
+                  sx={{
+                    ...theme.typography.customInput,
+                    "& > div > textarea": {
+                      padding: "30px 14px !important",
+                    },
+                  }}
+                  value={formik.values.description}
+                  onChange={formik.handleChange}
+                  error={
+                    formik.touched.description &&
+                    Boolean(formik.errors.description)
+                  }
+                  helperText={
+                    formik.touched.description && formik.errors.description
                   }
                 />
                 <TextField
@@ -194,13 +232,10 @@ const CreateProduct = () => {
                   type="number"
                   defaultValue=""
                   sx={{ ...theme.typography.customInput }}
-                  value={productDetail.price}
-                  onChange={(e) =>
-                    setProductDetail((prevState) => ({
-                      ...prevState,
-                      price: e.target.value,
-                    }))
-                  }
+                  value={formik.values.price}
+                  onChange={formik.handleChange}
+                  error={formik.touched.price && Boolean(formik.errors.price)}
+                  helperText={formik.touched.price && formik.errors.price}
                 />
                 <TextField
                   required
@@ -209,27 +244,23 @@ const CreateProduct = () => {
                   margin="normal"
                   name="lockTime"
                   type="number"
-                  value={productDetail.lockTime}
-                  onChange={(e) =>
-                    setProductDetail((prevState) => ({
-                      ...prevState,
-                      lockTime: e.target.value,
-                    }))
+                  sx={{
+                    ...theme.typography.customInput,
+                  }}
+                  value={formik.values.lockTime}
+                  onChange={formik.handleChange}
+                  error={
+                    formik.touched.lockTime && Boolean(formik.errors.lockTime)
                   }
-                  sx={{ ...theme.typography.customInput }}
+                  helperText={formik.touched.lockTime && formik.errors.lockTime}
                 />
               </Grid>
             </Grid>
             <Button
-              disabled={
-                !productDetail.name ||
-                productDetail.price <= 0 ||
-                productDetail.lockTime < 0
-              }
+              type="submit"
               size="large"
               variant="contained"
               color="secondary"
-              onClick={(e) => handleSubmit(e)}
             >
               Create
             </Button>
