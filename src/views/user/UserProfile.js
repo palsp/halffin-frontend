@@ -65,11 +65,12 @@ const UserProfile = () => {
 
   let productsOfSeller = [];
   let productsOfBuyers = [];
+  let inMarket;
   if (user) {
     productsOfSeller = getProductsOfSeller(user.attributes.ethAddress);
     productsOfBuyers = getProductsOfBuyer(user.attributes.ethAddress);
+    inMarket = productsOfSeller.filter(product => product.isAbleToBuy);
   }
-  const test = "3";
   return (
     <>
       <MainCard style={{ display: "flex", justifyContent: "center" }}>
@@ -107,7 +108,7 @@ const UserProfile = () => {
                 value={myProductValue}
                 onChange={(e, newValue) => setMyProductValue(newValue)}
                 labels={[
-                  `In Market (${test})`,
+                  `In Market ${inMarket.length === 0 ? "" : `(${inMarket.length})`}`,
                   "Waiting For Shipment",
                   "To Be Delivered",
                   "To Be Claimed",
