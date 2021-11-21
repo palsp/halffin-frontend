@@ -30,9 +30,11 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center',
   },
   colorButton: {
-    background: 'rgba(255,255,255,0.1)',
+    background: 'rgba(255,255,255,0.2)',
+    color: 'white',
     '&:hover': {
-      background: 'rgba(255,255,255,0.2)'
+      background: 'white',
+      color: 'rgba(0,0,0,0.8)'
     }
   },
 }));
@@ -231,7 +233,6 @@ const CreateProduct = () => {
               disabled={!productDetail.name || productDetail.price <= 0}
               size="large"
               onClick={e => handleSubmit(e)}
-              variant="contained"
               sx={{marginTop: '8px'}}
               className={classes.colorButton}
             >
