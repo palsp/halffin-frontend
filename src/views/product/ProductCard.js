@@ -37,13 +37,17 @@ const ProductCard = ({isLoading, product}) => {
               width: '275px',
               height: '300px',
               backgroundColor: `rgba(107,195,238,0.1)`,
-              border: `1px solid white`,
-              borderRadius: '10px',
-              padding: '0px',
+              // border: `1px solid white`,
+              // borderRadius: '10px',
+              // padding: '0px',
             }}
             onClick={() => handleNavigate(`/product/${product.id}`)}
             actionSX={{
               ':hover': {
+                height: '300px',
+                backgroundColor: `rgba(107,195,238,0.1)`,
+                border: `1px solid white`,
+                borderRadius: '10px',
                 backgroundImage:
                   'linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0)), linear-gradient(95.5deg, rgba(0, 0, 0, 0.3) 12.82%, rgba(70, 72, 70, 0.3) 41.96%, rgba(15, 53, 70, 0.08) 75.06%, rgba(15, 53, 255, 0.11) 107.66%) ',
               },
