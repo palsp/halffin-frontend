@@ -29,7 +29,17 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     alignItems: 'center',
   },
+  colorButton: {
+    background: 'white',
+    '&:hover': {
+      backgroundColor: 'red',
+    },
+    "&:disabled": {
+      backgroundColor: 'red'
+    }
+  }
 }));
+
 
 const CreateProduct = () => {
   const classes = useStyles();
@@ -219,9 +229,10 @@ const CreateProduct = () => {
             <Button
               disabled={!productDetail.name || productDetail.price <= 0}
               size="large"
-              variant="contained"
-              color="secondary"
               onClick={e => handleSubmit(e)}
+              // variant="contained"
+              sx={{marginTop: '8px'}}
+              className={classes.colorButton}
             >
               Create
             </Button>

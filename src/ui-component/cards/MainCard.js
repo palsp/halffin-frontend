@@ -4,6 +4,7 @@ import { forwardRef } from "react";
 // material-ui
 import { useTheme } from "@mui/material/styles";
 import { Card, CardContent, CardHeader, Typography } from "@mui/material";
+import { IconArrowRightBar } from "@tabler/icons";
 
 // constant
 const headerSX = {
@@ -39,7 +40,8 @@ const MainCard = forwardRef(
         sx={{
           ...sx,
           width: "100%",
-          background: "transparent",
+          height: '100%',
+          background: 'rgba(255,255,255,0.03)',
           paddingLeft: "28px",
           paddingRight: "28px"
         }}
