@@ -66,10 +66,18 @@ const UserProfile = () => {
   let productsOfSeller = [];
   let productsOfBuyers = [];
   let inMarket;
+  let waitingForShip;
+  let toBeDeliver;
+  let toBeClam;
+  let complete;
   if (user) {
     productsOfSeller = getProductsOfSeller(user.attributes.ethAddress);
     productsOfBuyers = getProductsOfBuyer(user.attributes.ethAddress);
     inMarket = productsOfSeller.filter(product => product.isAbleToBuy);
+    waitingForShip = productsOfSeller.filter(product => product.isWaitForShipping);
+    toBeDeliver = productsOfSeller.filter(product => product.isAbleToCheckTrackingStatus);
+    toBeClam = productsOfSeller.filter(product => product.isAbleToClaimFund);
+    complete = productsOfSeller.filter(product => product.isEnd);
   }
   return (
     <>
@@ -108,11 +116,11 @@ const UserProfile = () => {
                 value={myProductValue}
                 onChange={(e, newValue) => setMyProductValue(newValue)}
                 labels={[
-                  `In Market ${inMarket.length === 0 ? "" : `(${inMarket.length})`}`,
-                  "Waiting For Shipment",
-                  "To Be Delivered",
-                  "To Be Claimed",
-                  "Complete",
+                  `In Market (${inMarket.length})`,
+                  `Waiting For Shipment (${waitingForShip.length})`,
+                  `To Be Delivered (${toBeDeliver.length})`,
+                  `To Be Claimed (${toBeClam.length})`,
+                  `Complete (${complete.length})`,
                 ]}
                 components={[
                   <ProductList
