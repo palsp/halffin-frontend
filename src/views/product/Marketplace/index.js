@@ -38,6 +38,7 @@ const MarketPlace = () => {
 
   return (
     <MainCard
+      darkTitle = "false"
       title="Market"
       secondary={
         <IconButton onClick={() => handleNavigate("/my-product/create")}>
