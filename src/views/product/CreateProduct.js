@@ -1,61 +1,61 @@
-import { useState, useRef } from "react";
+import {useState, useRef} from 'react';
 
-import { useMoralis } from "react-moralis";
+import {useMoralis} from 'react-moralis';
 // material-ui
-import { Grid, TextField, Button } from "@mui/material";
-import { useTheme } from "@mui/material/styles";
-import Box from "@mui/material/Box";
-import DeleteIcon from "@mui/icons-material/Delete";
+import {Grid, TextField, Button, Typography} from '@mui/material';
+import {useTheme} from '@mui/material/styles';
+import Box from '@mui/material/Box';
+import DeleteIcon from '@mui/icons-material/Delete';
 // project imports
-import MainCard from "ui-component/cards/MainCard";
-import { useEscrowFactory, useTx, useTransaction } from "hooks";
-import { makeStyles } from "@mui/styles";
-import ConnectWallet from "../wallet/ConnectWallet";
-import TransactionModal from "ui-component/extended/Modal/TransactionModal";
-import { IconCamera } from "@tabler/icons";
-import IconButton from "@mui/material/IconButton";
-import fileStorage from "store/filecoin";
-import { useNavigate } from "react-router";
+import MainCard from 'ui-component/cards/MainCard';
+import {useEscrowFactory, useTx, useTransaction} from 'hooks';
+import {makeStyles} from '@mui/styles';
+import ConnectWallet from '../wallet/ConnectWallet';
+import TransactionModal from 'ui-component/extended/Modal/TransactionModal';
+import {IconCamera} from '@tabler/icons';
+import IconButton from '@mui/material/IconButton';
+import fileStorage from 'store/filecoin';
+import {useNavigate} from 'react-router';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   image: {
-    backgroundRepeat: "no-repeat",
-    backgroundSize: "cover",
-    backgroundPposition: "center",
-    backgroundOrigin: "border-box",
-    backgroundClip: "border-box",
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: 'cover',
+    backgroundPposition: 'center',
+    backgroundOrigin: 'border-box',
+    backgroundClip: 'border-box',
   },
   imageInput: {
-    display: "flex",
-    alignItems: "center",
+    display: 'flex',
+    alignItems: 'center',
   },
 }));
 
 const CreateProduct = () => {
   const classes = useStyles();
-  const { user } = useMoralis();
+  const {user} = useMoralis();
   const navigate = useNavigate();
   const theme = useTheme();
   const formRef = useRef(null);
   const [selectedImage, setSelectedImage] = useState();
   const [fileName, setFileName] = useState();
   const [productDetail, setProductDetail] = useState({
-    name: "",
-    description: "",
+    name: '',
+    description: '',
     price: 0,
     lockTime: 0,
   });
 
-  const { signAndSendTransaction, txState, ...txProps } = useTransaction([
-    "Uploading Information",
-    "Sign transaction",
-    "Transaction initiated",
-    "Confirmation",
+  const {signAndSendTransaction, txState, ...txProps} = useTransaction([
+    'Uploading Information',
+    'Sign transaction',
+    'Transaction initiated',
+    'Confirmation',
   ]);
 
-  const { createProduct } = useEscrowFactory();
+  const {createProduct} = useEscrowFactory();
 
-  const imageChange = (e) => {
+  const imageChange = e => {
     if (e.target.files && e.target.files.length > 0) {
       setSelectedImage(e.target.files[0]);
       setFileName(e.target.files[0].name);
@@ -66,7 +66,7 @@ const CreateProduct = () => {
     setSelectedImage();
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async e => {
     e.preventDefault();
     txProps.handleOpen();
     try {
@@ -75,13 +75,13 @@ const CreateProduct = () => {
         selectedImage,
         productDetail.description
       );
-      console.log("ipfsUrl :", ipfsUrl);
+      console.log('ipfsUrl :', ipfsUrl);
       txProps.handleNextStep();
       await signAndSendTransaction(() =>
-        createProduct({ ...productDetail, productURI: ipfsUrl })
+        createProduct({...productDetail, productURI: ipfsUrl})
       );
-      navigate("/user/account-profile", {
-        state: { value: 0, myProductValue: 0 },
+      navigate('/user/account-profile', {
+        state: {value: 0, myProductValue: 0},
       });
     } catch (err) {
       txProps.handleError(err);
@@ -89,11 +89,23 @@ const CreateProduct = () => {
   };
 
   return (
-    <MainCard title="Create new item">
+    <MainCard>
       {!user ? (
-        <ConnectWallet sx={{ width: "100%" }} />
+        <ConnectWallet sx={{width: '100%'}} />
       ) : (
         <>
+          <div style={{display: 'flex', justifyContent: 'space-between'}}>
+            <Typography
+              variant="h1"
+              style={{
+                color: theme.palette.text.base,
+                marginTop: '24px',
+                marginBottom: '26px',
+              }}
+            >
+              Create new item
+            </Typography>
+          </div>
           <TransactionModal {...txProps} {...txState} />
           <form ref={formRef} noValidate autoComplete="off">
             <Grid container spacing={8}>
@@ -101,12 +113,12 @@ const CreateProduct = () => {
                 <Box
                   sx={{
                     p: 2,
-                    border: "1px dashed grey",
+                    border: '1px dashed grey',
                     width: 500,
                     height: 300,
-                    display: selectedImage ? "none" : "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
+                    display: selectedImage ? 'none' : 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
                   }}
                 >
                   <label htmlFor="icon-button-file">
@@ -114,7 +126,7 @@ const CreateProduct = () => {
                       accept="image/*"
                       id="icon-button-file"
                       type="file"
-                      style={{ display: "none" }}
+                      style={{display: 'none'}}
                       onChange={imageChange}
                     />
                     <IconButton
@@ -131,8 +143,8 @@ const CreateProduct = () => {
                     <div
                       className={classes.image}
                       style={{
-                        width: "300px",
-                        height: "300px",
+                        width: '300px',
+                        height: '300px',
                         backgroundImage: `url(${URL.createObjectURL(
                           selectedImage
                         )})`,
@@ -154,10 +166,10 @@ const CreateProduct = () => {
                   name="productName"
                   type="text"
                   defaultValue=""
-                  sx={{ ...theme.typography.customInput }}
+                  sx={{...theme.typography.customInput}}
                   value={productDetail.name}
-                  onChange={(e) =>
-                    setProductDetail({ ...productDetail, name: e.target.value })
+                  onChange={e =>
+                    setProductDetail({...productDetail, name: e.target.value})
                   }
                 />
                 <TextField
@@ -169,8 +181,8 @@ const CreateProduct = () => {
                   defaultValue=""
                   multiline
                   rows={4}
-                  sx={{ ...theme.typography.customInput }}
-                  onChange={(e) =>
+                  sx={{...theme.typography.customInput}}
+                  onChange={e =>
                     setProductDetail({
                       ...productDetail,
                       description: e.target.value,
@@ -184,9 +196,9 @@ const CreateProduct = () => {
                   name="price"
                   type="number"
                   defaultValue=""
-                  sx={{ ...theme.typography.customInput }}
+                  sx={{...theme.typography.customInput}}
                   value={productDetail.price}
-                  onChange={(e) =>
+                  onChange={e =>
                     setProductDetail({
                       ...productDetail,
                       price: e.target.value,
@@ -200,7 +212,7 @@ const CreateProduct = () => {
                   name="description"
                   type="number"
                   defaultValue="3"
-                  sx={{ ...theme.typography.customInput }}
+                  sx={{...theme.typography.customInput}}
                 />
               </Grid>
             </Grid>
@@ -209,7 +221,7 @@ const CreateProduct = () => {
               size="large"
               variant="contained"
               color="secondary"
-              onClick={(e) => handleSubmit(e)}
+              onClick={e => handleSubmit(e)}
             >
               Create
             </Button>
