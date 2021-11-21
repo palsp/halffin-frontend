@@ -30,16 +30,12 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center',
   },
   colorButton: {
-    background: 'white',
+    background: 'rgba(255,255,255,0.1)',
     '&:hover': {
-      backgroundColor: 'red',
-    },
-    "&:disabled": {
-      backgroundColor: 'red'
+      background: 'rgba(255,255,255,0.2)'
     }
-  }
+  },
 }));
-
 
 const CreateProduct = () => {
   const classes = useStyles();
@@ -85,7 +81,7 @@ const CreateProduct = () => {
         selectedImage,
         productDetail.description
       );
-      console.log('ipfsUrl :', ipfsUrl);
+      // console.log('ipfsUrl :', ipfsUrl);
       txProps.handleNextStep();
       await signAndSendTransaction(() =>
         createProduct({...productDetail, productURI: ipfsUrl})
@@ -104,7 +100,7 @@ const CreateProduct = () => {
         <ConnectWallet sx={{width: '100%'}} />
       ) : (
         <>
-          <div style={{display: 'flex', justifyContent: 'space-between'}}>
+          <div style={{display: 'flex', justifyContent: 'center'}}>
             <Typography
               variant="h1"
               style={{
@@ -118,7 +114,13 @@ const CreateProduct = () => {
           </div>
           <TransactionModal {...txProps} {...txState} />
           <form ref={formRef} noValidate autoComplete="off">
-            <Grid container spacing={8}>
+            <Grid
+              container
+              direction="column"
+              justifyContent="center"
+              alignItems="center"
+              spacing={8}
+            >
               <Grid item xs={12} sm={6} justifyContent="flex-start">
                 <Box
                   sx={{
@@ -225,17 +227,17 @@ const CreateProduct = () => {
                   sx={{...theme.typography.customInput}}
                 />
               </Grid>
-            </Grid>
             <Button
               disabled={!productDetail.name || productDetail.price <= 0}
               size="large"
               onClick={e => handleSubmit(e)}
-              // variant="contained"
+              variant="contained"
               sx={{marginTop: '8px'}}
               className={classes.colorButton}
             >
               Create
             </Button>
+            </Grid>
           </form>
         </>
       )}
