@@ -6,11 +6,11 @@ const TabPanels = ({ value, labels, components, onChange }) => {
   return (
     <>
       <Tabs value={value} onChange={onChange}>
-        {labels.map((label) => (
-          <Tab label={label} />
+        {components.map((comp) => (
+          <Tab label={comp.label} />
         ))}
       </Tabs>
-      {components.map((component, index) => (
+      {components.map(({ component }, index) => (
         <TabPanel value={value} index={index}>
           {component}
         </TabPanel>
