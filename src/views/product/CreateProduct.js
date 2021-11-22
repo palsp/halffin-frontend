@@ -7,15 +7,19 @@ import {useTheme} from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import DeleteIcon from '@mui/icons-material/Delete';
 // project imports
-import MainCard from 'ui-component/cards/MainCard';
-import {useEscrowFactory, useTx, useTransaction} from 'hooks';
-import {makeStyles} from '@mui/styles';
-import ConnectWallet from '../wallet/ConnectWallet';
-import TransactionModal from 'ui-component/extended/Modal/TransactionModal';
-import {IconCamera} from '@tabler/icons';
-import IconButton from '@mui/material/IconButton';
-import fileStorage from 'store/filecoin';
-import {useNavigate} from 'react-router';
+import MainCard from "ui-component/cards/MainCard";
+import { useEscrowFactory, useTx, useTransaction } from "hooks";
+import { makeStyles } from "@mui/styles";
+import ConnectWallet from "../wallet/ConnectWallet";
+import TransactionModal from "ui-component/extended/Modal/TransactionModal";
+import { IconCamera } from "@tabler/icons";
+import IconButton from "@mui/material/IconButton";
+import { useNavigate } from "react-router";
+import fileStorage from "store/filecoin";
+import { daysToBlock } from "utils";
+
+import { useFormik, ErrorMessage, Field } from "formik";
+import * as yup from "yup";
 
 const useStyles = makeStyles(theme => ({
   image: {
@@ -37,7 +41,36 @@ const useStyles = makeStyles(theme => ({
       color: 'rgba(0,0,0,0.8)'
     }
   },
+  errorText: {
+    color: "#f44336",
+    fontSize: "0.75rem",
+    fontWeight: 400,
+    fontFamily: "inherit",
+    lineHeight: 1.66,
+    textAlign: "left",
+    marginTop: "3px",
+    marginRight: "14px",
+    marginBottom: 0,
+    marginLeft: "14px",
+  },
 }));
+
+const validationSchema = yup.object({
+  name: yup.string("Enter your email").required("Name is required"),
+  description: yup
+    .string("Enter description")
+    .required("Description is required"),
+  price: yup
+    .number("Enter price")
+    .moreThan(0, "Price must be greater than 0")
+    .required("Price is required"),
+  lockTime: yup
+    .number("Enter lock time")
+    .integer("Lock Time must be an integer")
+    .min(0, "Price must be greater than 0")
+    .required("Lock Time is required"),
+  file: yup.mixed().required("Image is required"),
+});
 
 const CreateProduct = () => {
   const classes = useStyles();
@@ -45,13 +78,18 @@ const CreateProduct = () => {
   const navigate = useNavigate();
   const theme = useTheme();
   const formRef = useRef(null);
-  const [selectedImage, setSelectedImage] = useState();
-  const [fileName, setFileName] = useState();
-  const [productDetail, setProductDetail] = useState({
-    name: '',
-    description: '',
-    price: 0,
-    lockTime: 0,
+  const [previewImage, setPreviewImage] = useState();
+
+  const formik = useFormik({
+    initialValues: {
+      name: "",
+      description: "",
+      price: 0,
+      lockTime: 0,
+      file: null,
+    },
+    validationSchema,
+    onSubmit: async (values) => handleSubmit(values),
   });
 
   const {signAndSendTransaction, txState, ...txProps} = useTransaction([
@@ -65,28 +103,31 @@ const CreateProduct = () => {
 
   const imageChange = e => {
     if (e.target.files && e.target.files.length > 0) {
-      setSelectedImage(e.target.files[0]);
-      setFileName(e.target.files[0].name);
+      formik.setFieldValue("file", e.target.files[0]);
+      setPreviewImage(URL.createObjectURL(e.target.files[0]));
     }
   };
 
   const removeSelectedImage = () => {
-    setSelectedImage();
+    formik.setFieldValue("file", null);
+    setPreviewImage(null);
   };
 
-  const handleSubmit = async e => {
-    e.preventDefault();
+  const handleSubmit = async (formValues) => {
     txProps.handleOpen();
     try {
       const ipfsUrl = await fileStorage.uploadToFileCoin(
-        fileName,
-        selectedImage,
-        productDetail.description
+        formValues.file.name,
+        formValues.file,
+        formValues.description
       );
-      // console.log('ipfsUrl :', ipfsUrl);
       txProps.handleNextStep();
       await signAndSendTransaction(() =>
-        createProduct({...productDetail, productURI: ipfsUrl})
+        createProduct({
+          ...formValues,
+          productURI: ipfsUrl,
+          lockTime: daysToBlock(formValues.lockTime),
+        })
       );
       navigate('/user/account-profile', {
         state: {value: 0, myProductValue: 0},
@@ -115,30 +156,32 @@ const CreateProduct = () => {
             </Typography>
           </div>
           <TransactionModal {...txProps} {...txState} />
-          <form ref={formRef} noValidate autoComplete="off">
-            <Grid
-              container
-              direction="column"
-              justifyContent="center"
-              alignItems="center"
-              spacing={8}
-            >
+          <form
+            ref={formRef}
+            noValidate
+            autoComplete="off"
+            onSubmit={formik.handleSubmit}
+          >
+            <Grid container spacing={8}>
               <Grid item xs={12} sm={6} justifyContent="flex-start">
                 <Box
                   sx={{
                     p: 2,
-                    border: '1px dashed grey',
+                    border: formik.errors.file
+                      ? "1px dashed red"
+                      : "1px dashed grey",
                     width: 500,
                     height: 300,
-                    display: selectedImage ? 'none' : 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
+                    display: formik.values.file ? "none" : "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
                   }}
                 >
                   <label htmlFor="icon-button-file">
                     <input
                       accept="image/*"
                       id="icon-button-file"
+                      name="file"
                       type="file"
                       style={{display: 'none'}}
                       onChange={imageChange}
@@ -152,16 +195,17 @@ const CreateProduct = () => {
                     </IconButton>
                   </label>
                 </Box>
-                {selectedImage && (
+                {formik.errors.file && (
+                  <p className={classes.errorText}>{formik.errors.file}</p>
+                )}
+                {previewImage && (
                   <>
                     <div
                       className={classes.image}
                       style={{
-                        width: '300px',
-                        height: '300px',
-                        backgroundImage: `url(${URL.createObjectURL(
-                          selectedImage
-                        )})`,
+                        width: "300px",
+                        height: "300px",
+                        backgroundImage: `url(${previewImage})`,
                       }}
                     />
                     <Button
@@ -175,66 +219,77 @@ const CreateProduct = () => {
                 <TextField
                   fullWidth
                   required
+                  id="name"
+                  name="name"
                   label="Item Name"
                   margin="normal"
-                  name="productName"
                   type="text"
-                  defaultValue=""
-                  sx={{...theme.typography.customInput}}
-                  value={productDetail.name}
-                  onChange={e =>
-                    setProductDetail({...productDetail, name: e.target.value})
-                  }
+                  sx={{ ...theme.typography.customInput }}
+                  value={formik.values.name}
+                  onChange={formik.handleChange}
+                  error={formik.touched.name && Boolean(formik.errors.name)}
+                  helperText={formik.touched.name && formik.errors.name}
                 />
                 <TextField
                   fullWidth
                   label="Description"
                   margin="normal"
                   name="description"
-                  type="text"
-                  defaultValue=""
+                  type="textarea"
                   multiline
-                  rows={4}
-                  sx={{...theme.typography.customInput}}
-                  onChange={e =>
-                    setProductDetail({
-                      ...productDetail,
-                      description: e.target.value,
-                    })
+                  sx={{
+                    ...theme.typography.customInput,
+                    "& > div > textarea": {
+                      padding: "30px 14px !important",
+                    },
+                  }}
+                  value={formik.values.description}
+                  onChange={formik.handleChange}
+                  error={
+                    formik.touched.description &&
+                    Boolean(formik.errors.description)
+                  }
+                  helperText={
+                    formik.touched.description && formik.errors.description
                   }
                 />
                 <TextField
                   required
                   label="Price"
                   margin="normal"
+                  fullWidth
                   name="price"
                   type="number"
                   defaultValue=""
-                  sx={{...theme.typography.customInput}}
-                  value={productDetail.price}
-                  onChange={e =>
-                    setProductDetail({
-                      ...productDetail,
-                      price: e.target.value,
-                    })
-                  }
+                  sx={{ ...theme.typography.customInput }}
+                  value={formik.values.price}
+                  onChange={formik.handleChange}
+                  error={formik.touched.price && Boolean(formik.errors.price)}
+                  helperText={formik.touched.price && formik.errors.price}
                 />
                 <TextField
+                  required
                   fullWidth
-                  label="Lock Time"
+                  label="Lock Time (in days)"
                   margin="normal"
-                  name="description"
+                  name="lockTime"
                   type="number"
-                  defaultValue="3"
-                  sx={{...theme.typography.customInput}}
+                  sx={{
+                    ...theme.typography.customInput,
+                  }}
+                  value={formik.values.lockTime}
+                  onChange={formik.handleChange}
+                  error={
+                    formik.touched.lockTime && Boolean(formik.errors.lockTime)
+                  }
+                  helperText={formik.touched.lockTime && formik.errors.lockTime}
                 />
               </Grid>
             <Button
-              disabled={!productDetail.name || productDetail.price <= 0}
+              type="submit"
               size="large"
-              onClick={e => handleSubmit(e)}
-              sx={{marginTop: '8px'}}
-              className={classes.colorButton}
+              variant="contained"
+              color="secondary"
             >
               Create
             </Button>

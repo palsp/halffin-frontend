@@ -6,7 +6,7 @@ const validationRules = (request) => {
     return;
   }
   if (!request.user) {
-    throw new Error('Unauthorized, Please Login First!');
+    throw new Error("Unauthorized, Please Login First!");
   }
 };
 
@@ -21,7 +21,7 @@ const Address = {
   firstName: {
     required: true,
     type: String,
-    error: 'FirstName is required',
+    error: "FirstName is required",
   },
   lastName: {
     required: true,
@@ -69,9 +69,9 @@ const Address = {
  * @returns void
  */
 const setReadACL = async ({ userId, targetId, state }) => {
-  const Address = Moralis.Object.extend('Address');
+  const Address = Moralis.Object.extend("Address");
   const query = new Moralis.Query(Address);
-  query.equalTo('userId', userId);
+  query.equalTo("userId", userId);
   const result = await query.first({ useMasterKey: true });
 
   const acl = result.getACL();
