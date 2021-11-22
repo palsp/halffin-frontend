@@ -1,11 +1,23 @@
-import mapStage from 'api/stage';
-import axios from 'axios';
-import fileStorage from 'store/filecoin';
+import mapStage from "api/stage";
+import axios from "axios";
+import fileStorage from "store/filecoin";
+import { blocksToDays } from "utils";
 
 class Product {
   #name;
   #stage;
-  constructor({ id, name, owner, buyer, price, stage, trackingId, deliveryStatus, productURI }) {
+  constructor({
+    id,
+    name,
+    owner,
+    buyer,
+    price,
+    stage,
+    trackingId,
+    deliveryStatus,
+    productURI,
+    lockPeriod,
+  }) {
     this.id = id;
     this.#name = name;
     this.owner = owner;
@@ -15,6 +27,7 @@ class Product {
     this.trackingId = trackingId;
     this.deliveryStatus = deliveryStatus;
     this.productUri = productURI;
+    this.lockPeriod = lockPeriod;
   }
 
   addAddress(addr) {
@@ -27,7 +40,7 @@ class Product {
   get nameForDisplay() {
     let display = this.#name;
     if (this.#name.length > 17) {
-      display = this.#name.substr(0, 17) + '...';
+      display = this.#name.substr(0, 17) + "...";
     }
     return `${display} #${this.id}`;
   }
@@ -60,13 +73,19 @@ class Product {
     return this.#stage;
   }
 
+  get lockPeriodInDays() {
+    return blocksToDays(+this.lockPeriod);
+  }
+
   setBase64Image(base64) {
     this.base64Image = base64;
   }
 
   async fetchImage() {
     try {
-      const metadata = fileStorage.convertMetaDataUrlToGateWayUrl(this.productUri);
+      const metadata = fileStorage.convertMetaDataUrlToGateWayUrl(
+        this.productUri
+      );
 
       const {
         data: { image, description },
@@ -74,8 +93,8 @@ class Product {
       this.imageURI = fileStorage.convertMetaDataUrlToGateWayUrl(image);
       this.description = description;
     } catch (err) {
-      this.description = '';
-      this.imageURI = 'https://picsum.photos/200';
+      this.description = "";
+      this.imageURI = "https://picsum.photos/200";
     }
     return this.imageURI;
   }

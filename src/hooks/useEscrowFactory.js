@@ -11,6 +11,7 @@ const useEscrowFactory = () => {
   const [contract, setContract] = useState();
   const [factoryAddress, setFactoryAddress] = useState();
   const [web3, setWeb3] = useState(null);
+  const { web3Utils } = useWeb3();
 
   useEffect(() => {
     const init = async () => {
@@ -29,9 +30,14 @@ const useEscrowFactory = () => {
   }, []);
 
   const createProduct = ({ name, price, productURI = "", lockTime }) => {
-    const newPrice = web3.utils.toWei(price, "ether");
+    const newPrice = web3.utils.toWei(price.toString(), "ether");
     return contract.methods
-      .createProduct(name, newPrice, productURI, lockTime)
+      .createProduct(
+        name,
+        newPrice,
+        productURI,
+        web3Utils.toBN(lockTime).toString()
+      )
       .send({ from: user.attributes.ethAddress });
   };
 
