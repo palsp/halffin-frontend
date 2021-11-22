@@ -1,11 +1,11 @@
-import { useState, useRef } from "react";
+import {useState, useRef} from 'react';
 
-import { useMoralis } from "react-moralis";
+import {useMoralis} from 'react-moralis';
 // material-ui
-import { Grid, TextField, Button } from "@mui/material";
-import { useTheme } from "@mui/material/styles";
-import Box from "@mui/material/Box";
-import DeleteIcon from "@mui/icons-material/Delete";
+import {Grid, TextField, Button, Typography} from '@mui/material';
+import {useTheme} from '@mui/material/styles';
+import Box from '@mui/material/Box';
+import DeleteIcon from '@mui/icons-material/Delete';
 // project imports
 import MainCard from "ui-component/cards/MainCard";
 import { useEscrowFactory, useTx, useTransaction } from "hooks";
@@ -21,17 +21,25 @@ import { daysToBlock } from "utils";
 import { useFormik, ErrorMessage, Field } from "formik";
 import * as yup from "yup";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   image: {
-    backgroundRepeat: "no-repeat",
-    backgroundSize: "cover",
-    backgroundPposition: "center",
-    backgroundOrigin: "border-box",
-    backgroundClip: "border-box",
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: 'cover',
+    backgroundPposition: 'center',
+    backgroundOrigin: 'border-box',
+    backgroundClip: 'border-box',
   },
   imageInput: {
-    display: "flex",
-    alignItems: "center",
+    display: 'flex',
+    alignItems: 'center',
+  },
+  colorButton: {
+    background: 'rgba(255,255,255,0.2)',
+    color: 'white',
+    '&:hover': {
+      background: 'white',
+      color: 'rgba(0,0,0,0.8)'
+    }
   },
   errorText: {
     color: "#f44336",
@@ -66,7 +74,7 @@ const validationSchema = yup.object({
 
 const CreateProduct = () => {
   const classes = useStyles();
-  const { user } = useMoralis();
+  const {user} = useMoralis();
   const navigate = useNavigate();
   const theme = useTheme();
   const formRef = useRef(null);
@@ -84,16 +92,16 @@ const CreateProduct = () => {
     onSubmit: async (values) => handleSubmit(values),
   });
 
-  const { signAndSendTransaction, txState, ...txProps } = useTransaction([
-    "Uploading Information",
-    "Sign transaction",
-    "Transaction initiated",
-    "Confirmation",
+  const {signAndSendTransaction, txState, ...txProps} = useTransaction([
+    'Uploading Information',
+    'Sign transaction',
+    'Transaction initiated',
+    'Confirmation',
   ]);
 
-  const { createProduct } = useEscrowFactory();
+  const {createProduct} = useEscrowFactory();
 
-  const imageChange = (e) => {
+  const imageChange = e => {
     if (e.target.files && e.target.files.length > 0) {
       formik.setFieldValue("file", e.target.files[0]);
       setPreviewImage(URL.createObjectURL(e.target.files[0]));
@@ -121,8 +129,8 @@ const CreateProduct = () => {
           lockTime: daysToBlock(formValues.lockTime),
         })
       );
-      navigate("/user/account-profile", {
-        state: { value: 0, myProductValue: 0 },
+      navigate('/user/account-profile', {
+        state: {value: 0, myProductValue: 0},
       });
     } catch (err) {
       txProps.handleError(err);
@@ -130,11 +138,23 @@ const CreateProduct = () => {
   };
 
   return (
-    <MainCard title="Create new item">
+    <MainCard>
       {!user ? (
-        <ConnectWallet sx={{ width: "100%" }} />
+        <ConnectWallet sx={{width: '100%'}} />
       ) : (
         <>
+          <div style={{display: 'flex', justifyContent: 'center'}}>
+            <Typography
+              variant="h1"
+              style={{
+                color: theme.palette.text.base,
+                marginTop: '24px',
+                marginBottom: '26px',
+              }}
+            >
+              Create new item
+            </Typography>
+          </div>
           <TransactionModal {...txProps} {...txState} />
           <form
             ref={formRef}
@@ -163,7 +183,7 @@ const CreateProduct = () => {
                       id="icon-button-file"
                       name="file"
                       type="file"
-                      style={{ display: "none" }}
+                      style={{display: 'none'}}
                       onChange={imageChange}
                     />
                     <IconButton
@@ -265,7 +285,6 @@ const CreateProduct = () => {
                   helperText={formik.touched.lockTime && formik.errors.lockTime}
                 />
               </Grid>
-            </Grid>
             <Button
               type="submit"
               size="large"
@@ -274,6 +293,7 @@ const CreateProduct = () => {
             >
               Create
             </Button>
+            </Grid>
           </form>
         </>
       )}

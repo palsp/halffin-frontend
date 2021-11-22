@@ -108,7 +108,6 @@ const UserProfile = () => {
       component: <ProductList products={myPurchase[index]} />,
     }));
   }
-  const test = "3";
   return (
     <>
       {!user ? (

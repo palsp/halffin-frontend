@@ -23,15 +23,21 @@ const ProductSkeleton = () => {
             <Grid
               container
               xs={12}
-              direction="row"
+              direction="column"
               justifyContent="center"
               style={{marginTop: '8px'}}
+              alignItems="center"
             >
+              <Grid item xs={6} md={4}>
+                <MuiTypography variant="subtitle1" style={{marginLeft: '22px'}}>
+                    <Skeleton variant="text" width={90} />
+                </MuiTypography>
+              </Grid>
               <Grid item xs={6} md={4}>
                 <MuiTypography variant="subtitle1" style={{marginLeft: '22px'}}>
                   <div style={{display: 'flex', justifyContent: 'baseline'}}>
                     <IconCurrencyEthereum size={25} color='white'/>
-                    <Skeleton variant="text" width={38} />
+                    <Skeleton variant="text" width={40} />
                   </div>
                 </MuiTypography>
               </Grid>
