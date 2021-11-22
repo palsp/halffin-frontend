@@ -113,7 +113,6 @@ const CreateProduct = () => {
         formValues.file,
         formValues.description
       );
-      alert(ipfsUrl);
       txProps.handleNextStep();
       await signAndSendTransaction(() =>
         createProduct({

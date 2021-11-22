@@ -73,10 +73,6 @@ const UserProfile = () => {
     getAddress();
   }, [user, open]);
 
-  const handleChange = (event, newvalue) => {
-    setValue(newvalue);
-  };
-
   let myProductComponents = [];
   let myPurchaseComponents = [];
 
@@ -178,7 +174,7 @@ const UserProfile = () => {
                         addAddress={addAddress}
                       />
 
-                      {user && <AddressDetail address={address} />}
+                      <AddressDetail address={address} />
                     </>
                   ),
                 },
