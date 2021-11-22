@@ -18,6 +18,7 @@ import Product from "model/Product";
 import { useTheme } from "@mui/material/styles";
 import { useEscrow } from "../../../hooks";
 import { IconCurrencyEthereum } from "@tabler/icons";
+import ProductView from "./ProductView";
 
 const ProductPage = () => {
   const theme = useTheme();
@@ -175,30 +176,14 @@ const ProductPage = () => {
                     <IconCurrencyEthereum size={35} color="white" />
                   </MuiTypography>
                 </Grid>
-                {!user && (
+                {!user ? (
                   <Grid item>
                     <ConnectWallet />
                   </Grid>
-                )}
-                {user && (
-                  <Grid item>
-                    <ProgressBar
-                      steps={Object.values(stages)}
-                      activeStep={+product._stage}
-                    />
-                  </Grid>
-                )}
-                {user &&
-                addressEqual(user.attributes.ethAddress, product.owner) ? (
-                  <SellerView
-                    product={product}
-                    onUpdate={handleUpdate}
-                    isDeliveredFail={isDeliveredFail}
-                  />
                 ) : (
-                  <BuyerView
+                  <ProductView
                     product={product}
-                    onUpdate={handleUpdate}
+                    handleUpdate={handleUpdate}
                     isDeliveredFail={isDeliveredFail}
                   />
                 )}

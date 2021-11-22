@@ -30,7 +30,7 @@ const useEscrowFactory = () => {
   }, []);
 
   const createProduct = ({ name, price, productURI = "", lockTime }) => {
-    const newPrice = web3.utils.toWei(price, "ether");
+    const newPrice = web3.utils.toWei(price.toString(), "ether");
     return contract.methods
       .createProduct(
         name,

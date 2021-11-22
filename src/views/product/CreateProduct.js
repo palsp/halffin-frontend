@@ -18,6 +18,9 @@ import { useNavigate } from "react-router";
 import fileStorage from "store/filecoin";
 import { daysToBlock } from "utils";
 
+import { useFormik, ErrorMessage, Field } from "formik";
+import * as yup from "yup";
+
 const useStyles = makeStyles((theme) => ({
   image: {
     backgroundRepeat: "no-repeat",
@@ -30,7 +33,36 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
   },
+  errorText: {
+    color: "#f44336",
+    fontSize: "0.75rem",
+    fontWeight: 400,
+    fontFamily: "inherit",
+    lineHeight: 1.66,
+    textAlign: "left",
+    marginTop: "3px",
+    marginRight: "14px",
+    marginBottom: 0,
+    marginLeft: "14px",
+  },
 }));
+
+const validationSchema = yup.object({
+  name: yup.string("Enter your email").required("Name is required"),
+  description: yup
+    .string("Enter description")
+    .required("Description is required"),
+  price: yup
+    .number("Enter price")
+    .moreThan(0, "Price must be greater than 0")
+    .required("Price is required"),
+  lockTime: yup
+    .number("Enter lock time")
+    .integer("Lock Time must be an integer")
+    .min(0, "Price must be greater than 0")
+    .required("Lock Time is required"),
+  file: yup.mixed().required("Image is required"),
+});
 
 const CreateProduct = () => {
   const classes = useStyles();
@@ -38,13 +70,18 @@ const CreateProduct = () => {
   const navigate = useNavigate();
   const theme = useTheme();
   const formRef = useRef(null);
-  const [selectedImage, setSelectedImage] = useState();
-  const [fileName, setFileName] = useState();
-  const [productDetail, setProductDetail] = useState({
-    name: "",
-    description: "",
-    price: 0,
-    lockTime: 0,
+  const [previewImage, setPreviewImage] = useState();
+
+  const formik = useFormik({
+    initialValues: {
+      name: "",
+      description: "",
+      price: 0,
+      lockTime: 0,
+      file: null,
+    },
+    validationSchema,
+    onSubmit: async (values) => handleSubmit(values),
   });
 
   const { signAndSendTransaction, txState, ...txProps } = useTransaction([
@@ -58,31 +95,30 @@ const CreateProduct = () => {
 
   const imageChange = (e) => {
     if (e.target.files && e.target.files.length > 0) {
-      setSelectedImage(e.target.files[0]);
-      setFileName(e.target.files[0].name);
+      formik.setFieldValue("file", e.target.files[0]);
+      setPreviewImage(URL.createObjectURL(e.target.files[0]));
     }
   };
 
   const removeSelectedImage = () => {
-    setSelectedImage();
+    formik.setFieldValue("file", null);
+    setPreviewImage(null);
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    console.log(daysToBlock(+productDetail.lockTime));
+  const handleSubmit = async (formValues) => {
     txProps.handleOpen();
     try {
       const ipfsUrl = await fileStorage.uploadToFileCoin(
-        fileName,
-        selectedImage,
-        productDetail.description
+        formValues.file.name,
+        formValues.file,
+        formValues.description
       );
       txProps.handleNextStep();
       await signAndSendTransaction(() =>
         createProduct({
-          ...productDetail,
+          ...formValues,
           productURI: ipfsUrl,
-          lockTime: daysToBlock(+productDetail.lockTime),
+          lockTime: daysToBlock(formValues.lockTime),
         })
       );
       navigate("/user/account-profile", {
@@ -100,16 +136,23 @@ const CreateProduct = () => {
       ) : (
         <>
           <TransactionModal {...txProps} {...txState} />
-          <form ref={formRef} noValidate autoComplete="off">
+          <form
+            ref={formRef}
+            noValidate
+            autoComplete="off"
+            onSubmit={formik.handleSubmit}
+          >
             <Grid container spacing={8}>
               <Grid item xs={12} sm={6} justifyContent="flex-start">
                 <Box
                   sx={{
                     p: 2,
-                    border: "1px dashed grey",
+                    border: formik.errors.file
+                      ? "1px dashed red"
+                      : "1px dashed grey",
                     width: 500,
                     height: 300,
-                    display: selectedImage ? "none" : "flex",
+                    display: formik.values.file ? "none" : "flex",
                     justifyContent: "center",
                     alignItems: "center",
                   }}
@@ -118,6 +161,7 @@ const CreateProduct = () => {
                     <input
                       accept="image/*"
                       id="icon-button-file"
+                      name="file"
                       type="file"
                       style={{ display: "none" }}
                       onChange={imageChange}
@@ -131,16 +175,17 @@ const CreateProduct = () => {
                     </IconButton>
                   </label>
                 </Box>
-                {selectedImage && (
+                {formik.errors.file && (
+                  <p className={classes.errorText}>{formik.errors.file}</p>
+                )}
+                {previewImage && (
                   <>
                     <div
                       className={classes.image}
                       style={{
                         width: "300px",
                         height: "300px",
-                        backgroundImage: `url(${URL.createObjectURL(
-                          selectedImage
-                        )})`,
+                        backgroundImage: `url(${previewImage})`,
                       }}
                     />
                     <Button
@@ -154,35 +199,38 @@ const CreateProduct = () => {
                 <TextField
                   fullWidth
                   required
+                  id="name"
+                  name="name"
                   label="Item Name"
                   margin="normal"
-                  name="productName"
                   type="text"
-                  defaultValue=""
                   sx={{ ...theme.typography.customInput }}
-                  value={productDetail.name}
-                  onChange={(e) =>
-                    setProductDetail((prevState) => ({
-                      ...prevState,
-                      name: e.target.value,
-                    }))
-                  }
+                  value={formik.values.name}
+                  onChange={formik.handleChange}
+                  error={formik.touched.name && Boolean(formik.errors.name)}
+                  helperText={formik.touched.name && formik.errors.name}
                 />
                 <TextField
                   fullWidth
                   label="Description"
                   margin="normal"
                   name="description"
-                  type="text"
-                  defaultValue=""
+                  type="textarea"
                   multiline
-                  rows={4}
-                  sx={{ ...theme.typography.customInput }}
-                  onChange={(e) =>
-                    setProductDetail((prevState) => ({
-                      ...prevState,
-                      description: e.target.value,
-                    }))
+                  sx={{
+                    ...theme.typography.customInput,
+                    "& > div > textarea": {
+                      padding: "30px 14px !important",
+                    },
+                  }}
+                  value={formik.values.description}
+                  onChange={formik.handleChange}
+                  error={
+                    formik.touched.description &&
+                    Boolean(formik.errors.description)
+                  }
+                  helperText={
+                    formik.touched.description && formik.errors.description
                   }
                 />
                 <TextField
@@ -194,13 +242,10 @@ const CreateProduct = () => {
                   type="number"
                   defaultValue=""
                   sx={{ ...theme.typography.customInput }}
-                  value={productDetail.price}
-                  onChange={(e) =>
-                    setProductDetail((prevState) => ({
-                      ...prevState,
-                      price: e.target.value,
-                    }))
-                  }
+                  value={formik.values.price}
+                  onChange={formik.handleChange}
+                  error={formik.touched.price && Boolean(formik.errors.price)}
+                  helperText={formik.touched.price && formik.errors.price}
                 />
                 <TextField
                   required
@@ -209,27 +254,23 @@ const CreateProduct = () => {
                   margin="normal"
                   name="lockTime"
                   type="number"
-                  value={productDetail.lockTime}
-                  onChange={(e) =>
-                    setProductDetail((prevState) => ({
-                      ...prevState,
-                      lockTime: e.target.value,
-                    }))
+                  sx={{
+                    ...theme.typography.customInput,
+                  }}
+                  value={formik.values.lockTime}
+                  onChange={formik.handleChange}
+                  error={
+                    formik.touched.lockTime && Boolean(formik.errors.lockTime)
                   }
-                  sx={{ ...theme.typography.customInput }}
+                  helperText={formik.touched.lockTime && formik.errors.lockTime}
                 />
               </Grid>
             </Grid>
             <Button
-              disabled={
-                !productDetail.name ||
-                productDetail.price <= 0 ||
-                productDetail.lockTime < 0
-              }
+              type="submit"
               size="large"
               variant="contained"
               color="secondary"
-              onClick={(e) => handleSubmit(e)}
             >
               Create
             </Button>
