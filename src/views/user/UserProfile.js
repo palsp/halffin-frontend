@@ -69,7 +69,7 @@ const UserProfile = () => {
     productsOfSeller = getProductsOfSeller(user.attributes.ethAddress);
     productsOfBuyers = getProductsOfBuyer(user.attributes.ethAddress);
   }
-
+  const test = "3";
   return (
     <>
       <MainCard style={{ display: "flex", justifyContent: "center" }}>
@@ -107,7 +107,7 @@ const UserProfile = () => {
                 value={myProductValue}
                 onChange={(e, newValue) => setMyProductValue(newValue)}
                 labels={[
-                  "My product",
+                  `In Market (${test})`,
                   "Waiting For Shipment",
                   "To Be Delivered",
                   "To Be Claimed",

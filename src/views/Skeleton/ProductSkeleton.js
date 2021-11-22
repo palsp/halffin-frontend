@@ -2,7 +2,7 @@ import Skeleton from '@mui/material/Skeleton';
 import SubCard from 'ui-component/cards/SubCard';
 import {Avatar, Grid, CardActionArea} from '@mui/material';
 import {gridSpacing} from 'store/constant';
-import ethIcon from '../../assets/images/icons/eth.svg';
+import { IconCurrencyEthereum } from '@tabler/icons';
 import MuiTypography from '@mui/material/Typography';
 
 const ProductSkeleton = () => {
@@ -30,11 +30,7 @@ const ProductSkeleton = () => {
               <Grid item xs={6} md={4}>
                 <MuiTypography variant="subtitle1" style={{marginLeft: '22px'}}>
                   <div style={{display: 'flex', justifyContent: 'baseline'}}>
-                    <img
-                      src={ethIcon}
-                      alt="ethIcon"
-                      style={{width: '25px', height: '25px'}}
-                    />
+                    <IconCurrencyEthereum size={25} color='white'/>
                     <Skeleton variant="text" width={38} />
                   </div>
                 </MuiTypography>

@@ -9,7 +9,6 @@ import { useProduct } from "context";
 import { useMoralis } from "react-moralis";
 import ConnectWallet from "../../wallet/ConnectWallet";
 import MainCard from "ui-component/cards/MainCard";
-import ethIcon from "assets/images/icons/eth.svg";
 import { shortenIfAddress, addressEqual } from "@usedapp/core";
 import ProgressBar from "ui-component/extended/ProgressBar";
 import stages from "api/stage";
@@ -18,6 +17,7 @@ import BaseImage from "ui-component/extended/BaseImage";
 import Product from "model/Product";
 import { useTheme } from "@mui/material/styles";
 import { useEscrow } from "../../../hooks";
+import { IconCurrencyEthereum } from "@tabler/icons";
 
 const ProductPage = () => {
   const theme = useTheme();
@@ -172,11 +172,7 @@ const ProductPage = () => {
                     style={{ color: theme.palette.text.base }}
                   >
                     Price: {product.price}
-                    <img
-                      src={ethIcon}
-                      alt="ethIcon"
-                      style={{ width: "35px", height: "35px" }}
-                    />
+                    <IconCurrencyEthereum size={35} color="white" />
                   </MuiTypography>
                 </Grid>
                 {!user && (
