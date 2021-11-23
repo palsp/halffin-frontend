@@ -36,11 +36,10 @@ const UpdateTrackingPrompt = ({ product, onSendTransaction, onUpdate }) => {
   const { queryEqualTo } = useQuery();
 
   useEffect(() => {
-    getTrackingNo();
-    console.log('product', product);
+    getShipmentDetail();
   }, []);
 
-  const getTrackingNo = async () => {
+  const getShipmentDetail = async () => {
     try {
       const res = await queryEqualTo({
         className: 'Shipment',
@@ -59,12 +58,16 @@ const UpdateTrackingPrompt = ({ product, onSendTransaction, onUpdate }) => {
     }
   };
 
-  const addShipmentDetail = ({ trackingNo, trackingId, slug }) => {
+  const addShipmentDetail = async ({ trackingNo, trackingId, slug }) => {
+    const buyer = await Moralis.Cloud.run('getUserByEthAddress', {
+      targetEthAddr: product.buyer,
+    });
     return Moralis.Cloud.run('addShipmentDetail', {
       trackingId,
       trackingNo,
       slug,
       contractAddress: product.address,
+      buyerId: buyer.id,
     });
   };
 
