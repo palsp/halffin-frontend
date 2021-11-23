@@ -46,7 +46,6 @@ const chipSX = theme => ({
   backgroundColor: theme.palette.primary.main,
   color: theme.palette.text.base,
   '&[aria-controls="menu-list-grow"], &:hover': {
-    borderColor: theme.palette.primary.main,
     background: `${theme.palette.primary.light}!important`,
     '& svg': {
       stroke: theme.palette.primary.light,
@@ -137,7 +136,6 @@ const ProfileSection = () => {
             aria-controls={open ? 'menu-list-grow' : undefined}
             aria-haspopup="true"
             onClick={handleToggle}
-            color="primary"
           />
           <Popper
             placement="bottom-end"

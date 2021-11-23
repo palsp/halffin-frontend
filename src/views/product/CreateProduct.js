@@ -2,7 +2,7 @@ import {useState, useRef} from 'react';
 
 import {useMoralis} from 'react-moralis';
 // material-ui
-import {Grid, TextField, Button, Typography} from '@mui/material';
+import {Grid, TextField, Button, Typography, Chip} from '@mui/material';
 import {useTheme} from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -20,6 +20,25 @@ import {daysToBlock} from 'utils';
 
 import {useFormik, ErrorMessage, Field} from 'formik';
 import * as yup from 'yup';
+
+const chipSX = theme => ({
+  height: '48px',
+  alignItems: 'center',
+  borderRadius: '10px',
+  transition: 'all .2s ease-in-out',
+  borderColor: theme.palette.primary.light,
+  backgroundColor: theme.palette.primary.main,
+  color: theme.palette.text.base,
+  '&[aria-controls="menu-list-grow"], &:hover': {
+    background: `${theme.palette.primary.light}!important`,
+    '& svg': {
+      stroke: theme.palette.primary.light,
+    },
+  },
+  '& .MuiChip-label': {
+    lineHeight: 0,
+  },
+});
 
 const useStyles = makeStyles(theme => ({
   image: {
@@ -173,8 +192,8 @@ const CreateProduct = () => {
                   sx={{
                     p: 2,
                     border: formik.errors.file
-                      ? '1px dashed red'
-                      : '1px dashed grey',
+                      ? '3px dashed red'
+                      : '3px dashed white',
                     width: 500,
                     height: 300,
                     display: formik.values.file ? 'none' : 'flex',
@@ -192,9 +211,9 @@ const CreateProduct = () => {
                       onChange={imageChange}
                     />
                     <IconButton
-                      color="primary"
                       aria-label="upload picture"
                       component="span"
+                      sx={{color: 'white'}}
                     >
                       <IconCamera />
                     </IconButton>
@@ -291,14 +310,12 @@ const CreateProduct = () => {
                   }
                   helperText={formik.touched.lockTime && formik.errors.lockTime}
                 />
-                <Button
-                  type="submit"
-                  size="large"
-                  variant="contained"
-                  color="secondary"
+                <Chip
+                  sx={{...chipSX(theme), width: '100%', marginTop: '8px'}}
+                  label={<h4>Create</h4>}
                 >
                   Create
-                </Button>
+                </Chip>
               </Grid>
             </Grid>
           </form>

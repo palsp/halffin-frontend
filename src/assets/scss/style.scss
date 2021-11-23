@@ -1,11 +1,11 @@
 // color variants
-@import "themes-vars.module.scss";
+@import 'themes-vars.module.scss';
 
 // third-party
-@import "~react-perfect-scrollbar/dist/css/styles.css";
+@import '~react-perfect-scrollbar/dist/css/styles.css';
 
 body {
-  background: $darkBackground;
+  background: linear-gradient(136deg, #1e2f97 0%, #797ef6 50%, #1aa7ec 100%);
 }
 // ==============================|| LIGHT BOX ||============================== //
 .fullscreen .react-images__blanket {
