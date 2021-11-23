@@ -313,6 +313,7 @@ const CreateProduct = () => {
                 <Chip
                   sx={{...chipSX(theme), width: '100%', marginTop: '8px'}}
                   label={<h4>Create</h4>}
+                  onClick={formik.handleSubmit}
                 >
                   Create
                 </Chip>
