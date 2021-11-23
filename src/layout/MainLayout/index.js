@@ -1,21 +1,21 @@
-import { Outlet } from "react-router-dom";
+import {Outlet} from 'react-router-dom';
 
 // material-ui
-import { styled, useTheme } from "@mui/material/styles";
-import { AppBar, Box, CssBaseline, Toolbar } from "@mui/material";
+import {styled, useTheme} from '@mui/material/styles';
+import {AppBar, Box, CssBaseline, Toolbar} from '@mui/material';
 
 // project imports
-import Breadcrumbs from "ui-component/extended/Breadcrumbs";
-import Header from "./Header";
-import { drawerWidth } from "store/constant";
+import Breadcrumbs from 'ui-component/extended/Breadcrumbs';
+import Header from './Header';
+import {drawerWidth} from 'store/constant';
 
 // assets
-import { IconChevronRight } from "@tabler/icons";
+import {IconChevronRight} from '@tabler/icons';
 
 // styles
-const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
-  ({ theme }) => ({
-    transition: theme.transitions.create("margin", {
+const Main = styled('main', {shouldForwardProp: prop => prop !== 'open'})(
+  ({theme}) => ({
+    transition: theme.transitions.create('margin', {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
     }),
@@ -23,12 +23,12 @@ const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
     marginLeft: 0,
     borderBottomLeftRadius: 0,
     borderBottomRightRadius: 0,
-    width: "100%",
-    [theme.breakpoints.down("md")]: {
-      marginLeft: "20px",
+    width: '100%',
+    [theme.breakpoints.down('md')]: {
+      marginLeft: '20px',
     },
-    [theme.breakpoints.down("sm")]: {
-      marginLeft: "10px",
+    [theme.breakpoints.down('sm')]: {
+      marginLeft: '10px',
     },
   })
 );
@@ -39,7 +39,7 @@ const MainLayout = () => {
   const theme = useTheme();
 
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box sx={{display: 'flex'}}>
       <CssBaseline />
       {/* header */}
       <AppBar
