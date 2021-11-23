@@ -41,7 +41,7 @@ const MainCard = forwardRef(
           ...sx,
           width: '100%',
           height: '100%',
-          background: 'rgba(255,255,255,0.4)',
+          background: 'transparent',
           paddingLeft: '28px',
           paddingRight: '28px',
         }}
