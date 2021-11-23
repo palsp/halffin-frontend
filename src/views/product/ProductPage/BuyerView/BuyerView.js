@@ -1,21 +1,60 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
 // material-ui
-import Grid from "@mui/material/Grid";
-import Button from "@mui/material/Button";
+import Grid from '@mui/material/Grid';
+import Button from '@mui/material/Button';
 // project imports
-import { useNavigate } from "react-router-dom";
+import { useQuery } from 'hooks';
 
 // hooks
-import { useEscrow, useTransaction } from "hooks";
-import TransactionModal from "../../../../ui-component/extended/Modal/TransactionModal";
-import BuyProductPrompt from "./BuyProductPrompt";
-import { defaultTxSteps } from "../../../../store/constant";
+import { useEscrow, useTransaction } from 'hooks';
+import TransactionModal from '../../../../ui-component/extended/Modal/TransactionModal';
+import BuyProductPrompt from './BuyProductPrompt';
+import { defaultTxSteps } from '../../../../store/constant';
+import Detail from 'ui-component/Address/Detail/Detail';
 
 const BuyerView = ({ product, onUpdate, isDeliveredFail }) => {
-  const { signAndSendTransaction, txState, ...txProps } =
-    useTransaction(defaultTxSteps);
+  const { signAndSendTransaction, txState, ...txProps } = useTransaction(defaultTxSteps);
   const { checkForCancelOrder, cancelOrder, reclaimBuyer } = useEscrow();
   const [isAbleToCancel, setIsAbleToCancel] = useState(false);
+
+  const { handleError } = txProps;
+
+  const [shipment, setShipment] = useState({
+    trackingId: '',
+    trackingNo: '',
+    slug: '',
+  });
+
+  const { queryEqualTo } = useQuery();
+
+  useEffect(() => {
+    fetch();
+    getShipmentDetail();
+  }, []);
+
+  const fetch = async () => {
+    const res = await checkForCancelOrder(product.address);
+    setIsAbleToCancel(res);
+  };
+
+  const getShipmentDetail = async () => {
+    try {
+      const res = await queryEqualTo({
+        className: 'Shipment',
+        attr: 'contractAddress',
+        target: product.address,
+      });
+      if (res) {
+        setShipment({
+          trackingId: res.attributes.trackingId,
+          trackingNo: res.attributes.trackingNo,
+          slug: res.attributes.slug,
+        });
+      }
+    } catch (err) {
+      handleError(err);
+    }
+  };
 
   const handleReclaimBuyer = async () => {
     txProps.handleOpen();
@@ -28,14 +67,6 @@ const BuyerView = ({ product, onUpdate, isDeliveredFail }) => {
     await onUpdate(product.id);
   };
 
-  useEffect(() => {
-    const fetch = async () => {
-      const res = await checkForCancelOrder(product.address);
-      setIsAbleToCancel(res);
-    };
-    fetch();
-  }, []);
-
   return (
     <>
       <TransactionModal {...txState} {...txProps} />
@@ -46,9 +77,7 @@ const BuyerView = ({ product, onUpdate, isDeliveredFail }) => {
           </Button>
         </Grid>
       )}
-      {product.isAbleToBuy && (
-        <BuyProductPrompt product={product} onUpdate={onUpdate} />
-      )}
+      {product.isAbleToBuy && <BuyProductPrompt product={product} onUpdate={onUpdate} />}
       {product.isWaitForShipping && isAbleToCancel && !isDeliveredFail && (
         <Grid item>
           <Button variant="contained" onClick={handleCancelOrder}>
@@ -56,6 +85,14 @@ const BuyerView = ({ product, onUpdate, isDeliveredFail }) => {
           </Button>
         </Grid>
       )}
+
+      <div>
+        {Object.keys(shipment).map((key) => {
+          if (key !== 'trackingId') {
+            return <Detail title={key} description={shipment[key]} />;
+          }
+        })}
+      </div>
     </>
   );
 };

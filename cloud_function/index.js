@@ -16,19 +16,6 @@ Moralis.Cloud.define(
 );
 
 Moralis.Cloud.define(
-  'getUserDetail',
-  async (request) => {
-    const UserDetails = Moralis.Object.extend('UserDetails');
-    const query = new Moralis.Query(UserDetails);
-    query.equalTo('userId', request.params.userId);
-    return query.find({ useMasterKey: true });
-  },
-  {
-    fields: getUserDetailFields,
-  }
-);
-
-Moralis.Cloud.define(
   'addAddress',
   async (request) => {
     const Address = Moralis.Object.extend('Address');
@@ -66,8 +53,10 @@ Moralis.Cloud.define(
   async (request) => {
     try {
       await setReadACL({
-        userId: request.user.id,
-        targetId: request.params.targetId,
+        className: 'Address',
+        attr: 'userId',
+        target: request.user.id,
+        allowId: request.params.targetId,
         state: true,
       });
 
@@ -89,9 +78,11 @@ Moralis.Cloud.define(
   async (request) => {
     try {
       await setReadACL({
-        userId: request.user.id,
-        targetId: request.params.targetId,
-        state: true,
+        className: 'Address',
+        attr: 'userId',
+        target: request.user.id,
+        allowId: request.params.targetId,
+        state: false,
       });
 
       return { success: true };
@@ -117,15 +108,18 @@ Moralis.Cloud.define(
     shipment.setACL(shipmentACL);
 
     await shipment.save({ ...request.params, userId: request.user.id }, { useMasterKey: true });
+    await setReadACL({
+      className: 'Shipment',
+      attr: 'trackingId',
+      target: request.params.trackingId,
+      allowId: request.params.buyerId,
+      state: true,
+    });
+
     return { success: true };
   },
   {
-    fields: {
-      trackingId: String,
-      trackingNo: String,
-      slug: String,
-      contractAddress: String,
-    },
+    fields: ShipmentDetail,
   },
   validationRules
 );

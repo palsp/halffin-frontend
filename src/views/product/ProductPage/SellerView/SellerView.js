@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 // material-ui
-import { Tooltip, Grid, IconButton, useTheme, tooltipClasses, Typography } from '@mui/material';
+import { Tooltip, Grid, IconButton, useTheme, tooltipClasses } from '@mui/material';
 import InfoIcon from '@mui/icons-material/Info';
 // project imports
 
@@ -10,7 +10,6 @@ import TransactionModal from 'ui-component/extended/Modal/TransactionModal';
 import { defaultTxSteps } from 'store/constant';
 import UpdateTrackingPrompt from './UpdateTrackingPrompt';
 import BaseButton from 'ui-component/extended/BaseButton';
-import { checkTrackingStatusDescription } from 'store/constant';
 import { useMoralis } from 'react-moralis';
 import { styled } from '@mui/material/styles';
 import AddressDetail from 'ui-component/Address/AddressDetail';
@@ -51,12 +50,20 @@ const SellerView = ({ onUpdate, product }) => {
 
   const { Moralis } = useMoralis();
 
+  useEffect(() => {
+    getBuyerAddress();
+  }, []);
+
   const getBuyerAddress = async () => {
-    const buyer = await Moralis.Cloud.run('getUserByEthAddress', {
-      targetEthAddr: product.buyer,
-    });
-    const res = await queryEqualTo({ className: 'Address', attr: 'userId', target: buyer.id });
-    setBuyerAddress(res.attributes);
+    try {
+      const buyer = await Moralis.Cloud.run('getUserByEthAddress', {
+        targetEthAddr: product.buyer,
+      });
+      const res = await queryEqualTo({ className: 'Address', attr: 'userId', target: buyer.id });
+      setBuyerAddress(res.attributes);
+    } catch (err) {
+      txProps.handleError(err);
+    }
   };
 
   const handleRequestShippingDetail = async () => {
@@ -76,10 +83,10 @@ const SellerView = ({ onUpdate, product }) => {
     await signAndSendTransaction(() => reclaimFund(product.address));
     await onUpdate(product.id);
   };
+
   return (
     <>
       <TransactionModal {...txState} {...txProps} />
-      <button onClick={getBuyerAddress}>Get Buyer Address</button>
       <AddressDetail address={buyerAddress} />
       <Grid item>
         {product.isWaitForShipping && (
