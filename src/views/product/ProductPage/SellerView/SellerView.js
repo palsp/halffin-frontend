@@ -87,14 +87,16 @@ const SellerView = ({ onUpdate, product }) => {
   return (
     <>
       <TransactionModal {...txState} {...txProps} />
-      <AddressDetail address={buyerAddress} />
       <Grid item>
         {product.isWaitForShipping && (
-          <UpdateTrackingPrompt
-            product={product}
-            onSendTransaction={updateShipment}
-            onUpdate={onUpdate}
-          />
+          <>
+            <AddressDetail address={buyerAddress} />
+            <UpdateTrackingPrompt
+              product={product}
+              onSendTransaction={updateShipment}
+              onUpdate={onUpdate}
+            />
+          </>
         )}
         {isShipmentUpdating && <div>check inprogress. this may take a while</div>}
         {!isShipmentUpdating && product.isAbleToCheckTrackingStatus && (

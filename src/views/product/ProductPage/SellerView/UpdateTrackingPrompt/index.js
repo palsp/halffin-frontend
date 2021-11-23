@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { Button, TextField } from '@mui/material';
+import { useState } from 'react';
+import { Button, TextField, CircularProgress } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { useTransaction, useQuery } from 'hooks';
 import { defaultTxSteps } from 'store/constant';
@@ -8,6 +8,7 @@ import Product from 'model/Product';
 import TransactionModal from 'ui-component/extended/Modal/TransactionModal';
 import { useTheme } from '@mui/material/styles';
 import { useMoralis } from 'react-moralis';
+import Loader from 'ui-component/Loader';
 
 const useStyles = makeStyles((theme) => ({
   trackingForm: {
@@ -21,6 +22,7 @@ const UpdateTrackingPrompt = ({ product, onSendTransaction, onUpdate }) => {
   const classes = useStyles();
   const theme = useTheme();
 
+  const [isLoading, setIsLoading] = useState(false);
   const [shipment, setShipment] = useState({
     trackingId: '',
     trackingNo: '',
@@ -34,10 +36,6 @@ const UpdateTrackingPrompt = ({ product, onSendTransaction, onUpdate }) => {
   const { handleOpen, handleNextStep, handleError } = txProps;
   const { Moralis } = useMoralis();
   const { queryEqualTo } = useQuery();
-
-  useEffect(() => {
-    getShipmentDetail();
-  }, []);
 
   const getShipmentDetail = async () => {
     try {
@@ -83,10 +81,13 @@ const UpdateTrackingPrompt = ({ product, onSendTransaction, onUpdate }) => {
     e.preventDefault();
 
     try {
+      await getShipmentDetail();
+
       if (shipment.trackingId.length === 0 && shipment.trackingNo.length > 0) {
+        setIsLoading(true);
         await updateTracking();
       }
-
+      setIsLoading(false);
       handleNextStep();
       await signAndSendTransaction(() => onSendTransaction(product.address, shipment.trackingId));
       await onUpdate(product.id);
@@ -110,7 +111,19 @@ const UpdateTrackingPrompt = ({ product, onSendTransaction, onUpdate }) => {
                 flexDirection: 'column',
               }}
             >
-              <div style={{ display: 'flex', margin: '20px', justifyContent: 'center' }}>
+              <div
+                style={{
+                  display: 'flex',
+                  margin: '20px',
+                  flexDirection: 'column',
+                  justifyContent: 'center',
+                }}
+              >
+                {isLoading ? (
+                  <div style={{ display: 'flex', margin: '20px', justifyContent: 'center' }}>
+                    <CircularProgress />
+                  </div>
+                ) : null}
                 <TextField
                   fullWidth
                   required
@@ -129,6 +142,7 @@ const UpdateTrackingPrompt = ({ product, onSendTransaction, onUpdate }) => {
 
                 <Button
                   sx={{ padding: 'none' }}
+                  disabled={shipment.trackingNo.length <= 0}
                   size="small"
                   type="submit"
                   onClick={handleConfirmTracking}
@@ -141,7 +155,14 @@ const UpdateTrackingPrompt = ({ product, onSendTransaction, onUpdate }) => {
         }}
       />
       <form className={classes.trackingForm}>
-        <Button onClick={handleOpen}>Update Tracking</Button>
+        <Button
+          onClick={() => {
+            setIsLoading(false);
+            handleOpen();
+          }}
+        >
+          Update Tracking
+        </Button>
       </form>
     </>
   );

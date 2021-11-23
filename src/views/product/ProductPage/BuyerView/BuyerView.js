@@ -33,8 +33,12 @@ const BuyerView = ({ product, onUpdate, isDeliveredFail }) => {
   }, []);
 
   const fetch = async () => {
-    const res = await checkForCancelOrder(product.address);
-    setIsAbleToCancel(res);
+    try {
+      const res = await checkForCancelOrder(product.address);
+      setIsAbleToCancel(res);
+    } catch (err) {
+      handleError(err);
+    }
   };
 
   const getShipmentDetail = async () => {
@@ -87,11 +91,12 @@ const BuyerView = ({ product, onUpdate, isDeliveredFail }) => {
       )}
 
       <div>
-        {Object.keys(shipment).map((key) => {
-          if (key !== 'trackingId') {
-            return <Detail title={key} description={shipment[key]} />;
-          }
-        })}
+        {shipment.trackingNo.length > 0 &&
+          Object.keys(shipment).map((key) => {
+            if (key !== 'trackingId') {
+              return <Detail title={key} description={shipment[key]} />;
+            }
+          })}
       </div>
     </>
   );
