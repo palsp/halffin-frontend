@@ -4,6 +4,7 @@ import { forwardRef } from "react";
 // material-ui
 import { useTheme } from "@mui/material/styles";
 import { Card, CardContent, CardHeader, Typography } from "@mui/material";
+import { IconArrowRightBar } from "@tabler/icons";
 
 // constant
 const headerSX = {
@@ -37,16 +38,12 @@ const MainCard = forwardRef(
         ref={ref}
         {...others}
         sx={{
-          //   border: border ? "1px solid" : "none",
-          //   borderColor: theme.palette.primary[200] + 75,
-          //   ":hover": {
-          //     boxShadow: boxShadow
-          //       ? shadow || "0 2px 14px 0 rgb(32 40 45 / 8%)"
-          //       : "inherit",
-          //   },
           ...sx,
           width: "100%",
-          background: "transparent",
+          height: '100%',
+          background: 'rgba(255,255,255,0.03)',
+          paddingLeft: "28px",
+          paddingRight: "28px"
         }}
       >
         {/* card header and action */}

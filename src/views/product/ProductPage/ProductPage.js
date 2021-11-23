@@ -3,7 +3,6 @@ import BuyerView from "./BuyerView/BuyerView";
 import SellerView from "./SellerView/SellerView";
 // material-ui
 import Grid from "@mui/material/Grid";
-import Card from "@mui/material/Card";
 import MuiTypography from "@mui/material/Typography";
 import { useParams, useNavigate } from "react-router-dom";
 import { useProduct } from "context";
@@ -14,21 +13,23 @@ import { shortenIfAddress, addressEqual } from "@usedapp/core";
 import ProgressBar from "ui-component/extended/ProgressBar";
 import stages from "api/stage";
 import ProductPageSkeleton from "../../Skeleton/ProductPageSkeleton";
-import axios from "axios";
-import fileStorage from "store/filecoin";
 import BaseImage from "ui-component/extended/BaseImage";
 import Product from "model/Product";
-import {useTheme} from "@mui/material/styles"
-import { IconCurrencyEthereum } from '@tabler/icons';
+import { useTheme } from "@mui/material/styles";
+import { useEscrow } from "../../../hooks";
+import { IconCurrencyEthereum } from "@tabler/icons";
+import ProductView from "./ProductView";
 
 const ProductPage = () => {
   const theme = useTheme();
   const { id } = useParams();
   const navigate = useNavigate();
   const { getProductById, updateProductInfo } = useProduct();
+  const { checkForFailDeliver } = useEscrow();
   const { user } = useMoralis();
   const [product, setProduct] = useState(new Product({}));
   const [isLoading, setIsLoading] = useState(true);
+  const [isDeliveredFail, setIsDeliveredFail] = useState(false);
   const [isImageLoading, setIsImageLoading] = useState(false);
   const handleUpdate = async (_id) => {
     const newProduct = await updateProductInfo(_id);
@@ -37,7 +38,6 @@ const ProductPage = () => {
 
   useEffect(() => {
     const prod = getProductById(id);
-    console.log(prod);
     if (!prod) {
       // go back to prev page
       navigate("/");
@@ -45,6 +45,17 @@ const ProductPage = () => {
     setProduct(prod);
     setIsLoading(false);
   }, [id]);
+
+  useEffect(() => {
+    const fetch = async (address) => {
+      const res = await checkForFailDeliver(address);
+      setIsDeliveredFail(res);
+    };
+
+    if (product.address) {
+      fetch(product.address);
+    }
+  }, [product]);
 
   return (
     <>
@@ -86,65 +97,95 @@ const ProductPage = () => {
                 alignItems="flex-start"
                 spacing={3}
               >
-                <Grid item> 
-                  <MuiTypography variant="h2" gutterBottom style={{color: theme.palette.text.base}}>
+                <Grid item>
+                  <MuiTypography
+                    variant="h2"
+                    gutterBottom
+                    style={{ color: theme.palette.text.base }}
+                  >
                     {product.name}
                   </MuiTypography>
                 </Grid>
                 <Grid item>
-                  <MuiTypography variant="h4" gutterBottom style={{color: theme.palette.text.base}}>
+                  <MuiTypography
+                    variant="h4"
+                    gutterBottom
+                    style={{ color: theme.palette.text.base }}
+                  >
                     Owner: {shortenIfAddress(product.owner)}
                   </MuiTypography>
                 </Grid>
                 <Grid item>
-                  <MuiTypography variant="h4" gutterBottom style={{color: theme.palette.text.base}}>
+                  <MuiTypography
+                    variant="h4"
+                    gutterBottom
+                    style={{ color: theme.palette.text.base }}
+                  >
                     Contract Address: {product.address}
                   </MuiTypography>
                 </Grid>
                 <Grid item>
-                  <MuiTypography variant="h4" gutterBottom style={{color: theme.palette.text.base}}>
+                  <MuiTypography
+                    variant="h4"
+                    gutterBottom
+                    style={{ color: theme.palette.text.base }}
+                  >
+                    Lock time: {product.lockPeriod} days
+                  </MuiTypography>
+                </Grid>
+                <Grid item>
+                  <MuiTypography
+                    variant="h4"
+                    gutterBottom
+                    style={{ color: theme.palette.text.base }}
+                  >
                     Stage: {product.stage}
                   </MuiTypography>
                 </Grid>
                 {product.trackingId != "" && (
                   <Grid item>
-                    <MuiTypography variant="h4" gutterBottom style={{color: theme.palette.text.base}}>
+                    <MuiTypography
+                      variant="h4"
+                      gutterBottom
+                      style={{ color: theme.palette.text.base }}
+                    >
                       Tracking ID: {product.trackingId}
                     </MuiTypography>
                   </Grid>
                 )}
                 {product.deliveryStatus !== "" && (
                   <Grid item>
-                    <MuiTypography variant="h4" gutterBottom style={{color: theme.palette.text.base}}>
+                    <MuiTypography
+                      variant="h4"
+                      gutterBottom
+                      style={{ color: theme.palette.text.base }}
+                    >
                       Delivery Status: {product.deliveryStatus}
                     </MuiTypography>
                   </Grid>
                 )}
 
                 <Grid item>
-                  <MuiTypography variant="h2" gutterBottom textAlign="center" style={{color: theme.palette.text.base}}>
+                  <MuiTypography
+                    variant="h2"
+                    gutterBottom
+                    textAlign="center"
+                    style={{ color: theme.palette.text.base }}
+                  >
                     Price: {product.price}
                     <IconCurrencyEthereum size={35} color="white" />
                   </MuiTypography>
                 </Grid>
-                {!user && (
+                {!user ? (
                   <Grid item>
                     <ConnectWallet />
                   </Grid>
-                )}
-                {user && (
-                  <Grid item>
-                    <ProgressBar
-                      steps={Object.values(stages)}
-                      activeStep={+product._stage}
-                    />
-                  </Grid>
-                )}
-                {user &&
-                addressEqual(user.attributes.ethAddress, product.owner) ? (
-                  <SellerView product={product} onUpdate={handleUpdate} />
                 ) : (
-                  <BuyerView product={product} />
+                  <ProductView
+                    product={product}
+                    handleUpdate={handleUpdate}
+                    isDeliveredFail={isDeliveredFail}
+                  />
                 )}
               </Grid>
             </Grid>

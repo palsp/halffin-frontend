@@ -162,6 +162,7 @@ const ProfileSection = () => {
                       content={false}
                       boxShadow
                       shadow={theme.shadows[16]}
+                      style={{padding: '0px'}}
                     >
                       <PerfectScrollbar
                         style={{
