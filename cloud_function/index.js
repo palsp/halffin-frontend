@@ -101,7 +101,30 @@ Moralis.Cloud.define(
   },
   {
     fields: {
-      targetId: UserId,
+      targetId: String,
+    },
+  },
+  validationRules
+);
+
+Moralis.Cloud.define(
+  'addShipmentDetail',
+  async (request) => {
+    const Shipment = Moralis.Object.extend('Shipment');
+
+    const shipment = new Shipment();
+    const shipmentACL = new Moralis.ACL(request.user);
+    shipment.setACL(shipmentACL);
+
+    await shipment.save({ ...request.params, userId: request.user.id }, { useMasterKey: true });
+    return { success: true };
+  },
+  {
+    fields: {
+      trackingId: String,
+      trackingNo: String,
+      slug: String,
+      contractAddress: String,
     },
   },
   validationRules
