@@ -11,10 +11,6 @@ const useQuery = () => {
     query.equalTo(attr, target);
 
     const res = await query.first();
-    if (!res || res.length === 0) {
-      throw new Error('Query Failed');
-    }
-
     return res;
   };
 
