@@ -1,32 +1,32 @@
-import { useState, useEffect } from "react";
+import {useState, useEffect} from 'react';
 
 // material-ui
-import Avatar from "@mui/material/Avatar";
-import Grid from "@mui/material/Grid";
-import MainCard from "ui-component/cards/MainCard";
-import { useMoralis } from "react-moralis";
-import MuiTypography from "@mui/material/Typography";
-import { useAddress, useProduct } from "context";
-import { useNavigate, useLocation, Navigate } from "react-router-dom";
-import ProductList from "../product/ProductList/ProductList";
-import { shortenIfAddress } from "@usedapp/core";
-import TabPanels from "ui-component/extended/TabPanels";
-import { useTheme } from "@mui/material/styles";
-import AddressDetail from "ui-component/Address/AddressDetail";
-import FormModal from "ui-component/Address/FormModal";
+import Avatar from '@mui/material/Avatar';
+import Grid from '@mui/material/Grid';
+import MainCard from 'ui-component/cards/MainCard';
+import {useMoralis} from 'react-moralis';
+import MuiTypography from '@mui/material/Typography';
+import {useAddress, useProduct} from 'context';
+import {useNavigate, useLocation, Navigate} from 'react-router-dom';
+import ProductList from '../product/ProductList/ProductList';
+import {shortenIfAddress} from '@usedapp/core';
+import TabPanels from 'ui-component/extended/TabPanels';
+import {useTheme} from '@mui/material/styles';
+import AddressDetail from 'ui-component/Address/AddressDetail';
+import FormModal from 'ui-component/Address/FormModal';
 
 const MY_PRODUCT_LABELS = [
-  "In Market",
-  "Waiting For Shipment",
-  "To Be Delivered",
-  "To Be Claimed",
-  "Complete",
+  'In Market',
+  'Waiting For Shipment',
+  'To Be Delivered',
+  'To Be Claimed',
+  'Complete',
 ];
 
 const MY_PURCHASE_LABELS = [
-  "Waiting For Shipment",
-  "To Be Delivered",
-  "Complete",
+  'Waiting For Shipment',
+  'To Be Delivered',
+  'Complete',
 ];
 
 const UserProfile = () => {
@@ -39,15 +39,15 @@ const UserProfile = () => {
     setOpen(false);
   };
 
-  const { address, getAddress, addAddress } = useAddress();
+  const {address, getAddress, addAddress} = useAddress();
 
   const [value, setValue] = useState(0);
   const [myPurchaseValue, setMyPurchaseValue] = useState(0);
   const [myProductValue, setMyProductValue] = useState(0);
 
-  const { user, isAuthenticated } = useMoralis();
+  const {user, isAuthenticated} = useMoralis();
   const navigate = useNavigate();
-  const { state } = useLocation();
+  const {state} = useLocation();
 
   useEffect(() => {
     if (state) {
@@ -62,10 +62,10 @@ const UserProfile = () => {
     }
   }, [state]);
 
-  const { getProductsOfSeller, getProductsOfBuyer } = useProduct();
+  const {getProductsOfSeller, getProductsOfBuyer} = useProduct();
   useEffect(() => {
     if (!user) {
-      navigate("/");
+      navigate('/');
     }
   }, [user]);
 
@@ -83,17 +83,17 @@ const UserProfile = () => {
     const myPurchase = [[], [], []];
 
     // myProduct
-    productsOfSeller.forEach((product) => {
+    productsOfSeller.forEach(product => {
       myProduct[parseInt(product._stage)].push(product);
     });
 
     myProductComponents = MY_PRODUCT_LABELS.map((label, index) => ({
       label: `${label} (${myProduct[index].length})`,
-      component: <ProductList products={myProduct[index]} />,
+      component: <ProductList products={[...myProduct[index]]} />,
     }));
 
     // myPurchase
-    productsOfBuyers.forEach((product) => {
+    productsOfBuyers.forEach(product => {
       if (product.isWaitForShipping) {
         myPurchase[0].push(product);
       } else if (product.isAbleToCheckTrackingStatus) {
@@ -113,7 +113,7 @@ const UserProfile = () => {
       {!user ? (
         <Navigate to="/" />
       ) : (
-        <MainCard style={{ display: "flex", justifyContent: "center" }}>
+        <MainCard style={{display: 'flex', justifyContent: 'center'}}>
           <Grid
             container
             direction="column"
@@ -122,18 +122,18 @@ const UserProfile = () => {
           >
             <Avatar
               src="https://picsum.photos/200"
-              sx={{ width: 100, height: 100 }}
+              sx={{width: 100, height: 100, marginTop: '16px'}}
             />
             <MuiTypography
               variant="subtitle1"
               gutterBottom
-              style={{ color: theme.palette.text.base }}
+              style={{color: theme.palette.text.base, marginTop: '16px'}}
             >
               {shortenIfAddress(user.attributes.ethAddress)}
             </MuiTypography>
             <MuiTypography
               variant="subtitle2"
-              style={{ color: theme.palette.text.base }}
+              style={{color: theme.palette.text.base}}
             >
               {user.attributes.createdAt.toString()}
             </MuiTypography>
@@ -142,7 +142,7 @@ const UserProfile = () => {
               onChange={(e, newValue) => setValue(newValue)}
               components={[
                 {
-                  label: "My Product",
+                  label: 'My Product',
                   component: (
                     <TabPanels
                       value={myProductValue}
@@ -152,7 +152,7 @@ const UserProfile = () => {
                   ),
                 },
                 {
-                  label: "My Purchase",
+                  label: 'My Purchase',
                   component: (
                     <TabPanels
                       value={myPurchaseValue}
@@ -162,7 +162,7 @@ const UserProfile = () => {
                   ),
                 },
                 {
-                  label: "My Address",
+                  label: 'My Address',
                   component: (
                     <>
                       <FormModal

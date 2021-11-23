@@ -38,7 +38,7 @@ const MarketPlace = () => {
 
   return (
     <MainCard darkTitle="false">
-      <div style={{display:'flex', justifyContent: 'space-between'}}>
+      <div style={{display: 'flex', justifyContent: 'space-between'}}>
         <Typography
           variant="h1"
           style={{
@@ -49,9 +49,6 @@ const MarketPlace = () => {
         >
           Market
         </Typography>
-        <IconButton onClick={() => handleNavigate('/my-product/create')} size="large">
-         <IconCirclePlus style={{color: theme.palette.text.base, height: '30px', width: '30px'}} />
-        </IconButton>
       </div>
       {isLoading ? (
         <Grid
