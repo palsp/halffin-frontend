@@ -1,32 +1,40 @@
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useMoralis } from 'react-moralis';
+import {useState, useEffect} from 'react';
+import {useNavigate} from 'react-router-dom';
+import {useMoralis} from 'react-moralis';
 // material-ui
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 // project imports
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 
-import { useAddress } from 'context';
-import { useEscrow, useTransaction } from 'hooks';
+import {useAddress} from 'context';
+import {useEscrow, useTransaction} from 'hooks';
 import TransactionModal from 'ui-component/extended/Modal/TransactionModal';
 import FormModal from 'ui-component/Address/FormModal';
 import AddressDetail from 'ui-component/Address/AddressDetail';
+import {useTheme} from '@mui/styles';
+import {Typography} from '@mui/material';
 
-const BuyProductPrompt = ({ product, onUpdate }) => {
+const BuyProductPrompt = ({product, onUpdate}) => {
+  const theme = useTheme();
   const navigate = useNavigate();
-  const { Moralis, user } = useMoralis();
+  const {Moralis, user} = useMoralis();
   const [modalOpen, setModalOpen] = useState(false);
-  const { signAndSendTransaction, txState, ...txProps } = useTransaction([
-    'Select Shipping Address',
-    'Sign transaction',
-    'Transaction initiated',
-    'Confirmation',
-  ]);
+  const {signAndSendTransaction, txState, ...txProps} = useTransaction(
+    [
+      'Select Shipping Address',
+      'Sign transaction',
+      'Transaction initiated',
+      'Confirmation',
+    ],
+    _state => {
+      return _state.activeStep === 0 || _state.activeStep === 4;
+    }
+  );
 
-  const { handleNextStep, handleOpen } = txProps;
-  const { address, getAddress, addAddress } = useAddress();
-  const { order } = useEscrow();
+  const {handleNextStep, handleOpen} = txProps;
+  const {address, getAddress, addAddress} = useAddress();
+  const {order} = useEscrow();
 
   const handleModalOpen = () => {
     setModalOpen(true);
@@ -71,7 +79,7 @@ const BuyProductPrompt = ({ product, onUpdate }) => {
     await signAndSendTransaction(() => order(product.address, product.price));
     await onUpdate(product.id);
     // navigate to my purchase
-    navigate('/user/account-profile', { state: { value: 1 } });
+    navigate('/user/account-profile', {state: {value: 1}});
   };
 
   useEffect(() => {
@@ -83,11 +91,21 @@ const BuyProductPrompt = ({ product, onUpdate }) => {
       <TransactionModal
         {...txState}
         {...txProps}
-        style={{ width: '1000px', height: '150px' }}
+        style={{
+          width: '1000px',
+          height: '150px',
+        }}
         components={{
           0: (
-            <Grid container direction="column" justifyContent="center" alignItems="center">
-              <h1> Please Check your Shipping Address</h1>
+            <Grid
+              container
+              direction="column"
+              justifyContent="center"
+              alignItems="center"
+            >
+              <Typography variant="h2">
+                Please Check your Shipping Address
+              </Typography>
               <FormModal
                 open={modalOpen}
                 handleOpen={handleModalOpen}
@@ -96,13 +114,17 @@ const BuyProductPrompt = ({ product, onUpdate }) => {
                 addAddress={addAddress}
               />
               {<AddressDetail address={address} />}
-              <Button onClick={handleEnterShippingAddress}> Continue </Button>
+              <Button onClick={handleEnterShippingAddress}>Continue</Button>
             </Grid>
           ),
         }}
       />
       <Grid item>
-        <Button variant="contained" startIcon={<AccountBalanceWalletIcon />} onClick={handleOpen}>
+        <Button
+          variant="contained"
+          startIcon={<AccountBalanceWalletIcon />}
+          onClick={handleOpen}
+        >
           Buy Now
         </Button>
       </Grid>

@@ -1,6 +1,6 @@
-import { Box, Button, Modal } from '@mui/material';
+import {Box, Button, Modal} from '@mui/material';
 import AddressForm from './AddressForm';
-
+import {Typography} from '@mui/material';
 const style = {
   position: 'absolute',
   top: '50%',
@@ -21,11 +21,15 @@ const closeButtonStyle = {
   justifyContent: 'flex-end',
 };
 
-const FormModal = ({ open, handleOpen, handleClose, address, addAddress }) => {
+const FormModal = ({open, handleOpen, handleClose, address, addAddress}) => {
   return (
     <>
-      <div style={{ display: 'flex', justifyContent: 'left', alignItems: 'left' }}>
-        <Button onClick={handleOpen}>Edit Address</Button>
+      <div
+        style={{display: 'flex', justifyContent: 'left', alignItems: 'left'}}
+      >
+        <Button onClick={handleOpen}>
+          <Typography>Edit Address</Typography>
+        </Button>
       </div>
       <Modal
         open={open}
@@ -33,8 +37,8 @@ const FormModal = ({ open, handleOpen, handleClose, address, addAddress }) => {
         aria-labelledby="parent-modal-title"
         aria-describedby="parent-modal-description"
       >
-        <Box sx={{ ...style }}>
-          <div style={{ ...closeButtonStyle }}>
+        <Box sx={{...style}}>
+          <div style={{...closeButtonStyle}}>
             <Button onClick={handleClose}>Cancel</Button>
           </div>
           <>
@@ -49,7 +53,11 @@ const FormModal = ({ open, handleOpen, handleClose, address, addAddress }) => {
               <h1>Shipping Address</h1>
             </div>
 
-            <AddressForm handleClose={handleClose} address={address} addAddress={addAddress} />
+            <AddressForm
+              handleClose={handleClose}
+              address={address}
+              addAddress={addAddress}
+            />
           </>
         </Box>
       </Modal>

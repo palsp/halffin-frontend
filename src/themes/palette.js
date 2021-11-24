@@ -65,6 +65,7 @@ export default function themePalette(theme) {
       dark: theme.textDark,
       hint: theme.colors?.grey100,
       base: 'white',
+      card: 'black',
     },
     background: {
       paper: theme.paper,
