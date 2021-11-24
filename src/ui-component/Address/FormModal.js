@@ -21,7 +21,7 @@ const closeButtonStyle = {
   justifyContent: 'flex-end',
 };
 
-const FormModal = ({ open, handleOpen, handleClose, address, addAddress }) => {
+const FormModal = ({ open, handleOpen, handleClose, address, modifyAddress, addressId = '' }) => {
   return (
     <>
       <div style={{ display: 'flex', justifyContent: 'left', alignItems: 'left' }}>
@@ -47,9 +47,16 @@ const FormModal = ({ open, handleOpen, handleClose, address, addAddress }) => {
               }}
             >
               <h1>Shipping Address</h1>
+              <h2>ID: {addressId}</h2>
+              <h2>{address.firstName}</h2>
             </div>
 
-            <AddressForm handleClose={handleClose} address={address} addAddress={addAddress} />
+            <AddressForm
+              handleClose={handleClose}
+              address={address}
+              addressId={addressId}
+              modifyAddress={modifyAddress}
+            />
           </>
         </Box>
       </Modal>

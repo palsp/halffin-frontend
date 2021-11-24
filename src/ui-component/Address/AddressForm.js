@@ -2,7 +2,7 @@ import styles from './AddressForm.module.css';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
-const AddressForm = ({ address, addAddress, handleClose }) => {
+const AddressForm = ({ address, addressId, modifyAddress, handleClose }) => {
   return (
     <Formik
       initialValues={address}
@@ -19,12 +19,17 @@ const AddressForm = ({ address, addAddress, handleClose }) => {
         phoneNumber: Yup.string().required('Required'),
       })}
       onSubmit={(values, { setSubmitting }) => {
-        console.log('values', values);
-
-        addAddress(values).then(() => {
-          setSubmitting(false);
-          handleClose();
-        });
+        if (addressId.length > 0) {
+          modifyAddress(values, addressId).then(() => {
+            setSubmitting(false);
+            handleClose();
+          });
+        } else {
+          modifyAddress(values).then(() => {
+            setSubmitting(false);
+            handleClose();
+          });
+        }
       }}
     >
       <Form className={styles.form}>

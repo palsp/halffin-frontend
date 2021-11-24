@@ -16,29 +16,68 @@ Moralis.Cloud.define(
 );
 
 Moralis.Cloud.define(
+  'editAddress',
+  async (request) => {
+    const { addressId, address: newAddress } = request.params;
+    const {
+      firstName,
+      lastName,
+      email,
+      address1,
+      address2,
+      city,
+      state,
+      postalCode,
+      countryCode,
+      phoneNumber,
+    } = newAddress;
+    const Address = Moralis.Object.extend('Address');
+
+    const query = new Moralis.Query(Address);
+    query.equalTo('objectId', addressId);
+
+    const address = await query.first({ useMasterKey: true });
+    if (!address) {
+      return { success: false, message: 'No address found' };
+    }
+
+    await address.save(
+      {
+        firstName,
+        lastName,
+        email,
+        address1,
+        address2,
+        city,
+        state,
+        postalCode,
+        countryCode,
+        phoneNumber,
+      },
+      { useMasterKey: true }
+    );
+    return { success: true };
+  },
+  {
+    fields: {
+      address: Address,
+      addressId: String,
+    },
+  },
+  validationRules
+);
+
+Moralis.Cloud.define(
   'addAddress',
   async (request) => {
     const Address = Moralis.Object.extend('Address');
 
-    const query = new Moralis.Query(Address);
-    query.equalTo('userId', request.user.id);
-    const address = await query.first({ useMasterKey: true });
+    const address = new Address();
+    const addressACL = new Moralis.ACL(request.user);
+    address.setACL(addressACL);
 
-    // ADD
-    if (!address) {
-      const address = new Address();
-      const addressACL = new Moralis.ACL(request.user);
-      address.setACL(addressACL);
-
-      await address.save({ ...request.params, userId: request.user.id }, { useMasterKey: true });
-      return { success: true };
-
-      // EDIT
-    } else {
-      await address.save({ ...request.params }, { useMasterKey: true });
-
-      return { success: true };
-    }
+    await address.save({ ...request.params, userId: request.user.id }, { useMasterKey: true });
+    return { success: true };
   },
   {
     fields: {
