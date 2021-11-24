@@ -3,7 +3,6 @@ import {useNavigate} from 'react-router-dom';
 import {useMoralis} from 'react-moralis';
 // material-ui
 import Grid from '@mui/material/Grid';
-import Button from '@mui/material/Button';
 // project imports
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 
@@ -12,8 +11,9 @@ import {useEscrow, useTransaction} from 'hooks';
 import TransactionModal from 'ui-component/extended/Modal/TransactionModal';
 import FormModal from 'ui-component/Address/FormModal';
 import AddressDetail from 'ui-component/Address/AddressDetail';
-import {useTheme} from '@mui/styles';
 import {Typography} from '@mui/material';
+import Button from 'ui-component/extended/Button';
+import {useTheme} from '@mui/material/styles';
 
 const BuyProductPrompt = ({product, onUpdate}) => {
   const theme = useTheme();
@@ -114,19 +114,26 @@ const BuyProductPrompt = ({product, onUpdate}) => {
                 addAddress={addAddress}
               />
               {<AddressDetail address={address} />}
-              <Button onClick={handleEnterShippingAddress}>Continue</Button>
+              <Button
+                onClick={handleEnterShippingAddress}
+                label={<h4>Continue</h4>}
+              />
             </Grid>
           ),
         }}
       />
       <Grid item>
         <Button
+          sx={{
+            '.MuiChip-icon': {
+              color: theme.palette.text.base,
+            },
+          }}
+          icon={<AccountBalanceWalletIcon />}
           variant="contained"
-          startIcon={<AccountBalanceWalletIcon />}
           onClick={handleOpen}
-        >
-          Buy Now
-        </Button>
+          label={<h4>Buy Now</h4>}
+        />
       </Grid>
     </>
   );

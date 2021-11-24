@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import {
   Dialog,
   DialogContent,
@@ -6,8 +6,8 @@ import {
   Typography,
   DialogActions,
   Button,
-} from '@mui/material';
-import ProgressBar from 'ui-component/extended/ProgressBar';
+} from "@mui/material";
+import ProgressBar from "ui-component/extended/ProgressBar";
 
 const ProgressModal = ({
   open,
