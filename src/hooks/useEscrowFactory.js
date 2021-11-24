@@ -27,7 +27,7 @@ const useEscrowFactory = () => {
     };
 
     init();
-  }, []);
+  }, [Moralis]);
 
   const createProduct = ({ name, price, productURI = "", lockTime }) => {
     const newPrice = web3.utils.toWei(price.toString(), "ether");
