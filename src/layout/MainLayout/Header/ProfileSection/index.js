@@ -195,9 +195,9 @@ const ProfileSection = () => {
                               sx={{
                                 borderRadius: `${config.borderRadius}px`,
                               }}
-                              selected={selectedIndex === 2}
+                              selected={selectedIndex === 1}
                               onClick={(event) =>
-                                handleListItemClick(event, 0, "/")
+                                handleListItemClick(event, 1, "/")
                               }
                             >
                               <ListItemIcon>
@@ -219,7 +219,7 @@ const ProfileSection = () => {
                               onClick={(event) =>
                                 handleListItemClick(
                                   event,
-                                  0,
+                                  2,
                                   "/my-product/create"
                                 )
                               }
