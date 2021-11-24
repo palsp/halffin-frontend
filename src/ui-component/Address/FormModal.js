@@ -1,6 +1,9 @@
-import {Box, Button, Modal} from '@mui/material';
+import {Box, Modal, useTheme} from '@mui/material';
 import AddressForm from './AddressForm';
 import {Typography} from '@mui/material';
+import Button from 'ui-component/extended/Button';
+import CloseIcon from '@mui/icons-material/Close';
+import EditIcon from '@mui/icons-material/Edit';
 const style = {
   position: 'absolute',
   top: '50%',
@@ -22,14 +25,33 @@ const closeButtonStyle = {
 };
 
 const FormModal = ({open, handleOpen, handleClose, address, addAddress}) => {
+  const theme = useTheme();
   return (
     <>
       <div
         style={{display: 'flex', justifyContent: 'left', alignItems: 'left'}}
       >
-        <Button onClick={handleOpen}>
-          <Typography>Edit Address</Typography>
-        </Button>
+        <Button
+          onClick={handleOpen}
+          label={<Typography>Edit Address</Typography>}
+          icon={<EditIcon fontSize="small" />}
+          sx={{
+            backgroundColor: 'transparent',
+            margin: '14px',
+            color: theme.palette.text.card,
+            '.MuiChip-icon': {
+              color: theme.palette.text.card,
+            },
+            '&:hover': {
+              background: 'rgba(3, 4, 94, 0.04)!important',
+              color: `${theme.palette.primary.main}!important`,
+              '& svg': {
+                color: theme.palette.primary.main,
+                stroke: theme.palette.primary.main,
+              },
+            },
+          }}
+        />
       </div>
       <Modal
         open={open}
@@ -39,7 +61,21 @@ const FormModal = ({open, handleOpen, handleClose, address, addAddress}) => {
       >
         <Box sx={{...style}}>
           <div style={{...closeButtonStyle}}>
-            <Button onClick={handleClose}>Cancel</Button>
+            <Button
+              onClick={handleClose}
+              icon={<CloseIcon color="black" />}
+              sx={{
+                backgroundColor: 'transparent',
+                '& svg': {
+                  color: `${theme.palette.primary.main}!important`,
+                  stroke: theme.palette.primary.main,
+                },
+                '&:hover': {
+                  backgroundColor: 'transparent!important',
+                  color: `${theme.palette.primary.main}!important`,
+                },
+              }}
+            />
           </div>
           <>
             <div
@@ -47,10 +83,10 @@ const FormModal = ({open, handleOpen, handleClose, address, addAddress}) => {
                 display: 'flex',
                 justifyContent: 'center',
                 alighItems: 'center',
-                marginBottom: '5px',
+                marginBottom: '20px',
               }}
             >
-              <h1>Shipping Address</h1>
+              <Typography variant="h1">Shipping Address</Typography>
             </div>
 
             <AddressForm
