@@ -79,7 +79,7 @@ const AddressProvider = ({ children }) => {
       const res = await Moralis.Cloud.run('deleteAddress', {
         addressId,
       });
-      console.log('resa', res);
+      console.log('delete address', res);
     } catch (err) {
       console.log('Error', err.message);
     }

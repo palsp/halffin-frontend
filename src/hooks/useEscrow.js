@@ -1,22 +1,21 @@
-import { useCallback } from "react";
-import { abi } from "api/chain-info/contracts/Escrow.json";
-import { useMoralis } from "react-moralis";
-import Product from "model/Product";
-import { useWeb3 } from ".";
+import { useCallback } from 'react';
+import { abi } from 'api/chain-info/contracts/Escrow.json';
+import { useMoralis } from 'react-moralis';
+import Product from 'model/Product';
+import { useWeb3 } from '.';
 const useEscrow = () => {
   const { user, Moralis } = useMoralis();
   const { web3, web3Utils } = useWeb3();
 
   const getContractInstance = useCallback(
-    (contractAddress, web3Instance = web3) =>
-      new web3Instance.eth.Contract(abi, contractAddress),
+    (contractAddress, web3Instance = web3) => new web3Instance.eth.Contract(abi, contractAddress),
     [web3]
   );
 
   const serializeProduct = (productDetail, productAddress) => {
     const product = new Product({
       ...productDetail,
-      price: web3Utils.fromWei(productDetail.price, "ether"),
+      price: web3Utils.fromWei(productDetail.price, 'ether'),
       deliveryStatus: web3Utils.toAscii(productDetail.deliveryStatus),
     });
 
@@ -47,15 +46,13 @@ const useEscrow = () => {
     const contractInstance = getContractInstance(contractAddress);
     return contractInstance.methods.order().send({
       from: user.attributes.ethAddress,
-      value: web3Utils.toWei(price, "ether"),
+      value: web3Utils.toWei(price, 'ether'),
     });
   };
 
   const cancelOrder = (contractAddress) => {
     const contractInstance = getContractInstance(contractAddress);
-    return contractInstance.methods
-      .cancelOrder()
-      .send({ from: user.attributes.ethAddress });
+    return contractInstance.methods.cancelOrder().send({ from: user.attributes.ethAddress });
   };
 
   const updateShipment = (contractAddress, trackingId) => {
@@ -74,21 +71,17 @@ const useEscrow = () => {
 
   const listenOnShipmentDetail = (contractAddress, cb) => {
     const contractInstance = getContractInstance(contractAddress);
-    return contractInstance.once("ShipmentUpdated", cb);
+    return contractInstance.once('ShipmentUpdated', cb);
   };
 
   const reclaimFund = (contractAddress) => {
     const contractInstance = getContractInstance(contractAddress);
-    return contractInstance.methods
-      .reclaimFund()
-      .send({ from: user.attributes.ethAddress });
+    return contractInstance.methods.reclaimFund().send({ from: user.attributes.ethAddress });
   };
 
   const reclaimBuyer = (contractAddress) => {
     const contractInstance = getContractInstance(contractAddress);
-    return contractInstance.methods
-      .reclaimBuyer(true)
-      .send({ from: user.attributes.ethAddress });
+    return contractInstance.methods.reclaimBuyer(true).send({ from: user.attributes.ethAddress });
   };
 
   return {

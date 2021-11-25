@@ -142,6 +142,14 @@ Moralis.Cloud.define(
         phoneNumber,
       } = address;
 
+      const web3 = Moralis.web3ByChain('0x2a');
+      const contract = new web3.eth.Contract(abi, contractAddress);
+      const product = await contract.methods.product().call();
+
+      if (!request.user.attributes.accounts.includes(product.buyer.toLowerCase())) {
+        return { success: false, message: 'Unauthorized!', product, user: request.user };
+      }
+
       const Transaction = Moralis.Object.extend('Transaction');
 
       const transaciton = new Transaction();
@@ -169,7 +177,7 @@ Moralis.Cloud.define(
 
       return tx;
     } catch (err) {
-      return { success: false, error: err.message };
+      return { success: false, x: request.user, error: err.message };
     }
   },
   {
