@@ -57,6 +57,13 @@ const BuyProductPrompt = ({ product, onUpdate }) => {
     setDeleteModalOpen({ [addressId]: false });
   };
 
+  const getProductFromContract = async () => {
+    const res = await Moralis.Cloud.run('getProductFromContract', {
+      contractAddress: product.address,
+    });
+    console.log('resss x', res);
+  };
+
   const allowSellerAddressPermission = async () => {
     try {
       const {
@@ -71,7 +78,7 @@ const BuyProductPrompt = ({ product, onUpdate }) => {
         countryCode,
         phoneNumber,
       } = addresses[addrIndex].attributes;
-      console.log(product.address);
+
       const transaction = await Moralis.Cloud.run('generateTransaction', {
         contractAddress: product.address,
         // addressId: addresses[addrIndex].id,
@@ -201,7 +208,8 @@ const BuyProductPrompt = ({ product, onUpdate }) => {
                 })}
               />
               <Button onClick={handleEnterShippingAddress} label={<h4>Continue</h4>} />
-              <Button onClick={allowSellerAddressPermission} label={<h4>Test</h4>} />
+              {/* <Button onClick={allowSellerAddressPermission} label={<h4>Test</h4>} /> */}
+              {/* <Button onClick={getProductFromContract} label={<h4>Web3</h4>} /> */}
             </Grid>
           ),
         }}
