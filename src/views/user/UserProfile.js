@@ -36,6 +36,14 @@ const UserProfile = () => {
     setOpen({ [addressId]: false });
   };
 
+  const [deleteOpen, setDeleteOpen] = useState({});
+  const handleDeleteOpen = (addressId) => {
+    setDeleteOpen({ [addressId]: true });
+  };
+  const handleDeleteClose = (addressId) => {
+    setDeleteOpen({ [addressId]: false });
+  };
+
   const [addingNewAddress, setAddingNewAddress] = useState(false);
   const handleOpenAddingNewAddress = () => {
     setAddingNewAddress(true);
@@ -43,7 +51,8 @@ const UserProfile = () => {
   const handleCloseAddingNewAddress = () => {
     setAddingNewAddress(false);
   };
-  const { addresses, setAddress, getAddress, addAddress, editAddress } = useAddress();
+  const { addresses, setAddress, getAddress, addAddress, editAddress, deleteAddress } =
+    useAddress();
 
   const [value, setValue] = useState(0);
   const [myPurchaseValue, setMyPurchaseValue] = useState(0);
@@ -73,7 +82,7 @@ const UserProfile = () => {
 
   useEffect(() => {
     getAddress();
-  }, [user, open, addingNewAddress]);
+  }, [user, open, deleteOpen, addingNewAddress]);
 
   let myProductComponents = [];
   let myPurchaseComponents = [];
@@ -166,12 +175,16 @@ const UserProfile = () => {
                             <FormModal
                               index={index + 1}
                               open={open[address.id]}
+                              deleteOpen={deleteOpen[address.id]}
                               handleOpen={() => handleOpen(address.id)}
                               handleClose={() => handleClose(address.id)}
+                              handleDeleteOpen={() => handleDeleteOpen(address.id)}
+                              handleDeleteClose={() => handleDeleteClose(address.id)}
                               addressId={address.id}
                               setAddress={setAddress}
                               address={address.attributes}
                               modifyAddress={editAddress}
+                              deleteAddress={deleteAddress}
                             />
                             <AddressDetail address={address.attributes} />;
                             <hr />

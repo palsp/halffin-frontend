@@ -46,19 +46,7 @@ const AddressProvider = ({ children }) => {
       query.equalTo('userId', user.id);
 
       const addresses = await query.find();
-      // const addr = {
-      //   firstName: res.attributes.firstName,
-      //   lastName: res.attributes.lastName,
-      //   email: res.attributes.email,
-      //   address1: res.attributes.address1,
-      //   address2: res.attributes.address2,
-      //   city: res.attributes.city,
-      //   state: res.attributes.state,
-      //   postalCode: res.attributes.postalCode,
-      //   countryCode: res.attributes.countryCode,
-      //   phoneNumber: res.attributes.phoneNumber,
-      // };
-      // setAddress(addr);
+
       setAddresses(addresses);
     } catch (err) {
       console.log('Error cont', err.message);
@@ -74,15 +62,24 @@ const AddressProvider = ({ children }) => {
   };
 
   const editAddress = async (address, addressId) => {
-    console.log('here1');
     try {
-      const res = await Moralis.Cloud.run('editAddress', {
+      await Moralis.Cloud.run('editAddress', {
         address,
         addressId,
       });
-      console.log('here2');
+    } catch (err) {
+      console.log('Error', err.message);
+    }
+  };
 
-      console.log('edit', res);
+  const deleteAddress = async (addressId) => {
+    console.log('here delete');
+
+    try {
+      const res = await Moralis.Cloud.run('deleteAddress', {
+        addressId,
+      });
+      console.log('resa', res);
     } catch (err) {
       console.log('Error', err.message);
     }
@@ -102,6 +99,7 @@ const AddressProvider = ({ children }) => {
         getAddress,
         addAddress,
         editAddress,
+        deleteAddress,
       }}
     >
       {children}

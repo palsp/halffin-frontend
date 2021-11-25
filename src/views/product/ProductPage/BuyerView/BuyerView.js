@@ -1,29 +1,28 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
 // material-ui
-import Grid from "@mui/material/Grid";
+import Grid from '@mui/material/Grid';
 // project imports
-import { useQuery } from "hooks";
+import { useQuery } from 'hooks';
 
 // hooks
-import { useEscrow, useTransaction } from "hooks";
-import TransactionModal from "../../../../ui-component/extended/Modal/TransactionModal";
-import BuyProductPrompt from "./BuyProductPrompt";
-import { defaultTxSteps } from "../../../../store/constant";
-import Detail from "ui-component/Address/Detail/Detail";
-import Button from "ui-component/extended/Button";
+import { useEscrow, useTransaction } from 'hooks';
+import TransactionModal from '../../../../ui-component/extended/Modal/TransactionModal';
+import BuyProductPrompt from './BuyProductPrompt';
+import { defaultTxSteps } from '../../../../store/constant';
+import Detail from 'ui-component/Address/Detail/Detail';
+import Button from 'ui-component/extended/Button';
 
 const BuyerView = ({ product, onUpdate, isDeliveredFail }) => {
-  const { signAndSendTransaction, txState, ...txProps } =
-    useTransaction(defaultTxSteps);
+  const { signAndSendTransaction, txState, ...txProps } = useTransaction(defaultTxSteps);
   const { checkForCancelOrder, cancelOrder, reclaimBuyer } = useEscrow();
   const [isAbleToCancel, setIsAbleToCancel] = useState(false);
 
   const { handleError } = txProps;
 
   const [shipment, setShipment] = useState({
-    trackingId: "",
-    trackingNo: "",
-    slug: "",
+    trackingId: '',
+    trackingNo: '',
+    slug: '',
   });
 
   const { queryEqualTo } = useQuery();
@@ -45,8 +44,8 @@ const BuyerView = ({ product, onUpdate, isDeliveredFail }) => {
   const getShipmentDetail = async () => {
     try {
       const res = await queryEqualTo({
-        className: "Shipment",
-        attr: "contractAddress",
+        className: 'Shipment',
+        attr: 'contractAddress',
         target: product.address,
       });
       if (res) {
@@ -77,30 +76,20 @@ const BuyerView = ({ product, onUpdate, isDeliveredFail }) => {
       <TransactionModal {...txState} {...txProps} />
       {isDeliveredFail && (
         <Grid item>
-          <Button
-            variant="contained"
-            onClick={handleReclaimBuyer}
-            label={<h4> Reclaim Fund</h4>}
-          />
+          <Button variant="contained" onClick={handleReclaimBuyer} label={<h4> Reclaim Fund</h4>} />
         </Grid>
       )}
-      {product.isAbleToBuy && (
-        <BuyProductPrompt product={product} onUpdate={onUpdate} />
-      )}
+      {product.isAbleToBuy && <BuyProductPrompt product={product} onUpdate={onUpdate} />}
       {product.isWaitForShipping && isAbleToCancel && !isDeliveredFail && (
         <Grid item>
-          <Button
-            variant="contained"
-            onClick={handleCancelOrder}
-            label={<h4> Cancel Order</h4>}
-          />
+          <Button variant="contained" onClick={handleCancelOrder} label={<h4>Cancel Order</h4>} />
         </Grid>
       )}
 
       <div>
         {shipment.trackingNo.length > 0 &&
           Object.keys(shipment).map((key) => {
-            if (key !== "trackingId") {
+            if (key !== 'trackingId') {
               return <Detail title={key} description={shipment[key]} />;
             }
           })}
