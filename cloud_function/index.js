@@ -97,10 +97,7 @@ Moralis.Cloud.define(
       const transactionACL = new Moralis.ACL(request.user);
       transaciton.setACL(transactionACL);
 
-      const tx = await transaciton.save(
-        { ...request.params, userId: request.user.id },
-        { useMasterKey: true }
-      );
+      const tx = await transaciton.save({ ...request.params }, { useMasterKey: true });
 
       return tx;
     } catch (err) {
