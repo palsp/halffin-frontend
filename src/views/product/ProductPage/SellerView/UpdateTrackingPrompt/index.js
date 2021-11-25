@@ -1,20 +1,20 @@
-import { useState } from 'react';
-import { Button, TextField, CircularProgress } from '@mui/material';
-import { makeStyles } from '@mui/styles';
-import { useTransaction, useQuery } from 'hooks';
-import { defaultTxSteps } from 'store/constant';
-import { createTracking } from 'api/tracking_server';
-import Product from 'model/Product';
-import TransactionModal from 'ui-component/extended/Modal/TransactionModal';
-import { useTheme } from '@mui/material/styles';
-import { useMoralis } from 'react-moralis';
-import Loader from 'ui-component/Loader';
+import { useState } from "react";
+import { TextField, CircularProgress } from "@mui/material";
+import { makeStyles } from "@mui/styles";
+import { useTransaction, useQuery } from "hooks";
+import { defaultTxSteps } from "store/constant";
+import { createTracking } from "api/tracking_server";
+import Product from "model/Product";
+import TransactionModal from "ui-component/extended/Modal/TransactionModal";
+import { useTheme } from "@mui/material/styles";
+import { useMoralis } from "react-moralis";
+import Button from "ui-component/extended/Button";
 
 const useStyles = makeStyles((theme) => ({
   trackingForm: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
 }));
 
@@ -24,13 +24,13 @@ const UpdateTrackingPrompt = ({ product, onSendTransaction, onUpdate }) => {
 
   const [isLoading, setIsLoading] = useState(false);
   const [shipment, setShipment] = useState({
-    trackingId: '',
-    trackingNo: '',
-    slug: '',
+    trackingId: "",
+    trackingNo: "",
+    slug: "",
   });
 
   const { signAndSendTransaction, txState, ...txProps } = useTransaction(
-    ['update shipping detail'].concat(defaultTxSteps)
+    ["update shipping detail"].concat(defaultTxSteps)
   );
 
   const { handleOpen, handleNextStep, handleError } = txProps;
@@ -40,8 +40,8 @@ const UpdateTrackingPrompt = ({ product, onSendTransaction, onUpdate }) => {
   const getShipmentDetail = async () => {
     try {
       const res = await queryEqualTo({
-        className: 'Shipment',
-        attr: 'contractAddress',
+        className: "Shipment",
+        attr: "contractAddress",
         target: product.address,
       });
       if (res) {
@@ -57,10 +57,10 @@ const UpdateTrackingPrompt = ({ product, onSendTransaction, onUpdate }) => {
   };
 
   const addShipmentDetail = async ({ trackingNo, trackingId, slug }) => {
-    const buyer = await Moralis.Cloud.run('getUserByEthAddress', {
+    const buyer = await Moralis.Cloud.run("getUserByEthAddress", {
       targetEthAddr: product.buyer,
     });
-    return Moralis.Cloud.run('addShipmentDetail', {
+    return Moralis.Cloud.run("addShipmentDetail", {
       trackingId,
       trackingNo,
       slug,
@@ -70,11 +70,18 @@ const UpdateTrackingPrompt = ({ product, onSendTransaction, onUpdate }) => {
   };
 
   const updateTracking = async () => {
-    const response = await createTracking(product.id, shipment.trackingNo.trim());
+    const response = await createTracking(
+      product.id,
+      shipment.trackingNo.trim()
+    );
     const trackingId = response.data.tracking.id;
     const slug = response.data.tracking.slug;
 
-    await addShipmentDetail({ trackingNo: shipment.trackingNo.trim(), trackingId, slug });
+    await addShipmentDetail({
+      trackingNo: shipment.trackingNo.trim(),
+      trackingId,
+      slug,
+    });
   };
 
   const handleConfirmTracking = async (e) => {
@@ -89,7 +96,9 @@ const UpdateTrackingPrompt = ({ product, onSendTransaction, onUpdate }) => {
       }
       setIsLoading(false);
       handleNextStep();
-      await signAndSendTransaction(() => onSendTransaction(product.address, shipment.trackingId));
+      await signAndSendTransaction(() =>
+        onSendTransaction(product.address, shipment.trackingId)
+      );
       await onUpdate(product.id);
     } catch (err) {
       handleError(err);
@@ -105,22 +114,28 @@ const UpdateTrackingPrompt = ({ product, onSendTransaction, onUpdate }) => {
           0: (
             <div
               style={{
-                display: 'flex',
-                margin: '20px',
-                justifyContent: 'center',
-                flexDirection: 'column',
+                display: "flex",
+                margin: "20px",
+                justifyContent: "center",
+                flexDirection: "column",
               }}
             >
               <div
                 style={{
-                  display: 'flex',
-                  margin: '20px',
-                  flexDirection: 'column',
-                  justifyContent: 'center',
+                  display: "flex",
+                  margin: "20px",
+                  flexDirection: "column",
+                  justifyContent: "center",
                 }}
               >
                 {isLoading ? (
-                  <div style={{ display: 'flex', margin: '20px', justifyContent: 'center' }}>
+                  <div
+                    style={{
+                      display: "flex",
+                      margin: "20px",
+                      justifyContent: "center",
+                    }}
+                  >
                     <CircularProgress />
                   </div>
                 ) : null}
@@ -136,19 +151,21 @@ const UpdateTrackingPrompt = ({ product, onSendTransaction, onUpdate }) => {
                   sx={{ ...theme.typography.customInput }}
                   value={shipment.trackingNo}
                   onChange={(e) =>
-                    setShipment((prevState) => ({ ...prevState, trackingNo: e.target.value }))
+                    setShipment((prevState) => ({
+                      ...prevState,
+                      trackingNo: e.target.value,
+                    }))
                   }
                 />
 
                 <Button
-                  sx={{ padding: 'none' }}
+                  sx={{ padding: "none" }}
                   disabled={shipment.trackingNo.length <= 0}
                   size="small"
                   type="submit"
                   onClick={handleConfirmTracking}
-                >
-                  Next
-                </Button>
+                  label={<h4>Next</h4>}
+                />
               </div>
             </div>
           ),
@@ -160,9 +177,8 @@ const UpdateTrackingPrompt = ({ product, onSendTransaction, onUpdate }) => {
             setIsLoading(false);
             handleOpen();
           }}
-        >
-          Update Tracking
-        </Button>
+          label={<h4>Update Tracking</h4>}
+        />
       </form>
     </>
   );

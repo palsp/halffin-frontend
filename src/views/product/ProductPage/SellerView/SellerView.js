@@ -9,7 +9,7 @@ import { useEscrow, useQuery, useTransaction } from 'hooks';
 import TransactionModal from 'ui-component/extended/Modal/TransactionModal';
 import { defaultTxSteps } from 'store/constant';
 import UpdateTrackingPrompt from './UpdateTrackingPrompt';
-import BaseButton from 'ui-component/extended/BaseButton';
+import Button from 'ui-component/extended/Button';
 import { useMoralis } from 'react-moralis';
 import { styled } from '@mui/material/styles';
 import AddressDetail from 'ui-component/Address/AddressDetail';
@@ -117,7 +117,7 @@ const SellerView = ({ onUpdate, product }) => {
         {isShipmentUpdating && <div>check inprogress. this may take a while</div>}
         {!isShipmentUpdating && product.isAbleToCheckTrackingStatus && (
           <Grid item direction="row">
-            <BaseButton onClick={handleRequestShippingDetail}>Check Tracking Status</BaseButton>
+            <Button onClick={handleRequestShippingDetail} label={<h4> Check Tracking Status</h4>} />
             <HtmlTooltip
               title={
                 <>
@@ -142,7 +142,7 @@ const SellerView = ({ onUpdate, product }) => {
         )}
 
         {product.isAbleToClaimFund && (
-          <BaseButton onClick={handleReclaimFund}>Claim Fund</BaseButton>
+          <Button onClick={handleReclaimFund} label={<h4>Claim Fund</h4>} />
         )}
       </Grid>
     </>

@@ -8,16 +8,18 @@ import TabPanels from 'ui-component/extended/TabPanels';
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 
 import { useAddress } from 'context';
-import { useEscrow, useTransaction, useQuery } from 'hooks';
+import { useEscrow, useTransaction } from 'hooks';
 import TransactionModal from 'ui-component/extended/Modal/TransactionModal';
 import FormModal from 'ui-component/Address/FormModal';
 import AddressDetail from 'ui-component/Address/AddressDetail';
+import Button from 'ui-component/extended/Button';
+import { useTheme } from '@mui/material/styles';
 
 const BuyProductPrompt = ({ product, onUpdate }) => {
   const navigate = useNavigate();
-  const { Moralis } = useMoralis();
-  const { queryEqualTo } = useQuery();
-
+  const theme = useTheme();
+  const { Moralis, user } = useMoralis();
+  const [modalOpen, setModalOpen] = useState(false);
   const { signAndSendTransaction, txState, ...txProps } = useTransaction([
     'Select Shipping Address',
     'Sign transaction',
@@ -130,16 +132,24 @@ const BuyProductPrompt = ({ product, onUpdate }) => {
                   };
                 })}
               />
-
-              <Button onClick={handleEnterShippingAddress}> Continue </Button>
+              {<AddressDetail address={address} />}
+              <Button onClick={handleEnterShippingAddress} label={<h4>Continue</h4>} />
             </Grid>
           ),
         }}
       />
       <Grid item>
-        <Button variant="contained" startIcon={<AccountBalanceWalletIcon />} onClick={handleOpen}>
-          Buy Now
-        </Button>
+        <Button
+          sx={{
+            '.MuiChip-icon': {
+              color: theme.palette.text.base,
+            },
+          }}
+          icon={<AccountBalanceWalletIcon />}
+          variant="contained"
+          onClick={handleOpen}
+          label={<h4>Buy Now</h4>}
+        />
       </Grid>
     </>
   );

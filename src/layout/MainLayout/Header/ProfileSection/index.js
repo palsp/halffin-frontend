@@ -1,15 +1,15 @@
-import {useState, useRef, useEffect} from 'react';
-import {shortenIfAddress} from '@usedapp/core';
-import {useNavigate} from 'react-router-dom';
-import {useMoralis} from 'react-moralis';
-import ConnectWallet from '../../../../views/wallet/ConnectWallet';
-import config from 'config';
+import { useState, useRef, useEffect } from "react";
+import Button from "ui-component/extended/Button";
+import { shortenIfAddress } from "@usedapp/core";
+import { useNavigate } from "react-router-dom";
+import { useMoralis } from "react-moralis";
+import ConnectWallet from "../../../../views/wallet/ConnectWallet";
+import config from "config";
 
 // material-ui
-import {useTheme} from '@mui/material/styles';
+import { useTheme } from "@mui/material/styles";
 import {
   Box,
-  Chip,
   ClickAwayListener,
   List,
   ListItemButton,
@@ -18,14 +18,14 @@ import {
   Paper,
   Popper,
   Typography,
-} from '@mui/material';
+} from "@mui/material";
 
 // third-party
-import PerfectScrollbar from 'react-perfect-scrollbar';
+import PerfectScrollbar from "react-perfect-scrollbar";
 
 // project imports
-import MainCard from 'ui-component/cards/MainCard';
-import Transitions from 'ui-component/extended/Transitions';
+import MainCard from "ui-component/cards/MainCard";
+import Transitions from "ui-component/extended/Transitions";
 
 // assets
 import {
@@ -33,28 +33,9 @@ import {
   IconBuildingStore,
   IconLogout,
   IconCirclePlus,
-} from '@tabler/icons';
+} from "@tabler/icons";
 
 // ==============================|| PROFILE MENU ||============================== //
-
-const chipSX = theme => ({
-  height: '48px',
-  alignItems: 'center',
-  borderRadius: '10px',
-  transition: 'all .2s ease-in-out',
-  borderColor: theme.palette.primary.light,
-  backgroundColor: theme.palette.primary.main,
-  color: theme.palette.text.base,
-  '&[aria-controls="menu-list-grow"], &:hover': {
-    background: `${theme.palette.primary.light}!important`,
-    '& svg': {
-      stroke: theme.palette.primary.light,
-    },
-  },
-  '& .MuiChip-label': {
-    lineHeight: 0,
-  },
-});
 
 const ProfileSection = () => {
   const theme = useTheme();
@@ -83,27 +64,27 @@ const ProfileSection = () => {
     logout();
   };
 
-  const handleClose = event => {
+  const handleClose = (event) => {
     if (anchorRef.current && anchorRef.current.contains(event.target)) {
       return;
     }
     setOpen(false);
   };
 
-  const handleListItemClick = (event, index, route = '') => {
+  const handleListItemClick = (event, index, route = "") => {
     if (!isWeb3Enabled || !isAuthenticated) {
       enableAndAuthenticate();
     } else {
       setSelectedIndex(index);
       handleClose(event);
 
-      if (route && route !== '') {
+      if (route && route !== "") {
         navigate(route);
       }
     }
   };
   const handleToggle = () => {
-    setOpen(prevOpen => !prevOpen);
+    setOpen((prevOpen) => !prevOpen);
   };
 
   const prevOpen = useRef(open);
@@ -124,16 +105,11 @@ const ProfileSection = () => {
         <ConnectWallet />
       ) : (
         <>
-          <Chip
-            sx={chipSX(theme)}
-            label={
-              <h4>
-                {user ? shortenIfAddress(user.attributes.ethAddress) : ''}
-              </h4>
-            }
+          <Button
+            label={<h4>{shortenIfAddress(user.attributes.ethAddress)}</h4>}
             variant="outlined"
             ref={anchorRef}
-            aria-controls={open ? 'menu-list-grow' : undefined}
+            aria-controls={open ? "menu-list-grow" : undefined}
             aria-haspopup="true"
             onClick={handleToggle}
           />
@@ -147,7 +123,7 @@ const ProfileSection = () => {
             popperOptions={{
               modifiers: [
                 {
-                  name: 'offset',
+                  name: "offset",
                   options: {
                     offset: [0, 14],
                   },
@@ -155,7 +131,7 @@ const ProfileSection = () => {
               ],
             }}
           >
-            {({TransitionProps}) => (
+            {({ TransitionProps }) => (
               <Transitions in={open} {...TransitionProps}>
                 <Paper>
                   <ClickAwayListener onClickAway={handleClose}>
@@ -165,28 +141,28 @@ const ProfileSection = () => {
                       content={false}
                       boxShadow
                       shadow={theme.shadows[16]}
-                      style={{padding: '0px'}}
+                      style={{ padding: "0px" }}
                     >
                       <PerfectScrollbar
                         style={{
-                          height: '100%',
-                          maxHeight: 'calc(100vh - 250px)',
-                          overflowX: 'hidden',
+                          height: "100%",
+                          maxHeight: "calc(100vh - 250px)",
+                          overflowX: "hidden",
                         }}
                       >
-                        <Box sx={{p: 2}}>
+                        <Box sx={{ p: 2 }}>
                           <List
                             component="nav"
                             sx={{
-                              width: '100%',
+                              width: "100%",
                               maxWidth: 350,
                               minWidth: 300,
                               backgroundColor: theme.palette.background.paper,
-                              borderRadius: '10px',
-                              [theme.breakpoints.down('md')]: {
-                                minWidth: '100%',
+                              borderRadius: "10px",
+                              [theme.breakpoints.down("md")]: {
+                                minWidth: "100%",
                               },
-                              '& .MuiListItemButton-root': {
+                              "& .MuiListItemButton-root": {
                                 mt: 0.5,
                               },
                             }}
@@ -196,11 +172,11 @@ const ProfileSection = () => {
                                 borderRadius: `${config.borderRadius}px`,
                               }}
                               selected={selectedIndex === 0}
-                              onClick={event =>
+                              onClick={(event) =>
                                 handleListItemClick(
                                   event,
                                   0,
-                                  '/user/account-profile'
+                                  "/user/account-profile"
                                 )
                               }
                             >
@@ -219,9 +195,9 @@ const ProfileSection = () => {
                               sx={{
                                 borderRadius: `${config.borderRadius}px`,
                               }}
-                              selected={selectedIndex === 2}
-                              onClick={event =>
-                                handleListItemClick(event, 0, '/')
+                              selected={selectedIndex === 1}
+                              onClick={(event) =>
+                                handleListItemClick(event, 1, "/")
                               }
                             >
                               <ListItemIcon>
@@ -240,11 +216,11 @@ const ProfileSection = () => {
                                 borderRadius: `${config.borderRadius}px`,
                               }}
                               selected={selectedIndex === 2}
-                              onClick={event =>
+                              onClick={(event) =>
                                 handleListItemClick(
                                   event,
-                                  0,
-                                  '/my-product/create'
+                                  2,
+                                  "/my-product/create"
                                 )
                               }
                             >

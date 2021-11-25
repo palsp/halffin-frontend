@@ -1,14 +1,14 @@
-import PropTypes from 'prop-types';
-import {forwardRef} from 'react';
+import PropTypes from "prop-types";
+import { forwardRef } from "react";
 
 // material-ui
-import {useTheme} from '@mui/material/styles';
-import {Card, CardContent, CardHeader, Typography} from '@mui/material';
-import {IconArrowRightBar} from '@tabler/icons';
+import { useTheme } from "@mui/material/styles";
+import { Card, CardContent, CardHeader, Typography } from "@mui/material";
+import { IconArrowRightBar } from "@tabler/icons";
 
 // constant
 const headerSX = {
-  '& .MuiCardHeader-action': {mr: 0},
+  "& .MuiCardHeader-action": { mr: 0 },
 };
 
 // ==============================|| CUSTOM MAIN CARD ||============================== //
@@ -20,7 +20,7 @@ const MainCard = forwardRef(
       boxShadow,
       children,
       content = true,
-      contentClass = '',
+      contentClass = "",
       contentSX = {},
       darkTitle,
       secondary,
@@ -39,11 +39,11 @@ const MainCard = forwardRef(
         {...others}
         sx={{
           ...sx,
-          width: '100%',
-          height: '100%',
-          background: 'transparent',
-          paddingLeft: '28px',
-          paddingRight: '28px',
+          width: "100%",
+          height: "100%",
+          background: "transparent",
+          paddingLeft: "28px",
+          paddingRight: "28px",
         }}
       >
         {/* card header and action */}
@@ -54,7 +54,7 @@ const MainCard = forwardRef(
           <CardHeader
             sx={headerSX}
             title={
-              <Typography variant="h3" sx={{color: theme.palette.text.base}}>
+              <Typography variant="h3" sx={{ color: theme.palette.text.base }}>
                 {title}
               </Typography>
             }
