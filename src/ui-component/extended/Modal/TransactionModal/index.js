@@ -1,18 +1,18 @@
-import ReactDOM from "react-dom";
-import { Grid, Typography, CircularProgress } from "@mui/material";
-import { useWeb3 } from "hooks";
-import { makeStyles } from "@mui/styles";
+import ReactDOM from 'react-dom';
+import {Grid, Typography, CircularProgress} from '@mui/material';
+import {useWeb3} from 'hooks';
+import {makeStyles} from '@mui/styles';
 import {
   shortenIfTransactionHash,
   getExplorerTransactionLink,
-} from "@usedapp/core";
-import ProgressModal from "../ProgressModal";
+} from '@usedapp/core';
+import ProgressModal from '../ProgressModal';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   txTag: {
-    textDecoration: "none",
-    color: theme.palette.primary.main,
-    "&:hover": {
+    textDecoration: 'none',
+    color: theme.palette.primary,
+    '&:hover': {
       color: theme.palette.secondary.main,
     },
   },
@@ -30,10 +30,11 @@ const TransactionModal = ({
   totalStep,
   components,
   style = {},
+  sxProgressBar = {},
 }) => {
   const classes = useStyles();
-  const { chainId } = useWeb3();
-  const dom = document.getElementById("tx-modal-overlay");
+  const {chainId} = useWeb3();
+  const dom = document.getElementById('tx-modal-overlay');
 
   return (
     <>
@@ -43,6 +44,7 @@ const TransactionModal = ({
           open={open}
           steps={steps}
           error={error}
+          sxProgessBar={sxProgressBar}
           errorComponent={errorComponent}
           activeStep={activeStep}
           isAbleToClose={error || isComplete()}
@@ -55,22 +57,22 @@ const TransactionModal = ({
                 justifyContent="center"
                 alignItems="center"
               >
-                <Typography sx={{ mt: 2, mb: 1 }} variant="h3">
+                <Typography sx={{mt: 2, mb: 1}} variant="h3">
                   Request Complete
                 </Typography>
-                <Typography sx={{ mt: 2, mb: 1 }} variant="body1">
+                <Typography sx={{mt: 2, mb: 1}} variant="body1">
                   Your product has been created.
                 </Typography>
                 <Typography
-                  sx={{ mt: 2, mb: 1 }}
+                  sx={{mt: 2, mb: 1}}
                   variant="body2"
                   style={{
-                    textOverflow: "ellipsis",
-                    whiteSpace: "nowrap",
-                    display: "inherit",
+                    textOverflow: 'ellipsis',
+                    whiteSpace: 'nowrap',
+                    display: 'inherit',
                   }}
                 >
-                  Transaction hash :{" "}
+                  Transaction hash :{' '}
                   <a
                     className={classes.txTag}
                     href={getExplorerTransactionLink(txhash, chainId)}

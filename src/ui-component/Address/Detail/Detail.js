@@ -1,11 +1,20 @@
+import {Typography} from '@mui/material';
 import styles from './Detail.module.css';
-
-const Detail = ({ title, description }) => {
+import Grid from '@mui/material/Grid';
+const Detail = ({title, description}) => {
   return (
-    <div className={styles.detail}>
-      <h2 className={styles.title}>{title}</h2>
-      <h3 className={styles.description}>{description}</h3>
-    </div>
+    <Grid
+      container
+      direction="row"
+      justifyContent="flex-start"
+      alignItems="center"
+      sx={{padding: '10px'}}
+    >
+      <Typography variant="h3">{title}</Typography>
+      <Typography variant="h5" sx={{paddingLeft: '10px'}}>
+        {description}
+      </Typography>
+    </Grid>
   );
 };
 

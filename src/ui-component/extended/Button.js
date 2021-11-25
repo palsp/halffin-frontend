@@ -1,8 +1,8 @@
-import { Chip } from '@mui/material';
-import { forwardRef } from 'react';
-import { useTheme } from '@mui/material/styles';
+import {Chip} from '@mui/material';
+import {forwardRef} from 'react';
+import {useTheme} from '@mui/material/styles';
 
-const Button = forwardRef(({ children, sx, ...props }, ref) => {
+const Button = forwardRef(({children, sx, ...props}, ref) => {
   const theme = useTheme();
   return (
     <>
@@ -13,6 +13,7 @@ const Button = forwardRef(({ children, sx, ...props }, ref) => {
           alignItems: 'center',
           borderRadius: '10px',
           transition: 'all .2s ease-in-out',
+          borderColor: theme.palette.primary.light,
           border: 'none',
           backgroundColor: theme.palette.primary.main,
           color: theme.palette.text.base,

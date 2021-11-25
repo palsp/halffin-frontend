@@ -2,29 +2,32 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useMoralis } from 'react-moralis';
 // material-ui
-import { Grid } from '@mui/material';
-import TabPanels from 'ui-component/extended/TabPanels';
+import Grid from '@mui/material/Grid';
 // project imports
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 
 import { useAddress } from 'context';
-import { useEscrow, useTransaction, useQuery } from 'hooks';
 import TransactionModal from 'ui-component/extended/Modal/TransactionModal';
 import FormModal from 'ui-component/Address/FormModal';
 import AddressDetail from 'ui-component/Address/AddressDetail';
+import { Typography } from '@mui/material';
 import Button from 'ui-component/extended/Button';
 import { useTheme } from '@mui/material/styles';
+// material-ui
+import TabPanels from 'ui-component/extended/TabPanels';
+// project imports
+import { useEscrow, useTransaction, useQuery } from 'hooks';
 
 const BuyProductPrompt = ({ product, onUpdate }) => {
-  const navigate = useNavigate();
   const theme = useTheme();
-  const { Moralis } = useMoralis();
-  const { signAndSendTransaction, txState, ...txProps } = useTransaction([
-    'Select Shipping Address',
-    'Sign transaction',
-    'Transaction initiated',
-    'Confirmation',
-  ]);
+  const navigate = useNavigate();
+  const { Moralis, user } = useMoralis();
+  const { signAndSendTransaction, txState, ...txProps } = useTransaction(
+    ['Select Shipping Address', 'Sign transaction', 'Transaction initiated', 'Confirmation'],
+    (_state) => {
+      return _state.activeStep === 0 || _state.activeStep === 4;
+    }
+  );
 
   const { queryEqualTo } = useQuery();
   const { handleNextStep, handleOpen, handleError } = txProps;
@@ -157,7 +160,7 @@ const BuyProductPrompt = ({ product, onUpdate }) => {
         components={{
           0: (
             <Grid container direction="column" justifyContent="center" alignItems="center">
-              <h1> Please Check your Shipping Address</h1>
+              <Typography variant="h2"> Please Check your Shipping Address</Typography>
 
               {addingNewAddress && (
                 <FormModal
