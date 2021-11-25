@@ -1,17 +1,18 @@
-import {useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 
 // material-ui
+import Button from 'ui-component/extended/Button';
 import Avatar from '@mui/material/Avatar';
 import Grid from '@mui/material/Grid';
 import MainCard from 'ui-component/cards/MainCard';
-import {useMoralis} from 'react-moralis';
+import { useMoralis } from 'react-moralis';
 import MuiTypography from '@mui/material/Typography';
-import {useAddress, useProduct} from 'context';
-import {useNavigate, useLocation, Navigate} from 'react-router-dom';
+import { useAddress, useProduct } from 'context';
+import { useNavigate, useLocation, Navigate } from 'react-router-dom';
 import ProductList from '../product/ProductList/ProductList';
-import {shortenIfAddress} from '@usedapp/core';
+import { shortenIfAddress } from '@usedapp/core';
 import TabPanels from 'ui-component/extended/TabPanels';
-import {useTheme} from '@mui/material/styles';
+import { useTheme } from '@mui/material/styles';
 import AddressDetail from 'ui-component/Address/AddressDetail';
 import FormModal from 'ui-component/Address/FormModal';
 
@@ -23,31 +24,43 @@ const MY_PRODUCT_LABELS = [
   'Complete',
 ];
 
-const MY_PURCHASE_LABELS = [
-  'Waiting For Shipment',
-  'To Be Delivered',
-  'Complete',
-];
+const MY_PURCHASE_LABELS = ['Waiting For Shipment', 'To Be Delivered', 'Complete'];
 
 const UserProfile = () => {
   const theme = useTheme();
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => {
-    setOpen(true);
+  const [open, setOpen] = useState({});
+  const handleOpen = (addressId) => {
+    setOpen({ [addressId]: true });
   };
-  const handleClose = () => {
-    setOpen(false);
+  const handleClose = (addressId) => {
+    setOpen({ [addressId]: false });
   };
 
-  const {address, getAddress, addAddress} = useAddress();
+  const [deleteOpen, setDeleteOpen] = useState({});
+  const handleDeleteOpen = (addressId) => {
+    setDeleteOpen({ [addressId]: true });
+  };
+  const handleDeleteClose = (addressId) => {
+    setDeleteOpen({ [addressId]: false });
+  };
+
+  const [addingNewAddress, setAddingNewAddress] = useState(false);
+  const handleOpenAddingNewAddress = () => {
+    setAddingNewAddress(true);
+  };
+  const handleCloseAddingNewAddress = () => {
+    setAddingNewAddress(false);
+  };
+  const { addresses, setAddress, getAddress, addAddress, editAddress, deleteAddress } =
+    useAddress();
 
   const [value, setValue] = useState(0);
   const [myPurchaseValue, setMyPurchaseValue] = useState(0);
   const [myProductValue, setMyProductValue] = useState(0);
 
-  const {user, isAuthenticated} = useMoralis();
+  const { user } = useMoralis();
   const navigate = useNavigate();
-  const {state} = useLocation();
+  const { state } = useLocation();
 
   useEffect(() => {
     if (state) {
@@ -56,13 +69,11 @@ const UserProfile = () => {
         state.myPurchaseValue < 3 &&
         setMyPurchaseValue(state.myPurchaseValue);
 
-      state.myProductValue &&
-        state.myProductValue < 4 &&
-        setMyProductValue(state.myProductValue);
+      state.myProductValue && state.myProductValue < 4 && setMyProductValue(state.myProductValue);
     }
   }, [state]);
 
-  const {getProductsOfSeller, getProductsOfBuyer} = useProduct();
+  const { getProductsOfSeller, getProductsOfBuyer } = useProduct();
   useEffect(() => {
     if (!user) {
       navigate('/');
@@ -71,7 +82,7 @@ const UserProfile = () => {
 
   useEffect(() => {
     getAddress();
-  }, [user, open]);
+  }, [user, open, deleteOpen, addingNewAddress]);
 
   let myProductComponents = [];
   let myPurchaseComponents = [];
@@ -83,7 +94,7 @@ const UserProfile = () => {
     const myPurchase = [[], [], []];
 
     // myProduct
-    productsOfSeller.forEach(product => {
+    productsOfSeller.forEach((product) => {
       myProduct[parseInt(product._stage)].push(product);
     });
 
@@ -93,7 +104,7 @@ const UserProfile = () => {
     }));
 
     // myPurchase
-    productsOfBuyers.forEach(product => {
+    productsOfBuyers.forEach((product) => {
       if (product.isWaitForShipping) {
         myPurchase[0].push(product);
       } else if (product.isAbleToCheckTrackingStatus) {
@@ -108,33 +119,26 @@ const UserProfile = () => {
       component: <ProductList products={myPurchase[index]} />,
     }));
   }
+
   return (
     <>
       {!user ? (
         <Navigate to="/" />
       ) : (
-        <MainCard style={{display: 'flex', justifyContent: 'center'}}>
-          <Grid
-            container
-            direction="column"
-            justifyContent="center"
-            alignItems="center"
-          >
+        <MainCard style={{ display: 'flex', justifyContent: 'center' }}>
+          <Grid container direction="column" justifyContent="center" alignItems="center">
             <Avatar
               src="https://picsum.photos/200"
-              sx={{width: 100, height: 100, marginTop: '16px'}}
+              sx={{ width: 100, height: 100, marginTop: '16px' }}
             />
             <MuiTypography
               variant="subtitle1"
               gutterBottom
-              style={{color: theme.palette.text.base, marginTop: '16px'}}
+              style={{ color: theme.palette.text.base, marginTop: '16px' }}
             >
               {shortenIfAddress(user.attributes.ethAddress)}
             </MuiTypography>
-            <MuiTypography
-              variant="subtitle2"
-              style={{color: theme.palette.text.base}}
-            >
+            <MuiTypography variant="subtitle2" style={{ color: theme.palette.text.base }}>
               {user.attributes.createdAt.toString()}
             </MuiTypography>
             <TabPanels
@@ -165,15 +169,57 @@ const UserProfile = () => {
                   label: 'My Address',
                   component: (
                     <>
-                      <FormModal
-                        open={open}
-                        handleOpen={handleOpen}
-                        handleClose={handleClose}
-                        address={address}
-                        addAddress={addAddress}
+                      {addresses.map((address, index) => {
+                        return (
+                          <div key={index}>
+                            <FormModal
+                              index={index + 1}
+                              open={open[address.id]}
+                              deleteOpen={deleteOpen[address.id]}
+                              handleOpen={() => handleOpen(address.id)}
+                              handleClose={() => handleClose(address.id)}
+                              handleDeleteOpen={() => handleDeleteOpen(address.id)}
+                              handleDeleteClose={() => handleDeleteClose(address.id)}
+                              addressId={address.id}
+                              setAddress={setAddress}
+                              address={address.attributes}
+                              modifyAddress={editAddress}
+                              deleteAddress={deleteAddress}
+                            />
+                            <AddressDetail address={address.attributes} />;
+                            <hr />
+                            <br />
+                          </div>
+                        );
+                      })}
+
+                      <Button
+                        variant="contained"
+                        onClick={handleOpenAddingNewAddress}
+                        label={<h4>Add Address</h4>}
+                        style={{ width: '100%' }}
                       />
 
-                      <AddressDetail address={address} />
+                      {addingNewAddress && (
+                        <FormModal
+                          open={addingNewAddress}
+                          handleOpen={handleOpenAddingNewAddress}
+                          handleClose={handleCloseAddingNewAddress}
+                          address={{
+                            firstName: '',
+                            lastName: '',
+                            email: '',
+                            address1: '',
+                            address2: '',
+                            city: '',
+                            state: '',
+                            postalCode: '',
+                            countryCode: '',
+                            phoneNumber: '',
+                          }}
+                          modifyAddress={addAddress}
+                        />
+                      )}
                     </>
                   ),
                 },

@@ -3,7 +3,7 @@ import {Formik, Field, Form, ErrorMessage} from 'formik';
 import * as Yup from 'yup';
 import {Typography, TextField, useTheme} from '@mui/material';
 
-const AddressForm = ({address, addAddress, handleClose}) => {
+const AddressForm = ({address, addressId, modifyAddress, handleClose}) => {
   const theme = useTheme();
   return (
     <Formik
@@ -25,12 +25,17 @@ const AddressForm = ({address, addAddress, handleClose}) => {
         phoneNumber: Yup.string().required('Required'),
       })}
       onSubmit={(values, {setSubmitting}) => {
-        console.log('values', values);
-
-        addAddress(values).then(() => {
-          setSubmitting(false);
-          handleClose();
-        });
+        if (addressId.length > 0) {
+          modifyAddress(values, addressId).then(() => {
+            setSubmitting(false);
+            handleClose();
+          });
+        } else {
+          modifyAddress(values).then(() => {
+            setSubmitting(false);
+            handleClose();
+          });
+        }
       }}
     >
       {props => (

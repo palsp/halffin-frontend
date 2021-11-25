@@ -1,4 +1,5 @@
-import {Box, Modal, useTheme} from '@mui/material';
+import {Box, Modal} from '@mui/material';
+import Button from 'ui-component/extended/Button';
 import AddressForm from './AddressForm';
 import {Typography} from '@mui/material';
 import Button from 'ui-component/extended/Button';
@@ -24,57 +25,141 @@ const closeButtonStyle = {
   justifyContent: 'flex-end',
 };
 
-const FormModal = ({open, handleOpen, handleClose, address, addAddress}) => {
-  const theme = useTheme();
+const FormModal = ({
+  index = null,
+  open,
+  deleteOpen,
+  handleOpen,
+  handleClose,
+  handleDeleteOpen,
+  handleDeleteClose,
+  address,
+  modifyAddress,
+  deleteAddress,
+  addressId = '',
+}) => {
   return (
     <>
       <div
-        style={{display: 'flex', justifyContent: 'left', alignItems: 'left'}}
+        style={{
+          display: 'flex',
+          justifyContent: `${index ? 'space-between' : 'right'}`,
+          alignItems: 'left',
+        }}
       >
-        <Button
-          onClick={handleOpen}
-          label={<Typography>Edit Address</Typography>}
-          icon={<EditIcon fontSize="small" />}
-          sx={{
-            backgroundColor: 'transparent',
-            margin: '14px',
-            color: theme.palette.text.card,
-            '.MuiChip-icon': {
-              color: theme.palette.text.card,
-            },
-            '&:hover': {
-              background: 'rgba(3, 4, 94, 0.04)!important',
-              color: `${theme.palette.primary.main}!important`,
-              '& svg': {
-                color: theme.palette.primary.main,
-                stroke: theme.palette.primary.main,
-              },
-            },
-          }}
-        />
+        {index && (
+          <Button
+            style={{
+              height: '2.4vh',
+              borderRadius: '20px',
+            }}
+            variant="contained"
+            label={<h4>{index}</h4>}
+          />
+        )}
+        <div>
+          <Button
+            style={{
+              height: '2.4vh',
+              borderRadius: '5px',
+            }}
+            variant="contained"
+            onClick={handleOpen}
+            label={<h4>Edit Address</h4>}
+          />
+          <Button
+            style={{
+              marginLeft: '5px',
+              height: '2.4vh',
+              borderRadius: '5px',
+              backgroundColor: 'rgb(180,0,0)',
+            }}
+            variant="contained"
+            onClick={handleDeleteOpen}
+            label={<h4>Delete</h4>}
+          />
+        </div>
       </div>
+
+      <Modal
+        open={deleteOpen}
+        onClose={handleDeleteClose}
+        aria-labelledby="parent-modal-title"
+        aria-describedby="parent-modal-description"
+      >
+        <Box
+          sx={{
+            ...style,
+            color: 'white',
+            background:
+              'linear-gradient(136deg, #1e2f97 0%, #797ef6 50%, #1aa7ec 100%)',
+          }}
+        >
+          <>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                flexDirection: 'column',
+                alighItems: 'center',
+                marginBottom: '5px',
+              }}
+            >
+              <h1 style={{marginBottom: '50px'}}>
+                Do you sure you want to delete this address ?
+              </h1>
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  flexDirection: 'row',
+                }}
+              >
+                <Button
+                  style={{width: '30%', height: '4vh', marginRight: '20px'}}
+                  variant="contained"
+                  onClick={handleDeleteClose}
+                  label={<h4>Cancel</h4>}
+                />
+
+                <Button
+                  style={{width: '30%', height: '4vh', backgroundColor: 'red'}}
+                  variant="contained"
+                  onClick={async () => {
+                    await deleteAddress(addressId);
+                    handleDeleteClose();
+                  }}
+                  label={<h4>Delete</h4>}
+                />
+              </div>
+            </div>
+          </>
+        </Box>
+      </Modal>
       <Modal
         open={open}
         onClose={handleClose}
         aria-labelledby="parent-modal-title"
         aria-describedby="parent-modal-description"
       >
-        <Box sx={{...style}}>
+        <Box
+          sx={{
+            ...style,
+            color: 'white',
+            background:
+              'linear-gradient(136deg, #1e2f97 0%, #797ef6 50%, #1aa7ec 100%)',
+          }}
+        >
           <div style={{...closeButtonStyle}}>
             <Button
-              onClick={handleClose}
-              icon={<CloseIcon color="black" />}
-              sx={{
+              style={{
+                height: '3vh',
+                color: '#03045e',
                 backgroundColor: 'transparent',
-                '& svg': {
-                  color: `${theme.palette.primary.main}!important`,
-                  stroke: theme.palette.primary.main,
-                },
-                '&:hover': {
-                  backgroundColor: 'transparent!important',
-                  color: `${theme.palette.primary.main}!important`,
-                },
               }}
+              variant="contained"
+              onClick={handleClose}
+              label={<h4>Cancel</h4>}
             />
           </div>
           <>
@@ -92,7 +177,8 @@ const FormModal = ({open, handleOpen, handleClose, address, addAddress}) => {
             <AddressForm
               handleClose={handleClose}
               address={address}
-              addAddress={addAddress}
+              addressId={addressId}
+              modifyAddress={modifyAddress}
             />
           </>
         </Box>

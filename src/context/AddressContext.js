@@ -22,6 +22,7 @@ const AddressContext = createContext({
 const AddressProvider = ({ children }) => {
   const { Moralis, user } = useMoralis();
 
+  const [addresses, setAddresses] = useState([]);
   const [address, setAddress] = useState({
     firstName: '',
     lastName: '',
@@ -44,21 +45,9 @@ const AddressProvider = ({ children }) => {
       const query = new Moralis.Query(Address);
       query.equalTo('userId', user.id);
 
-      const res = await query.first();
+      const addresses = await query.find();
 
-      const addr = {
-        firstName: res.attributes.firstName,
-        lastName: res.attributes.lastName,
-        email: res.attributes.email,
-        address1: res.attributes.address1,
-        address2: res.attributes.address2,
-        city: res.attributes.city,
-        state: res.attributes.state,
-        postalCode: res.attributes.postalCode,
-        countryCode: res.attributes.countryCode,
-        phoneNumber: res.attributes.phoneNumber,
-      };
-      setAddress(addr);
+      setAddresses(addresses);
     } catch (err) {
       console.log('Error cont', err.message);
     }
@@ -66,7 +55,31 @@ const AddressProvider = ({ children }) => {
 
   const addAddress = async (address) => {
     try {
-      const res = await Moralis.Cloud.run('addAddress', address);
+      await Moralis.Cloud.run('addAddress', address);
+    } catch (err) {
+      console.log('Error', err.message);
+    }
+  };
+
+  const editAddress = async (address, addressId) => {
+    try {
+      await Moralis.Cloud.run('editAddress', {
+        address,
+        addressId,
+      });
+    } catch (err) {
+      console.log('Error', err.message);
+    }
+  };
+
+  const deleteAddress = async (addressId) => {
+    console.log('here delete');
+
+    try {
+      const res = await Moralis.Cloud.run('deleteAddress', {
+        addressId,
+      });
+      console.log('resa', res);
     } catch (err) {
       console.log('Error', err.message);
     }
@@ -80,9 +93,13 @@ const AddressProvider = ({ children }) => {
     <AddressContext.Provider
       value={{
         address,
+        addresses,
+        setAddresses,
         setAddress,
-        addAddress,
         getAddress,
+        addAddress,
+        editAddress,
+        deleteAddress,
       }}
     >
       {children}

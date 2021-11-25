@@ -14,10 +14,12 @@ const Button = forwardRef(({children, sx, ...props}, ref) => {
           borderRadius: '10px',
           transition: 'all .2s ease-in-out',
           borderColor: theme.palette.primary.light,
+          border: 'none',
           backgroundColor: theme.palette.primary.main,
           color: theme.palette.text.base,
           '&[aria-controls="menu-list-grow"], &:hover': {
             background: `${theme.palette.primary.light}!important`,
+            color: theme.palette.primary.main,
             '& svg': {
               stroke: theme.palette.primary.light,
             },
