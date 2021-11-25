@@ -88,25 +88,64 @@ Moralis.Cloud.define(
 );
 
 Moralis.Cloud.define(
-  'allowPermissionToUserId',
+  'generateTransaction',
   async (request) => {
     try {
-      await setReadACL({
-        className: 'Address',
-        attr: 'userId',
-        target: request.user.id,
-        allowId: request.params.targetId,
-        state: true,
-      });
+      const Transaction = Moralis.Object.extend('Transaction');
 
-      return { success: true };
+      const transaciton = new Transaction();
+      const transactionACL = new Moralis.ACL(request.user);
+      transaciton.setACL(transactionACL);
+
+      const tx = await transaciton.save(
+        { ...request.params, userId: request.user.id },
+        { useMasterKey: true }
+      );
+
+      return tx;
     } catch (err) {
       return { success: false, error: err.message };
     }
   },
   {
     fields: {
-      targetId: String,
+      contractAddress: String,
+      addressId: String,
+    },
+  },
+  validationRules
+);
+
+Moralis.Cloud.define(
+  'allowPermissionToUserId',
+  async (request) => {
+    try {
+      await setReadACL({
+        className: 'Address',
+        attr: 'objectId',
+        target: request.params.addressId,
+        allowId: request.params.targetUserId,
+        state: true,
+      });
+
+      await setReadACL({
+        className: 'Transaction',
+        attr: 'objectId',
+        target: request.params.transactionId,
+        allowId: request.params.targetUserId,
+        state: true,
+      });
+
+      return { success: true, t: request.params };
+    } catch (err) {
+      return { success: false, error: err.message };
+    }
+  },
+  {
+    fields: {
+      targetUserId: String,
+      addressId: String,
+      transactionId: String,
     },
   },
   validationRules

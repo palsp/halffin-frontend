@@ -56,11 +56,27 @@ const SellerView = ({ onUpdate, product }) => {
 
   const getBuyerAddress = async () => {
     try {
-      const buyer = await Moralis.Cloud.run('getUserByEthAddress', {
-        targetEthAddr: product.buyer,
+      // const buyer = await Moralis.Cloud.run('getUserByEthAddress', {
+      //   targetEthAddr: product.buyer,
+      // });
+      // const res = await queryEqualTo({ className: 'Address', attr: 'userId', target: buyer.id });
+
+      const transaction = await queryEqualTo({
+        className: 'Transaction',
+        attr: 'contractAddress',
+        target: product.address,
       });
-      const res = await queryEqualTo({ className: 'Address', attr: 'userId', target: buyer.id });
-      setBuyerAddress(res.attributes);
+
+      console.log('txx ass', transaction, product.address);
+
+      const address = await queryEqualTo({
+        className: 'Address',
+        attr: 'objectId',
+        target: transaction.attributes.addressId,
+      });
+
+      console.log('addresw', address);
+      setBuyerAddress(address.attributes);
     } catch (err) {
       txProps.handleError(err);
     }
