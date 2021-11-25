@@ -56,7 +56,7 @@ const AddressForm = ({ address, addressId, modifyAddress, handleClose }) => {
             <label className={styles.label} htmlFor="address1">
               Address Line 1
             </label>
-            <Field className={styles.field} name="address1" as="textarea" />
+            <Field className={styles.field} name="address1" type="text" />
             <ErrorMessage
               name="address1"
               render={(msg) => <div className={styles.errorMessage}>{msg}</div>}
@@ -65,7 +65,7 @@ const AddressForm = ({ address, addressId, modifyAddress, handleClose }) => {
             <label className={styles.label} htmlFor="address2">
               Address Line 2
             </label>
-            <Field className={styles.field} name="address2" as="textarea" />
+            <Field className={styles.field} name="address2" type="text" />
             <ErrorMessage
               name="address2"
               render={(msg) => <div className={styles.errorMessage}>{msg}</div>}
@@ -133,6 +133,8 @@ const AddressForm = ({ address, addressId, modifyAddress, handleClose }) => {
           <button className={styles.button} type="submit">
             Submit
           </button>
+
+          {/* <Button variant="contained" onClick={Formik.onSubmit} label={<h4>Submit</h4>} /> */}
         </div>
       </Form>
     </Formik>

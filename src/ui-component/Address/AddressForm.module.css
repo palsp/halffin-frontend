@@ -31,19 +31,28 @@
 
 .errorMessage {
   color: red;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-top: -10px;
+  margin-left: 5px;
+  margin-bottom: 10px;
 }
 
 .label {
-  font-size: 1.4vw;
-  color: #b09880;
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: white;
 }
 
 .field {
-  margin: 5px;
-  font-size: 20px;
   border-radius: 5px;
+  border: 3px solid #a2f1f7;
   padding: 10px;
   height: 40px;
+  font-size: 1.2rem;
+  margin-top: 7px;
+  margin-bottom: 15px;
+  color: #03045e;
 }
 
 .centered {
@@ -58,11 +67,15 @@
   margin: 20px;
   width: 70%;
   height: 40px;
-  background-color: #9580b0;
+  color: white;
+  background-color: #03045e;
+  font-weight: 600;
+  font-size: 1.1rem;
 }
 
 .button:hover,
 .button:active {
   cursor: pointer;
-  background-color: #858585;
+  color: #03045e;
+  background-color: #a2f1f7;
 }
