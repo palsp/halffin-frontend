@@ -2,13 +2,13 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useMoralis } from 'react-moralis';
 // material-ui
-import { Grid, Button } from '@mui/material';
+import { Grid } from '@mui/material';
 import TabPanels from 'ui-component/extended/TabPanels';
 // project imports
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 
 import { useAddress } from 'context';
-import { useEscrow, useTransaction } from 'hooks';
+import { useEscrow, useTransaction, useQuery } from 'hooks';
 import TransactionModal from 'ui-component/extended/Modal/TransactionModal';
 import FormModal from 'ui-component/Address/FormModal';
 import AddressDetail from 'ui-component/Address/AddressDetail';
@@ -18,8 +18,7 @@ import { useTheme } from '@mui/material/styles';
 const BuyProductPrompt = ({ product, onUpdate }) => {
   const navigate = useNavigate();
   const theme = useTheme();
-  const { Moralis, user } = useMoralis();
-  const [modalOpen, setModalOpen] = useState(false);
+  const { Moralis } = useMoralis();
   const { signAndSendTransaction, txState, ...txProps } = useTransaction([
     'Select Shipping Address',
     'Sign transaction',
@@ -27,6 +26,7 @@ const BuyProductPrompt = ({ product, onUpdate }) => {
     'Confirmation',
   ]);
 
+  const { queryEqualTo } = useQuery();
   const { handleNextStep, handleOpen, handleError } = txProps;
   const { addresses, getAddress, editAddress } = useAddress();
   const [addrIndex, setAddrIndex] = useState(0);
@@ -132,7 +132,6 @@ const BuyProductPrompt = ({ product, onUpdate }) => {
                   };
                 })}
               />
-              {<AddressDetail address={address} />}
               <Button onClick={handleEnterShippingAddress} label={<h4>Continue</h4>} />
             </Grid>
           ),
