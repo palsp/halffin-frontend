@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import { Formik, Field, Form, ErrorMessage } from 'formik';
+import React, {useState} from 'react';
+import {Formik, Field, Form, ErrorMessage} from 'formik';
 import * as Yup from 'yup';
-import { useMoralis } from 'react-moralis';
+import {useMoralis} from 'react-moralis';
 
 const TestForm = () => {
-  const { Moralis } = useMoralis();
+  const {Moralis} = useMoralis();
 
   const [address, setAddress] = useState({
     firstName: '',
@@ -19,7 +19,7 @@ const TestForm = () => {
     phoneNumber: '',
   });
 
-  const addAddress = async (address) => {
+  const addAddress = async address => {
     try {
       const res = await Moralis.Cloud.run('addAddress', address);
 
@@ -61,9 +61,15 @@ const TestForm = () => {
       <Formik
         initialValues={address}
         validationSchema={Yup.object({
-          firstName: Yup.string().max(15, 'Must be 15 characters or less').required('Required'),
-          lastName: Yup.string().max(20, 'Must be 20 characters or less').required('Required'),
-          email: Yup.string().email('Invalid email address').required('Required'),
+          firstName: Yup.string()
+            .max(15, 'Must be 15 characters or less')
+            .required('Required'),
+          lastName: Yup.string()
+            .max(20, 'Must be 20 characters or less')
+            .required('Required'),
+          email: Yup.string()
+            .email('Invalid email address')
+            .required('Required'),
           address1: Yup.string().required('Required'),
           address2: Yup.string(),
           city: Yup.string().required('Required'),
@@ -72,7 +78,7 @@ const TestForm = () => {
           countryCode: Yup.string().required('Required'),
           phoneNumber: Yup.string().required('Required'),
         })}
-        onSubmit={(values, { setSubmitting }) => {
+        onSubmit={(values, {setSubmitting}) => {
           console.log('values', values);
 
           addAddress(values).then(() => {

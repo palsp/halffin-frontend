@@ -1,44 +1,53 @@
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useMoralis } from 'react-moralis';
+import {useState, useEffect} from 'react';
+import {useNavigate} from 'react-router-dom';
+import {useMoralis} from 'react-moralis';
 // material-ui
-import { Grid } from '@mui/material';
-import TabPanels from 'ui-component/extended/TabPanels';
+import Grid from '@mui/material/Grid';
 // project imports
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 
-import { useAddress } from 'context';
-import { useEscrow, useTransaction, useQuery } from 'hooks';
+import {useAddress} from 'context';
 import TransactionModal from 'ui-component/extended/Modal/TransactionModal';
 import FormModal from 'ui-component/Address/FormModal';
 import AddressDetail from 'ui-component/Address/AddressDetail';
+import {Typography} from '@mui/material';
 import Button from 'ui-component/extended/Button';
-import { useTheme } from '@mui/material/styles';
+import {useTheme} from '@mui/material/styles';
+// material-ui
+import TabPanels from 'ui-component/extended/TabPanels';
+// project imports
+import {useEscrow, useTransaction, useQuery} from 'hooks';
 
-const BuyProductPrompt = ({ product, onUpdate }) => {
-  const navigate = useNavigate();
+const BuyProductPrompt = ({product, onUpdate}) => {
   const theme = useTheme();
-  const { Moralis } = useMoralis();
-  const { signAndSendTransaction, txState, ...txProps } = useTransaction([
-    'Select Shipping Address',
-    'Sign transaction',
-    'Transaction initiated',
-    'Confirmation',
-  ]);
+  const navigate = useNavigate();
+  const {Moralis, user} = useMoralis();
+  const {signAndSendTransaction, txState, ...txProps} = useTransaction(
+    [
+      'Select Shipping Address',
+      'Sign transaction',
+      'Transaction initiated',
+      'Confirmation',
+    ],
+    _state => {
+      return _state.activeStep === 0 || _state.activeStep === 4;
+    }
+  );
 
-  const { queryEqualTo } = useQuery();
-  const { handleNextStep, handleOpen, handleError } = txProps;
-  const { addresses, getAddress, addAddress, editAddress, deleteAddress } = useAddress();
+  const {queryEqualTo} = useQuery();
+  const {handleNextStep, handleOpen, handleError} = txProps;
+  const {addresses, getAddress, addAddress, editAddress, deleteAddress} =
+    useAddress();
   const [addrIndex, setAddrIndex] = useState(0);
 
-  const { order } = useEscrow();
+  const {order} = useEscrow();
 
   const [modalOpen, setModalOpen] = useState({});
-  const handleModalOpen = (addressId) => {
-    setModalOpen({ [addressId]: true });
+  const handleModalOpen = addressId => {
+    setModalOpen({[addressId]: true});
   };
-  const handleModalClose = (addressId) => {
-    setModalOpen({ [addressId]: false });
+  const handleModalClose = addressId => {
+    setModalOpen({[addressId]: false});
   };
 
   const [addingNewAddress, setAddingNewAddress] = useState(false);
@@ -50,11 +59,11 @@ const BuyProductPrompt = ({ product, onUpdate }) => {
   };
 
   const [deleteModalOpen, setDeleteModalOpen] = useState({});
-  const handleDeleteOpen = (addressId) => {
-    setDeleteModalOpen({ [addressId]: true });
+  const handleDeleteOpen = addressId => {
+    setDeleteModalOpen({[addressId]: true});
   };
-  const handleDeleteClose = (addressId) => {
-    setDeleteModalOpen({ [addressId]: false });
+  const handleDeleteClose = addressId => {
+    setDeleteModalOpen({[addressId]: false});
   };
 
   const allowSellerAddressPermission = async () => {
@@ -134,7 +143,7 @@ const BuyProductPrompt = ({ product, onUpdate }) => {
     await signAndSendTransaction(() => order(product.address, product.price));
     await onUpdate(product.id);
     // navigate to my purchase
-    navigate('/user/account-profile', { state: { value: 1 } });
+    navigate('/user/account-profile', {state: {value: 1}});
   };
 
   useEffect(() => {
@@ -146,11 +155,19 @@ const BuyProductPrompt = ({ product, onUpdate }) => {
       <TransactionModal
         {...txState}
         {...txProps}
-        style={{ width: '1000px', height: '150px' }}
+        style={{width: '1000px', height: '150px'}}
         components={{
           0: (
-            <Grid container direction="column" justifyContent="center" alignItems="center">
-              <h1> Please Check your Shipping Address</h1>
+            <Grid
+              container
+              direction="column"
+              justifyContent="center"
+              alignItems="center"
+            >
+              <Typography variant="h2">
+                {' '}
+                Please Check your Shipping Address
+              </Typography>
 
               {addingNewAddress && (
                 <FormModal
@@ -187,7 +204,9 @@ const BuyProductPrompt = ({ product, onUpdate }) => {
                           handleOpen={() => handleModalOpen(address.id)}
                           handleClose={() => handleModalClose(address.id)}
                           handleDeleteOpen={() => handleDeleteOpen(address.id)}
-                          handleDeleteClose={() => handleDeleteClose(address.id)}
+                          handleDeleteClose={() =>
+                            handleDeleteClose(address.id)
+                          }
                           addressId={address.id}
                           address={address.attributes}
                           modifyAddress={editAddress}
@@ -200,8 +219,14 @@ const BuyProductPrompt = ({ product, onUpdate }) => {
                   };
                 })}
               />
-              <Button onClick={handleEnterShippingAddress} label={<h4>Continue</h4>} />
-              <Button onClick={allowSellerAddressPermission} label={<h4>Test</h4>} />
+              <Button
+                onClick={handleEnterShippingAddress}
+                label={<h4>Continue</h4>}
+              />
+              <Button
+                onClick={allowSellerAddressPermission}
+                label={<h4>Test</h4>}
+              />
             </Grid>
           ),
         }}
