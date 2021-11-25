@@ -28,7 +28,7 @@ const BuyProductPrompt = ({ product, onUpdate }) => {
 
   const { queryEqualTo } = useQuery();
   const { handleNextStep, handleOpen, handleError } = txProps;
-  const { addresses, getAddress, editAddress } = useAddress();
+  const { addresses, getAddress, addAddress, editAddress, deleteAddress } = useAddress();
   const [addrIndex, setAddrIndex] = useState(0);
 
   const { order } = useEscrow();
@@ -41,41 +41,84 @@ const BuyProductPrompt = ({ product, onUpdate }) => {
     setModalOpen({ [addressId]: false });
   };
 
+  const [addingNewAddress, setAddingNewAddress] = useState(false);
+  const handleOpenAddingNewAddress = () => {
+    setAddingNewAddress(true);
+  };
+  const handleCloseAddingNewAddress = () => {
+    setAddingNewAddress(false);
+  };
+
+  const [deleteModalOpen, setDeleteModalOpen] = useState({});
+  const handleDeleteOpen = (addressId) => {
+    setDeleteModalOpen({ [addressId]: true });
+  };
+  const handleDeleteClose = (addressId) => {
+    setDeleteModalOpen({ [addressId]: false });
+  };
+
   const allowSellerAddressPermission = async () => {
-    const seller = await Moralis.Cloud.run('getUserByEthAddress', {
-      targetEthAddr: product.owner,
-    });
+    try {
+      const {
+        firstName,
+        lastName,
+        email,
+        address1,
+        address2,
+        city,
+        state,
+        postalCode,
+        countryCode,
+        phoneNumber,
+      } = addresses[addrIndex].attributes;
+      console.log(product.address);
+      const transaction = await Moralis.Cloud.run('generateTransaction', {
+        contractAddress: product.address,
+        // addressId: addresses[addrIndex].id,
+        address: {
+          firstName,
+          lastName,
+          email,
+          address1,
+          address2,
+          city,
+          state,
+          postalCode,
+          countryCode,
+          phoneNumber,
+        },
+      });
+      console.log('tx', transaction);
 
-    const transaction = await Moralis.Cloud.run('generateTransaction', {
-      contractAddress: product.address,
-      addressId: addresses[addrIndex].id,
-    });
-    const res = await Moralis.Cloud.run('allowPermissionToUserId', {
-      targetUserId: seller.id,
-      addressId: addresses[addrIndex].id,
-      transactionId: transaction.id,
-    });
+      const seller = await Moralis.Cloud.run('getUserByEthAddress', {
+        targetEthAddr: product.owner,
+      });
 
-    return res;
+      const res = await Moralis.Cloud.run('allowPermissionToUserId', {
+        targetUserId: seller.id,
+        addressId: addresses[addrIndex].id,
+        transactionId: transaction.id,
+      });
+      console.log('res', res);
+      return res;
+    } catch (err) {
+      console.log('err', err.message);
+    }
   };
 
   const handleEnterShippingAddress = async () => {
     // check if user really have shipping address
     try {
-      const addr = await queryEqualTo({
-        className: 'Address',
-        attr: 'objectId',
-        target: addresses[addrIndex].id,
-      });
+      if (addresses.length === 0) {
+        handleOpenAddingNewAddress();
+        return;
+      }
 
-      if (!addr) {
-        setModalOpen(true);
-        return;
-      }
-      if (addr.attributes.firstName.length === 0) {
-        setModalOpen(true);
-        return;
-      }
+      // const addr = await queryEqualTo({
+      //   className: 'Address',
+      //   attr: 'objectId',
+      //   target: addresses[addrIndex].id,
+      // });
 
       handleNextStep();
       await handleBuy();
@@ -96,7 +139,7 @@ const BuyProductPrompt = ({ product, onUpdate }) => {
 
   useEffect(() => {
     getAddress();
-  }, [modalOpen]);
+  }, [modalOpen, deleteModalOpen, addingNewAddress]);
 
   return (
     <>
@@ -109,6 +152,27 @@ const BuyProductPrompt = ({ product, onUpdate }) => {
             <Grid container direction="column" justifyContent="center" alignItems="center">
               <h1> Please Check your Shipping Address</h1>
 
+              {addingNewAddress && (
+                <FormModal
+                  open={addingNewAddress}
+                  handleOpen={handleOpenAddingNewAddress}
+                  handleClose={handleCloseAddingNewAddress}
+                  address={{
+                    firstName: '',
+                    lastName: '',
+                    email: '',
+                    address1: '',
+                    address2: '',
+                    city: '',
+                    state: '',
+                    postalCode: '',
+                    countryCode: '',
+                    phoneNumber: '',
+                  }}
+                  modifyAddress={addAddress}
+                />
+              )}
+
               <TabPanels
                 value={addrIndex}
                 onChange={(e, index) => setAddrIndex(index)}
@@ -119,11 +183,15 @@ const BuyProductPrompt = ({ product, onUpdate }) => {
                       <div>
                         <FormModal
                           open={modalOpen[address.id]}
+                          deleteOpen={deleteModalOpen[address.id]}
                           handleOpen={() => handleModalOpen(address.id)}
                           handleClose={() => handleModalClose(address.id)}
+                          handleDeleteOpen={() => handleDeleteOpen(address.id)}
+                          handleDeleteClose={() => handleDeleteClose(address.id)}
                           addressId={address.id}
                           address={address.attributes}
                           modifyAddress={editAddress}
+                          deleteAddress={deleteAddress}
                         />
                         <h3>{index + 1} </h3>
                         <AddressDetail address={address.attributes} />
@@ -133,6 +201,7 @@ const BuyProductPrompt = ({ product, onUpdate }) => {
                 })}
               />
               <Button onClick={handleEnterShippingAddress} label={<h4>Continue</h4>} />
+              <Button onClick={allowSellerAddressPermission} label={<h4>Test</h4>} />
             </Grid>
           ),
         }}
