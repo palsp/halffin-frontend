@@ -2,7 +2,6 @@ import {Box, Modal} from '@mui/material';
 import Button from 'ui-component/extended/Button';
 import AddressForm from './AddressForm';
 import {Typography} from '@mui/material';
-import Button from 'ui-component/extended/Button';
 import CloseIcon from '@mui/icons-material/Close';
 import EditIcon from '@mui/icons-material/Edit';
 const style = {
