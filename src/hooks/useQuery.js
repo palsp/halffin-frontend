@@ -1,5 +1,3 @@
-import { useState, useEffect } from 'react';
-
 import { useMoralis } from 'react-moralis';
 
 const useQuery = () => {

@@ -16,33 +16,101 @@ Moralis.Cloud.define(
 );
 
 Moralis.Cloud.define(
-  'addAddress',
+  'editAddress',
   async (request) => {
+    const { addressId, address: newAddress } = request.params;
+    const {
+      firstName,
+      lastName,
+      email,
+      address1,
+      address2,
+      city,
+      state,
+      postalCode,
+      countryCode,
+      phoneNumber,
+    } = newAddress;
     const Address = Moralis.Object.extend('Address');
 
     const query = new Moralis.Query(Address);
-    query.equalTo('userId', request.user.id);
+    query.equalTo('objectId', addressId);
+
     const address = await query.first({ useMasterKey: true });
-
-    // ADD
     if (!address) {
-      const address = new Address();
-      const addressACL = new Moralis.ACL(request.user);
-      address.setACL(addressACL);
-
-      await address.save({ ...request.params, userId: request.user.id }, { useMasterKey: true });
-      return { success: true };
-
-      // EDIT
-    } else {
-      await address.save({ ...request.params }, { useMasterKey: true });
-
-      return { success: true };
+      return { success: false, message: 'No address found' };
     }
+
+    await address.save(
+      {
+        firstName,
+        lastName,
+        email,
+        address1,
+        address2,
+        city,
+        state,
+        postalCode,
+        countryCode,
+        phoneNumber,
+      },
+      { useMasterKey: true }
+    );
+    return { success: true };
   },
   {
     fields: {
       address: Address,
+      addressId: String,
+    },
+  },
+  validationRules
+);
+
+Moralis.Cloud.define(
+  'addAddress',
+  async (request) => {
+    const Address = Moralis.Object.extend('Address');
+
+    const address = new Address();
+    const addressACL = new Moralis.ACL(request.user);
+    address.setACL(addressACL);
+
+    await address.save({ ...request.params, userId: request.user.id }, { useMasterKey: true });
+    return { success: true };
+  },
+  {
+    fields: {
+      address: Address,
+    },
+  },
+  validationRules
+);
+
+Moralis.Cloud.define(
+  'generateTransaction',
+  async (request) => {
+    try {
+      const Transaction = Moralis.Object.extend('Transaction');
+
+      const transaciton = new Transaction();
+      const transactionACL = new Moralis.ACL(request.user);
+      transaciton.setACL(transactionACL);
+
+      const tx = await transaciton.save(
+        { ...request.params, userId: request.user.id },
+        { useMasterKey: true }
+      );
+
+      return tx;
+    } catch (err) {
+      return { success: false, error: err.message };
+    }
+  },
+  {
+    fields: {
+      contractAddress: String,
+      addressId: String,
     },
   },
   validationRules
@@ -54,20 +122,30 @@ Moralis.Cloud.define(
     try {
       await setReadACL({
         className: 'Address',
-        attr: 'userId',
-        target: request.user.id,
-        allowId: request.params.targetId,
+        attr: 'objectId',
+        target: request.params.addressId,
+        allowId: request.params.targetUserId,
         state: true,
       });
 
-      return { success: true };
+      await setReadACL({
+        className: 'Transaction',
+        attr: 'objectId',
+        target: request.params.transactionId,
+        allowId: request.params.targetUserId,
+        state: true,
+      });
+
+      return { success: true, t: request.params };
     } catch (err) {
       return { success: false, error: err.message };
     }
   },
   {
     fields: {
-      targetId: String,
+      targetUserId: String,
+      addressId: String,
+      transactionId: String,
     },
   },
   validationRules
