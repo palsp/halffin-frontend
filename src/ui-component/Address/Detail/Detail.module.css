@@ -4,10 +4,11 @@
 }
 
 .title {
-  font-size: 1.4vw;
-  color: #b09880;
+  font-size: 1.2rem;
+  color: #a2f1f7;
 }
 
 .description {
-  font-size: 1.3vw;
+  font-size: 1.1rem;
+  color: white;
 }

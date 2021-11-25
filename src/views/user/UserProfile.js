@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 
 // material-ui
+import Button from 'ui-component/extended/Button';
 import Avatar from '@mui/material/Avatar';
 import Grid from '@mui/material/Grid';
 import MainCard from 'ui-component/cards/MainCard';
@@ -163,6 +164,7 @@ const UserProfile = () => {
                         return (
                           <div key={index}>
                             <FormModal
+                              index={index + 1}
                               open={open[address.id]}
                               handleOpen={() => handleOpen(address.id)}
                               handleClose={() => handleClose(address.id)}
@@ -171,13 +173,20 @@ const UserProfile = () => {
                               address={address.attributes}
                               modifyAddress={editAddress}
                             />
-                            <h3>{index + 1} </h3>
                             <AddressDetail address={address.attributes} />;
+                            <hr />
+                            <br />
                           </div>
                         );
                       })}
 
-                      <button onClick={handleOpenAddingNewAddress}>Add Address</button>
+                      <Button
+                        variant="contained"
+                        onClick={handleOpenAddingNewAddress}
+                        label={<h4>Add Address</h4>}
+                        style={{ width: '100%' }}
+                      />
+
                       {addingNewAddress && (
                         <FormModal
                           open={addingNewAddress}

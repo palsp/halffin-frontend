@@ -1,4 +1,5 @@
-import { Box, Button, Modal } from '@mui/material';
+import { Box, Modal } from '@mui/material';
+import Button from 'ui-component/extended/Button';
 import AddressForm from './AddressForm';
 
 const style = {
@@ -21,11 +22,43 @@ const closeButtonStyle = {
   justifyContent: 'flex-end',
 };
 
-const FormModal = ({ open, handleOpen, handleClose, address, modifyAddress, addressId = '' }) => {
+const FormModal = ({
+  index = null,
+  open,
+  handleOpen,
+  handleClose,
+  address,
+  modifyAddress,
+  addressId = '',
+}) => {
   return (
     <>
-      <div style={{ display: 'flex', justifyContent: 'left', alignItems: 'left' }}>
-        <Button onClick={handleOpen}>Edit Address</Button>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: `${index ? 'space-between' : 'right'}`,
+          alignItems: 'left',
+        }}
+      >
+        {index && (
+          <Button
+            style={{
+              height: '2.4vh',
+              borderRadius: '20px',
+            }}
+            variant="contained"
+            label={<h4>{index}</h4>}
+          />
+        )}
+        <Button
+          style={{
+            height: '2.4vh',
+            borderRadius: '5px',
+          }}
+          variant="contained"
+          onClick={handleOpen}
+          label={<h4>Edit Address</h4>}
+        />
       </div>
       <Modal
         open={open}
@@ -35,7 +68,7 @@ const FormModal = ({ open, handleOpen, handleClose, address, modifyAddress, addr
       >
         <Box sx={{ ...style }}>
           <div style={{ ...closeButtonStyle }}>
-            <Button onClick={handleClose}>Cancel</Button>
+            <Button variant="contained" onClick={handleClose} label={<h4>Cancel</h4>} />
           </div>
           <>
             <div
