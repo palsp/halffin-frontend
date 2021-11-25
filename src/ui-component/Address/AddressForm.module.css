@@ -30,7 +30,7 @@
 }
 
 .errorMessage {
-  color: rgb(255, 0, 0);
+  color: red;
   font-size: 1.1rem;
   font-weight: 600;
   margin-top: -10px;
@@ -39,7 +39,7 @@
 }
 
 .label {
-  font-size: 1.4vw;
+  font-size: 1.4rem;
   font-weight: 500;
   color: white;
 }
