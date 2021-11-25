@@ -63,6 +63,7 @@ const SellerView = ({ onUpdate, product }) => {
         className: 'Transaction',
         attr: 'contractAddress',
         target: product.address,
+        latest: true,
       });
 
       setBuyerAddress(transaction.attributes.address);

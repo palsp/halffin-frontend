@@ -211,7 +211,7 @@ const BuyProductPrompt = ({ product, onUpdate }) => {
                 })}
               />
               <Button onClick={handleEnterShippingAddress} label={<h4>Continue</h4>} />
-              {/* <Button onClick={allowSellerAddressPermission} label={<h4>Test</h4>} /> */}
+              <Button onClick={allowSellerAddressPermission} label={<h4>Test</h4>} />
               {/* <Button onClick={getProductFromContract} label={<h4>Web3</h4>} /> */}
             </Grid>
           ),
