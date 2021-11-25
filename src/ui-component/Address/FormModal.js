@@ -66,9 +66,20 @@ const FormModal = ({
         aria-labelledby="parent-modal-title"
         aria-describedby="parent-modal-description"
       >
-        <Box sx={{ ...style }}>
+        <Box
+          sx={{
+            ...style,
+            color: 'white',
+            background: 'linear-gradient(136deg, #1e2f97 0%, #797ef6 50%, #1aa7ec 100%)',
+          }}
+        >
           <div style={{ ...closeButtonStyle }}>
-            <Button variant="contained" onClick={handleClose} label={<h4>Cancel</h4>} />
+            <Button
+              style={{ height: '3vh', color: '#03045e', backgroundColor: 'transparent' }}
+              variant="contained"
+              onClick={handleClose}
+              label={<h4>Cancel</h4>}
+            />
           </div>
           <>
             <div
@@ -79,9 +90,7 @@ const FormModal = ({
                 marginBottom: '5px',
               }}
             >
-              <h1>Shipping Address</h1>
-              <h2>ID: {addressId}</h2>
-              <h2>{address.firstName}</h2>
+              <h1 style={{ marginBottom: '50px' }}>Shipping Address</h1>
             </div>
 
             <AddressForm

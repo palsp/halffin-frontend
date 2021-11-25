@@ -6,9 +6,11 @@
 .title {
   font-size: 1.2rem;
   color: #a2f1f7;
+  margin-bottom: 12px;
 }
 
 .description {
   font-size: 1.1rem;
   color: white;
+  margin-bottom: 12px;
 }
