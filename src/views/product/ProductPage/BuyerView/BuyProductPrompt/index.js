@@ -162,7 +162,7 @@ const BuyProductPrompt = ({ product, onUpdate }) => {
       <TransactionModal
         {...txState}
         {...txProps}
-        style={{ width: '1000px', height: '150px' }}
+        style={{ width: '1000px', minHeight: '115px' }}
         components={{
           0: (
             <Grid
@@ -172,7 +172,6 @@ const BuyProductPrompt = ({ product, onUpdate }) => {
               alignItems="center"
             >
               <Typography variant="h2">
-                {' '}
                 Please Check your Shipping Address
               </Typography>
 
@@ -219,7 +218,6 @@ const BuyProductPrompt = ({ product, onUpdate }) => {
                           modifyAddress={editAddress}
                           deleteAddress={deleteAddress}
                         />
-                        <h3>{index + 1} </h3>
                         <AddressDetail address={address.attributes} />
                       </div>
                     ),
@@ -227,12 +225,12 @@ const BuyProductPrompt = ({ product, onUpdate }) => {
                 })}
               />
               <Button
+                style={{
+                  height: '4vh',
+                  borderRadius: '5px',
+                }}
                 onClick={handleEnterShippingAddress}
                 label={<h4>Continue</h4>}
-              />
-              <Button
-                onClick={allowSellerAddressPermission}
-                label={<h4>Test</h4>}
               />
               {/* <Button onClick={getProductFromContract} label={<h4>Web3</h4>} /> */}
             </Grid>

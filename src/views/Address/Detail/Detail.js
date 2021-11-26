@@ -9,7 +9,7 @@ const Detail = ({ title, description }) => {
       direction="row"
       justifyContent="flex-start"
       alignItems="center"
-      sx={{ padding: '10px' }}
+      sx={{ padding: '6px', marginTop: '4px' }}
     >
       <Typography variant="h3">{title}</Typography>
       <Typography variant="h5" sx={{ paddingLeft: '10px' }}>

@@ -45,7 +45,10 @@ const UpdateTrackingPrompt = ({ product, onSendTransaction, onUpdate }) => {
   const [getAddressError, setGetAddressError] = useState();
 
   const { signAndSendTransaction, txState, ...txProps } = useTransaction(
-    ['update shipping detail'].concat(defaultTxSteps)
+    ['update shipping detail'].concat(defaultTxSteps),
+    (_state) => {
+      return _state.activeStep === 0 || _state.activeStep === 4;
+    }
   );
 
   const { handleOpen, handleNextStep, handleError } = txProps;

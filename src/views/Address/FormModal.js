@@ -3,6 +3,7 @@ import Button from 'ui-component/extended/Button';
 import AddressForm from './AddressForm';
 import { Typography } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 
 const style = {
@@ -43,7 +44,7 @@ const FormModal = ({
       <div
         style={{
           display: 'flex',
-          justifyContent: `${index ? 'space-between' : 'right'}`,
+          justifyContent: `${index ? 'space-between' : 'center'}`,
           alignItems: 'left',
         }}
       >
@@ -60,23 +61,38 @@ const FormModal = ({
         <div>
           <Button
             style={{
-              height: '2.4vh',
+              height: '3vh',
               borderRadius: '5px',
             }}
             variant="contained"
             onClick={handleOpen}
-            label={<h4>Edit Address</h4>}
+            label={
+              <h4
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                }}
+              >
+                <EditIcon fontSize="small" />
+                Edit Address
+              </h4>
+            }
           />
           <Button
             style={{
               marginLeft: '5px',
-              height: '2.4vh',
+              height: '3vh',
               borderRadius: '5px',
               backgroundColor: 'rgb(180,0,0)',
             }}
             variant="contained"
             onClick={handleDeleteOpen}
-            label={<h4>Delete</h4>}
+            label={
+              <h4 style={{ display: 'flex', alignItems: 'center' }}>
+                <DeleteIcon fontSize="small" />
+                Delete
+              </h4>
+            }
           />
         </div>
       </div>
@@ -164,7 +180,7 @@ const FormModal = ({
               }}
               variant="contained"
               onClick={handleClose}
-              label={<h4>Cancel</h4>}
+              label={<CloseIcon />}
             />
           </div>
           <>

@@ -24,7 +24,7 @@ const ProductPage = () => {
   const theme = useTheme();
   const { id } = useParams();
   const navigate = useNavigate();
-  const { getProductById, updateProductInfo } = useProduct();
+  const { products, getProductById, updateProductInfo } = useProduct();
   const { checkForFailDeliver } = useEscrow();
   const { user } = useMoralis();
   const [product, setProduct] = useState(new Product({}));
@@ -39,12 +39,12 @@ const ProductPage = () => {
   useEffect(() => {
     const prod = getProductById(id);
     if (!prod) {
-      // go back to prev page
-      navigate('/');
+      setIsLoading(true);
+      return;
     }
     setProduct(prod);
     setIsLoading(false);
-  }, [id]);
+  }, [id, products]);
 
   useEffect(() => {
     const fetch = async (address) => {
