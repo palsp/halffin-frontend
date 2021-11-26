@@ -130,7 +130,7 @@ const ProductPage = () => {
                     gutterBottom
                     style={{ color: theme.palette.text.base }}
                   >
-                    Lock time: {product.lockPeriod} days
+                    Lock time: {product.lockPeriodInDays} days
                   </MuiTypography>
                 </Grid>
                 <Grid item>
