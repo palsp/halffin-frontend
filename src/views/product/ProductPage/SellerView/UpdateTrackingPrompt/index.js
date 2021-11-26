@@ -9,7 +9,7 @@ import TransactionModal from 'ui-component/extended/Modal/TransactionModal';
 import { useTheme } from '@mui/material/styles';
 import { useMoralis } from 'react-moralis';
 import Button from 'ui-component/extended/Button';
-import AddressDetail from 'ui-component/Address/AddressDetail';
+import AddressDetail from 'views/Address/AddressDetail';
 
 const useStyles = makeStyles((theme) => ({
   trackingForm: {

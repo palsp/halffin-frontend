@@ -1,9 +1,10 @@
-import {Box, Modal} from '@mui/material';
+import { Box, Modal } from '@mui/material';
 import Button from 'ui-component/extended/Button';
 import AddressForm from './AddressForm';
-import {Typography} from '@mui/material';
+import { Typography } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import EditIcon from '@mui/icons-material/Edit';
+
 const style = {
   position: 'absolute',
   top: '50%',
@@ -104,7 +105,7 @@ const FormModal = ({
                 marginBottom: '5px',
               }}
             >
-              <h1 style={{marginBottom: '50px'}}>
+              <h1 style={{ marginBottom: '50px' }}>
                 Do you sure you want to delete this address ?
               </h1>
               <div
@@ -115,14 +116,18 @@ const FormModal = ({
                 }}
               >
                 <Button
-                  style={{width: '30%', height: '4vh', marginRight: '20px'}}
+                  style={{ width: '30%', height: '4vh', marginRight: '20px' }}
                   variant="contained"
                   onClick={handleDeleteClose}
                   label={<h4>Cancel</h4>}
                 />
 
                 <Button
-                  style={{width: '30%', height: '4vh', backgroundColor: 'red'}}
+                  style={{
+                    width: '30%',
+                    height: '4vh',
+                    backgroundColor: 'red',
+                  }}
                   variant="contained"
                   onClick={async () => {
                     await deleteAddress(addressId);
@@ -145,11 +150,12 @@ const FormModal = ({
           sx={{
             ...style,
             color: 'white',
+            border: 'none',
             background:
               'linear-gradient(136deg, #1e2f97 0%, #797ef6 50%, #1aa7ec 100%)',
           }}
         >
-          <div style={{...closeButtonStyle}}>
+          <div style={{ ...closeButtonStyle }}>
             <Button
               style={{
                 height: '3vh',
@@ -170,7 +176,9 @@ const FormModal = ({
                 marginBottom: '20px',
               }}
             >
-              <Typography variant="h1">Shipping Address</Typography>
+              <Typography style={{ color: 'white' }} variant="h1">
+                Shipping Address
+              </Typography>
             </div>
 
             <AddressForm

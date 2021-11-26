@@ -79,3 +79,9 @@
   color: #03045e;
   background-color: #a2f1f7;
 }
+
+.phoneInput {
+  /* width: 10px; */
+  border: 1px solid red;
+  display: flex;
+}

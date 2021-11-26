@@ -18,7 +18,7 @@ import UpdateTrackingPrompt from './UpdateTrackingPrompt';
 import Button from 'ui-component/extended/Button';
 import { useMoralis } from 'react-moralis';
 import { styled } from '@mui/material/styles';
-import AddressDetail from 'ui-component/Address/AddressDetail';
+import AddressDetail from 'views/Address/AddressDetail';
 
 const HtmlTooltip = styled(({ className, ...props }) => (
   <Tooltip {...props} classes={{ popper: className }} />

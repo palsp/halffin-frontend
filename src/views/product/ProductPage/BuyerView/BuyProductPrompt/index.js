@@ -8,8 +8,8 @@ import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 
 import { useAddress } from 'context';
 import TransactionModal from 'ui-component/extended/Modal/TransactionModal';
-import FormModal from 'ui-component/Address/FormModal';
-import AddressDetail from 'ui-component/Address/AddressDetail';
+import FormModal from 'views/Address/FormModal';
+import AddressDetail from 'views/Address/AddressDetail';
 import { Typography } from '@mui/material';
 import Button from 'ui-component/extended/Button';
 import { useTheme } from '@mui/material/styles';
@@ -23,7 +23,12 @@ const BuyProductPrompt = ({ product, onUpdate }) => {
   const navigate = useNavigate();
   const { Moralis, user } = useMoralis();
   const { signAndSendTransaction, txState, ...txProps } = useTransaction(
-    ['Select Shipping Address', 'Sign transaction', 'Transaction initiated', 'Confirmation'],
+    [
+      'Select Shipping Address',
+      'Sign transaction',
+      'Transaction initiated',
+      'Confirmation',
+    ],
     (_state) => {
       return _state.activeStep === 0 || _state.activeStep === 4;
     }
@@ -31,7 +36,8 @@ const BuyProductPrompt = ({ product, onUpdate }) => {
 
   const { queryEqualTo } = useQuery();
   const { handleNextStep, handleOpen, handleError } = txProps;
-  const { addresses, getAddress, addAddress, editAddress, deleteAddress } = useAddress();
+  const { addresses, getAddress, addAddress, editAddress, deleteAddress } =
+    useAddress();
   const [addrIndex, setAddrIndex] = useState(0);
 
   const { order } = useEscrow();
@@ -159,8 +165,16 @@ const BuyProductPrompt = ({ product, onUpdate }) => {
         style={{ width: '1000px', height: '150px' }}
         components={{
           0: (
-            <Grid container direction="column" justifyContent="center" alignItems="center">
-              <Typography variant="h2"> Please Check your Shipping Address</Typography>
+            <Grid
+              container
+              direction="column"
+              justifyContent="center"
+              alignItems="center"
+            >
+              <Typography variant="h2">
+                {' '}
+                Please Check your Shipping Address
+              </Typography>
 
               {addingNewAddress && (
                 <FormModal
@@ -197,7 +211,9 @@ const BuyProductPrompt = ({ product, onUpdate }) => {
                           handleOpen={() => handleModalOpen(address.id)}
                           handleClose={() => handleModalClose(address.id)}
                           handleDeleteOpen={() => handleDeleteOpen(address.id)}
-                          handleDeleteClose={() => handleDeleteClose(address.id)}
+                          handleDeleteClose={() =>
+                            handleDeleteClose(address.id)
+                          }
                           addressId={address.id}
                           address={address.attributes}
                           modifyAddress={editAddress}
@@ -210,8 +226,14 @@ const BuyProductPrompt = ({ product, onUpdate }) => {
                   };
                 })}
               />
-              <Button onClick={handleEnterShippingAddress} label={<h4>Continue</h4>} />
-              <Button onClick={allowSellerAddressPermission} label={<h4>Test</h4>} />
+              <Button
+                onClick={handleEnterShippingAddress}
+                label={<h4>Continue</h4>}
+              />
+              <Button
+                onClick={allowSellerAddressPermission}
+                label={<h4>Test</h4>}
+              />
               {/* <Button onClick={getProductFromContract} label={<h4>Web3</h4>} /> */}
             </Grid>
           ),
