@@ -8,8 +8,8 @@ import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 
 import { useAddress } from 'context';
 import TransactionModal from 'ui-component/extended/Modal/TransactionModal';
-import FormModal from 'ui-component/Address/FormModal';
-import AddressDetail from 'ui-component/Address/AddressDetail';
+import FormModal from 'views/Address/FormModal';
+import AddressDetail from 'views/Address/AddressDetail';
 import { Typography } from '@mui/material';
 import Button from 'ui-component/extended/Button';
 import { useTheme } from '@mui/material/styles';

@@ -1,10 +1,11 @@
-import { Box, Icon, Modal } from '@mui/material';
+import { Box, Modal } from '@mui/material';
 import Button from 'ui-component/extended/Button';
 import AddressForm from './AddressForm';
 import { Typography } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+
 const style = {
   position: 'absolute',
   top: '50%',
@@ -165,6 +166,7 @@ const FormModal = ({
           sx={{
             ...style,
             color: 'white',
+            border: 'none',
             background:
               'linear-gradient(136deg, #1e2f97 0%, #797ef6 50%, #1aa7ec 100%)',
           }}
@@ -190,7 +192,9 @@ const FormModal = ({
                 marginBottom: '20px',
               }}
             >
-              <Typography variant="h1">Shipping Address</Typography>
+              <Typography style={{ color: 'white' }} variant="h1">
+                Shipping Address
+              </Typography>
             </div>
 
             <AddressForm

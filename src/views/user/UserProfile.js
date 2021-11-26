@@ -13,8 +13,8 @@ import ProductList from '../product/ProductList/ProductList';
 import { shortenIfAddress } from '@usedapp/core';
 import TabPanels from 'ui-component/extended/TabPanels';
 import { useTheme } from '@mui/material/styles';
-import AddressDetail from 'ui-component/Address/AddressDetail';
-import FormModal from 'ui-component/Address/FormModal';
+import AddressDetail from 'views/Address/AddressDetail';
+import FormModal from 'views/Address/FormModal';
 
 const MY_PRODUCT_LABELS = [
   'In Market',
@@ -24,7 +24,11 @@ const MY_PRODUCT_LABELS = [
   'Complete',
 ];
 
-const MY_PURCHASE_LABELS = ['Waiting For Shipment', 'To Be Delivered', 'Complete'];
+const MY_PURCHASE_LABELS = [
+  'Waiting For Shipment',
+  'To Be Delivered',
+  'Complete',
+];
 
 const UserProfile = () => {
   const theme = useTheme();
@@ -51,8 +55,14 @@ const UserProfile = () => {
   const handleCloseAddingNewAddress = () => {
     setAddingNewAddress(false);
   };
-  const { addresses, setAddress, getAddress, addAddress, editAddress, deleteAddress } =
-    useAddress();
+  const {
+    addresses,
+    setAddress,
+    getAddress,
+    addAddress,
+    editAddress,
+    deleteAddress,
+  } = useAddress();
 
   const [value, setValue] = useState(0);
   const [myPurchaseValue, setMyPurchaseValue] = useState(0);
@@ -69,7 +79,9 @@ const UserProfile = () => {
         state.myPurchaseValue < 3 &&
         setMyPurchaseValue(state.myPurchaseValue);
 
-      state.myProductValue && state.myProductValue < 4 && setMyProductValue(state.myProductValue);
+      state.myProductValue &&
+        state.myProductValue < 4 &&
+        setMyProductValue(state.myProductValue);
     }
   }, [state]);
 
@@ -126,7 +138,12 @@ const UserProfile = () => {
         <Navigate to="/" />
       ) : (
         <MainCard style={{ display: 'flex', justifyContent: 'center' }}>
-          <Grid container direction="column" justifyContent="center" alignItems="center">
+          <Grid
+            container
+            direction="column"
+            justifyContent="center"
+            alignItems="center"
+          >
             <Avatar
               src="https://picsum.photos/200"
               sx={{ width: 100, height: 100, marginTop: '16px' }}
@@ -138,7 +155,10 @@ const UserProfile = () => {
             >
               {shortenIfAddress(user.attributes.ethAddress)}
             </MuiTypography>
-            <MuiTypography variant="subtitle2" style={{ color: theme.palette.text.base }}>
+            <MuiTypography
+              variant="subtitle2"
+              style={{ color: theme.palette.text.base }}
+            >
               {user.attributes.createdAt.toString()}
             </MuiTypography>
             <TabPanels
@@ -178,8 +198,12 @@ const UserProfile = () => {
                               deleteOpen={deleteOpen[address.id]}
                               handleOpen={() => handleOpen(address.id)}
                               handleClose={() => handleClose(address.id)}
-                              handleDeleteOpen={() => handleDeleteOpen(address.id)}
-                              handleDeleteClose={() => handleDeleteClose(address.id)}
+                              handleDeleteOpen={() =>
+                                handleDeleteOpen(address.id)
+                              }
+                              handleDeleteClose={() =>
+                                handleDeleteClose(address.id)
+                              }
                               addressId={address.id}
                               setAddress={setAddress}
                               address={address.attributes}

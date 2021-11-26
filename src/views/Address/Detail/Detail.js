@@ -1,6 +1,7 @@
 import { Typography } from '@mui/material';
 import styles from './Detail.module.css';
 import Grid from '@mui/material/Grid';
+
 const Detail = ({ title, description }) => {
   return (
     <Grid
