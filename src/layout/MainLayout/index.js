@@ -1,25 +1,26 @@
-import {Outlet} from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 
 // material-ui
-import {styled, useTheme} from '@mui/material/styles';
-import {AppBar, Box, CssBaseline, Toolbar} from '@mui/material';
+import { styled, useTheme } from '@mui/material/styles';
+import { AppBar, Box, CssBaseline, Toolbar } from '@mui/material';
 
 // project imports
 import Breadcrumbs from 'ui-component/extended/Breadcrumbs';
 import Header from './Header';
-import {drawerWidth} from 'store/constant';
 
 // assets
-import {IconChevronRight} from '@tabler/icons';
+import { IconChevronRight } from '@tabler/icons';
+import BackButton from 'ui-component/BackButton';
 
 // styles
-const Main = styled('main', {shouldForwardProp: prop => prop !== 'open'})(
-  ({theme}) => ({
+const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
+  ({ theme }) => ({
     transition: theme.transitions.create('margin', {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
     }),
     ...theme.typography.mainContent,
+    position: 'relative',
     marginLeft: 0,
     borderBottomLeftRadius: 0,
     borderBottomRightRadius: 0,
@@ -37,9 +38,9 @@ const Main = styled('main', {shouldForwardProp: prop => prop !== 'open'})(
 
 const MainLayout = () => {
   const theme = useTheme();
-
+  const { pathname } = useLocation();
   return (
-    <Box sx={{display: 'flex'}}>
+    <Box sx={{ display: 'flex' }}>
       <CssBaseline />
       {/* header */}
       <AppBar
@@ -62,6 +63,7 @@ const MainLayout = () => {
         {/* breadcrumb */}
 
         <Breadcrumbs separator={IconChevronRight} icon title rightAlign />
+        {pathname !== '/' && <BackButton />}
         <Outlet />
       </Main>
     </Box>
