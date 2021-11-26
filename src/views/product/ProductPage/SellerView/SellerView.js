@@ -1,6 +1,12 @@
 import { useState, useEffect } from 'react';
 // material-ui
-import { Tooltip, Grid, IconButton, useTheme, tooltipClasses } from '@mui/material';
+import {
+  Tooltip,
+  Grid,
+  IconButton,
+  useTheme,
+  tooltipClasses,
+} from '@mui/material';
 import InfoIcon from '@mui/icons-material/Info';
 // project imports
 
@@ -28,7 +34,8 @@ const HtmlTooltip = styled(({ className, ...props }) => (
 
 const SellerView = ({ onUpdate, product }) => {
   const theme = useTheme();
-  const { signAndSendTransaction, txState, ...txProps } = useTransaction(defaultTxSteps);
+  const { signAndSendTransaction, txState, ...txProps } =
+    useTransaction(defaultTxSteps);
 
   const [buyerAddress, setBuyerAddress] = useState({
     firstName: '',
@@ -43,12 +50,14 @@ const SellerView = ({ onUpdate, product }) => {
     phoneNumber: '',
   });
   const [isShipmentUpdating, setIsShipmentUpdating] = useState(false);
-  const { requestShippingDetail, reclaimFund, listenOnShipmentDetail, updateShipment } =
-    useEscrow();
+  const {
+    requestShippingDetail,
+    reclaimFund,
+    listenOnShipmentDetail,
+    updateShipment,
+  } = useEscrow();
 
   const { queryEqualTo } = useQuery();
-
-  const { Moralis } = useMoralis();
 
   useEffect(() => {
     getBuyerAddress();
@@ -56,9 +65,6 @@ const SellerView = ({ onUpdate, product }) => {
 
   const getBuyerAddress = async () => {
     try {
-      // const buyer = await Moralis.Cloud.run('getUserByEthAddress', {
-      //   targetEthAddr: product.buyer,
-      // });
       const transaction = await queryEqualTo({
         className: 'Transaction',
         attr: 'contractAddress',
@@ -104,10 +110,15 @@ const SellerView = ({ onUpdate, product }) => {
             />
           </>
         )}
-        {isShipmentUpdating && <div>check inprogress. this may take a while</div>}
+        {isShipmentUpdating && (
+          <div>check inprogress. this may take a while</div>
+        )}
         {!isShipmentUpdating && product.isAbleToCheckTrackingStatus && (
           <Grid item direction="row">
-            <Button onClick={handleRequestShippingDetail} label={<h4> Check Tracking Status</h4>} />
+            <Button
+              onClick={handleRequestShippingDetail}
+              label={<h4> Check Tracking Status</h4>}
+            />
             <HtmlTooltip
               title={
                 <>
@@ -118,9 +129,10 @@ const SellerView = ({ onUpdate, product }) => {
                   </em>{' '}
                   <br />
                   <br />
-                  Note that there is no action in case your shipping is not delivered yet. Please
-                  check status of your package with your courier first before clicking this button.
-                  otherwise you may lost some eth for gas fee.
+                  Note that there is no action in case your shipping is not
+                  delivered yet. Please check status of your package with your
+                  courier first before clicking this button. otherwise you may
+                  lost some eth for gas fee.
                 </>
               }
             >
