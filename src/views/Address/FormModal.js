@@ -107,6 +107,7 @@ const FormModal = ({
           sx={{
             ...style,
             color: 'white',
+            border: 'none',
             background:
               'linear-gradient(136deg, #1e2f97 0%, #797ef6 50%, #1aa7ec 100%)',
           }}
@@ -122,7 +123,7 @@ const FormModal = ({
               }}
             >
               <h1 style={{ marginBottom: '50px' }}>
-                Do you sure you want to delete this address ?
+                Are you sure you want to delete this address ?
               </h1>
               <div
                 style={{
