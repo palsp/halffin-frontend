@@ -1,6 +1,6 @@
 import Detail from './Detail/Detail';
 
-const AddressDetail = ({address}) => {
+const AddressDetail = ({ address }) => {
   const {
     firstName,
     lastName,
@@ -16,7 +16,7 @@ const AddressDetail = ({address}) => {
   return (
     <>
       {firstName.length > 0 ? (
-        <div style={{justifyContent: 'left'}}>
+        <div style={{ justifyContent: 'left', marginTop: '12px' }}>
           <Detail title={'Name:'} description={`${firstName} ${lastName}`} />
           <Detail title={'Email:'} description={`${email}`} />
           <Detail

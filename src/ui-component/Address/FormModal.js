@@ -1,8 +1,9 @@
-import {Box, Modal} from '@mui/material';
+import { Box, Icon, Modal } from '@mui/material';
 import Button from 'ui-component/extended/Button';
 import AddressForm from './AddressForm';
-import {Typography} from '@mui/material';
+import { Typography } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 const style = {
   position: 'absolute',
@@ -42,7 +43,7 @@ const FormModal = ({
       <div
         style={{
           display: 'flex',
-          justifyContent: `${index ? 'space-between' : 'right'}`,
+          justifyContent: `${index ? 'space-between' : 'center'}`,
           alignItems: 'left',
         }}
       >
@@ -59,23 +60,38 @@ const FormModal = ({
         <div>
           <Button
             style={{
-              height: '2.4vh',
+              height: '3vh',
               borderRadius: '5px',
             }}
             variant="contained"
             onClick={handleOpen}
-            label={<h4>Edit Address</h4>}
+            label={
+              <h4
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                }}
+              >
+                <EditIcon fontSize="small" />
+                Edit Address
+              </h4>
+            }
           />
           <Button
             style={{
               marginLeft: '5px',
-              height: '2.4vh',
+              height: '3vh',
               borderRadius: '5px',
               backgroundColor: 'rgb(180,0,0)',
             }}
             variant="contained"
             onClick={handleDeleteOpen}
-            label={<h4>Delete</h4>}
+            label={
+              <h4 style={{ display: 'flex', alignItems: 'center' }}>
+                <DeleteIcon fontSize="small" />
+                Delete
+              </h4>
+            }
           />
         </div>
       </div>
@@ -104,7 +120,7 @@ const FormModal = ({
                 marginBottom: '5px',
               }}
             >
-              <h1 style={{marginBottom: '50px'}}>
+              <h1 style={{ marginBottom: '50px' }}>
                 Do you sure you want to delete this address ?
               </h1>
               <div
@@ -115,14 +131,18 @@ const FormModal = ({
                 }}
               >
                 <Button
-                  style={{width: '30%', height: '4vh', marginRight: '20px'}}
+                  style={{ width: '30%', height: '4vh', marginRight: '20px' }}
                   variant="contained"
                   onClick={handleDeleteClose}
                   label={<h4>Cancel</h4>}
                 />
 
                 <Button
-                  style={{width: '30%', height: '4vh', backgroundColor: 'red'}}
+                  style={{
+                    width: '30%',
+                    height: '4vh',
+                    backgroundColor: 'red',
+                  }}
                   variant="contained"
                   onClick={async () => {
                     await deleteAddress(addressId);
@@ -149,7 +169,7 @@ const FormModal = ({
               'linear-gradient(136deg, #1e2f97 0%, #797ef6 50%, #1aa7ec 100%)',
           }}
         >
-          <div style={{...closeButtonStyle}}>
+          <div style={{ ...closeButtonStyle }}>
             <Button
               style={{
                 height: '3vh',
@@ -158,7 +178,7 @@ const FormModal = ({
               }}
               variant="contained"
               onClick={handleClose}
-              label={<h4>Cancel</h4>}
+              label={<CloseIcon />}
             />
           </div>
           <>
