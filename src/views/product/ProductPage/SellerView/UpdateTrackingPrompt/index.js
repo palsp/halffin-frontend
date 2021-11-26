@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { TextField, CircularProgress } from '@mui/material';
+import { useState, useEffect } from 'react';
+import { TextField, CircularProgress, Card } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { useTransaction, useQuery } from 'hooks';
 import { defaultTxSteps } from 'store/constant';
@@ -9,6 +9,7 @@ import TransactionModal from 'ui-component/extended/Modal/TransactionModal';
 import { useTheme } from '@mui/material/styles';
 import { useMoralis } from 'react-moralis';
 import Button from 'ui-component/extended/Button';
+import AddressDetail from 'ui-component/Address/AddressDetail';
 
 const useStyles = makeStyles((theme) => ({
   trackingForm: {
@@ -29,6 +30,20 @@ const UpdateTrackingPrompt = ({ product, onSendTransaction, onUpdate }) => {
     slug: '',
   });
 
+  const [buyerAddress, setBuyerAddress] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    address1: '',
+    address2: '',
+    city: '',
+    state: '',
+    postalCode: '',
+    countryCode: '',
+    phoneNumber: '',
+  });
+  const [getAddressError, setGetAddressError] = useState();
+
   const { signAndSendTransaction, txState, ...txProps } = useTransaction(
     ['update shipping detail'].concat(defaultTxSteps),
     (_state) => {
@@ -39,6 +54,22 @@ const UpdateTrackingPrompt = ({ product, onSendTransaction, onUpdate }) => {
   const { handleOpen, handleNextStep, handleError } = txProps;
   const { Moralis } = useMoralis();
   const { queryEqualTo } = useQuery();
+
+  const getBuyerAddress = async () => {
+    setGetAddressError(null);
+    try {
+      const transaction = await queryEqualTo({
+        className: 'Transaction',
+        attr: 'contractAddress',
+        target: product.address,
+        latest: true,
+      });
+
+      setBuyerAddress(transaction.attributes.address);
+    } catch (err) {
+      setGetAddressError(new Error('Cannot Get Buyer Address'));
+    }
+  };
 
   const getShipmentDetail = async () => {
     try {
@@ -108,6 +139,10 @@ const UpdateTrackingPrompt = ({ product, onSendTransaction, onUpdate }) => {
     }
   };
 
+  useEffect(() => {
+    getBuyerAddress();
+  }, []);
+
   return (
     <>
       <TransactionModal
@@ -174,6 +209,23 @@ const UpdateTrackingPrompt = ({ product, onSendTransaction, onUpdate }) => {
           ),
         }}
       />
+
+      <Card
+        sx={{
+          background: 'rgba(255, 255, 255, 0.3)',
+          boxShadow: '5px 5px 10px rgb(0 0 0 / 15%)',
+          marginBottom: '1rem',
+          padding: '1rem',
+        }}
+      >
+        {getAddressError ? (
+          <p style={{ color: theme.palette.error.main }}>
+            {getAddressError.message}
+          </p>
+        ) : (
+          <AddressDetail address={buyerAddress} />
+        )}
+      </Card>
       <form className={classes.trackingForm}>
         <Button
           onClick={() => {
