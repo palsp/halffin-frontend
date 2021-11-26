@@ -1,20 +1,21 @@
-import { useState } from "react";
-import { TextField, CircularProgress } from "@mui/material";
-import { makeStyles } from "@mui/styles";
-import { useTransaction, useQuery } from "hooks";
-import { defaultTxSteps } from "store/constant";
-import { createTracking } from "api/tracking_server";
-import Product from "model/Product";
-import TransactionModal from "ui-component/extended/Modal/TransactionModal";
-import { useTheme } from "@mui/material/styles";
-import { useMoralis } from "react-moralis";
-import Button from "ui-component/extended/Button";
+import { useState, useEffect } from 'react';
+import { TextField, CircularProgress, Card } from '@mui/material';
+import { makeStyles } from '@mui/styles';
+import { useTransaction, useQuery } from 'hooks';
+import { defaultTxSteps } from 'store/constant';
+import { createTracking } from 'api/tracking_server';
+import Product from 'model/Product';
+import TransactionModal from 'ui-component/extended/Modal/TransactionModal';
+import { useTheme } from '@mui/material/styles';
+import { useMoralis } from 'react-moralis';
+import Button from 'ui-component/extended/Button';
+import AddressDetail from 'ui-component/Address/AddressDetail';
 
 const useStyles = makeStyles((theme) => ({
   trackingForm: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
 }));
 
@@ -24,24 +25,54 @@ const UpdateTrackingPrompt = ({ product, onSendTransaction, onUpdate }) => {
 
   const [isLoading, setIsLoading] = useState(false);
   const [shipment, setShipment] = useState({
-    trackingId: "",
-    trackingNo: "",
-    slug: "",
+    trackingId: '',
+    trackingNo: '',
+    slug: '',
   });
 
+  const [buyerAddress, setBuyerAddress] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    address1: '',
+    address2: '',
+    city: '',
+    state: '',
+    postalCode: '',
+    countryCode: '',
+    phoneNumber: '',
+  });
+  const [getAddressError, setGetAddressError] = useState();
+
   const { signAndSendTransaction, txState, ...txProps } = useTransaction(
-    ["update shipping detail"].concat(defaultTxSteps)
+    ['update shipping detail'].concat(defaultTxSteps)
   );
 
   const { handleOpen, handleNextStep, handleError } = txProps;
   const { Moralis } = useMoralis();
   const { queryEqualTo } = useQuery();
 
+  const getBuyerAddress = async () => {
+    setGetAddressError(null);
+    try {
+      const transaction = await queryEqualTo({
+        className: 'Transaction',
+        attr: 'contractAddress',
+        target: product.address,
+        latest: true,
+      });
+
+      setBuyerAddress(transaction.attributes.address);
+    } catch (err) {
+      setGetAddressError(new Error('Cannot Get Buyer Address'));
+    }
+  };
+
   const getShipmentDetail = async () => {
     try {
       const res = await queryEqualTo({
-        className: "Shipment",
-        attr: "contractAddress",
+        className: 'Shipment',
+        attr: 'contractAddress',
         target: product.address,
       });
       if (res) {
@@ -57,10 +88,10 @@ const UpdateTrackingPrompt = ({ product, onSendTransaction, onUpdate }) => {
   };
 
   const addShipmentDetail = async ({ trackingNo, trackingId, slug }) => {
-    const buyer = await Moralis.Cloud.run("getUserByEthAddress", {
+    const buyer = await Moralis.Cloud.run('getUserByEthAddress', {
       targetEthAddr: product.buyer,
     });
-    return Moralis.Cloud.run("addShipmentDetail", {
+    return Moralis.Cloud.run('addShipmentDetail', {
       trackingId,
       trackingNo,
       slug,
@@ -105,6 +136,10 @@ const UpdateTrackingPrompt = ({ product, onSendTransaction, onUpdate }) => {
     }
   };
 
+  useEffect(() => {
+    getBuyerAddress();
+  }, []);
+
   return (
     <>
       <TransactionModal
@@ -114,26 +149,26 @@ const UpdateTrackingPrompt = ({ product, onSendTransaction, onUpdate }) => {
           0: (
             <div
               style={{
-                display: "flex",
-                margin: "20px",
-                justifyContent: "center",
-                flexDirection: "column",
+                display: 'flex',
+                margin: '20px',
+                justifyContent: 'center',
+                flexDirection: 'column',
               }}
             >
               <div
                 style={{
-                  display: "flex",
-                  margin: "20px",
-                  flexDirection: "column",
-                  justifyContent: "center",
+                  display: 'flex',
+                  margin: '20px',
+                  flexDirection: 'column',
+                  justifyContent: 'center',
                 }}
               >
                 {isLoading ? (
                   <div
                     style={{
-                      display: "flex",
-                      margin: "20px",
-                      justifyContent: "center",
+                      display: 'flex',
+                      margin: '20px',
+                      justifyContent: 'center',
                     }}
                   >
                     <CircularProgress />
@@ -159,7 +194,7 @@ const UpdateTrackingPrompt = ({ product, onSendTransaction, onUpdate }) => {
                 />
 
                 <Button
-                  sx={{ padding: "none" }}
+                  sx={{ padding: 'none' }}
                   disabled={shipment.trackingNo.length <= 0}
                   size="small"
                   type="submit"
@@ -171,6 +206,23 @@ const UpdateTrackingPrompt = ({ product, onSendTransaction, onUpdate }) => {
           ),
         }}
       />
+
+      <Card
+        sx={{
+          background: 'rgba(255, 255, 255, 0.3)',
+          boxShadow: '5px 5px 10px rgb(0 0 0 / 15%)',
+          marginBottom: '1rem',
+          padding: '1rem',
+        }}
+      >
+        {getAddressError ? (
+          <p style={{ color: theme.palette.error.main }}>
+            {getAddressError.message}
+          </p>
+        ) : (
+          <AddressDetail address={buyerAddress} />
+        )}
+      </Card>
       <form className={classes.trackingForm}>
         <Button
           onClick={() => {

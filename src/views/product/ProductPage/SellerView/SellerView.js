@@ -37,18 +37,6 @@ const SellerView = ({ onUpdate, product }) => {
   const { signAndSendTransaction, txState, ...txProps } =
     useTransaction(defaultTxSteps);
 
-  const [buyerAddress, setBuyerAddress] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    address1: '',
-    address2: '',
-    city: '',
-    state: '',
-    postalCode: '',
-    countryCode: '',
-    phoneNumber: '',
-  });
   const [isShipmentUpdating, setIsShipmentUpdating] = useState(false);
   const {
     requestShippingDetail,
@@ -56,27 +44,6 @@ const SellerView = ({ onUpdate, product }) => {
     listenOnShipmentDetail,
     updateShipment,
   } = useEscrow();
-
-  const { queryEqualTo } = useQuery();
-
-  useEffect(() => {
-    getBuyerAddress();
-  }, []);
-
-  const getBuyerAddress = async () => {
-    try {
-      const transaction = await queryEqualTo({
-        className: 'Transaction',
-        attr: 'contractAddress',
-        target: product.address,
-        latest: true,
-      });
-
-      setBuyerAddress(transaction.attributes.address);
-    } catch (err) {
-      txProps.handleError(err);
-    }
-  };
 
   const handleRequestShippingDetail = async () => {
     txProps.handleOpen();
@@ -102,7 +69,6 @@ const SellerView = ({ onUpdate, product }) => {
       <Grid item>
         {product.isWaitForShipping && (
           <>
-            <AddressDetail address={buyerAddress} />
             <UpdateTrackingPrompt
               product={product}
               onSendTransaction={updateShipment}

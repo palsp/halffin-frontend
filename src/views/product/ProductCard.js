@@ -1,24 +1,21 @@
-import {useState, useEffect} from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
-import {useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 // material-ui
-import {useTheme} from '@mui/material/styles';
-import {Avatar, Grid, CardActionArea, Skeleton} from '@mui/material';
+import { useTheme } from '@mui/material/styles';
+import { Grid, CardActionArea, Skeleton } from '@mui/material';
 import MuiTypography from '@mui/material/Typography';
 
 // project imports
 import SkeletonEarningCard from 'ui-component/cards/Skeleton/EarningCard';
 import SubCard from 'ui-component/cards/SubCard';
-import {gridSpacing} from 'store/constant';
-import {IconCurrencyEthereum} from '@tabler/icons';
-import {getImageAsync} from 'utils';
+import { IconCurrencyEthereum } from '@tabler/icons';
 import BaseImage from '../../ui-component/extended/BaseImage';
-import {textAlign} from '@mui/system';
 
 // ===========================|| DASHBOARD DEFAULT - EARNING CARD ||=========================== //
 
-const ProductCard = ({isLoading, product}) => {
+const ProductCard = ({ isLoading, product }) => {
   const theme = useTheme();
   const navigate = useNavigate();
   const [isImageLoading, setIsImageLoading] = useState(false);
@@ -73,7 +70,7 @@ const ProductCard = ({isLoading, product}) => {
                   <MuiTypography
                     variant="h3"
                     width="100%"
-                    sx={{display: 'flex'}}
+                    sx={{ display: 'flex' }}
                     color={theme.palette.text.base}
                   >
                     {product.nameForDisplay}
