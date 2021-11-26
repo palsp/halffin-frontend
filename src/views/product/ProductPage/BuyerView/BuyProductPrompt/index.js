@@ -23,7 +23,12 @@ const BuyProductPrompt = ({ product, onUpdate }) => {
   const navigate = useNavigate();
   const { Moralis, user } = useMoralis();
   const { signAndSendTransaction, txState, ...txProps } = useTransaction(
-    ['Select Shipping Address', 'Sign transaction', 'Transaction initiated', 'Confirmation'],
+    [
+      'Select Shipping Address',
+      'Sign transaction',
+      'Transaction initiated',
+      'Confirmation',
+    ],
     (_state) => {
       return _state.activeStep === 0 || _state.activeStep === 4;
     }
@@ -31,7 +36,8 @@ const BuyProductPrompt = ({ product, onUpdate }) => {
 
   const { queryEqualTo } = useQuery();
   const { handleNextStep, handleOpen, handleError } = txProps;
-  const { addresses, getAddress, addAddress, editAddress, deleteAddress } = useAddress();
+  const { addresses, getAddress, addAddress, editAddress, deleteAddress } =
+    useAddress();
   const [addrIndex, setAddrIndex] = useState(0);
 
   const { order } = useEscrow();
@@ -156,11 +162,18 @@ const BuyProductPrompt = ({ product, onUpdate }) => {
       <TransactionModal
         {...txState}
         {...txProps}
-        style={{ width: '1000px', height: '150px' }}
+        style={{ width: '1000px', minHeight: '115px' }}
         components={{
           0: (
-            <Grid container direction="column" justifyContent="center" alignItems="center">
-              <Typography variant="h2"> Please Check your Shipping Address</Typography>
+            <Grid
+              container
+              direction="column"
+              justifyContent="center"
+              alignItems="center"
+            >
+              <Typography variant="h2">
+                Please Check your Shipping Address
+              </Typography>
 
               {addingNewAddress && (
                 <FormModal
@@ -197,21 +210,28 @@ const BuyProductPrompt = ({ product, onUpdate }) => {
                           handleOpen={() => handleModalOpen(address.id)}
                           handleClose={() => handleModalClose(address.id)}
                           handleDeleteOpen={() => handleDeleteOpen(address.id)}
-                          handleDeleteClose={() => handleDeleteClose(address.id)}
+                          handleDeleteClose={() =>
+                            handleDeleteClose(address.id)
+                          }
                           addressId={address.id}
                           address={address.attributes}
                           modifyAddress={editAddress}
                           deleteAddress={deleteAddress}
                         />
-                        <h3>{index + 1} </h3>
                         <AddressDetail address={address.attributes} />
                       </div>
                     ),
                   };
                 })}
               />
-              <Button onClick={handleEnterShippingAddress} label={<h4>Continue</h4>} />
-              <Button onClick={allowSellerAddressPermission} label={<h4>Test</h4>} />
+              <Button
+                style={{
+                  height: '4vh',
+                  borderRadius: '5px',
+                }}
+                onClick={handleEnterShippingAddress}
+                label={<h4>Continue</h4>}
+              />
               {/* <Button onClick={getProductFromContract} label={<h4>Web3</h4>} /> */}
             </Grid>
           ),
