@@ -1,0 +1,114 @@
+{
+  "contracts": {
+    "APIConsumer": "9f8dc0cf27ac81b5061e466490de3526e72ff085",
+    "Escrow": "8a6b9ba4483b232b421ca246e4832e847392fc29",
+    "EscrowFactory": "c8e8a6e6285e2447e26fd6c92352322442156c06",
+    "LinkToken": "49e7bae2df618e81d877632c6ad55872ff2ce801",
+    "MockOracle": "7f09d8b642ed1af8d9a3e094ab619f25db4db23c",
+    "MockV3Aggregator": "9e734e161b5cafcca52a917f10266f5a8bc05b28",
+    "OpenZeppelin/openzeppelin-contracts@4.3.2/ERC20": "5c27d7156fdbfe889902cc167df697405a50ad20",
+    "Oracle": "b5c9ecbc461cc7d8ce515d36341b6970e8286058",
+    "VRFCoordinatorMock": "a234e721cab3c47e532d8404949512e63f344855",
+    "smartcontractkit/chainlink-brownie-contracts@0.2.2/BasicToken": "92084ac5279a2a3db988d9e01d7e6d3e3a4dab8d",
+    "smartcontractkit/chainlink-brownie-contracts@0.2.2/BufferChainlink": "1ce946f6a4eaa185320328620ccf999b9e86db7c",
+    "smartcontractkit/chainlink-brownie-contracts@0.2.2/CBORChainlink": "1ce946f6a4eaa185320328620ccf999b9e86db7c",
+    "smartcontractkit/chainlink-brownie-contracts@0.2.2/Chainlink": "1ce946f6a4eaa185320328620ccf999b9e86db7c",
+    "smartcontractkit/chainlink-brownie-contracts@0.2.2/ChainlinkClient": "750a107dfd09b0702b5ae03a4b6ea3c8b73190e1",
+    "smartcontractkit/chainlink-brownie-contracts@0.2.2/ConfirmedOwner": "f3ae1103de2dc20d48fe928ae51036e8c385e5a9",
+    "smartcontractkit/chainlink-brownie-contracts@0.2.2/ConfirmedOwnerWithProposal": "416a8104df283e07b4aa63a543859d5b5282f692",
+    "smartcontractkit/chainlink-brownie-contracts@0.2.2/SafeMathChainlink": "3b4158955f564edb18bd7a8ffdb49859c904f0b7",
+    "smartcontractkit/chainlink-brownie-contracts@0.2.2/StandardToken": "7f21b0e2f1d1fcf89f4466183c9e73bc3cf77276",
+    "smartcontractkit/chainlink-brownie-contracts@0.2.2/VRFRequestIDBase": "73df0a6f5d0123eb2b2db0faf62b602aa77c123a",
+    "strings": "69a06548a04ed73f4a6939b4d5b98e1d12ae86e5"
+  },
+  "tests": {
+    "tests/escrows/test_cancel_order.py": {
+      "coverage": false,
+      "isolated": false,
+      "results": "....",
+      "sha1": "51cb2fb6bebffc8e8451f0b060fe406953e830d0",
+      "txhash": [
+        "0c0a2bea27f043f681764e1b1f3e5c7f312215bf",
+        "c19832bde54d67b8a5ab02c7418d46440fc5ad1c",
+        "cf4d103b8c9ae49dd7288c0889726fc71a322af0"
+      ]
+    },
+    "tests/escrows/test_create_order.py": {
+      "coverage": false,
+      "isolated": false,
+      "results": "....",
+      "sha1": "ad2180aef49115829caa81d6f504a339cd2e29e0",
+      "txhash": [
+        "6329e0f59905756f43cfd4fc921193627ab54715",
+        "e503d5941bf6187833cdab71deec1d2cdd2ffd85",
+        "ee367d4ddc9b29bc8c55d1fcf5f105b206524db0"
+      ]
+    },
+    "tests/escrows/test_shipping_detail.py": {
+      "coverage": false,
+      "isolated": false,
+      "results": "s",
+      "sha1": "5f1b6177b13f2b1942a1f3f5fe7be0c0ab5701cc",
+      "txhash": []
+    },
+    "tests/escrows/test_update_shipment.py": {
+      "coverage": false,
+      "isolated": false,
+      "results": "..",
+      "sha1": "7a9a52593b80870ae70c14c832f49bca736d8e5f",
+      "txhash": ["0ab4199222ee7ccd0ef75cd67b6253923b3cabec"]
+    },
+    "tests/escrows_factory/test_create_product.py": {
+      "coverage": false,
+      "isolated": false,
+      "results": ".",
+      "sha1": "4139bfbc3fd84f084b3ab4827abac0f0f9c5a611",
+      "txhash": []
+    }
+  },
+  "tx": {
+    "0ab4199222ee7ccd0ef75cd67b6253923b3cabec": {
+      "Escrow": {
+        "20": [[16], [85], []],
+        "6": [[], [], []]
+      }
+    },
+    "0c0a2bea27f043f681764e1b1f3e5c7f312215bf": {
+      "Escrow": {
+        "20": [[25, 32], [88], []],
+        "6": [[], [], []]
+      }
+    },
+    "6329e0f59905756f43cfd4fc921193627ab54715": {
+      "Escrow": {
+        "16": [[], [], []],
+        "20": [[], [], []],
+        "6": [[], [], []]
+      }
+    },
+    "c19832bde54d67b8a5ab02c7418d46440fc5ad1c": {
+      "Escrow": {
+        "20": [[25, 32], [88], []],
+        "6": [[], [], []]
+      }
+    },
+    "cf4d103b8c9ae49dd7288c0889726fc71a322af0": {
+      "Escrow": {
+        "20": [[], [], []],
+        "6": [[], [], []]
+      }
+    },
+    "e503d5941bf6187833cdab71deec1d2cdd2ffd85": {
+      "Escrow": {
+        "20": [[34], [90], []],
+        "6": [[], [], []]
+      }
+    },
+    "ee367d4ddc9b29bc8c55d1fcf5f105b206524db0": {
+      "Escrow": {
+        "20": [[34, 35], [91], [90]],
+        "6": [[], [], []]
+      }
+    }
+  }
+}
