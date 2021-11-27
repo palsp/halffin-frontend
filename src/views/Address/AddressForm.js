@@ -34,22 +34,24 @@ const validationSchema = yup.object({
 const AddressForm = ({ address, addressId, modifyAddress, handleClose }) => {
   const [phone, setPhone] = useState('');
 
-  const addPhoneAndCountrytoFormik = () => {
-    if (typeof phone !== 'string' || !isValidPhoneNumber(phone)) {
+  const addPhoneAndCountrytoFormik = async (phoneNumber) => {
+    if (typeof phoneNumber !== 'string') {
       return;
     }
-    const obj = parsePhoneNumber(phone);
-    const country = COUNTRY_CODE[obj.country];
-    formik.values.countryCode = country;
-    formik.values.phoneNumber = phone;
+
+    if (isValidPhoneNumber(phoneNumber)) {
+      const obj = parsePhoneNumber(phoneNumber);
+      const country = COUNTRY_CODE[obj.country];
+      await formik.setFieldValue('countryCode', country);
+    }
+
+    await formik.setFieldValue('phoneNumber', phoneNumber);
+    await formik.setFieldTouched('phoneNumber', true);
+    await formik.validateField('phoneNumber');
   };
 
   const checkValidPhone = () => {
-    return phone && !isValidPhoneNumber(phone) ? (
-      <h4 style={{ margin: 0, fontWeight: 500, color: '#f44336' }}>
-        Invalid Phone number
-      </h4>
-    ) : null;
+    return phone && !isValidPhoneNumber(phone) ? 'Invalid Phone number' : null;
   };
 
   const theme = useTheme();
@@ -134,14 +136,16 @@ const AddressForm = ({ address, addressId, modifyAddress, handleClose }) => {
           <PhoneInput
             placeholder="Enter phone number"
             value={address.phoneNumber ? address.phoneNumber : phone}
-            onChange={setPhone}
+            onChange={async (phoneNumber) => {
+              setPhone(phoneNumber);
+              await addPhoneAndCountrytoFormik(phoneNumber);
+            }}
             inputComponent={CustomPhoneNumber}
-            // error={formik.touched.phoneNumber}
             name="phoneNumber"
             error={
               (formik.touched.phoneNumber &&
                 Boolean(formik.errors.phoneNumber)) ||
-              checkValidPhone()
+              !!checkValidPhone()
             }
             helperText={
               (formik.touched.phoneNumber && formik.errors.phoneNumber) ||
@@ -211,8 +215,6 @@ const AddressForm = ({ address, addressId, modifyAddress, handleClose }) => {
           <TextField
             fullWidth
             required
-            // name="phoneNumber"
-            // label="Phone Number"
             margin="normal"
             type="text"
             label="Phone Number"
@@ -230,11 +232,7 @@ const AddressForm = ({ address, addressId, modifyAddress, handleClose }) => {
       </div>
 
       <div className={styles.centered}>
-        <button
-          onClick={addPhoneAndCountrytoFormik}
-          className={styles.button}
-          type="submit"
-        >
+        <button className={styles.button} type="submit">
           Submit
         </button>
       </div>

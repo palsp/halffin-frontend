@@ -1,28 +1,28 @@
-import {useState, useRef} from 'react';
+import { useState, useRef } from 'react';
 
-import {useMoralis} from 'react-moralis';
+import { useMoralis } from 'react-moralis';
 // material-ui
-import {Grid, TextField, Typography, Chip} from '@mui/material';
-import {useTheme} from '@mui/material/styles';
+import { Grid, TextField, Typography, Chip } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import DeleteIcon from '@mui/icons-material/Delete';
 // project imports
 import MainCard from 'ui-component/cards/MainCard';
-import {useEscrowFactory, useTx, useTransaction} from 'hooks';
-import {makeStyles} from '@mui/styles';
+import { useEscrowFactory, useTransaction } from 'hooks';
+import { makeStyles } from '@mui/styles';
 import ConnectWallet from '../wallet/ConnectWallet';
 import TransactionModal from 'ui-component/extended/Modal/TransactionModal';
-import {IconCamera} from '@tabler/icons';
+import { IconCamera } from '@tabler/icons';
 import IconButton from '@mui/material/IconButton';
-import {useNavigate} from 'react-router';
+import { useNavigate } from 'react-router';
 import fileStorage from 'store/filecoin';
-import {daysToBlock} from 'utils';
+import { daysToBlock } from 'utils';
 import Button from 'ui-component/extended/Button';
 
-import {useFormik, ErrorMessage, Field} from 'formik';
+import { useFormik } from 'formik';
 import * as yup from 'yup';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   image: {
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
@@ -75,7 +75,7 @@ const validationSchema = yup.object({
 
 const CreateProduct = () => {
   const classes = useStyles();
-  const {user} = useMoralis();
+  const { user } = useMoralis();
   const navigate = useNavigate();
   const theme = useTheme();
   const formRef = useRef(null);
@@ -90,23 +90,25 @@ const CreateProduct = () => {
       file: null,
     },
     validationSchema,
-    onSubmit: async values => handleSubmit(values),
+    onSubmit: async (values) => handleSubmit(values),
   });
 
-  const {signAndSendTransaction, txState, ...txProps} = useTransaction([
+  const { signAndSendTransaction, txState, ...txProps } = useTransaction([
     'Uploading Information',
     'Sign transaction',
     'Transaction initiated',
     'Confirmation',
   ]);
 
-  const {createProduct} = useEscrowFactory();
+  const { createProduct } = useEscrowFactory();
 
-  const imageChange = e => {
+  const imageChange = async (e) => {
     if (e.target.files && e.target.files.length > 0) {
       formik.setFieldValue('file', e.target.files[0]);
       setPreviewImage(URL.createObjectURL(e.target.files[0]));
     }
+
+    await formik.setFieldTouched('file', true);
   };
 
   const removeSelectedImage = () => {
@@ -114,7 +116,7 @@ const CreateProduct = () => {
     setPreviewImage(null);
   };
 
-  const handleSubmit = async formValues => {
+  const handleSubmit = async (formValues) => {
     txProps.handleOpen();
     try {
       const ipfsUrl = await fileStorage.uploadToFileCoin(
@@ -131,7 +133,7 @@ const CreateProduct = () => {
         })
       );
       navigate('/user/account-profile', {
-        state: {value: 0, myProductValue: 0},
+        state: { value: 0, myProductValue: 0 },
       });
     } catch (err) {
       txProps.handleError(err);
@@ -141,7 +143,7 @@ const CreateProduct = () => {
   return (
     <MainCard>
       <>
-        <div style={{display: 'flex', justifyContent: 'center'}}>
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
           <Typography
             variant="h1"
             style={{
@@ -170,9 +172,10 @@ const CreateProduct = () => {
               <Box
                 sx={{
                   p: 2,
-                  border: formik.errors.file
-                    ? '3px dashed red'
-                    : '3px dashed white',
+                  border:
+                    formik.touched.file && formik.errors.file
+                      ? '3px dashed red'
+                      : '3px dashed white',
                   width: 500,
                   height: 300,
                   display: formik.values.file ? 'none' : 'flex',
@@ -186,19 +189,19 @@ const CreateProduct = () => {
                     id="icon-button-file"
                     name="file"
                     type="file"
-                    style={{display: 'none'}}
+                    style={{ display: 'none' }}
                     onChange={imageChange}
                   />
                   <IconButton
                     aria-label="upload picture"
                     component="span"
-                    sx={{color: 'white'}}
+                    sx={{ color: 'white' }}
                   >
                     <IconCamera />
                   </IconButton>
                 </label>
               </Box>
-              {formik.errors.file && (
+              {formik.touched.file && formik.errors.file && (
                 <p className={classes.errorText}>{formik.errors.file}</p>
               )}
               {previewImage && (
@@ -242,7 +245,7 @@ const CreateProduct = () => {
                 label="Item Name"
                 margin="normal"
                 type="text"
-                sx={{...theme.typography.customInput}}
+                sx={{ ...theme.typography.customInput }}
                 value={formik.values.name}
                 onChange={formik.handleChange}
                 error={formik.touched.name && Boolean(formik.errors.name)}
@@ -279,7 +282,7 @@ const CreateProduct = () => {
                 name="price"
                 type="number"
                 defaultValue=""
-                sx={{...theme.typography.customInput}}
+                sx={{ ...theme.typography.customInput }}
                 value={formik.values.price}
                 onChange={formik.handleChange}
                 error={formik.touched.price && Boolean(formik.errors.price)}
@@ -304,10 +307,10 @@ const CreateProduct = () => {
               />
 
               {!user ? (
-                <ConnectWallet sx={{width: '100%'}} />
+                <ConnectWallet sx={{ width: '100%' }} />
               ) : (
                 <Button
-                  sx={{width: '100%', marginTop: '8px'}}
+                  sx={{ width: '100%', marginTop: '8px' }}
                   label={<h4>Create</h4>}
                   onClick={formik.handleSubmit}
                 />

@@ -79,15 +79,16 @@ const UpdateTrackingPrompt = ({ product, onSendTransaction, onUpdate }) => {
         target: product.address,
       });
 
-      setShipment({
-        trackingId: res.attributes.trackingId,
-        trackingNo: res.attributes.trackingNo,
-        slug: res.attributes.slug,
-      });
+      if (res) {
+        setShipment({
+          trackingId: res.attributes.trackingId,
+          trackingNo: res.attributes.trackingNo,
+          slug: res.attributes.slug,
+        });
+      }
+
       return res;
-    } catch (err) {
-      handleError(err);
-    }
+    } catch (err) {}
   };
 
   const addShipmentDetail = async ({ trackingNo, trackingId, slug }) => {
@@ -135,8 +136,7 @@ const UpdateTrackingPrompt = ({ product, onSendTransaction, onUpdate }) => {
       setIsLoading(false);
       handleNextStep();
       await signAndSendTransaction(() => {
-        console.log('ekek', trackingId);
-        onSendTransaction(product.address, trackingId);
+        return onSendTransaction(product.address, trackingId);
       });
       await onUpdate(product.id);
     } catch (err) {
@@ -208,14 +208,6 @@ const UpdateTrackingPrompt = ({ product, onSendTransaction, onUpdate }) => {
                   type="submit"
                   onClick={handleConfirmTracking}
                   label={<h4>Next</h4>}
-                />
-
-                <Button
-                  sx={{ padding: 'none' }}
-                  size="small"
-                  type="submit"
-                  onClick={getShipmentDetail}
-                  label={<h4>sss</h4>}
                 />
               </div>
             </div>

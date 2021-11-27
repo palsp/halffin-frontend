@@ -11,6 +11,7 @@ import BuyProductPrompt from './BuyProductPrompt';
 import { defaultTxSteps } from '../../../../store/constant';
 import Detail from 'views/Address/Detail/Detail';
 import Button from 'ui-component/extended/Button';
+import { Card } from '@mui/material';
 
 const BuyerView = ({ product, onUpdate, isDeliveredFail }) => {
   const { signAndSendTransaction, txState, ...txProps } =
@@ -97,15 +98,34 @@ const BuyerView = ({ product, onUpdate, isDeliveredFail }) => {
         </Grid>
       )}
 
-      <div>
-        Hello
-        {shipment.trackingNo.length > 0 &&
-          Object.keys(shipment).map((key) => {
-            if (key !== 'trackingId') {
-              return <Detail title={key} description={shipment[key]} />;
-            }
-          })}
-      </div>
+      <Card
+        sx={{
+          background: 'rgba(255, 255, 255, 0.3)',
+          boxShadow: '5px 5px 10px rgb(0 0 0 / 15%)',
+          marginBottom: '1rem',
+          padding: '1rem',
+        }}
+      >
+        <div>
+          {shipment.trackingNo.length > 0 &&
+            Object.keys(shipment).map((key) => {
+              if (key !== 'trackingId') {
+                return (
+                  <Detail
+                    title={`${key
+                      .replace(/([A-Z])/g, ' $1')
+                      .replace(/^./, function (str) {
+                        return str.toUpperCase();
+                      })}
+                      :
+                      `}
+                    description={shipment[key]}
+                  />
+                );
+              }
+            })}
+        </div>
+      </Card>
     </>
   );
 };
