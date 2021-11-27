@@ -109,6 +109,7 @@ const CreateProduct = () => {
     }
 
     await formik.setFieldTouched('file', true);
+    await formik.validateField('file');
   };
 
   const removeSelectedImage = () => {
