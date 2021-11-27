@@ -98,17 +98,17 @@ const BuyerView = ({ product, onUpdate, isDeliveredFail }) => {
         </Grid>
       )}
 
-      <Card
-        sx={{
-          background: 'rgba(255, 255, 255, 0.3)',
-          boxShadow: '5px 5px 10px rgb(0 0 0 / 15%)',
-          marginBottom: '1rem',
-          padding: '1rem',
-        }}
-      >
-        <div>
-          {shipment.trackingNo.length > 0 &&
-            Object.keys(shipment).map((key) => {
+      {shipment.trackingNo.length > 0 && (
+        <Card
+          sx={{
+            background: 'rgba(255, 255, 255, 0.3)',
+            boxShadow: '5px 5px 10px rgb(0 0 0 / 15%)',
+            marginBottom: '1rem',
+            padding: '1rem',
+          }}
+        >
+          <div>
+            {Object.keys(shipment).map((key) => {
               if (key !== 'trackingId') {
                 return (
                   <Detail
@@ -124,8 +124,9 @@ const BuyerView = ({ product, onUpdate, isDeliveredFail }) => {
                 );
               }
             })}
-        </div>
-      </Card>
+          </div>
+        </Card>
+      )}
     </>
   );
 };

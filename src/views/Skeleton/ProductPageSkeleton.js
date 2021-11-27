@@ -15,20 +15,20 @@ const ProductPageSkeleton = () => {
         <Grid
           container
           direction="row"
-          justifyContent="flex-start"
-          alignItems="flex-start"
+          justifyContent="center"
+          alignItems="center"
           spacing={3}
         >
           <Grid
             item
             sx={{
-              width: '100%',
+              width: '50%',
               display: 'flex',
               justifyContent: 'center',
             }}
           >
             <Card>
-              <Skeleton variant="rectangular" width={508} height={508} />
+              <Skeleton variant="rectangular" width={443} height={356} />
             </Card>
           </Grid>
           <Grid item style={{ marginTop: '8px' }}>

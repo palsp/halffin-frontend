@@ -66,14 +66,14 @@ const ProductPage = () => {
           <Grid
             container
             direction="row"
-            justifyContent="flex-start"
-            alignItems="flex-start"
+            justifyContent="center"
+            alignItems="center"
             spacing={3}
           >
             <Grid
               item
               sx={{
-                width: '100%',
+                width: '50%',
                 display: 'flex',
                 justifyContent: 'center',
               }}
@@ -121,7 +121,7 @@ const ProductPage = () => {
                     gutterBottom
                     style={{ color: theme.palette.text.base }}
                   >
-                    Contract Address: {product.address}
+                    Description: {product.description}
                   </MuiTypography>
                 </Grid>
                 <Grid item>
