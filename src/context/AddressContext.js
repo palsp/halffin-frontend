@@ -48,17 +48,13 @@ const AddressProvider = ({ children }) => {
       const addresses = await query.find();
 
       setAddresses(addresses);
-    } catch (err) {
-      console.log('Error cont', err.message);
-    }
+    } catch (err) {}
   };
 
   const addAddress = async (address) => {
     try {
       await Moralis.Cloud.run('addAddress', address);
-    } catch (err) {
-      console.log('Error', err.message);
-    }
+    } catch (err) {}
   };
 
   const editAddress = async (address, addressId) => {
@@ -67,22 +63,15 @@ const AddressProvider = ({ children }) => {
         address,
         addressId,
       });
-    } catch (err) {
-      console.log('Error', err.message);
-    }
+    } catch (err) {}
   };
 
   const deleteAddress = async (addressId) => {
-    console.log('here delete');
-
     try {
       const res = await Moralis.Cloud.run('deleteAddress', {
         addressId,
       });
-      console.log('delete address', res);
-    } catch (err) {
-      console.log('Error', err.message);
-    }
+    } catch (err) {}
   };
 
   useEffect(() => {
