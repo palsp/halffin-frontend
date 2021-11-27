@@ -1,7 +1,16 @@
 import styles from './AddressForm.module.css';
-import { Formik, Form, useFormik } from 'formik';
+import { useFormik } from 'formik';
 import * as yup from 'yup';
-import { Typography, TextField, useTheme } from '@mui/material';
+import { TextField, useTheme } from '@mui/material';
+import PhoneInput, {
+  parsePhoneNumber,
+  isValidPhoneNumber,
+} from 'react-phone-number-input';
+import 'react-phone-number-input/style.css';
+import { useState } from 'react';
+import { COUNTRY_CODE } from 'assets/countryCodeMap';
+
+import CustomPhoneNumber from './CustomPhoneNumber';
 
 const validationSchema = yup.object({
   firstName: yup
@@ -18,11 +27,33 @@ const validationSchema = yup.object({
   city: yup.string().required('Required'),
   state: yup.string().required('Required'),
   postalCode: yup.string().required('Required'),
-  countryCode: yup.string().required('Required'),
+  countryCode: yup.string(),
   phoneNumber: yup.string().required('Required'),
 });
 
 const AddressForm = ({ address, addressId, modifyAddress, handleClose }) => {
+  const [phone, setPhone] = useState('');
+
+  const addPhoneAndCountrytoFormik = async (phoneNumber) => {
+    if (typeof phoneNumber !== 'string') {
+      return;
+    }
+
+    if (isValidPhoneNumber(phoneNumber)) {
+      const obj = parsePhoneNumber(phoneNumber);
+      const country = COUNTRY_CODE[obj.country];
+      await formik.setFieldValue('countryCode', country);
+    }
+
+    await formik.setFieldValue('phoneNumber', phoneNumber);
+    await formik.setFieldTouched('phoneNumber', true);
+    await formik.validateField('phoneNumber');
+  };
+
+  const checkValidPhone = () => {
+    return phone && !isValidPhoneNumber(phone) ? 'Invalid Phone number' : null;
+  };
+
   const theme = useTheme();
   const formik = useFormik({
     initialValues: address,
@@ -41,6 +72,7 @@ const AddressForm = ({ address, addressId, modifyAddress, handleClose }) => {
       }
     },
   });
+
   return (
     <form className={styles.form} noValidate onSubmit={formik.handleSubmit}>
       <div className={styles.grid}>
@@ -77,7 +109,7 @@ const AddressForm = ({ address, addressId, modifyAddress, handleClose }) => {
             fullWidth
             required
             name="address1"
-            label="address1"
+            label="Address Line 1"
             margin="normal"
             type="text"
             sx={{ ...theme.typography.customInput }}
@@ -91,7 +123,7 @@ const AddressForm = ({ address, addressId, modifyAddress, handleClose }) => {
             fullWidth
             required
             name="address2"
-            label="address2"
+            label="Address Line 2"
             margin="normal"
             type="text"
             sx={{ ...theme.typography.customInput }}
@@ -101,20 +133,24 @@ const AddressForm = ({ address, addressId, modifyAddress, handleClose }) => {
             helperText={formik.touched.address2 && formik.errors.address2}
           />
 
-          <TextField
-            fullWidth
-            required
-            name="countryCode"
-            label="Country Code"
-            margin="normal"
-            type="text"
-            sx={{ ...theme.typography.customInput }}
-            value={formik.values.countryCode}
-            onChange={formik.handleChange}
+          <PhoneInput
+            placeholder="Enter phone number"
+            value={address.phoneNumber ? address.phoneNumber : phone}
+            onChange={async (phoneNumber) => {
+              setPhone(phoneNumber);
+              await addPhoneAndCountrytoFormik(phoneNumber);
+            }}
+            inputComponent={CustomPhoneNumber}
+            name="phoneNumber"
             error={
-              formik.touched.countryCode && Boolean(formik.errors.countryCode)
+              (formik.touched.phoneNumber &&
+                Boolean(formik.errors.phoneNumber)) ||
+              !!checkValidPhone()
             }
-            helperText={formik.touched.countryCode && formik.errors.countryCode}
+            helperText={
+              (formik.touched.phoneNumber && formik.errors.phoneNumber) ||
+              checkValidPhone()
+            }
           />
         </div>
         <div className={styles.right}>
@@ -179,17 +215,18 @@ const AddressForm = ({ address, addressId, modifyAddress, handleClose }) => {
           <TextField
             fullWidth
             required
-            name="phoneNumber"
-            label="Phone Number"
             margin="normal"
             type="text"
+            label="Phone Number"
+            disabled
             sx={{ ...theme.typography.customInput }}
-            value={formik.values.phoneNumber}
-            onChange={formik.handleChange}
-            error={
-              formik.touched.phoneNumber && Boolean(formik.errors.phoneNumber)
+            value={
+              address.phoneNumber
+                ? address.phoneNumber
+                : phone && isValidPhoneNumber(phone)
+                ? phone
+                : ''
             }
-            helperText={formik.touched.phoneNumber && formik.errors.phoneNumber}
           />
         </div>
       </div>

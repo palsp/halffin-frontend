@@ -13,8 +13,8 @@ import ProductList from '../product/ProductList/ProductList';
 import { shortenIfAddress } from '@usedapp/core';
 import TabPanels from 'ui-component/extended/TabPanels';
 import { useTheme } from '@mui/material/styles';
-import AddressDetail from 'ui-component/Address/AddressDetail';
-import FormModal from 'ui-component/Address/FormModal';
+import AddressDetail from 'views/Address/AddressDetail';
+import FormModal from 'views/Address/FormModal';
 
 const MY_PRODUCT_LABELS = [
   'In Market',

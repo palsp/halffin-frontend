@@ -9,7 +9,7 @@ import TransactionModal from 'ui-component/extended/Modal/TransactionModal';
 import { useTheme } from '@mui/material/styles';
 import { useMoralis } from 'react-moralis';
 import Button from 'ui-component/extended/Button';
-import AddressDetail from 'ui-component/Address/AddressDetail';
+import AddressDetail from 'views/Address/AddressDetail';
 
 const useStyles = makeStyles((theme) => ({
   trackingForm: {
@@ -78,6 +78,7 @@ const UpdateTrackingPrompt = ({ product, onSendTransaction, onUpdate }) => {
         attr: 'contractAddress',
         target: product.address,
       });
+
       if (res) {
         setShipment({
           trackingId: res.attributes.trackingId,
@@ -85,9 +86,9 @@ const UpdateTrackingPrompt = ({ product, onSendTransaction, onUpdate }) => {
           slug: res.attributes.slug,
         });
       }
-    } catch (err) {
-      handleError(err);
-    }
+
+      return res;
+    } catch (err) {}
   };
 
   const addShipmentDetail = async ({ trackingNo, trackingId, slug }) => {
@@ -116,23 +117,27 @@ const UpdateTrackingPrompt = ({ product, onSendTransaction, onUpdate }) => {
       trackingId,
       slug,
     });
+    return trackingId;
   };
 
   const handleConfirmTracking = async (e) => {
     e.preventDefault();
-
+    let trackingId;
     try {
-      await getShipmentDetail();
+      const res = await getShipmentDetail();
 
-      if (shipment.trackingId.length === 0 && shipment.trackingNo.length > 0) {
+      if (!res) {
         setIsLoading(true);
-        await updateTracking();
+        trackingId = await updateTracking();
+      } else {
+        trackingId = res.attributes.trackingId;
       }
+
       setIsLoading(false);
       handleNextStep();
-      await signAndSendTransaction(() =>
-        onSendTransaction(product.address, shipment.trackingId)
-      );
+      await signAndSendTransaction(() => {
+        return onSendTransaction(product.address, trackingId);
+      });
       await onUpdate(product.id);
     } catch (err) {
       handleError(err);
@@ -228,9 +233,11 @@ const UpdateTrackingPrompt = ({ product, onSendTransaction, onUpdate }) => {
       </Card>
       <form className={classes.trackingForm}>
         <Button
+          style={{ marginTop: '4px' }}
           onClick={() => {
             setIsLoading(false);
             handleOpen();
+            getShipmentDetail();
           }}
           label={<h4>Update Tracking</h4>}
         />

@@ -1,4 +1,5 @@
 import Detail from './Detail/Detail';
+import { formatPhoneNumberIntl } from 'react-phone-number-input';
 
 const AddressDetail = ({ address }) => {
   const {
@@ -13,6 +14,7 @@ const AddressDetail = ({ address }) => {
     countryCode,
     phoneNumber,
   } = address;
+
   return (
     <>
       {firstName.length > 0 ? (
@@ -27,7 +29,9 @@ const AddressDetail = ({ address }) => {
           />
           <Detail
             title={'Phone:'}
-            description={`(${countryCode}) ${phoneNumber}`}
+            description={`${formatPhoneNumberIntl(
+              phoneNumber
+            )} ${countryCode} `}
           />
         </div>
       ) : null}

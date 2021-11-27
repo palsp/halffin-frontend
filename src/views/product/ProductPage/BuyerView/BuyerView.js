@@ -9,11 +9,13 @@ import { useEscrow, useTransaction } from 'hooks';
 import TransactionModal from '../../../../ui-component/extended/Modal/TransactionModal';
 import BuyProductPrompt from './BuyProductPrompt';
 import { defaultTxSteps } from '../../../../store/constant';
-import Detail from 'ui-component/Address/Detail/Detail';
+import Detail from 'views/Address/Detail/Detail';
 import Button from 'ui-component/extended/Button';
+import { Card } from '@mui/material';
 
 const BuyerView = ({ product, onUpdate, isDeliveredFail }) => {
-  const { signAndSendTransaction, txState, ...txProps } = useTransaction(defaultTxSteps);
+  const { signAndSendTransaction, txState, ...txProps } =
+    useTransaction(defaultTxSteps);
   const { checkForCancelOrder, cancelOrder, reclaimBuyer } = useEscrow();
   const [isAbleToCancel, setIsAbleToCancel] = useState(false);
 
@@ -76,24 +78,54 @@ const BuyerView = ({ product, onUpdate, isDeliveredFail }) => {
       <TransactionModal {...txState} {...txProps} />
       {isDeliveredFail && (
         <Grid item>
-          <Button variant="contained" onClick={handleReclaimBuyer} label={<h4> Reclaim Fund</h4>} />
+          <Button
+            variant="contained"
+            onClick={handleReclaimBuyer}
+            label={<h4> Reclaim Fund</h4>}
+          />
         </Grid>
       )}
-      {product.isAbleToBuy && <BuyProductPrompt product={product} onUpdate={onUpdate} />}
+      {product.isAbleToBuy && (
+        <BuyProductPrompt product={product} onUpdate={onUpdate} />
+      )}
       {product.isWaitForShipping && isAbleToCancel && !isDeliveredFail && (
         <Grid item>
-          <Button variant="contained" onClick={handleCancelOrder} label={<h4>Cancel Order</h4>} />
+          <Button
+            variant="contained"
+            onClick={handleCancelOrder}
+            label={<h4>Cancel Order</h4>}
+          />
         </Grid>
       )}
 
-      <div>
-        {shipment.trackingNo.length > 0 &&
-          Object.keys(shipment).map((key) => {
-            if (key !== 'trackingId') {
-              return <Detail title={key} description={shipment[key]} />;
-            }
-          })}
-      </div>
+      <Card
+        sx={{
+          background: 'rgba(255, 255, 255, 0.3)',
+          boxShadow: '5px 5px 10px rgb(0 0 0 / 15%)',
+          marginBottom: '1rem',
+          padding: '1rem',
+        }}
+      >
+        <div>
+          {shipment.trackingNo.length > 0 &&
+            Object.keys(shipment).map((key) => {
+              if (key !== 'trackingId') {
+                return (
+                  <Detail
+                    title={`${key
+                      .replace(/([A-Z])/g, ' $1')
+                      .replace(/^./, function (str) {
+                        return str.toUpperCase();
+                      })}
+                      :
+                      `}
+                    description={shipment[key]}
+                  />
+                );
+              }
+            })}
+        </div>
+      </Card>
     </>
   );
 };
