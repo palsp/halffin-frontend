@@ -98,7 +98,7 @@ const BuyerView = ({ product, onUpdate, isDeliveredFail }) => {
         </Grid>
       )}
 
-      {shipment.trackingNo.length > 0 && (
+      {shipment.trackingNo.length > 0 && product.isAbleToCheckTrackingStatus && (
         <Card
           sx={{
             background: 'rgba(255, 255, 255, 0.3)',
