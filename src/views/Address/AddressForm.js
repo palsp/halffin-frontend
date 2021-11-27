@@ -35,7 +35,7 @@ const AddressForm = ({ address, addressId, modifyAddress, handleClose }) => {
   const [phone, setPhone] = useState('');
 
   const addPhoneAndCountrytoFormik = () => {
-    if (!isValidPhoneNumber(phone)) {
+    if (typeof phone !== 'string' || !isValidPhoneNumber(phone)) {
       return;
     }
     const obj = parsePhoneNumber(phone);
@@ -141,7 +141,7 @@ const AddressForm = ({ address, addressId, modifyAddress, handleClose }) => {
             error={
               (formik.touched.phoneNumber &&
                 Boolean(formik.errors.phoneNumber)) ||
-              (phone && !isValidPhoneNumber(phone))
+              checkValidPhone()
             }
             helperText={
               (formik.touched.phoneNumber && formik.errors.phoneNumber) ||
@@ -218,7 +218,13 @@ const AddressForm = ({ address, addressId, modifyAddress, handleClose }) => {
             label="Phone Number"
             disabled
             sx={{ ...theme.typography.customInput }}
-            value={address.phoneNumber ? address.phoneNumber : phone}
+            value={
+              address.phoneNumber
+                ? address.phoneNumber
+                : phone && isValidPhoneNumber(phone)
+                ? phone
+                : ''
+            }
           />
         </div>
       </div>
