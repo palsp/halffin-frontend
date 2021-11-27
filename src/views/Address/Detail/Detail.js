@@ -1,8 +1,7 @@
 import { Typography } from '@mui/material';
-import styles from './Detail.module.css';
 import Grid from '@mui/material/Grid';
 
-const Detail = ({ title, description }) => {
+const Detail = ({ title, description, descriptionSx = {} }) => {
   return (
     <Grid
       container
@@ -11,8 +10,10 @@ const Detail = ({ title, description }) => {
       alignItems="center"
       sx={{ padding: '6px', marginTop: '4px' }}
     >
-      <Typography variant="h3">{title}</Typography>
-      <Typography variant="h5" sx={{ paddingLeft: '10px' }}>
+      <Typography variant="h3" sx={{ color: 'white' }}>
+        {title}
+      </Typography>
+      <Typography variant="h5" sx={{ paddingLeft: '10px', color: 'white' }}>
         {description}
       </Typography>
     </Grid>

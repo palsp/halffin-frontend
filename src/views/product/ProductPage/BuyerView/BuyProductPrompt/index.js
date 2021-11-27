@@ -16,12 +16,12 @@ import { useTheme } from '@mui/material/styles';
 // material-ui
 import TabPanels from 'ui-component/extended/TabPanels';
 // project imports
-import { useEscrow, useTransaction, useQuery } from 'hooks';
+import { useEscrow, useTransaction } from 'hooks';
 
 const BuyProductPrompt = ({ product, onUpdate }) => {
   const theme = useTheme();
   const navigate = useNavigate();
-  const { Moralis, user } = useMoralis();
+  const { Moralis } = useMoralis();
   const { signAndSendTransaction, txState, ...txProps } = useTransaction(
     [
       'Select Shipping Address',
@@ -34,7 +34,6 @@ const BuyProductPrompt = ({ product, onUpdate }) => {
     }
   );
 
-  const { queryEqualTo } = useQuery();
   const { handleNextStep, handleOpen, handleError } = txProps;
   const { addresses, getAddress, addAddress, editAddress, deleteAddress } =
     useAddress();
@@ -64,13 +63,6 @@ const BuyProductPrompt = ({ product, onUpdate }) => {
   };
   const handleDeleteClose = (addressId) => {
     setDeleteModalOpen({ [addressId]: false });
-  };
-
-  const getProductFromContract = async () => {
-    const res = await Moralis.Cloud.run('getProductFromContract', {
-      contractAddress: product.address,
-    });
-    console.log('resss x', res);
   };
 
   const allowSellerAddressPermission = async () => {
@@ -104,7 +96,6 @@ const BuyProductPrompt = ({ product, onUpdate }) => {
           phoneNumber,
         },
       });
-      console.log('tx', transaction);
 
       const seller = await Moralis.Cloud.run('getUserByEthAddress', {
         targetEthAddr: product.owner,
@@ -115,10 +106,10 @@ const BuyProductPrompt = ({ product, onUpdate }) => {
         addressId: addresses[addrIndex].id,
         transactionId: transaction.id,
       });
-      console.log('res', res);
+
       return res;
     } catch (err) {
-      console.log('err', err.message);
+      handleError(err);
     }
   };
 
@@ -129,12 +120,6 @@ const BuyProductPrompt = ({ product, onUpdate }) => {
         handleOpenAddingNewAddress();
         return;
       }
-
-      // const addr = await queryEqualTo({
-      //   className: 'Address',
-      //   attr: 'objectId',
-      //   target: addresses[addrIndex].id,
-      // });
 
       handleNextStep();
       await handleBuy();
@@ -232,7 +217,6 @@ const BuyProductPrompt = ({ product, onUpdate }) => {
                 onClick={handleEnterShippingAddress}
                 label={<h4>Continue</h4>}
               />
-              {/* <Button onClick={getProductFromContract} label={<h4>Web3</h4>} /> */}
             </Grid>
           ),
         }}

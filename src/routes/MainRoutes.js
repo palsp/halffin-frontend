@@ -7,10 +7,13 @@ import { Navigate } from 'react-router-dom';
 
 // sample page routing
 const MarketPlace = Loadable(lazy(() => import('views/product/Marketplace')));
-const CreateProduct = Loadable(lazy(() => import('views/product/CreateProduct')));
+const CreateProduct = Loadable(
+  lazy(() => import('views/product/CreateProduct'))
+);
 const UserProfile = Loadable(lazy(() => import('views/user/UserProfile')));
-const ProductPage = Loadable(lazy(() => import('views/product/ProductPage/ProductPage')));
-const TestForm = Loadable(lazy(() => import('views/TestForm')));
+const ProductPage = Loadable(
+  lazy(() => import('views/product/ProductPage/ProductPage'))
+);
 // ==============================|| MAIN ROUTING ||============================== //
 
 const MainRoutes = {
@@ -36,10 +39,6 @@ const MainRoutes = {
     {
       path: '/product/:id',
       element: <ProductPage />,
-    },
-    {
-      path: '/form',
-      element: <TestForm />,
     },
   ],
 };

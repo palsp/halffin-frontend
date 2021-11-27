@@ -78,6 +78,7 @@ const UpdateTrackingPrompt = ({ product, onSendTransaction, onUpdate }) => {
         attr: 'contractAddress',
         target: product.address,
       });
+
       if (res) {
         setShipment({
           trackingId: res.attributes.trackingId,
@@ -85,9 +86,9 @@ const UpdateTrackingPrompt = ({ product, onSendTransaction, onUpdate }) => {
           slug: res.attributes.slug,
         });
       }
-    } catch (err) {
-      handleError(err);
-    }
+
+      return res;
+    } catch (err) {}
   };
 
   const addShipmentDetail = async ({ trackingNo, trackingId, slug }) => {
@@ -116,23 +117,27 @@ const UpdateTrackingPrompt = ({ product, onSendTransaction, onUpdate }) => {
       trackingId,
       slug,
     });
+    return trackingId;
   };
 
   const handleConfirmTracking = async (e) => {
     e.preventDefault();
-
+    let trackingId;
     try {
-      await getShipmentDetail();
+      const res = await getShipmentDetail();
 
-      if (shipment.trackingId.length === 0 && shipment.trackingNo.length > 0) {
+      if (!res) {
         setIsLoading(true);
-        await updateTracking();
+        trackingId = await updateTracking();
+      } else {
+        trackingId = res.attributes.trackingId;
       }
+
       setIsLoading(false);
       handleNextStep();
-      await signAndSendTransaction(() =>
-        onSendTransaction(product.address, shipment.trackingId)
-      );
+      await signAndSendTransaction(() => {
+        return onSendTransaction(product.address, trackingId);
+      });
       await onUpdate(product.id);
     } catch (err) {
       handleError(err);
@@ -232,6 +237,7 @@ const UpdateTrackingPrompt = ({ product, onSendTransaction, onUpdate }) => {
           onClick={() => {
             setIsLoading(false);
             handleOpen();
+            getShipmentDetail();
           }}
           label={<h4>Update Tracking</h4>}
         />
