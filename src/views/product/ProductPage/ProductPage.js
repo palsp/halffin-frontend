@@ -42,6 +42,7 @@ const ProductPage = () => {
       setIsLoading(true);
       return;
     }
+    console.log(prod);
     setProduct(prod);
     setIsLoading(false);
   }, [id, products]);

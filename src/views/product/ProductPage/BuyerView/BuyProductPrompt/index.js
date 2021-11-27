@@ -182,6 +182,7 @@ const BuyProductPrompt = ({ product, onUpdate }) => {
               )}
 
               <TabPanels
+                color="black"
                 value={addrIndex}
                 onChange={(e, index) => setAddrIndex(index)}
                 components={addresses.map((address, index) => {
