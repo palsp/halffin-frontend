@@ -1,11 +1,14 @@
 import Skeleton from '@mui/material/Skeleton';
 import SubCard from 'ui-component/cards/SubCard';
-import {Grid} from '@mui/material';
-import {gridSpacing} from 'store/constant';
+import { Grid } from '@mui/material';
+import { styled, useTheme } from '@mui/material/styles';
+import { gridSpacing } from 'store/constant';
 import MuiTypography from '@mui/material/Typography';
 import MainCard from 'ui-component/cards/MainCard';
 import Card from '@mui/material/Card';
+import { IconCurrencyEthereum } from '@tabler/icons';
 const ProductPageSkeleton = () => {
+  const theme = useTheme();
   return (
     <>
       <MainCard>
@@ -16,12 +19,19 @@ const ProductPageSkeleton = () => {
           alignItems="flex-start"
           spacing={3}
         >
-          <Grid item>
+          <Grid
+            item
+            sx={{
+              width: '100%',
+              display: 'flex',
+              justifyContent: 'center',
+            }}
+          >
             <Card>
               <Skeleton variant="rectangular" width={508} height={508} />
             </Card>
           </Grid>
-          <Grid item style={{marginTop: '8px'}}>
+          <Grid item style={{ marginTop: '8px' }}>
             <Grid
               container
               direction="column"
@@ -30,39 +40,62 @@ const ProductPageSkeleton = () => {
             >
               <Grid item>
                 <MuiTypography variant="h2" gutterBottom>
-                  <Skeleton variant="text" width={60} height={40} />
+                  <Skeleton
+                    variant="text"
+                    width={120}
+                    height={28}
+                    sx={{ bgcolor: 'white' }}
+                  />
                 </MuiTypography>
               </Grid>
-              <Grid item>
+              <Grid item style={{ marginTop: '8px' }}>
                 <MuiTypography variant="h4" gutterBottom>
-                  <Skeleton variant="text" width={160} height={40} />
+                  <Skeleton
+                    variant="text"
+                    width={160}
+                    height={20}
+                    sx={{ bgcolor: 'white' }}
+                  />
                 </MuiTypography>
               </Grid>
-              <Grid item>
+              <Grid item style={{ marginTop: '8px' }}>
                 <MuiTypography variant="h4" gutterBottom>
-                  <Skeleton variant="text" width={516} height={40} />
+                  <Skeleton
+                    variant="text"
+                    width={300}
+                    height={20}
+                    sx={{ bgcolor: 'white' }}
+                  />
                 </MuiTypography>
               </Grid>
-              <Grid item>
+              <Grid item style={{ marginTop: '8px' }}>
                 <MuiTypography variant="h4" gutterBottom>
-                  <Skeleton variant="text" width={100} height={40} />
+                  <Skeleton
+                    variant="text"
+                    width={126}
+                    height={20}
+                    sx={{ bgcolor: 'white' }}
+                  />
                 </MuiTypography>
               </Grid>
 
-              <Grid item>
-                <MuiTypography variant="h4" gutterBottom>
-                  <Skeleton variant="text" width={140} height={40} />
-                </MuiTypography>
+              <Grid container direction="row" style={{ marginTop: '8px' }}>
+                <Skeleton
+                  variant="text"
+                  width={220}
+                  height={30}
+                  sx={{ bgcolor: 'white' }}
+                />
+                <IconCurrencyEthereum size={35} color="white" />
               </Grid>
-              <Grid item>
+              <Grid item style={{ marginTop: '8px' }}>
                 <MuiTypography variant="h4" gutterBottom>
-                  <Skeleton variant="text" width={100} height={40} />
-                </MuiTypography>
-              </Grid>
-
-              <Grid container direction="row" justifyContent="flex-start">
-                <MuiTypography variant="h2" gutterBottom textAlign="center">
-                  <Skeleton variant="text" width={140} height={40} />
+                  <Skeleton
+                    variant="text"
+                    width={117}
+                    height={20}
+                    sx={{ bgcolor: 'white' }}
+                  />
                 </MuiTypography>
               </Grid>
             </Grid>
