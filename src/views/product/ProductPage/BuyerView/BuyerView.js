@@ -98,6 +98,7 @@ const BuyerView = ({ product, onUpdate, isDeliveredFail }) => {
       )}
 
       <div>
+        Hello
         {shipment.trackingNo.length > 0 &&
           Object.keys(shipment).map((key) => {
             if (key !== 'trackingId') {
