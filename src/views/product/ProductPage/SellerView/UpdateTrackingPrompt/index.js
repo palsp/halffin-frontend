@@ -228,6 +228,7 @@ const UpdateTrackingPrompt = ({ product, onSendTransaction, onUpdate }) => {
       </Card>
       <form className={classes.trackingForm}>
         <Button
+          style={{ marginTop: '4px' }}
           onClick={() => {
             setIsLoading(false);
             handleOpen();

@@ -1,14 +1,14 @@
 import ReactDOM from 'react-dom';
-import {Grid, Typography, CircularProgress} from '@mui/material';
-import {useWeb3} from 'hooks';
-import {makeStyles} from '@mui/styles';
+import { Grid, Typography, CircularProgress } from '@mui/material';
+import { useWeb3 } from 'hooks';
+import { makeStyles } from '@mui/styles';
 import {
   shortenIfTransactionHash,
   getExplorerTransactionLink,
 } from '@usedapp/core';
 import ProgressModal from '../ProgressModal';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   txTag: {
     textDecoration: 'none',
     color: theme.palette.primary,
@@ -33,7 +33,7 @@ const TransactionModal = ({
   sxProgressBar = {},
 }) => {
   const classes = useStyles();
-  const {chainId} = useWeb3();
+  const { chainId } = useWeb3();
   const dom = document.getElementById('tx-modal-overlay');
 
   return (
@@ -57,14 +57,11 @@ const TransactionModal = ({
                 justifyContent="center"
                 alignItems="center"
               >
-                <Typography sx={{mt: 2, mb: 1}} variant="h3">
+                <Typography sx={{ mt: 2, mb: 1 }} variant="h3">
                   Request Complete
                 </Typography>
-                <Typography sx={{mt: 2, mb: 1}} variant="body1">
-                  Your product has been created.
-                </Typography>
                 <Typography
-                  sx={{mt: 2, mb: 1}}
+                  sx={{ mt: 2, mb: 1 }}
                   variant="body2"
                   style={{
                     textOverflow: 'ellipsis',
