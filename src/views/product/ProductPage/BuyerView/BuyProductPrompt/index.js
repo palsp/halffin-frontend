@@ -203,7 +203,10 @@ const BuyProductPrompt = ({ product, onUpdate }) => {
                           modifyAddress={editAddress}
                           deleteAddress={deleteAddress}
                         />
-                        <AddressDetail address={address.attributes} />
+                        <AddressDetail
+                          address={address.attributes}
+                          color="black"
+                        />
                       </div>
                     ),
                   };
