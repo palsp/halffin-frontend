@@ -6,6 +6,7 @@ import {
   IconButton,
   useTheme,
   tooltipClasses,
+  Typography,
 } from '@mui/material';
 import InfoIcon from '@mui/icons-material/Info';
 // project imports
@@ -77,7 +78,9 @@ const SellerView = ({ onUpdate, product }) => {
           </>
         )}
         {isShipmentUpdating && (
-          <div>check inprogress. this may take a while</div>
+          <Typography variant="h4">
+            check in progress. this may take a while
+          </Typography>
         )}
         {!isShipmentUpdating && product.isAbleToCheckTrackingStatus && (
           <Grid item direction="row">
