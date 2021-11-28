@@ -24,11 +24,7 @@ const UpdateTrackingPrompt = ({ product, onSendTransaction, onUpdate }) => {
   const theme = useTheme();
 
   const [isLoading, setIsLoading] = useState(false);
-  const [shipment, setShipment] = useState({
-    trackingId: '',
-    trackingNo: '',
-    slug: '',
-  });
+  const [trackingNo, setTrackingNo] = useState('');
 
   const [buyerAddress, setBuyerAddress] = useState({
     firstName: '',
@@ -78,13 +74,8 @@ const UpdateTrackingPrompt = ({ product, onSendTransaction, onUpdate }) => {
         attr: 'contractAddress',
         target: product.address,
       });
-
       if (res) {
-        setShipment({
-          trackingId: res.attributes.trackingId,
-          trackingNo: res.attributes.trackingNo,
-          slug: res.attributes.slug,
-        });
+        setTrackingNo(res.attributes.trackingNo);
       }
 
       return res;
@@ -104,20 +95,25 @@ const UpdateTrackingPrompt = ({ product, onSendTransaction, onUpdate }) => {
     });
   };
 
+  const updateShipmentDetail = async ({ trackingNo, trackingId, slug }) => {
+    const buyer = await Moralis.Cloud.run('getUserByEthAddress', {
+      targetEthAddr: product.buyer,
+    });
+    return Moralis.Cloud.run('updateShipmentDetail', {
+      trackingId,
+      trackingNo,
+      slug,
+      contractAddress: product.address,
+      buyerId: buyer.id,
+    });
+  };
+
   const updateTracking = async () => {
-    const response = await createTracking(
-      product.id,
-      shipment.trackingNo.trim()
-    );
+    const response = await createTracking(product.id, trackingNo.trim());
     const trackingId = response.data.tracking.id;
     const slug = response.data.tracking.slug;
 
-    await addShipmentDetail({
-      trackingNo: shipment.trackingNo.trim(),
-      trackingId,
-      slug,
-    });
-    return trackingId;
+    return { trackingId, slug };
   };
 
   const handleConfirmTracking = async (e) => {
@@ -128,7 +124,22 @@ const UpdateTrackingPrompt = ({ product, onSendTransaction, onUpdate }) => {
 
       if (!res) {
         setIsLoading(true);
-        trackingId = await updateTracking();
+        const result = await updateTracking();
+        trackingId = result.trackingId;
+        await addShipmentDetail({
+          trackingNo: trackingNo.trim(),
+          trackingId: result.trackingId,
+          slug: result.slug,
+        });
+      } else if (res.attributes.trackingNo !== trackingNo) {
+        setIsLoading(true);
+        const result = await updateTracking();
+        trackingId = result.trackingId;
+        await updateShipmentDetail({
+          trackingNo: trackingNo.trim(),
+          trackingId: result.trackingId,
+          slug: result.slug,
+        });
       } else {
         trackingId = res.attributes.trackingId;
       }
@@ -190,22 +201,18 @@ const UpdateTrackingPrompt = ({ product, onSendTransaction, onUpdate }) => {
                   name="trackingNumber"
                   type="text"
                   defaultValue=""
-                  disabled={shipment.trackingId.length > 0}
                   sx={{ ...theme.typography.customInput }}
-                  value={shipment.trackingNo}
-                  onChange={(e) =>
-                    setShipment((prevState) => ({
-                      ...prevState,
-                      trackingNo: e.target.value,
-                    }))
-                  }
+                  disabled={isLoading}
+                  value={trackingNo}
+                  onChange={(e) => setTrackingNo(e.target.value)}
                 />
 
                 <Button
                   sx={{ padding: 'none' }}
-                  disabled={shipment.trackingNo.length <= 0}
+                  disabled={trackingNo.length <= 0}
                   size="small"
                   type="submit"
+                  disabled={isLoading}
                   onClick={handleConfirmTracking}
                   label={<h4>Next</h4>}
                 />

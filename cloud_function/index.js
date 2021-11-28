@@ -155,18 +155,16 @@ Moralis.Cloud.define(
         return {
           success: false,
           message: 'Unauthorized!',
-          product,
-          user: request.user,
         };
       }
 
       const Transaction = Moralis.Object.extend('Transaction');
 
-      const transaciton = new Transaction();
+      const transaction = new Transaction();
       const transactionACL = new Moralis.ACL(request.user);
-      transaciton.setACL(transactionACL);
+      transaction.setACL(transactionACL);
 
-      const tx = await transaciton.save(
+      return transaction.save(
         {
           contractAddress,
           address: {
@@ -184,10 +182,8 @@ Moralis.Cloud.define(
         },
         { useMasterKey: true }
       );
-
-      return tx;
     } catch (err) {
-      return { success: false, x: request.user, error: err.message };
+      return { success: false, error: err.message };
     }
   },
   {
@@ -204,14 +200,6 @@ Moralis.Cloud.define(
   'allowPermissionToUserId',
   async (request) => {
     try {
-      // await setReadACL({
-      //   className: 'Address',
-      //   attr: 'objectId',
-      //   target: request.params.addressId,
-      //   allowId: request.params.targetUserId,
-      //   state: true,
-      // });
-
       await setReadACL({
         className: 'Transaction',
         attr: 'objectId',
@@ -264,11 +252,69 @@ Moralis.Cloud.define(
   'addShipmentDetail',
   async (request) => {
     try {
-      const Shipment = Moralis.Object.extend('Shipment');
+      const { contractAddress } = request.params;
+      const web3 = Moralis.web3ByChain('0x2a');
+      const contract = new web3.eth.Contract(abi, contractAddress);
+      const product = await contract.methods.product().call();
 
+      if (
+        !request.user.attributes.accounts.includes(product.owner.toLowerCase())
+      ) {
+        return {
+          success: false,
+          message: 'Unauthorized!',
+        };
+      }
+
+      const Shipment = Moralis.Object.extend('Shipment');
       const shipment = new Shipment();
       const shipmentACL = new Moralis.ACL(request.user);
       shipment.setACL(shipmentACL);
+
+      await shipment.save(
+        { ...request.params, userId: request.user.id },
+        { useMasterKey: true }
+      );
+      await setReadACL({
+        className: 'Shipment',
+        attr: 'trackingId',
+        target: request.params.trackingId,
+        allowId: request.params.buyerId,
+        state: true,
+      });
+
+      return { success: true };
+    } catch (err) {
+      return { success: false, error: err.message };
+    }
+  },
+  {
+    fields: ShipmentDetail,
+  },
+  validationRules
+);
+
+Moralis.Cloud.define(
+  'updateShipmentDetail',
+  async (request) => {
+    try {
+      const { contractAddress } = request.params;
+      const web3 = Moralis.web3ByChain('0x2a');
+      const contract = new web3.eth.Contract(abi, contractAddress);
+      const product = await contract.methods.product().call();
+      if (
+        !request.user.attributes.accounts.includes(product.owner.toLowerCase())
+      ) {
+        return {
+          success: false,
+          message: 'Unauthorized!',
+        };
+      }
+
+      const Shipment = Moralis.Object.extend('Shipment');
+      const query = new Moralis.Query(Shipment);
+      query.equalTo('contractAddress', contractAddress);
+      const shipment = await query.first({ useMasterKey: true });
 
       await shipment.save(
         { ...request.params, userId: request.user.id },
