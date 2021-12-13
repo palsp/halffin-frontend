@@ -3,6 +3,7 @@
   "version": "3.0.0",
   "private": true,
   "dependencies": {
+    "@apollo/client": "^3.5.6",
     "@emotion/cache": "^11.4.0",
     "@emotion/react": "^11.4.0",
     "@emotion/styled": "^11.3.0",
@@ -23,6 +24,7 @@
     "ethers": "^5.5.1",
     "formik": "^2.2.9",
     "framer-motion": "^4.1.13",
+    "graphql": "^16.1.0",
     "history": "^5.0.0",
     "material-ui-popup-state": "^1.8.0",
     "moralis": "^0.0.124",

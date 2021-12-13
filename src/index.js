@@ -10,6 +10,8 @@ import { MoralisProvider } from 'react-moralis';
 // style + assets
 import 'assets/scss/style.scss';
 import { AddressProvider, ProductProvider, TxProvider } from 'context';
+import { client } from 'api/apollo';
+import { ApolloProvider } from '@apollo/client';
 
 // ==============================|| REACT DOM RENDER  ||============================== //
 
@@ -18,15 +20,17 @@ ReactDOM.render(
     appId={process.env.REACT_APP_MORALIS_APP_ID}
     serverUrl={process.env.REACT_APP_MORALIS_SERVER_URL}
   >
-    <TxProvider>
-      <ProductProvider>
-        <AddressProvider>
-          <BrowserRouter>
-            <App />
-          </BrowserRouter>
-        </AddressProvider>
-      </ProductProvider>
-    </TxProvider>
+    <ApolloProvider client={client}>
+      <TxProvider>
+        <ProductProvider>
+          <AddressProvider>
+            <BrowserRouter>
+              <App />
+            </BrowserRouter>
+          </AddressProvider>
+        </ProductProvider>
+      </TxProvider>
+    </ApolloProvider>
   </MoralisProvider>,
   document.getElementById('root')
 );

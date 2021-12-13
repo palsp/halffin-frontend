@@ -143,7 +143,7 @@ const ProductPage = () => {
                     Stage: {product.stage}
                   </MuiTypography>
                 </Grid>
-                {product.trackingId != '' && (
+                {product.trackingId && (
                   <Grid item>
                     <MuiTypography
                       variant="h4"
@@ -154,7 +154,7 @@ const ProductPage = () => {
                     </MuiTypography>
                   </Grid>
                 )}
-                {product.deliveryStatus != '' && (
+                {product.deliveryStatus && (
                   <Grid item>
                     <MuiTypography
                       variant="h4"
