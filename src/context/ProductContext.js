@@ -1,34 +1,41 @@
-import React, { useState, useEffect, useCallback } from "react";
-import { useEscrowFactory, useEscrow } from "hooks";
-import { addressEqual } from "@usedapp/core";
+import React, { useState, useEffect, useCallback } from 'react';
+import { useEscrowFactory, useEscrow, useWeb3 } from 'hooks';
+import { addressEqual } from '@usedapp/core';
+import { useQuery } from '@apollo/client';
+import { QUERY } from 'api/apollo';
+import Product from '../model/Product';
 
 const ProductContext = React.createContext({});
 
 const ProductProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
-  const { factoryContract } = useEscrowFactory();
   const { getProductDetail } = useEscrow();
+  const { web3Utils } = useWeb3();
+  const { data } = useQuery(QUERY);
 
   useEffect(() => {
     // skip if factoryContract is not initialized
-    if (!factoryContract) return;
-
-    factoryContract.events.ProductCreated(
-      { fromBlock: 0 },
-      async (error, event) => {
-        if (!error) {
-          const {
-            returnValues: { product: productAddress },
-          } = event;
-          const productDetail = await getProductDetail(productAddress);
-
-          setProducts((prevState) => {
-            return [...prevState, productDetail];
+    if (data) {
+      const products = data.products
+        .map((_product) => {
+          const { id, productId, buyer, price, owner, ...args } = _product;
+          const product = new Product({
+            id: productId,
+            buyer: buyer
+              ? buyer.id
+              : '0x0000000000000000000000000000000000000000',
+            owner: owner.id,
+            price: web3Utils.fromWei(price, 'ether'),
+            ...args,
           });
-        }
-      }
-    );
-  }, [factoryContract]);
+          product.addAddress(id);
+          return product;
+        })
+        .sort((a, b) => a.id - b.id);
+
+      setProducts(products);
+    }
+  }, [data, web3Utils]);
   const getProductsOfSeller = useCallback(
     (address) => {
       return products.filter((product) => addressEqual(address, product.owner));
